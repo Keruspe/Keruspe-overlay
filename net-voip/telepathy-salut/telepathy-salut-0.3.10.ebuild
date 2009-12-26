@@ -37,7 +37,6 @@ src_configure() {
 	econf \
 		$(use_enable ssl) \
 		--docdir=/usr/share/doc/${PF} \
-		$(use_enable test avahi-tests) \
 		|| die "configure failed"
 }
 
