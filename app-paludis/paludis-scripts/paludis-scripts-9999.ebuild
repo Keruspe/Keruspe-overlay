@@ -2,11 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="paludis-1"
+EAPI=2
 
-SCM_REPOSITORY="git://git.pioto.org/paludis-scripts.git"
-SCM_CHECKOUT_TO="${DISTDIR}/git-src/paludis-scripts"
-inherit scm-git
+inherit git
+
+EGIT_BRANCH="master"
+EGIT_REPO_URI="git://git.pioto.org/paludis-scripts.git"
 
 DESCRIPTION="Scripts for paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
@@ -21,7 +22,7 @@ DEPEND=""
 RDEPEND="sys-apps/paludis[ruby-bindings]"
 
 src_unpack() {
-	scm_src_unpack
+	git_src_unpack
 }
 
 src_install() {
