@@ -3,12 +3,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 inherit eutils bash-completion
 
 DESCRIPTION="A nice paludis.log parser (patched genlop)"
 HOMEPAGE="http://www.genoetigt.de/site/projects/plop"
-# I copied the genlop-0.30.8.tar.gz and renamed it to plop-0.1.tar.gz
-SRC_URI="http://www.genoetigt.de/plop/${P}.tar.gz"
+SRC_URI="mirror://gentoo//genlop-0.30.8.tar.gz => ${P}.tar.gz"
 RESTRICT="nomirror"
 
 LICENSE="GPL-2"
@@ -23,12 +24,13 @@ DEPEND=">=dev-lang/perl-5.8.0-r12
 src_unpack() {
 	unpack ${A}
 	mv  ${WORKDIR}/genlop-0.30.8/ ${S}
+}
+
+src_prepare() {
 	cd "${S}"
 	mv genlop plop
 	mv genlop.1 plop.1
-#	mv genlop.bash-completion plop.bash-completion
-
-epatch "${FILESDIR}/plop-${PV}_0.30.8.patch"
+	epatch "${FILESDIR}/plop-${PV}_0.30.8.patch"
 }
 
 src_install() {

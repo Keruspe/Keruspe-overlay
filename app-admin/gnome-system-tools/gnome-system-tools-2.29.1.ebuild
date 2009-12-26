@@ -3,6 +3,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 inherit autotools eutils gnome2
 
 DESCRIPTION="Tools aimed to make easy the administration of UNIX systems"

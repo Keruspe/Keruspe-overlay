@@ -3,6 +3,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 inherit eutils
 
 DESCRIPTION="Telepathy Mission Control"
@@ -25,7 +27,7 @@ DEPEND="${RDEPEND}
 	test? ( virtual/python
 		dev-python/twisted-words )"
 
-src_compile() {
+src_configure() {
 	econf \
 		$(use_enable gnome-keyring) \
 		$(use_enable doc gtk-doc) \

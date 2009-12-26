@@ -3,7 +3,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI="2"
+
 inherit autotools multilib
 
 MY_P=${PN}_${PV}
@@ -49,7 +50,8 @@ src_configure() {
 		--disable-dependency-tracking \
 		$(use_enable bzip2) \
 		$(use_enable openal sound) \
-		--with-configdir=/usr/share/xscreensaver/config
+		--with-configdir=/usr/share/xscreensaver/config \
+		|| die "configure failed"
 }
 
 src_install() {

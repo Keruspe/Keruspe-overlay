@@ -16,7 +16,6 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="ssl test"
 
-# FIXME: Automagic useless libasyncns check ?
 RDEPEND="dev-libs/libxml2
 	>=dev-libs/glib-2.16
 	>=sys-apps/dbus-1.1.0
@@ -35,8 +34,11 @@ DEPEND="${RDEPEND}
 	>=dev-lang/python-2.4"
 
 src_configure() {
-	econf $(use_enable ssl) --docdir=/usr/share/doc/${PF}
-	# too much changes required: $(use_enable test avahi-tests)
+	econf \
+		$(use_enable ssl) \
+		--docdir=/usr/share/doc/${PF} \
+		$(use_enable test avahi-tests) \
+		|| die "configure failed"
 }
 
 src_install() {

@@ -4,6 +4,8 @@
 # $Header: $
 # $Header: /var/cvsroot/gentoo-x86/sys-boot/grub/grub-1.97.ebuild,v 1.2 2009/11/01 19:51:01 vapier Exp $
 
+EAPI="2"
+
 inherit autotools mount-boot eutils flag-o-matic toolchain-funcs
 
 if [[ ${PV} == "9999" ]] ; then
@@ -47,7 +49,7 @@ src_unpack() {
 	(. ./autogen.sh) || die
 }
 
-src_compile() {
+src_configure() {
 	use custom-cflags || unset CFLAGS CPPFLAGS LDFLAGS
 	use static && append-ldflags -static
 	use efi && efiopts="--with-platform=efi" || efiopts="" 
@@ -64,6 +66,9 @@ src_compile() {
 		$(use_enable debug grub-emu) \
 		$(use_enable debug grub-emu-usb) \
 		$(use_enable debug grub-fstest)
+}
+
+src_compile() {
 	emake -j1 || die "making regular stuff"
 }
 

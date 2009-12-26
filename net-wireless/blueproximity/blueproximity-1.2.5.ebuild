@@ -3,6 +3,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 DESCRIPTION="Leave it - it's locked, come back - it's back too..."
 HOMEPAGE="http://blueproximity.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"

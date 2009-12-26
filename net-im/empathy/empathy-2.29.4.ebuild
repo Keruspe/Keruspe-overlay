@@ -13,10 +13,8 @@ HOMEPAGE="http://live.gnome.org/Empathy"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-# FIXME: Add location support once geoclue stops being idiotic with automagic deps
 IUSE="applet map networkmanager python spell test webkit"
 
-# FIXME: libnotify & libcanberra hard deps
 RDEPEND=">=dev-libs/glib-2.16.0
 	>=x11-libs/gtk+-2.16.0
 	>=gnome-base/gconf-2
@@ -63,7 +61,6 @@ PDEPEND=">=net-im/telepathy-mission-control-5"
 
 DOCS="CONTRIBUTORS AUTHORS ChangeLog NEWS README"
 
-# FIXME: Highly broken with parallel make, mallard strike 2, see bug #286889
 MAKEOPTS="${MAKEOPTS} -j1"
 
 pkg_setup() {
@@ -84,8 +81,6 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-
-	# Remove hard enabled -Werror (see AM_MAINTAINER_MODE), bug 218687
 	sed -i "s:-Werror::g" configure || die "sed 1 failed"
 }
 
