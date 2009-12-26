@@ -5,14 +5,13 @@ app-office
 app-paludis
 app-text
 dev-libs
-eclass
 gnome-extra
 media-libs
 net-im
 net-libs
+net-misc
 net-voip
 net-wireless
-profiles
 sys-boot
 x11-misc
 x11-terms
