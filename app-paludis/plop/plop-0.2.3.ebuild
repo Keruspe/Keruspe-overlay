@@ -9,7 +9,7 @@ inherit eutils bash-completion
 
 DESCRIPTION="A nice paludis.log parser (patched genlop)"
 HOMEPAGE="http://www.genoetigt.de/site/projects/plop"
-SRC_URI="mirror://gentoo//genlop-0.30.8.tar.gz => ${P}.tar.gz"
+SRC_URI="mirror://gentoo//genlop-0.30.8.tar.gz -> ${P}.tar.gz"
 RESTRICT="nomirror"
 
 LICENSE="GPL-2"
