@@ -25,10 +25,11 @@ DEPEND="${RDEPEND}
 	test? ( virtual/python
 		dev-python/twisted-words )"
 
-src_configure() {
+src_compile() {
 	econf \
-		$(use_enable doc gtk-doc)	
-		$(use_enable gnome-keyring)
+		$(use_enable gnome-keyring) \
+		$(use_enable doc gtk-doc) \
+		|| die "configure failed"
 }
 
 src_install() {
