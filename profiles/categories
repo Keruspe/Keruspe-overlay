@@ -5,6 +5,7 @@ app-office
 app-paludis
 app-text
 dev-libs
+dev-python
 media-libs
 net-im
 net-libs
