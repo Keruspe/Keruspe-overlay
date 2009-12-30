@@ -3,6 +3,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 DESCRIPTION="A Telepathy client that handles channels of type 'StreamedMedia'"
 HOMEPAGE="http://telepathy.freedesktop.org/"
 SRC_URI="http://telepathy.freedesktop.org/releases/stream-engine/${P}.tar.gz"
@@ -34,12 +36,10 @@ RDEPEND="${DEPEND}
 		>=media-libs/gst-plugins-good-0.10.9
 		media-plugins/gst-plugins-pulse ) )"
 
-src_compile() {
+src_configure() {
 	econf \
 		$(use_enable debug backtrace) \
 		|| die "econf failed"
-
-	emake || die "emake failed"
 }
 
 src_install() {

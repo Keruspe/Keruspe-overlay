@@ -3,6 +3,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 NEED_PYTHON="2.6"
 
 inherit python multilib
@@ -21,11 +23,14 @@ RDEPEND=">=dev-python/telepathy-python-0.15.11
 
 DOCS="AUTHORS NEWS"
 
-src_compile() {
-	local myjobs=$(echo "$MAKEOPTS" | sed -n -e 's,.*\(-j[[:digit:]]\+\).*,\1,p')
+src_configure() {
 	./waf --prefix=/usr \
 		configure || die "./waf configure failed"
-	./waf ${myjobs} build || die "./waf configure failed"
+}
+
+src_compile() {
+	local myjobs=$(echo "$MAKEOPTS" | sed -n -e 's,.*\(-j[[:digit:]]\+\).*,\1,p')
+	./waf ${myjobs} build || die "./waf build failed"
 }
 
 src_install() {
