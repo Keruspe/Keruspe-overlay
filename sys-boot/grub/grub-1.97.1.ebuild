@@ -1,8 +1,7 @@
-# Copyright 1999-2009 Gentoo Foundation
-# Copyright 2009 Marc-Antoine Perennou
+# Copyright 1999-2010 Gentoo Foundation
+# Copyright 2009-2010 Marc-Antoine Perennou
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-# $Header: /var/cvsroot/gentoo-x86/sys-boot/grub/grub-1.97.ebuild,v 1.2 2009/11/01 19:51:01 vapier Exp $
 
 EAPI="2"
 

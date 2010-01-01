@@ -1,5 +1,5 @@
-# Copyright 1999-2007 Gentoo Foundation
-# Copyright 2009 Marc-Antoine Perennou
+# Copyright 1999-2010 Gentoo Foundation
+# Copyright 2009-2010 Marc-Antoine Perennou
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
