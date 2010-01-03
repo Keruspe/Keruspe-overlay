@@ -7,14 +7,8 @@ EAPI="2"
 
 inherit autotools mount-boot eutils flag-o-matic toolchain-funcs
 
-if [[ ${PV} == "9999" ]] ; then
-	ESVN_REPO_URI="svn://svn.sv.gnu.org/grub/trunk/grub2"
-	inherit subversion
-	SRC_URI=""
-else
-	SRC_URI="ftp://alpha.gnu.org/gnu/${PN}/${P}.tar.gz
-		mirror://gentoo/${P}.tar.gz"
-fi
+SRC_URI="ftp://alpha.gnu.org/gnu/${PN}/${P}.tar.gz
+	mirror://gentoo/${P}.tar.gz"
 
 DESCRIPTION="GNU GRUB 2 boot loader"
 HOMEPAGE="http://www.gnu.org/software/grub/"
@@ -34,16 +28,11 @@ export STRIP_MASK="*/grub/*/*.mod"
 QA_EXECSTACK="sbin/grub-probe sbin/grub-setup sbin/grub-mkdevicemap"
 
 src_unpack() {
-	if [[ ${PV} == "9999" ]] ; then
-		subversion_src_unpack
-	else
-		unpack ${A}
-	fi
+	unpack ${A}
 	cd "${S}"
 	epatch "${FILESDIR}"/${PN}-1.96-genkernel.patch #256335
 	epatch_user
 
-	# autogen.sh does more than just run autotools
 	sed -i -e 's:^auto:eauto:' autogen.sh
 	(. ./autogen.sh) || die
 }
@@ -92,11 +81,6 @@ setup_boot_dir() {
 		einfo "Running: grub-mkconfig -o '${dir}/grub.cfg'"
 		grub-mkconfig -o "${dir}/grub.cfg"
 	fi
-
-	#local install=grub-install
-	#use multislot && install="grub2-install --grub-setup=/bin/true"
-	#einfo "Running: ${install} "
-	#${install}
 }
 
 pkg_postinst() {

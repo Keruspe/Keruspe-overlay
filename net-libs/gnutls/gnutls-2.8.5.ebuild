@@ -9,22 +9,8 @@ inherit autotools libtool
 
 DESCRIPTION="A TLS 1.0 and SSL 3.0 implementation for the GNU project"
 HOMEPAGE="http://www.gnutls.org/"
+SRC_URI="mirror://gnu/${PN}/${P}.tar.bz2"
 
-if [[ "${PV}" == *pre* ]]; then
-	SRC_URI="http://daily.josefsson.org/${P%.*}/${P%.*}-${PV#*pre}.tar.gz"
-else
-	MINOR_VERSION="${PV#*.}"
-	MINOR_VERSION="${MINOR_VERSION%.*}"
-	if [[ $((MINOR_VERSION % 2)) == 0 ]]; then
-		#SRC_URI="ftp://ftp.gnu.org/pub/gnu/${PN}/${P}.tar.bz2"
-		SRC_URI="mirror://gnu/${PN}/${P}.tar.bz2"
-	else
-		SRC_URI="ftp://alpha.gnu.org/gnu/${PN}/${P}.tar.bz2"
-	fi
-	unset MINOR_VERSION
-fi
-
-# GPL-3 for the gnutls-extras library and LGPL for the gnutls library.
 LICENSE="LGPL-2.1 GPL-3"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"

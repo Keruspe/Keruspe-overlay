@@ -15,12 +15,9 @@ SRC_URI="http://www.abisource.com/downloads/${PN}/${PV}/source/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="2"
-KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="debug gnome spell xml"
 
-# FIXME: gsf could probably be conditional
-
-# Pango version so it always has X use flag
 RDEPEND="dev-libs/popt
 	sys-libs/zlib
 	>=dev-libs/glib-2
@@ -49,8 +46,6 @@ RDEPEND="dev-libs/popt
 DEPEND="${RDEPEND}
 		>=dev-util/pkgconfig-0.9"
 
-# FIXME: --enable-libabiword fails to compile
-
 pkg_setup() {
 	G2CONF="${G2CONF}
 		$(use_enable debug)
@@ -66,7 +61,6 @@ pkg_setup() {
 }
 
 src_install() {
-	# Install icon to pixmaps, bug #220097
 	sed 's:icondir = $(datadir)/icons:icondir = $(datadir)/pixmaps:'	\
 		-i Makefile || die "sed 1 failed"
 

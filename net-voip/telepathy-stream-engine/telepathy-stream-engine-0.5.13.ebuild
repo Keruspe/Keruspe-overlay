@@ -11,7 +11,7 @@ SRC_URI="http://telepathy.freedesktop.org/releases/stream-engine/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ia64 ~sparc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="debug v4l v4l2 xv alsa esd oss gnome pulseaudio"
 
 DEPEND=">=dev-libs/glib-2.4

@@ -5,7 +5,7 @@
 
 EAPI="2"
 
-inherit gnome2 gnome2-la
+inherit gnome2
 
 DESCRIPTION="Clutter based world map renderer"
 HOMEPAGE="http://blog.pierlux.com/projects/libchamplain/en/"
@@ -36,4 +36,9 @@ pkg_setup() {
 		--disable-static
 		$(use_enable introspection)
 		$(use_enable gtk)"
+}
+
+src_install() {
+	gnome2_src_install
+	find "${D}" -name "*.la" -delete || die "remove of la files failed"
 }

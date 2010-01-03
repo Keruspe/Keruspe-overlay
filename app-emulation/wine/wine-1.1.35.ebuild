@@ -7,28 +7,20 @@ EAPI="2"
 
 inherit autotools eutils flag-o-matic multilib
 
-if [[ ${PV} == "9999" ]] ; then
-	EGIT_REPO_URI="git://source.winehq.org/git/wine.git"
-	inherit git
-	SRC_URI=""
-	#KEYWORDS=""
-else
-	MY_P="${PN}-${PV/_/-}"
-	SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.bz2"
-	KEYWORDS="-* ~amd64 ~x86 ~x86-fbsd"
-	S=${WORKDIR}/${MY_P}
-fi
-
+MY_P="${PN}-${PV/_/-}"
 GV="1.0.0-x86"
+SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.bz2
+	gecko? ( mirror://sourceforge/wine/wine_gecko-${GV}.cab )"
+KEYWORDS="~amd64 ~x86"
+S=${WORKDIR}/${MY_P}
+
 DESCRIPTION="free implementation of Windows(tm) on Unix"
 HOMEPAGE="http://www.winehq.org/"
-SRC_URI="${SRC_URI}
-	gecko? ( mirror://sourceforge/wine/wine_gecko-${GV}.cab )"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
 IUSE="alsa capi cups custom-cflags dbus esd fontconfig +gecko gnutls gphoto2 gsm hal jack jpeg lcms ldap mp3 nas ncurses openal +opengl oss +perl png pulseaudio samba scanner ssl test +threads +truetype win64 +X xcomposite xinerama xml"
-RESTRICT="test" #72375
+RESTRICT="test"
 
 RDEPEND="truetype? ( >=media-libs/freetype-2.0.0 media-fonts/corefonts )
 	perl? ( dev-lang/perl dev-perl/XML-Simple )
