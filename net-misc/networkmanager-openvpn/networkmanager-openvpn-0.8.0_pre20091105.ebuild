@@ -3,16 +3,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=2
+inherit eutils autotools
 
-inherit eutils versionator
+WANT_AUTOMAKE="1.9"
 
-MY_P=${P/networkmanager/NetworkManager}
-MYPV_MINOR=$(get_version_component_range 1-2)
-
-DESCRIPTION="NetworkManager openconnect plugin."
+DESCRIPTION="NetworkManager OpenVPN plugin."
 HOMEPAGE="http://www.gnome.org/projects/NetworkManager/"
-SRC_URI="mirror://gnome/sources/NetworkManager-openconnect/0.7/${MY_P}.tar.bz2"
+SRC_URI="http://imagination-land.com/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -20,8 +18,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="gnome"
 
 RDEPEND="
-	=net-misc/networkmanager-${MYPV_MINOR}*
-	net-dialup/pptpclient
+	=net-misc/networkmanager-${PV}
+	>=net-misc/openvpn-2.1_rc9
 	gnome? (
 		>=gnome-base/gconf-2.20
 		>=gnome-base/gnome-keyring-2.20
@@ -34,10 +32,15 @@ DEPEND="${RDEPEND}
 	dev-util/intltool
 	dev-util/pkgconfig"
 
-S=${WORKDIR}/${MY_P}
+src_prepare() {
+	eautoreconf --install --symlink &&
+	elibtoolize --force &&
+	eautoreconf
+}
 
 src_configure() {
-	ECONF="--disable-more-warnings \
+	ECONF="--enable-maintainer-mode \
+		--disable-more-warnings \
 		$(use_with gnome)"
 
 	econf ${ECONF}
@@ -46,5 +49,5 @@ src_configure() {
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
 
-	dodoc AUTHORS ChangeLog || die "dodoc failed"
+	dodoc AUTHORS ChangeLog NEWS README || die "dodoc failed"
 }
