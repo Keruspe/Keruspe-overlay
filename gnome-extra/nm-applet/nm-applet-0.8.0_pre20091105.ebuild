@@ -16,7 +16,7 @@ SRC_URI="http://dev.gentoo.org/~dagger/files/${MY_P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="applet"
+IUSE=""
 
 RDEPEND=">=sys-apps/dbus-1.2
 	>=dev-libs/libnl-1.1
@@ -44,7 +44,6 @@ S=${WORKDIR}/${MY_P}
 
 pkg_setup () {
 	G2CONF="${G2CONF} \
-		$(use_enable applet applets) \
 		--disable-more-warnings \
 		--localstatedir=/var \
 		--with-dbus-sys=/etc/dbus-1/system.d"
