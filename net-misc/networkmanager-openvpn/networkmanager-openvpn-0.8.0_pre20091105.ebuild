@@ -3,7 +3,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI="2"
 inherit eutils autotools
 
 WANT_AUTOMAKE="1.9"

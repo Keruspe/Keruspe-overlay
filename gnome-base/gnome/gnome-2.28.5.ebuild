@@ -130,7 +130,6 @@ RDEPEND="
 		>=net-voip/ekiga-3.2.6 )
 
 	>=gnome-extra/gnome-screensaver-2.28.0
-	>=x11-misc/alacarte-0.12.4
 	>=gnome-extra/gnome-power-manager-2.28.2
 	>=gnome-base/gnome-volume-manager-2.24.1
 	
@@ -138,7 +137,6 @@ RDEPEND="
 	>=gnome-extra/swfdec-gnome-2.28.0-r1
 
 	accessibility? (
-		>=gnome-extra/libgail-gnome-1.20.1
 		>=gnome-extra/at-spi-1.28.1
 		>=app-accessibility/dasher-4.10.1
 		>=app-accessibility/gnome-mag-0.15.9
