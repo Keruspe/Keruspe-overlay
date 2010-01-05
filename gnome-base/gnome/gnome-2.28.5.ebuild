@@ -146,6 +146,7 @@ RDEPEND="
 	cups? ( >=net-print/gnome-cups-manager-0.33-r1 )
 
 	mono? ( >=app-misc/tomboy-1.0.0 )
+	!mono? ( >=app-misc/gnote-0.6.3 )
 	>=app-admin/gnome-system-tools-2.28.1
 	>=app-admin/system-tools-backends-2.8.3"
 
