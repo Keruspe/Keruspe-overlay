@@ -111,7 +111,6 @@ RDEPEND="
 	>=gnome-extra/yelp-2.28.1-r1
 	>=gnome-extra/zenity-2.28.0
 
-	>=net-analyzer/gnome-netstatus-2.28.0
 	>=net-analyzer/gnome-nettool-2.28.0
 
 	cdr? ( >=app-cdr/brasero-2.28.3 )
