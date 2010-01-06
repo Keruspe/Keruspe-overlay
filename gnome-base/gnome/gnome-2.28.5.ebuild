@@ -109,7 +109,6 @@ RDEPEND="
 
 	>=gnome-extra/gnome-screensaver-2.28.0
 	>=gnome-extra/gnome-power-manager-2.28.2
-	>=gnome-base/gnome-volume-manager-2.24.1
 	
 	>=net-misc/vinagre-2.28.1
 	>=gnome-extra/swfdec-gnome-2.28.0-r1
