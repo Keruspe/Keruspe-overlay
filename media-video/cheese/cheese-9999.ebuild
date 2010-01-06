@@ -1,14 +1,19 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
+# Copyright 2009-2010 Marc-Antoine Perennou
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/cheese/cheese-2.28.1-r1.ebuild,v 1.1 2009/11/21 14:32:56 mrpouet Exp $
+# $Header: $
 
 EAPI="2"
 GCONF_DEBUG="no"
 
-inherit gnome2 eutils
+inherit autotools git gnome2 libtool
 
 DESCRIPTION="A cheesy program to take pictures and videos from your webcam"
 HOMEPAGE="http://www.gnome.org/projects/cheese/"
+SRC_URI=""
+EGIT_REPO_URI="git://git.gnome.org/cheese"
+
+WANT_AUTOMAKE="1.10"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -48,3 +53,12 @@ DEPEND="${COMMON_DEPEND}
 	app-text/docbook-xml-dtd:4.3"
 
 DOCS="AUTHORS ChangeLog NEWS README"
+
+src_unpack() {
+	git_src_unpack
+
+	cd $S
+	intltoolize --force --copy --automake
+	gnome-doc-prepare
+	eautoreconf
+}
