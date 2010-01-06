@@ -1,0 +1,10 @@
+--- oobs/oobs-ifacesconfig.c.old	2010-01-06 12:38:02.748962600 +0100
++++ oobs/oobs-ifacesconfig.c	2010-01-06 12:38:20.549960748 +0100
+@@ -20,7 +20,6 @@
+ 
+ #include <dbus/dbus.h>
+ #include <glib-object.h>
+-#include <libhal.h>
+ #include <string.h>
+ #include "oobs-session-private.h"
+ #include "oobs-list-private.h"

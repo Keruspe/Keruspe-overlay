@@ -6,7 +6,7 @@
 EAPI="2"
 GCONF_DEBUG="no"
 
-inherit autotools git gnome2 libtool
+inherit autotools git gnome2
 
 DESCRIPTION="A cheesy program to take pictures and videos from your webcam"
 HOMEPAGE="http://www.gnome.org/projects/cheese/"

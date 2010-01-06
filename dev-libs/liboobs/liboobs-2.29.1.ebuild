@@ -28,6 +28,10 @@ DEPEND="${RDEPEND}
 
 DOCS="AUTHORS ChangeLog NEWS README"
 
+src_prepare(){
+	use hal || (epatch ${FILESDIR}/${P}-nohal.patch || die epatch failed)
+}
+
 pkg_setup() {
 	G2CONF="${G2CONF} --disable-static"
 }
