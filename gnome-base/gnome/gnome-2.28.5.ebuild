@@ -13,7 +13,7 @@ SLOT="2.0"
 
 KEYWORDS="~amd64 ~x86"
 
-IUSE="accessibility cdr cups dvdr esd ldap mono mutter"
+IUSE="accessibility cdr cups dvdr ldap mono mutter +note"
 
 S=${WORKDIR}
 
@@ -23,15 +23,6 @@ RDEPEND="
 	>=dev-libs/atk-1.28.0
 	>=x11-libs/pango-1.26.2
 
-	>=dev-libs/libxml2-2.7.6
-	>=dev-libs/libxslt-1.1.26
-
-	>=media-libs/audiofile-0.2.6-r4
-	esd? ( >=media-sound/esound-0.2.41 )
-	>=x11-libs/libxklavier-4.0
-	>=media-libs/libart_lgpl-2.3.20
-
-	>=dev-libs/libIDL-0.8.13
 	>=gnome-base/orbit-2.14.17
 
 	>=x11-libs/libwnck-2.28.0
@@ -46,15 +37,8 @@ RDEPEND="
 	>=gnome-base/gnome-mime-data-2.18.0
 
 	>=gnome-base/gconf-2.28.0-r1
-	>=net-libs/libsoup-2.28.2
-
-	>=gnome-base/libgnome-2.28.0
-	>=gnome-base/libgnomeui-2.24.2
-	>=gnome-base/libgnomecanvas-2.26.0
-	>=gnome-base/libglade-2.6.4
 
 	>=gnome-extra/bug-buddy-2.28.0
-	>=gnome-base/libgnomekbd-2.28.2
 	>=gnome-base/gnome-settings-daemon-2.28.1
 	>=gnome-base/gnome-control-center-2.28.1-r2
 
@@ -66,7 +50,6 @@ RDEPEND="
 	>=media-libs/gst-plugins-good-0.10.17
 	>=gnome-extra/gnome-media-2.28.1
 	>=media-sound/sound-juicer-2.28.1
-	>=media-video/totem-2.28.5
 
 	>=media-gfx/eog-2.28.2
 
@@ -94,16 +77,12 @@ RDEPEND="
 	>=x11-terms/gnome-terminal-2.28.2
 
 	>=gnome-extra/gucharmap-2.28.2
-	>=gnome-base/libgnomeprint-2.18.6
-	>=gnome-base/libgnomeprintui-2.18.4
 
 	>=gnome-extra/gnome-utils-2.28.1
 
 	>=gnome-extra/gnome-games-2.26.3-r1
-	>=gnome-base/librsvg-2.26.0
 
 	>=gnome-extra/gnome-system-monitor-2.28.0
-	>=gnome-base/libgtop-2.28.0
 
 	>=x11-libs/startup-notification-0.10
 
@@ -143,10 +122,13 @@ RDEPEND="
 		>=app-accessibility/gok-2.28.1
 		>=app-accessibility/orca-2.28.2
 		>=gnome-extra/mousetweaks-2.28.2 )
+	
 	cups? ( >=net-print/gnome-cups-manager-0.33-r1 )
 
-	mono? ( >=app-misc/tomboy-1.0.0 )
-	!mono? ( >=app-misc/gnote-0.6.3 )
+	note? (
+		mono? ( >=app-misc/tomboy-1.0.0 )
+		!mono? ( >=app-misc/gnote-0.6.3 ) )
+
 	>=app-admin/gnome-system-tools-2.28.1
 	>=app-admin/system-tools-backends-2.8.3"
 

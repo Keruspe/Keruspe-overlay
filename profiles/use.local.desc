@@ -3,4 +3,5 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+gnome-base/gnome:note - Enable note writer
 sys-boot/grub:efi - Build grub for EFI
