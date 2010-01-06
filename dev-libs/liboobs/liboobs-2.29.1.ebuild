@@ -7,7 +7,7 @@ EAPI="2"
 
 GCONF_DEBUG="no"
 
-inherit gnome2
+inherit eutils gnome2
 
 DESCRIPTION="Liboobs is a wrapping library to the System Tools Backends."
 HOMEPAGE="http://www.gnome.org"
@@ -29,6 +29,7 @@ DEPEND="${RDEPEND}
 DOCS="AUTHORS ChangeLog NEWS README"
 
 src_prepare(){
+	cd $S
 	use hal || (epatch ${FILESDIR}/${P}-nohal.patch || die epatch failed)
 }
 
