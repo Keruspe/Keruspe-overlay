@@ -13,10 +13,8 @@ media-video
 net-im
 net-libs
 net-misc
-net-print
 net-voip
 net-wireless
-sys-block
 sys-boot
 x11-libs
 x11-misc
