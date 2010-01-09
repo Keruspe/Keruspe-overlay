@@ -5,6 +5,8 @@
 
 EAPI="2"
 
+RESTRICT="test"
+
 inherit flag-o-matic versionator
 
 DESCRIPTION="Canonical's on-screen-display notification agent."
@@ -20,14 +22,12 @@ RDEPEND=">=dev-libs/dbus-glib-0.76
 	>=dev-libs/glib-2.16.0
 	gnome-base/gconf:2
 	>=x11-libs/gtk+-2.6
+	>=x11-libs/libnotify-0.4.5
 	x11-libs/libwnck"
-DEPEND="${RDEPEND}"
-
-src_configure() {
-	append-flags -fno-strict-aliasing
-	default
-}
+DEPEND="${RDEPEND}
+	>=dev-util/pkgconfig-0.9"
 
 src_install() {
 	emake DESTDIR="${D}" install || die "Install failed"
+	dodoc AUTHORS ChangeLog NEWS README TODO
 }
