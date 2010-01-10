@@ -25,7 +25,7 @@ RDEPEND="
 	sys-libs/cracklib
 	nfs? ( net-fs/nfs-utils )
 	samba? ( >=net-fs/samba-3 )
-	policykit? ( >=sys-auth/policykit-0.5 )"
+	policykit? ( >=sys-auth/polkit-0.95 )"
 
 DEPEND="${RDEPEND}
 	>=app-admin/system-tools-backends-2.8.2
