@@ -47,7 +47,6 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	webkit? ( >=net-libs/webkit-gtk-1.1.7 )
 "
 DEPEND="${RDEPEND}
-	app-text/scrollkeeper
 	>=app-text/gnome-doc-utils-0.17.3
 	>=dev-util/intltool-0.35.0
 	>=dev-util/pkgconfig-0.16

@@ -29,7 +29,6 @@ RDEPEND="
 
 DEPEND="${RDEPEND}
 	>=app-admin/system-tools-backends-2.8.2
-	app-text/scrollkeeper
 	>=app-text/gnome-doc-utils-0.3.2
 	dev-util/pkgconfig
 	>=dev-util/intltool-0.35.0"

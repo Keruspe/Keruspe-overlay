@@ -47,7 +47,6 @@ RDEPEND="${COMMON_DEPEND}
 DEPEND="${COMMON_DEPEND}
 	>=dev-util/intltool-0.40
 	dev-util/pkgconfig
-	app-text/scrollkeeper
 	app-text/gnome-doc-utils
 	x11-proto/xf86vidmodeproto
 	app-text/docbook-xml-dtd:4.3"
