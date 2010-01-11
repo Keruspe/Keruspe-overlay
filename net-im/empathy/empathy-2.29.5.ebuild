@@ -13,7 +13,7 @@ HOMEPAGE="http://live.gnome.org/Empathy"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="applet map networkmanager python spell test webkit"
+IUSE="applet map networkmanager spell test webkit"
 
 RDEPEND=">=dev-libs/glib-2.16.0
 	>=x11-libs/gtk+-2.16.0
@@ -36,7 +36,8 @@ RDEPEND=">=dev-libs/glib-2.16.0
 
 	map? (
 		>=media-libs/libchamplain-0.4[gtk]
-		>=media-libs/clutter-gtk-0.10:1.0 )
+		>=media-libs/clutter-gtk-0.10:1.0 
+		>=gnome-extra/geoclue-0.11.1 )
 	networkmanager? ( >=net-misc/networkmanager-0.7 )
 	python? (
 		>=dev-lang/python-2.4.4-r5
@@ -67,11 +68,10 @@ pkg_setup() {
 		--disable-maintainer-mode
 		--disable-static
 		--disable-location
-		--disable-gtk-doc
 		$(use_enable debug)
 		$(use_with networkmanager connectivity nm)
 		$(use_enable map)
-		$(use_enable python)
+		$(use_enable map location)
 		$(use_enable spell)
 		$(use_enable test coding-style-checks)
 		$(use_enable webkit)
