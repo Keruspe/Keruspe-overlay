@@ -13,7 +13,7 @@ HOMEPAGE="http://live.gnome.org/Empathy"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="applet map networkmanager spell test webkit"
+IUSE="map networkmanager spell test webkit"
 
 RDEPEND=">=dev-libs/glib-2.16.0
 	>=x11-libs/gtk+-2.16.0
@@ -39,9 +39,6 @@ RDEPEND=">=dev-libs/glib-2.16.0
 		>=media-libs/clutter-gtk-0.10:1.0 
 		>=gnome-extra/geoclue-0.11.1 )
 	networkmanager? ( >=net-misc/networkmanager-0.7 )
-	python? (
-		>=dev-lang/python-2.4.4-r5
-		>=dev-python/pygtk-2 )
 	spell? (
 		app-text/enchant
 		app-text/iso-codes )
