@@ -133,6 +133,7 @@ src_configure() {
 		$(use_with ssl openssl) \
 		$(use_with oss) \
 		$(use_with png) \
+		$(use_with pulseaudio pulse) \
 		$(use_with threads pthread) \
 		$(use_with scanner sane) \
 		$(use_enable test tests) \
