@@ -87,13 +87,8 @@ src_unpack() {
 	if [[ $(( $(gcc-major-version) * 100 + $(gcc-minor-version) )) -lt 404 ]] ; then
 		use win64 && die "you need gcc-4.4+ to build 64bit wine"
 	fi
-einfo "$(gcc-major-version) * 100 + $(gcc-minor-version)"
 
-	if [[ ${PV} == "9999" ]] ; then
-		git_src_unpack
-	else
-		unpack ${MY_P}.tar.bz2
-	fi
+	unpack ${MY_P}.tar.bz2
 }
 
 src_prepare() {
