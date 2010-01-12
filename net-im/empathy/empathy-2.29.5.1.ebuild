@@ -78,6 +78,7 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 	sed -i "s:-Werror::g" configure || die "sed 1 failed"
+	epatch ${FILESDIR}/${P}-fix-notifications.patch
 }
 
 src_test() {
