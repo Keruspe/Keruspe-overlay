@@ -6,14 +6,10 @@
 EAPI="2"
 GCONF_DEBUG="no"
 
-inherit autotools git gnome2
+inherit gnome2
 
 DESCRIPTION="A cheesy program to take pictures and videos from your webcam"
 HOMEPAGE="http://www.gnome.org/projects/cheese/"
-SRC_URI=""
-EGIT_REPO_URI="git://git.gnome.org/cheese"
-
-WANT_AUTOMAKE="1.10"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -52,12 +48,3 @@ DEPEND="${COMMON_DEPEND}
 	app-text/docbook-xml-dtd:4.3"
 
 DOCS="AUTHORS ChangeLog NEWS README"
-
-src_unpack() {
-	git_src_unpack
-
-	cd $S
-	intltoolize --force --copy --automake
-	gnome-doc-prepare
-	eautoreconf
-}
