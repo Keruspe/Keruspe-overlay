@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="beagle doc gnome tracker xmp"
 
-RDEPEND=">=dev-libs/glib-2.21.3
+RDEPEND=">=dev-libs/glib-2.23.1
 	>=gnome-base/gnome-desktop-2.29.4
 	>=x11-libs/pango-1.1.2
 	>=x11-libs/gtk+-2.16.0
