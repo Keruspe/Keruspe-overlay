@@ -62,7 +62,6 @@ DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.19
 	dev-util/desktop-file-utils
 
-	app-text/scrollkeeper
 	>=app-text/gnome-doc-utils-0.10.1"
 
 DOCS="AUTHORS ChangeLog NEWS README TODO"
