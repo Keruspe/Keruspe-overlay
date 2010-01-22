@@ -13,7 +13,7 @@ SLOT="2.0"
 
 KEYWORDS="~amd64 ~x86"
 
-IUSE="accessibility cdr cups dvdr ldap mono mutter +note"
+IUSE="accessibility cdr cups dvdr ldap mono mutter note"
 
 S=${WORKDIR}
 
