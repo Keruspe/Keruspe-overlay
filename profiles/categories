@@ -12,6 +12,7 @@ media-libs
 media-video
 net-im
 net-libs
+net-misc
 net-voip
 sys-boot
 x11-libs
