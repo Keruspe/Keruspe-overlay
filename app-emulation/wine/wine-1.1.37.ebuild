@@ -50,7 +50,7 @@ RDEPEND="truetype? ( >=media-libs/freetype-2.0.0 media-fonts/corefonts )
 	jpeg? ( media-libs/jpeg )
 	ldap? ( net-nds/openldap )
 	lcms? ( media-libs/lcms )
-	mp3? ( media-sound/mpg123 )
+	mp3? ( >=media-sound/mpg123-1.5.0 )
 	samba? ( >=net-fs/samba-3.0.25 )
 	xml? ( dev-libs/libxml2 dev-libs/libxslt )
 	scanner? ( media-gfx/sane-backends )
@@ -66,13 +66,15 @@ RDEPEND="truetype? ( >=media-libs/freetype-2.0.0 media-fonts/corefonts )
 		app-emulation/emul-linux-x86-baselibs
 		>=sys-kernel/linux-headers-2.6
 	) )
-	xcomposite? ( x11-libs/libXcomposite ) "
+	xcomposite? ( x11-libs/libXcomposite )
+	xinerama? ( x11-libs/libXinerama )"
 DEPEND="${RDEPEND}
 	X? (
 		x11-proto/inputproto
 		x11-proto/xextproto
 		x11-proto/xf86vidmodeproto
 	)
+	xinerama? ( x11-proto/xineramaproto )
 	sys-devel/bison
 	sys-devel/flex"
 
