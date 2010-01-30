@@ -19,7 +19,7 @@ RDEPEND=">=x11-libs/gtk+-2.6:2
 	>=dev-libs/dbus-glib-0.76"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
-PDEPEND="|| ( gnome-base/gnome-shell )
+PDEPEND="|| ( gnome-base/gnome-shell
 	x11-misc/notification-daemon
 	x11-misc/xfce4-notifyd )"
 
