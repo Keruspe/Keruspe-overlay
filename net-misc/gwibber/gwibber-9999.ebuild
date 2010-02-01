@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -30,7 +30,8 @@ DEPEND=">=dev-python/dbus-python-0.80.2
 
 RDEPEND="${DEPEND}
 	dev-python/desktopcouch
-	dev-python/oauth"
+	dev-python/oauth
+	 dev-python/pyxdg"
 
 src_compile() {
 	cd "${S}"
