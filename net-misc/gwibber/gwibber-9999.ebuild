@@ -3,7 +3,6 @@
 # $Header: $
 
 EBZR_REPO_URI="https://code.launchpad.net/~gwibber-committers/gwibber/trunk"
-EBZR_REVISION="revno:500" ## more recent doesn't work for now
 inherit bzr
 
 DESCRIPTION="Gwibber is an open source microblogging client for GNOME developed with Python and GTK. It supports Twitter, Jaiku, Identi.ca, Facebook, and Digg."
