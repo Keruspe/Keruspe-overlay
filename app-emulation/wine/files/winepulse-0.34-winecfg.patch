@@ -1,5 +1,5 @@
 diff --git a/programs/winecfg/Bg.rc b/programs/winecfg/Bg.rc
-index fcdf895..ec24068 100644
+index 5555ad2..29ff717 100644
 --- a/programs/winecfg/Bg.rc
 +++ b/programs/winecfg/Bg.rc
 @@ -276,6 +276,7 @@ BEGIN
@@ -11,7 +11,7 @@ index fcdf895..ec24068 100644
      IDS_DRIVER_ESOUND           "EsounD Driver"
      IDS_DRIVER_OSS              "OSS Driver"
 diff --git a/programs/winecfg/Cs.rc b/programs/winecfg/Cs.rc
-index d9c0b28..6171f1f 100644
+index f3116d7..2a06d88 100644
 --- a/programs/winecfg/Cs.rc
 +++ b/programs/winecfg/Cs.rc
 @@ -276,6 +276,7 @@ BEGIN
@@ -23,7 +23,7 @@ index d9c0b28..6171f1f 100644
      IDS_DRIVER_ESOUND           "OvladaË EsounD"
      IDS_DRIVER_OSS              "OvladaË OSS"
 diff --git a/programs/winecfg/Da.rc b/programs/winecfg/Da.rc
-index f53aead..e33bd78 100644
+index 64e022b..e6caea3 100644
 --- a/programs/winecfg/Da.rc
 +++ b/programs/winecfg/Da.rc
 @@ -270,6 +270,7 @@ BEGIN
@@ -35,7 +35,7 @@ index f53aead..e33bd78 100644
      IDS_DRIVER_ESOUND           "EsounD-driver"
      IDS_DRIVER_OSS              "OSS-driver"
 diff --git a/programs/winecfg/De.rc b/programs/winecfg/De.rc
-index aadd21e..f3016ab 100644
+index fa5bbe5..eda4e2b 100644
 --- a/programs/winecfg/De.rc
 +++ b/programs/winecfg/De.rc
 @@ -282,6 +282,7 @@ BEGIN
@@ -47,7 +47,7 @@ index aadd21e..f3016ab 100644
      IDS_DRIVER_ESOUND           "EsounD-Treiber"
      IDS_DRIVER_OSS              "OSS-Treiber"
 diff --git a/programs/winecfg/En.rc b/programs/winecfg/En.rc
-index 6aa5120..6f30805 100644
+index 490314a..3e669cd 100644
 --- a/programs/winecfg/En.rc
 +++ b/programs/winecfg/En.rc
 @@ -282,6 +282,7 @@ BEGIN
@@ -59,7 +59,7 @@ index 6aa5120..6f30805 100644
      IDS_DRIVER_ESOUND           "EsounD Driver"
      IDS_DRIVER_OSS              "OSS Driver"
 diff --git a/programs/winecfg/Es.rc b/programs/winecfg/Es.rc
-index 1771b4e..aaacaa9 100644
+index 423c783..8534cfa 100644
 --- a/programs/winecfg/Es.rc
 +++ b/programs/winecfg/Es.rc
 @@ -270,6 +270,7 @@ BEGIN
@@ -71,7 +71,7 @@ index 1771b4e..aaacaa9 100644
      IDS_DRIVER_ESOUND           "Manejador EsounD"
      IDS_DRIVER_OSS              "Manejador OSS"
 diff --git a/programs/winecfg/Fi.rc b/programs/winecfg/Fi.rc
-index 0dedf3a..5217482 100644
+index 957b87d..1eb62d1 100644
 --- a/programs/winecfg/Fi.rc
 +++ b/programs/winecfg/Fi.rc
 @@ -270,6 +270,7 @@ BEGIN
@@ -83,7 +83,7 @@ index 0dedf3a..5217482 100644
      IDS_DRIVER_ESOUND           "EsounD Driver"
      IDS_DRIVER_OSS              "OSS Driver"
 diff --git a/programs/winecfg/Fr.rc b/programs/winecfg/Fr.rc
-index a9184f9..004ebb0 100644
+index f84cff6..045d93f 100644
 --- a/programs/winecfg/Fr.rc
 +++ b/programs/winecfg/Fr.rc
 @@ -284,6 +284,7 @@ BEGIN
@@ -95,7 +95,7 @@ index a9184f9..004ebb0 100644
      IDS_DRIVER_ESOUND           "Pilote EsounD"
      IDS_DRIVER_OSS              "Pilote OSS"
 diff --git a/programs/winecfg/Hu.rc b/programs/winecfg/Hu.rc
-index dc887fe..9bd192e 100644
+index 7c4e4fc..654b524 100644
 --- a/programs/winecfg/Hu.rc
 +++ b/programs/winecfg/Hu.rc
 @@ -270,6 +270,7 @@ BEGIN
@@ -107,7 +107,7 @@ index dc887fe..9bd192e 100644
      IDS_DRIVER_ESOUND           "EsounD Driver"
      IDS_DRIVER_OSS              "OSS Driver"
 diff --git a/programs/winecfg/It.rc b/programs/winecfg/It.rc
-index ddeda8c..1530b5f 100644
+index 29deea2..e328a19 100644
 --- a/programs/winecfg/It.rc
 +++ b/programs/winecfg/It.rc
 @@ -284,6 +284,7 @@ BEGIN
@@ -119,7 +119,7 @@ index ddeda8c..1530b5f 100644
      IDS_DRIVER_ESOUND           "Driver Esound"
      IDS_DRIVER_OSS              "Driver OSS"
 diff --git a/programs/winecfg/Ja.rc b/programs/winecfg/Ja.rc
-index 5b77da7..316d2e5 100644
+index ff03564..94d7c62 100644
 --- a/programs/winecfg/Ja.rc
 +++ b/programs/winecfg/Ja.rc
 @@ -285,6 +285,7 @@ BEGIN
@@ -131,7 +131,7 @@ index 5b77da7..316d2e5 100644
      IDS_DRIVER_ESOUND           "EsounD „Éâ„É©„Ç§„Éê"
      IDS_DRIVER_OSS              "OSS „Éâ„É©„Ç§„Éê"
 diff --git a/programs/winecfg/Ko.rc b/programs/winecfg/Ko.rc
-index bf06647..66f9803 100644
+index b30ce87..36dabd2 100644
 --- a/programs/winecfg/Ko.rc
 +++ b/programs/winecfg/Ko.rc
 @@ -285,6 +285,7 @@ BEGIN
@@ -143,7 +143,7 @@ index bf06647..66f9803 100644
     IDS_DRIVER_ESOUND           "EsounD µÂ∂Û¿Ãπˆ"
     IDS_DRIVER_OSS              "OSS µÂ∂Û¿Ãπˆ"
 diff --git a/programs/winecfg/Lt.rc b/programs/winecfg/Lt.rc
-index 7208cc6..5aa8fdb 100644
+index 1a9d0fa..ff7a586 100644
 --- a/programs/winecfg/Lt.rc
 +++ b/programs/winecfg/Lt.rc
 @@ -283,6 +283,7 @@ BEGIN
@@ -155,7 +155,7 @@ index 7208cc6..5aa8fdb 100644
      IDS_DRIVER_ESOUND           "EsounD tvarkyklƒó"
      IDS_DRIVER_OSS              "OSS tvarkyklƒó"
 diff --git a/programs/winecfg/Nl.rc b/programs/winecfg/Nl.rc
-index 2fbba6a..802abab 100644
+index 5783033..431872f 100644
 --- a/programs/winecfg/Nl.rc
 +++ b/programs/winecfg/Nl.rc
 @@ -283,6 +283,7 @@ BEGIN
@@ -167,10 +167,10 @@ index 2fbba6a..802abab 100644
      IDS_DRIVER_ESOUND           "EsounD Stuurprogramma"
      IDS_DRIVER_OSS              "OSS Stuurprogramma"
 diff --git a/programs/winecfg/No.rc b/programs/winecfg/No.rc
-index cc34fad..0f0aea8 100644
+index 13a62f4..7e66a3a 100644
 --- a/programs/winecfg/No.rc
 +++ b/programs/winecfg/No.rc
-@@ -270,6 +270,7 @@ BEGIN
+@@ -283,6 +283,7 @@ BEGIN
      IDS_ACCEL_STANDARD          "Standard"
      IDS_ACCEL_BASIC             "Grunnleggende"
      IDS_ACCEL_EMULATION         "Emulering"
@@ -179,7 +179,7 @@ index cc34fad..0f0aea8 100644
      IDS_DRIVER_ESOUND           "EsounD-driver"
      IDS_DRIVER_OSS              "OSS-driver"
 diff --git a/programs/winecfg/Pl.rc b/programs/winecfg/Pl.rc
-index d884881..bb97de5 100644
+index 9422f34..eeca25c 100644
 --- a/programs/winecfg/Pl.rc
 +++ b/programs/winecfg/Pl.rc
 @@ -273,6 +273,7 @@ BEGIN
@@ -191,7 +191,7 @@ index d884881..bb97de5 100644
      IDS_DRIVER_ESOUND           "Sterownik EsounD"
      IDS_DRIVER_OSS              "Sterownik OSS"
 diff --git a/programs/winecfg/Pt.rc b/programs/winecfg/Pt.rc
-index 683dc68..be92466 100644
+index aeab826..c2e0200 100644
 --- a/programs/winecfg/Pt.rc
 +++ b/programs/winecfg/Pt.rc
 @@ -470,6 +470,7 @@ BEGIN
@@ -203,7 +203,7 @@ index 683dc68..be92466 100644
      IDS_DRIVER_ESOUND           "Controlador EsounD"
      IDS_DRIVER_OSS              "Controlador OSS"
 diff --git a/programs/winecfg/Ro.rc b/programs/winecfg/Ro.rc
-index 5626018..6c84511 100644
+index c031ea8..430d6d8 100644
 --- a/programs/winecfg/Ro.rc
 +++ b/programs/winecfg/Ro.rc
 @@ -282,6 +282,7 @@ BEGIN
@@ -215,7 +215,7 @@ index 5626018..6c84511 100644
      IDS_DRIVER_ESOUND           "Driver Esound"
      IDS_DRIVER_OSS              "Driver OSS"
 diff --git a/programs/winecfg/Ru.rc b/programs/winecfg/Ru.rc
-index 38b4546..73c0250 100644
+index 58252ba..39fb6d5 100644
 --- a/programs/winecfg/Ru.rc
 +++ b/programs/winecfg/Ru.rc
 @@ -287,6 +287,7 @@ BEGIN
@@ -227,7 +227,7 @@ index 38b4546..73c0250 100644
      IDS_DRIVER_ESOUND           "EsounD –¥—Ä–∞–π–≤–µ—Ä"
      IDS_DRIVER_OSS              "OSS –¥—Ä–∞–π–≤–µ—Ä"
 diff --git a/programs/winecfg/Si.rc b/programs/winecfg/Si.rc
-index feaef36..1d10bae 100644
+index eec1658..35b5462 100644
 --- a/programs/winecfg/Si.rc
 +++ b/programs/winecfg/Si.rc
 @@ -272,6 +272,7 @@ BEGIN
@@ -239,7 +239,7 @@ index feaef36..1d10bae 100644
      IDS_DRIVER_ESOUND           "EsounD gonilnik"
      IDS_DRIVER_OSS              "OSS gonilnik"
 diff --git a/programs/winecfg/Sv.rc b/programs/winecfg/Sv.rc
-index 7fea5aa..1979b5a 100644
+index d724afa..ba34d44 100644
 --- a/programs/winecfg/Sv.rc
 +++ b/programs/winecfg/Sv.rc
 @@ -270,6 +270,7 @@ BEGIN
@@ -251,7 +251,7 @@ index 7fea5aa..1979b5a 100644
      IDS_DRIVER_ESOUND           "EsounD-drivrutin"
      IDS_DRIVER_OSS              "OSS-drivrutin"
 diff --git a/programs/winecfg/Tr.rc b/programs/winecfg/Tr.rc
-index 0fa9778..5ea7da1 100644
+index 89ddb23..196debe 100644
 --- a/programs/winecfg/Tr.rc
 +++ b/programs/winecfg/Tr.rc
 @@ -270,6 +270,7 @@ BEGIN
@@ -263,7 +263,7 @@ index 0fa9778..5ea7da1 100644
      IDS_DRIVER_ESOUND           "EsounD S¸r¸c¸s¸"
      IDS_DRIVER_OSS              "OSS S¸r¸c¸s¸"
 diff --git a/programs/winecfg/Zh.rc b/programs/winecfg/Zh.rc
-index 8c84061..3de1da8 100644
+index 14ac5c3..cd380a3 100644
 --- a/programs/winecfg/Zh.rc
 +++ b/programs/winecfg/Zh.rc
 @@ -275,6 +275,7 @@ BEGIN

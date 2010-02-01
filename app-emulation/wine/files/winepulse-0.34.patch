@@ -21,10 +21,10 @@ index 0000000..c99c1da
 +@DEPENDENCIES@  # everything below this line is overwritten by make depend
 diff --git a/dlls/winepulse.drv/pulse.c b/dlls/winepulse.drv/pulse.c
 new file mode 100644
-index 0000000..3dcb086
+index 0000000..971d003
 --- /dev/null
 +++ b/dlls/winepulse.drv/pulse.c
-@@ -0,0 +1,788 @@
+@@ -0,0 +1,805 @@
 +/*
 + * Wine Driver for PulseAudio
 + * http://pulseaudio.org/
@@ -416,6 +416,23 @@ index 0000000..3dcb086
 +/**************************************************************************
 + * Common Callbacks
 + */
++
++/**************************************************************************
++ *                  PULSE_StreamRequestCallback
++ *
++ * Called by the pulse mainloop whenever it wants/has audio data.
++ */
++void PULSE_StreamRequestCallback(pa_stream *s, size_t nbytes, void *userdata) {
++    WINE_WAVEINST *ww = (WINE_WAVEINST*)userdata;
++
++    TRACE("Server has %u bytes\n", nbytes);
++
++    /* Make sure that the player/recorder is running */
++    if (ww->hThread != INVALID_HANDLE_VALUE && ww->msgRing.messages) {
++        PULSE_AddRingMessage(&ww->msgRing, WINE_WM_FEED, (DWORD)nbytes, FALSE);
++    }
++}
++
 +
 +/**************************************************************************
 + *                  PULSE_StreamSuspendedCallback               [internal]
@@ -815,10 +832,10 @@ index 0000000..3dcb086
 +}
 diff --git a/dlls/winepulse.drv/wavein.c b/dlls/winepulse.drv/wavein.c
 new file mode 100644
-index 0000000..7cbc781
+index 0000000..9149106
 --- /dev/null
 +++ b/dlls/winepulse.drv/wavein.c
-@@ -0,0 +1,595 @@
+@@ -0,0 +1,588 @@
 +/*
 + * Wine Driver for PulseAudio - WaveIn Functionality
 + * http://pulseaudio.org/
@@ -890,69 +907,167 @@ index 0000000..7cbc781
 +}
 +
 +/**************************************************************************
-+ *                         widRecorder_NextFragment             [internal]
-+ *
-+ * Gets the next fragment of data from the server.
-+ */
-+static size_t widRecorder_NextFragment(WINE_WAVEINST *wwi) {
-+    size_t nbytes;
-+
-+    TRACE("()\n");
-+
-+    if (wwi->buffer)
-+        pa_stream_drop(wwi->stream);
-+
-+    pa_stream_peek(wwi->stream, &wwi->buffer, &nbytes);
-+    wwi->buffer_length = nbytes;
-+    wwi->buffer_read_offset = 0;
-+
-+    return nbytes;
-+}
-+
-+
-+/**************************************************************************
 + *                         widRecorder_CopyData                 [internal]
 + *
 + * Copys data from the fragments pulse returns to queued buffers.
 + */
 +static void widRecorder_CopyData(WINE_WAVEINST *wwi) {
 +    LPWAVEHDR lpWaveHdr = wwi->lpQueuePtr;
-+    size_t nbytes;
++    size_t bytes_avail;
 +
-+    while (lpWaveHdr && wwi->state == WINE_WS_PLAYING) {
++    /* Get this value once and trust it. Note that the total available is made
++     * of one _or more_ fragments. These fragments will probably not align with
++     * the wavehdr buffer sizes. */
++    pa_threaded_mainloop_lock(PULSE_ml);
++    bytes_avail = pa_stream_readable_size(wwi->stream);
++    pa_threaded_mainloop_unlock(PULSE_ml);
 +
-+        nbytes = min(wwi->buffer_length - wwi->buffer_read_offset, lpWaveHdr->dwBufferLength - lpWaveHdr->dwBytesRecorded);
-+        if (nbytes == 0) break;
++    if (bytes_avail == -1) {
++        ERR("pa_stream_readable_size() returned -1, record stream has failed.\n");
++        return;
++    }
 +
-+        TRACE("%u bytes from %p to %p\n",
-+              nbytes,
-+              (PBYTE)wwi->buffer + wwi->buffer_read_offset,
-+              lpWaveHdr->lpData + lpWaveHdr->dwBytesRecorded);
++    /* If there is an already peeked buffer, add it to the total */
++    if (wwi->buffer)
++        bytes_avail += wwi->buffer_length - wwi->buffer_read_offset;
 +
-+        memcpy(lpWaveHdr->lpData + lpWaveHdr->dwBytesRecorded, (PBYTE)wwi->buffer + wwi->buffer_read_offset, nbytes);
++    for (;bytes_avail && lpWaveHdr; lpWaveHdr = wwi->lpQueuePtr) {
++        size_t peek_avail;
 +
-+        lpWaveHdr->dwBytesRecorded += nbytes;
-+        wwi->buffer_read_offset += nbytes;
-+
-+        if (wwi->buffer_read_offset == wwi->buffer_length) {
++        if (!wwi->buffer) {
 +            pa_threaded_mainloop_lock(PULSE_ml);
-+            pa_stream_drop(wwi->stream);
-+            if (pa_stream_readable_size(wwi->stream))
-+                widRecorder_NextFragment(wwi);
-+            else {
-+                wwi->buffer = NULL;
-+                wwi->buffer_length = 0;
-+                wwi->buffer_read_offset = 0;
-+            }
++            pa_stream_peek(wwi->stream, &wwi->buffer, &wwi->buffer_length);
 +            pa_threaded_mainloop_unlock(PULSE_ml);
++            wwi->buffer_read_offset = 0;
++
++            if (!wwi->buffer || !wwi->buffer_length) {
++                WARN("pa_stream_peek failed\n");
++                break;
++            }
 +        }
++        
++        peek_avail = min(wwi->buffer_length - wwi->buffer_read_offset,
++                         lpWaveHdr->dwBufferLength - lpWaveHdr->dwBytesRecorded);
++
++        memcpy(lpWaveHdr->lpData + lpWaveHdr->dwBytesRecorded,
++               (PBYTE)wwi->buffer + wwi->buffer_read_offset,
++               peek_avail);
++
++        wwi->buffer_read_offset += peek_avail;
++        lpWaveHdr->dwBytesRecorded += peek_avail;
++        bytes_avail -= peek_avail;
 +
 +        if (lpWaveHdr->dwBytesRecorded == lpWaveHdr->dwBufferLength) {
 +            lpWaveHdr->dwFlags &= ~WHDR_INQUEUE;
 +            lpWaveHdr->dwFlags |= WHDR_DONE;
 +            wwi->lpQueuePtr = lpWaveHdr->lpNext;
 +            widNotifyClient(wwi, WIM_DATA, (DWORD)lpWaveHdr, 0);
-+            lpWaveHdr = wwi->lpQueuePtr;
++        }
++
++        if (wwi->buffer_read_offset == wwi->buffer_length) {
++            pa_threaded_mainloop_lock(PULSE_ml);
++            pa_stream_drop(wwi->stream);
++            wwi->buffer = NULL;
++            pa_threaded_mainloop_unlock(PULSE_ml);
++        }
++    } /* for(bytes_avail && lpWaveHdr) */
++
++    return;
++}
++
++static void widRecorder_ProcessMessages(WINE_WAVEINST* wwi) {
++    LPWAVEHDR          lpWaveHdr;
++    enum win_wm_message msg;
++    DWORD               param;
++    HANDLE              ev;
++
++
++    while (PULSE_RetrieveRingMessage(&wwi->msgRing, &msg, &param, &ev)) {
++            TRACE("Received %s %x\n", PULSE_getCmdString(msg), param);
++
++        switch (msg) {
++        case WINE_WM_FEED:
++            /* Spin the loop in widRecorder */
++            SetEvent(ev);
++            break;
++
++        case WINE_WM_STARTING:
++            wwi->dwLastReset = wwi->timing_info->read_index;
++            pa_threaded_mainloop_lock(PULSE_ml);
++            PULSE_WaitForOperation(pa_stream_cork(wwi->stream, 0, PULSE_StreamSuccessCallback, NULL));
++            pa_threaded_mainloop_unlock(PULSE_ml);
++            wwi->state = WINE_WS_PLAYING;
++            SetEvent(ev);
++            break;
++
++        case WINE_WM_HEADER:
++            lpWaveHdr = (LPWAVEHDR)param;
++            lpWaveHdr->lpNext = 0;
++            /* insert buffer at the end of queue */
++            {
++                LPWAVEHDR *wh;
++                for (wh = &(wwi->lpQueuePtr); *wh; wh = &((*wh)->lpNext));
++                *wh = lpWaveHdr;
++            }
++            break;
++
++        case WINE_WM_STOPPING:
++            if (wwi->state != WINE_WS_STOPPED) {
++                wwi->state = WINE_WS_STOPPED;
++                pa_threaded_mainloop_lock(PULSE_ml);
++                PULSE_WaitForOperation(pa_stream_cork(wwi->stream, 1, PULSE_StreamSuccessCallback, NULL));
++                if (wwi->buffer) {
++                    pa_stream_drop(wwi->stream);
++                    wwi->buffer = NULL;
++                }
++                pa_threaded_mainloop_unlock(PULSE_ml);
++
++                /* return only the current buffer to app */
++                if ((lpWaveHdr = wwi->lpQueuePtr)) {
++                    LPWAVEHDR lpNext = lpWaveHdr->lpNext;
++                    TRACE("stop %p %p\n", lpWaveHdr, lpWaveHdr->lpNext);
++                    lpWaveHdr->dwFlags &= ~WHDR_INQUEUE;
++                    lpWaveHdr->dwFlags |= WHDR_DONE;
++                    wwi->lpQueuePtr = lpNext;
++                    widNotifyClient(wwi, WIM_DATA, (DWORD)lpWaveHdr, 0);
++                }
++            }
++            SetEvent(ev);
++            break;
++
++        case WINE_WM_RESETTING:
++            if (wwi->state != WINE_WS_STOPPED) {
++                wwi->state = WINE_WS_STOPPED;
++                pa_threaded_mainloop_lock(PULSE_ml);
++                PULSE_WaitForOperation(pa_stream_cork(wwi->stream, 1, PULSE_StreamSuccessCallback, NULL));
++                if (wwi->buffer) {
++                    pa_stream_drop(wwi->stream);
++                    wwi->buffer = NULL;
++                }
++                pa_threaded_mainloop_unlock(PULSE_ml);
++            }
++
++            /* return all the buffers to the app */
++            lpWaveHdr = wwi->lpPlayPtr ? wwi->lpPlayPtr : wwi->lpQueuePtr;
++            for (; lpWaveHdr; lpWaveHdr = wwi->lpQueuePtr) {
++                lpWaveHdr->dwFlags &= ~WHDR_INQUEUE;
++                lpWaveHdr->dwFlags |= WHDR_DONE;
++                wwi->lpQueuePtr = lpWaveHdr->lpNext;
++                widNotifyClient(wwi, WIM_DATA, (DWORD)lpWaveHdr, 0);
++            }
++            SetEvent(ev);
++            break;
++
++        case WINE_WM_CLOSING:
++            wwi->hThread = 0;
++            wwi->state = WINE_WS_CLOSED;
++            SetEvent(ev);
++            ExitThread(0);
++            /* shouldn't go here */
++
++        default:
++            FIXME("unknown message %d\n", msg);
++            break;
 +        }
 +    }
 +}
@@ -961,125 +1076,19 @@ index 0000000..7cbc781
 + *                  widRecorder                                 [internal]
 + */
 +static DWORD CALLBACK widRecorder(LPVOID lpParam) {
-+    WINE_WAVEINST *wwi = (WINE_WAVEINST*)lpParam;
-+    LPWAVEHDR           lpWaveHdr;
-+    enum win_wm_message msg;
-+    DWORD               param;
-+    HANDLE              ev;
-+    DWORD               wait = INFINITE;
++    WINE_WAVEINST   *wwi = (WINE_WAVEINST*)lpParam;
 +
 +    wwi->state = WINE_WS_STOPPED;
 +    SetEvent(wwi->hStartUpEvent);
 +
 +    for (;;) {
++        PULSE_WaitRingMessage(&wwi->msgRing, INFINITE);
++        widRecorder_ProcessMessages(wwi);
++        if (wwi->state == WINE_WS_PLAYING && wwi->lpQueuePtr)
++            widRecorder_CopyData(wwi);
++    }
 +
-+        if (wwi->state != WINE_WS_PLAYING) {
-+            wait = INFINITE;
-+        } else {
-+            if (wwi->buffer == NULL && pa_stream_readable_size(wwi->stream)) {
-+                pa_threaded_mainloop_lock(PULSE_ml);
-+                wait = pa_bytes_to_usec(widRecorder_NextFragment(wwi), &wwi->sample_spec)/1000;
-+                pa_threaded_mainloop_unlock(PULSE_ml);
-+            }
-+        }
-+
-+        widRecorder_CopyData(wwi);
-+
-+        PULSE_WaitRingMessage(&wwi->msgRing, wait);
-+
-+        while (PULSE_RetrieveRingMessage(&wwi->msgRing, &msg, &param, &ev)) {
-+            TRACE("Received %s %x\n", PULSE_getCmdString(msg), param);
-+
-+            switch (msg) {
-+            case WINE_WM_FEED:
-+                SetEvent(ev);
-+                break;
-+            case WINE_WM_STARTING:
-+                wwi->state = WINE_WS_PLAYING;
-+                if (wwi->lpQueuePtr)
-+                    wait = pa_bytes_to_usec(wwi->lpQueuePtr->dwBufferLength, &wwi->sample_spec)/1000;
-+                else
-+                    wait = INFINITE;
-+                wwi->dwLastReset = wwi->timing_info->read_index;
-+                pa_threaded_mainloop_lock(PULSE_ml);
-+                PULSE_WaitForOperation(pa_stream_cork(wwi->stream, 0, PULSE_StreamSuccessCallback, NULL));
-+                pa_threaded_mainloop_unlock(PULSE_ml);
-+                SetEvent(ev);
-+                break;
-+            case WINE_WM_HEADER:
-+                lpWaveHdr = (LPWAVEHDR)param;
-+                lpWaveHdr->lpNext = 0;
-+
-+                /* insert buffer at the end of queue */
-+                {
-+                    LPWAVEHDR *wh;
-+                    for (wh = &(wwi->lpQueuePtr); *wh; wh = &((*wh)->lpNext));
-+                    *wh = lpWaveHdr;
-+                }
-+                break;
-+            case WINE_WM_STOPPING:
-+                if (wwi->state != WINE_WS_STOPPED) {
-+                    wwi->state = WINE_WS_STOPPED;
-+                    pa_threaded_mainloop_lock(PULSE_ml);
-+                    PULSE_WaitForOperation(pa_stream_cork(wwi->stream, 1, PULSE_StreamSuccessCallback, NULL));
-+                    pa_threaded_mainloop_unlock(PULSE_ml);
-+
-+                    /* return current buffer to app */
-+                    lpWaveHdr = wwi->lpQueuePtr;
-+                    if (lpWaveHdr) {
-+                        LPWAVEHDR lpNext = lpWaveHdr->lpNext;
-+                        TRACE("stop %p %p\n", lpWaveHdr, lpWaveHdr->lpNext);
-+                        lpWaveHdr->dwFlags &= ~WHDR_INQUEUE;
-+                        lpWaveHdr->dwFlags |= WHDR_DONE;
-+                        wwi->lpQueuePtr = lpNext;
-+                        widNotifyClient(wwi, WIM_DATA, (DWORD)lpWaveHdr, 0);
-+                    }
-+                }
-+                SetEvent(ev);
-+                break;
-+            case WINE_WM_RESETTING:
-+                if (wwi->state != WINE_WS_STOPPED) {
-+                wwi->state = WINE_WS_STOPPED;
-+                    pa_threaded_mainloop_lock(PULSE_ml);
-+                    PULSE_WaitForOperation(pa_stream_cork(wwi->stream, 1, PULSE_StreamSuccessCallback, NULL));
-+                    pa_threaded_mainloop_unlock(PULSE_ml);
-+                }
-+
-+                /* return all buffers to the app */
-+                for (lpWaveHdr = wwi->lpPlayPtr ? wwi->lpPlayPtr : wwi->lpQueuePtr; lpWaveHdr; lpWaveHdr = wwi->lpQueuePtr) {
-+                    lpWaveHdr->dwFlags &= ~WHDR_INQUEUE;
-+                    lpWaveHdr->dwFlags |= WHDR_DONE;
-+                    wwi->lpQueuePtr = lpWaveHdr->lpNext;
-+                    widNotifyClient(wwi, WIM_DATA, (DWORD)lpWaveHdr, 0);
-+                }
-+
-+                SetEvent(ev);
-+                break;
-+            case WINE_WM_CLOSING:
-+                wwi->hThread = 0;
-+                if ((DWORD)param == 1) {
-+                    /* If we are here, the stream failed */
-+                wwi->state = WINE_WS_FAILED;
-+                    SetEvent(ev);
-+                    PULSE_DestroyRingMessage(&wwi->msgRing);
-+                    widNotifyClient(wwi, WIM_CLOSE, 0L, 0L);
-+                    wwi->lpPlayPtr = wwi->lpQueuePtr = NULL;
-+                    pa_threaded_mainloop_lock(PULSE_ml);
-+                    pa_stream_disconnect(wwi->stream);
-+                    pa_threaded_mainloop_unlock(PULSE_ml);
-+                    TRACE("Thread exiting because of failure.\n");
-+                    ExitThread(1);
-+                }
-+                wwi->state = WINE_WS_CLOSED;
-+                SetEvent(ev);
-+                ExitThread(0);
-+                /* shouldn't go here */
-+            default:
-+                FIXME("unknown message %d\n", msg);
-+                break;
-+        } /* switch(msg) */
-+        } /* while(PULSE_RetrieveRingMessage()) */
-+    } /* for (;;) */
++    return 0;
 +}
 +
 +/**************************************************************************
@@ -1139,7 +1148,8 @@ index 0000000..7cbc781
 +        goto exit;
 +    }
 +
-+    pa_stream_set_state_callback(wwi->stream, PULSE_StreamStateCallback, wwi);
++    pa_stream_set_state_callback(wwi->stream, PULSE_StreamStateCallback,    wwi);
++    pa_stream_set_read_callback (wwi->stream, PULSE_StreamRequestCallback,  wwi);
 +
 +    wwi->buffer_attr.maxlength = (uint32_t)-1;
 +    wwi->buffer_attr.fragsize = pa_bytes_per_second(&wwi->sample_spec) / 100;
@@ -1327,7 +1337,7 @@ index 0000000..7cbc781
 + * Context-sanity check here, as if we respond with 0, WINE will move on
 + * to the next wavein driver.
 + */
-+static DWORD widGetNumDevs() {
++static DWORD widGetNumDevs(void) {
 +    if (pa_context_get_state(PULSE_context) != PA_CONTEXT_READY)
 +        return 0;
 +
@@ -1416,10 +1426,10 @@ index 0000000..7cbc781
 +#endif /* HAVE_PULSEAUDIO */
 diff --git a/dlls/winepulse.drv/waveout.c b/dlls/winepulse.drv/waveout.c
 new file mode 100644
-index 0000000..e7454fd
+index 0000000..157b2db
 --- /dev/null
 +++ b/dlls/winepulse.drv/waveout.c
-@@ -0,0 +1,1040 @@
+@@ -0,0 +1,1024 @@
 +/*
 + * Wine Driver for PulseAudio - WaveOut Functionality
 + * http://pulseaudio.org/
@@ -1488,22 +1498,6 @@ index 0000000..e7454fd
 +/*======================================================================*
 + *                  WAVE OUT specific PulseAudio Callbacks              *
 + *======================================================================*/
-+
-+/**************************************************************************
-+ *                  WAVEOUT_StreamRequestCallback
-+ *
-+ * Called by the pulse mainloop whenever it wants audio data.
-+ */
-+static void WAVEOUT_StreamRequestCallback(pa_stream *s, size_t nbytes, void *userdata) {
-+    WINE_WAVEINST *ww = (WINE_WAVEINST*)userdata;
-+
-+    TRACE("Asking to be fed %u bytes\n", nbytes);
-+
-+    /* Make sure that the player/recorder is running */
-+    if (ww->hThread != INVALID_HANDLE_VALUE && ww->msgRing.messages) {
-+        PULSE_AddRingMessage(&ww->msgRing, WINE_WM_FEED, (DWORD)nbytes, FALSE);
-+    }
-+}
 +
 +/**************************************************************************
 + *                  WAVEOUT_SinkInputInfoCallback               [internal]
@@ -2033,7 +2027,7 @@ index 0000000..e7454fd
 +    }
 +
 +    /* Setup callbacks */
-+    pa_stream_set_write_callback        (wwo->stream, WAVEOUT_StreamRequestCallback,    wwo);
++    pa_stream_set_write_callback        (wwo->stream, PULSE_StreamRequestCallback,      wwo);
 +    pa_stream_set_state_callback        (wwo->stream, PULSE_StreamStateCallback,        wwo);
 +    pa_stream_set_underflow_callback    (wwo->stream, PULSE_StreamUnderflowCallback,    wwo);
 +    pa_stream_set_moved_callback        (wwo->stream, PULSE_StreamMovedCallback,        wwo);
@@ -2471,10 +2465,10 @@ index 0000000..1b49460
 +@ stdcall -private widMessage(long long long long long long) PULSE_widMessage
 diff --git a/dlls/winepulse.drv/winepulse.h b/dlls/winepulse.drv/winepulse.h
 new file mode 100644
-index 0000000..0aa7e86
+index 0000000..b83de5d
 --- /dev/null
 +++ b/dlls/winepulse.drv/winepulse.h
-@@ -0,0 +1,196 @@
+@@ -0,0 +1,197 @@
 +/* Definitions for PulseAudio Wine Driver
 + *
 + * Copyright    2009 Arthur Taylor <theycallhimart@gmail.com>
@@ -2648,6 +2642,7 @@ index 0000000..0aa7e86
 +DWORD PULSE_WidNumDevs;
 +
 +/* pulse.c: PulseAudio Async Callbacks */
++void    PULSE_StreamRequestCallback(pa_stream *s, size_t nbytes, void *userdata);
 +void    PULSE_StreamSuccessCallback(pa_stream *s, int success, void *userdata);
 +void    PULSE_StreamStateCallback(pa_stream *s, void *userdata);
 +void    PULSE_StreamUnderflowCallback(pa_stream *s, void *userdata);
