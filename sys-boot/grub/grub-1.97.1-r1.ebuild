@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit autotools mount-boot eutils flag-o-matic toolchain-funcs
+inherit mount-boot eutils flag-o-matic toolchain-funcs
 
 SRC_URI="ftp://alpha.gnu.org/gnu/${PN}/${P}.tar.gz
 	mirror://gentoo/${P}.tar.gz"
@@ -15,10 +15,11 @@ HOMEPAGE="http://www.gnu.org/software/grub/"
 LICENSE="GPL-3"
 use multislot && SLOT="2" || SLOT="0"
 KEYWORDS="~amd64"
-IUSE="custom-cflags debug efi multislot static"
+IUSE="custom-cflags debug efi multislot static truetype"
 
 RDEPEND=">=sys-libs/ncurses-5.2-r5
-	dev-libs/lzo"
+	dev-libs/lzo
+	truetype? ( media-libs/freetype )"
 DEPEND="${RDEPEND}
 	dev-lang/ruby"
 PROVIDE="virtual/bootloader"
@@ -31,9 +32,6 @@ src_unpack() {
 	cd "${S}"
 	epatch "${FILESDIR}"/${PN}-1.96-genkernel.patch #256335
 	epatch_user
-
-	sed -i -e 's:^auto:eauto:' autogen.sh
-	(. ./autogen.sh) || die
 }
 
 src_configure() {
@@ -48,7 +46,7 @@ src_configure() {
 		--bindir=/bin \
 		--libdir=/$(get_libdir) \
 		--disable-efiemu \
-		--enable-grub-mkfont \
+		$(use_enable truetype grub-mkfont) \
 		$(use_enable debug mm-debug) \
 		$(use_enable debug grub-emu) \
 		$(use_enable debug grub-emu-usb) \
