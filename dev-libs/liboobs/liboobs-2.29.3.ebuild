@@ -14,7 +14,7 @@ HOMEPAGE="http://www.gnome.org"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc hal"
+IUSE="hal"
 
 RDEPEND=">=dev-libs/glib-2.14
 	>=dev-libs/dbus-glib-0.70
@@ -22,8 +22,7 @@ RDEPEND=">=dev-libs/glib-2.14
 	hal? ( >=sys-apps/hal-0.5.9 )"
 
 DEPEND="${RDEPEND}
-	>=dev-util/pkgconfig-0.9
-	doc? ( >=dev-util/gtk-doc-1.9 )"
+	>=dev-util/pkgconfig-0.9"
 
 DOCS="AUTHORS ChangeLog NEWS README"
 

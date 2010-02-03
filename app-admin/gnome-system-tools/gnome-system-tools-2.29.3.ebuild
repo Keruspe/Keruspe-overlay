@@ -12,10 +12,10 @@ HOMEPAGE="http://www.gnome.org/projects/gst/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="nfs policykit samba"
+IUSE="nfs samba"
 
 RDEPEND="
-	>=dev-libs/liboobs-2.29.1
+	>=dev-libs/liboobs-2.29.3
 	>=x11-libs/gtk+-2.11.3
 	>=dev-libs/glib-2.15.2
 	>=gnome-base/gconf-2.2
@@ -36,16 +36,10 @@ DOCS="AUTHORS BUGS ChangeLog HACKING NEWS README TODO"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
-		--disable-static
-		$(use_enable policykit polkit)"
+		--disable-static"
 
 	if ! use nfs && ! use samba; then
 		G2CONF="${G2CONF} --disable-shares"
-	fi
-
-	if use policykit && ! built_with_use app-admin/system-tools-backends policykit; then
-		eerror "app-admin/system-tools-backends was not built with USE='policykit'"
-		die "Please rebuild app-admin/system-tools-backends with policykit support"
 	fi
 }
 
