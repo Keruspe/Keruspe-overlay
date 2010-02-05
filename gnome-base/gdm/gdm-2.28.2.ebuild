@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 IUSE_LIBC="elibc_glibc"
-IUSE="accessibility +consolekit debug ipv6 gnome-keyring selinux tcpd test xinerama +xklavier $IUSE_LIBC"
+IUSE="accessibility applet +consolekit debug ipv6 gnome-keyring selinux tcpd test xinerama +xklavier $IUSE_LIBC"
 
 GDM_EXTRA="${PN}-2.20.9-gentoo-files-r1"
 
@@ -30,7 +30,8 @@ RDEPEND=">=sys-apps/devicekit-power-008
 	>=media-libs/libcanberra-0.4[gtk]
 	>=gnome-base/libglade-2
 	>=gnome-base/gconf-2.6.1
-	>=gnome-base/gnome-panel-2
+	applet? ( >=gnome-base/gnome-panel-2
+		!gnome-extra/fast-user-switch-applet )
 	xklavier? ( >=x11-libs/libxklavier-4 )
 	x11-libs/libXft
 	app-text/iso-codes
@@ -49,9 +50,8 @@ RDEPEND=">=sys-apps/devicekit-power-008
 	gnome-keyring? ( >=gnome-base/gnome-keyring-2.22[pam] )
 	selinux? ( sys-libs/libselinux )
 	tcpd? ( >=sys-apps/tcp-wrappers-7.6 )
-	xinerama? ( x11-libs/libXinerama )
+	xinerama? ( x11-libs/libXinerama )"
 
-	!gnome-extra/fast-user-switch-applet"
 DEPEND="${RDEPEND}
 	test? ( >=dev-libs/check-0.9.4 )
 	xinerama? ( x11-proto/xineramaproto )
@@ -87,6 +87,8 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
+
+	use applet || epatch ${FILESDIR}/${P}-remove-fusa.patch
 
 	epatch "${WORKDIR}/${PN}-2.26.1-selinux-remove-attr.patch"
 	epatch "${WORKDIR}/${PN}-2.26.1-fix-daemonize-regression.patch"
