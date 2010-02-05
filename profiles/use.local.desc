@@ -3,6 +3,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+gnome-base/gdm:applet - Build fast-user-switch-applet
 gnome-base/gnome:note - Enable note writer
 net-libs/webkit-gtk:geoclue - Enable geoclue support (geolocation)
 sys-boot/grub:efi - Build grub for EFI
