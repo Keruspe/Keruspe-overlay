@@ -1,0 +1,2 @@
+# Personnal meta-package a bit soft
+gnome-base/gnome
