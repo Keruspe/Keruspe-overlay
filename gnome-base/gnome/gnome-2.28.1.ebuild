@@ -119,9 +119,6 @@ RDEPEND="
 			>=gnome-extra/nautilus-cd-burner-2.24.0 ) )
 
 	>=gnome-extra/gtkhtml-3.28.1
-	>=mail-client/evolution-2.28.1
-	>=gnome-extra/evolution-data-server-2.28.1
-	>=gnome-extra/evolution-webcal-2.28.0
 
 	>=net-misc/vino-2.28.1
 
