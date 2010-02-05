@@ -18,7 +18,9 @@ HOMEPAGE="http://www.winehq.org/"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-IUSE="alsa capi cups custom-cflags dbus esd fontconfig +gecko gnutls gphoto2 gsm hal jack jpeg lcms ldap mp3 nas ncurses openal +opengl oss +perl png pulseaudio samba scanner ssl test +threads +truetype win64 +X xcomposite xinerama xml"
+IUSE="alsa capi cups custom-cflags dbus esd fontconfig +gecko gnutls gphoto2 gsm
+hal jack jpeg lcms ldap mp3 nas ncurses openal +opengl oss +perl png pulseaudio
+samba scanner ssl test +threads +truetype v4l win64 +X xcomposite xinerama xml"
 RESTRICT="test"
 
 RDEPEND="truetype? ( >=media-libs/freetype-2.0.0 media-fonts/corefonts )
@@ -44,7 +46,8 @@ RDEPEND="truetype? ( >=media-libs/freetype-2.0.0 media-fonts/corefonts )
 	esd? ( media-sound/esound )
 	nas? ( media-libs/nas )
 	cups? ( net-print/cups )
-	opengl? ( virtual/opengl )
+	opengl? ( virtual/opengl 
+		virtual/glu )
 	gsm? ( media-sound/gsm )
 	jpeg? ( media-libs/jpeg )
 	ldap? ( net-nds/openldap )
@@ -79,7 +82,7 @@ DEPEND="${RDEPEND}
 
 apply_winepulse() {
 	epatch "${FILESDIR}"/winepulse-0.34.patch
-	epatch "${FILESDIR}"/winepulse-0.32-configure.ac.patch
+	epatch "${FILESDIR}"/winepulse-0.35-configure.ac.patch
 	epatch "${FILESDIR}"/winepulse-0.34-winecfg.patch
 	eautoreconf
 }
@@ -126,6 +129,7 @@ src_configure() {
 		$(use_with nas) \
 		$(use_with openal) \
 		$(use_with opengl) \
+		$(use_with opengl glu) \
 		$(use_with ssl openssl) \
 		$(use_with oss) \
 		$(use_with png) \
@@ -134,6 +138,7 @@ src_configure() {
 		$(use_with scanner sane) \
 		$(use_enable test tests) \
 		$(use_with truetype freetype) \
+		$(use_with v4l) \
 		$(use_enable win64) \
 		$(use_with X x) \
 		$(use_with xcomposite) \
