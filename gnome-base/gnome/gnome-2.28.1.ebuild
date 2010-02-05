@@ -129,7 +129,6 @@ RDEPEND="
 		>=net-voip/ekiga-3.2.6 )
 
 	>=gnome-extra/gnome-screensaver-2.28.0
-	>=gnome-extra/gnome-power-manager-2.28.1
 
 	>=net-misc/vinagre-2.28.1
 	>=gnome-extra/swfdec-gnome-2.28.0
