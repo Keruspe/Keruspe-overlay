@@ -1,2 +1,7 @@
 # Personnal meta-package a bit soft
 gnome-base/gnome
+
+# Mask Scm packages
+=net-misc/giwbber-9999
+=sys-apps/gnome-disk-utility-9999
+=sys-apps/udisks-9999

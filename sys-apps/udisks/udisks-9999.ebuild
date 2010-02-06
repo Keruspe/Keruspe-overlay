@@ -4,11 +4,13 @@
 
 EAPI="2"
 
-inherit bash-completion gnome2
+inherit autotools bash-completion git gnome2
 
 DESCRIPTION="Daemon providing interfaces to work with storage devices"
 HOMEPAGE="http://www.freedesktop.org/wiki/Software/DeviceKit"
-SRC_URI="http://hal.freedesktop.org/releases/${P/_pre/.git}.tar.gz"
+SRC_URI=""
+EGIT_BRANCH="master"
+EGIT_REPO_URI="git://anongit.freedesktop.org/DeviceKit/DeviceKit-disks"
 
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
@@ -33,7 +35,9 @@ DEPEND="${RDEPEND}
 	dev-libs/libxslt
 	doc? ( >=dev-util/gtk-doc-1.3 )"
 
-S="${WORKDIR}/${P:0:12}"
+src_unpack() {
+    git_src_unpack
+}
 
 pkg_setup() {
 	G2CONF="${G2CONF}
@@ -46,7 +50,10 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 
-	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in || die "sed failed"
+    gtkdocize || die "gtkdocize failed"
+    gnome-doc-prepare
+	intltoolize --force --copy --automake || die "intltoolize failed"
+    eautoreconf
 }
 
 src_install() {
