@@ -69,3 +69,9 @@ src_prepare() {
 	sed 's:WARNINGFLAGS_C=\"$WARNINGFLAGS_C -Wtype-limits\"::g' -i configure.ac configure \
 		|| die "sed 2 failed"
 }
+
+src_install() {
+	gnome2_src_install
+	ewarn "Don't forget to rebuild anything that depended on devicekit-power : "
+	ewarn "gnome-base/gdm gnome-base/gnome-session"
+}
