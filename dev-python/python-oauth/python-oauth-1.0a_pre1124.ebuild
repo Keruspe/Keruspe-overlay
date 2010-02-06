@@ -6,9 +6,13 @@ EAPI="2"
 
 inherit distutils
 
+MY_P=${PN}_${PV/_pre/~svn}
+
 DESCRIPTION="Oauth module for Python"
 HOMEPAGE="http://code.google.com/p/oauth/"
-SRC_URI="http://www.imagination-land.com/${P}.tar.gz"
+SRC_URI="mirror://ubuntu/pool/main/p/${PN}/${MY_P}.orig.tar.gz"
+
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
