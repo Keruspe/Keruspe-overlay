@@ -25,7 +25,7 @@ RDEPEND="
 
 	>=x11-libs/gtk+-2.10
 	>=dev-libs/icu-3.8.1-r1
-	>=net-libs/libsoup-2.29.3
+	>=net-libs/libsoup-2.29.90
 	>=dev-db/sqlite-3
 	>=app-text/enchant-0.22
 
@@ -83,12 +83,6 @@ src_configure() {
 	fi
 
 	econf ${myconf}
-}
-
-src_prepare() {
-	cd ${S}
-	epatch ${FILESDIR}/${P}-html5-playbin-source.patch
-	epatch ${FILESDIR}/${P}-html5-cookies.patch
 }
 
 src_compile() {
