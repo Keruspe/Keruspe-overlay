@@ -49,8 +49,7 @@ RDEPEND="
 	nautilus? ( gnome-base/nautilus )
 	pdf? (
 		>=x11-libs/cairo-1
-		>=virtual/poppler-glib-0.5[cairo]
-		>=virtual/poppler-utils-0.5
+		app-text/poppler
 		>=x11-libs/gtk+-2.12 )
 	playlist? ( dev-libs/totem-pl-parser )
 	tiff? ( media-libs/tiff )
