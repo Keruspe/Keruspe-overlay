@@ -2,6 +2,7 @@
 gnome-base/gnome
 
 # Mask Scm packages
+=gnome-base/gnome-shell-9999
 =net-misc/gwibber-9999
 =sys-apps/gnome-disk-utility-9999
 =sys-apps/udisks-9999
