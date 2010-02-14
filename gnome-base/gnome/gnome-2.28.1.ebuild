@@ -109,6 +109,8 @@ RDEPEND="
 
 	>=net-analyzer/gnome-nettool-2.28.0
 
+	>=gnome-extra/gnome-power-manager-2.28.1
+
 	cdr? (
 		|| (
 			>=app-cdr/brasero-2.28.2
