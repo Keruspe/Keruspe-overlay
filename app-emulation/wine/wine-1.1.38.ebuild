@@ -81,7 +81,7 @@ DEPEND="${RDEPEND}
 	sys-devel/flex"
 
 apply_winepulse() {
-	epatch "${FILESDIR}"/winepulse-0.34.patch
+	epatch "${FILESDIR}"/winepulse-0.35.patch
 	epatch "${FILESDIR}"/winepulse-0.35-configure.ac.patch
 	epatch "${FILESDIR}"/winepulse-0.34-winecfg.patch
 	eautoreconf

@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-misc/tracker/tracker-0.7.17.ebuild,v 1.2 2010/01/22 16:45:14 ssuominen Exp $
+# $Header: $
 
 EAPI="2"
 G2CONF_DEBUG="no"
@@ -32,7 +32,6 @@ RDEPEND="
 		>=x11-libs/gtk+-2.16 )
 	deskbar? ( >=gnome-extra/deskbar-applet-2.19 )
 	eds? (
-		>=mail-client/evolution-2.25.5
 		>=gnome-extra/evolution-data-server-2.25.5 )
 	exif? ( >=media-libs/libexif-0.6 )
 	iptc? ( media-libs/libiptcdata )
@@ -70,12 +69,9 @@ DEPEND="${RDEPEND}
 	doc? (
 		>=dev-util/gtk-doc-1.8
 		media-gfx/graphviz )"
-#	test? ( gcov )
 
 DOCS="AUTHORS ChangeLog NEWS README"
 
-# FIXME: find if it is a tracker or gtester bug and report
-# Tests fail when run in sequence, but succeed when called individually
 RESTRICT="test"
 
 function inotify_enabled() {
@@ -101,8 +97,8 @@ pkg_setup() {
 	if use gstreamer ; then
 		G2CONF="${G2CONF}
 			--enable-video-extractor=gstreamer
-			--enable-gstreamer-tagreadbin"
-		# --enable-gstreamer-helix (real media)
+			--enable-gstreamer-tagreadbin
+			--enable-gstreamer-helix"
 	elif use xine ; then
 		G2CONF="${G2CONF} --enable-video-extractor=xine"
 	else
@@ -125,15 +121,14 @@ pkg_setup() {
 		$(use_enable eds evolution-miner)
 		$(use_enable exif libexif)
 		$(use_enable gsf libgsf)
-		$(use_enable gtk libtrackergtk)
 		$(use_enable gtk tracker-explorer)
 		$(use_enable gtk tracker-preferences)
 		$(use_enable gtk tracker-search-tool)
+		$(use_enable gtk gdkpixbuf)
 		$(use_enable iptc libiptcdata)
 		$(use_enable jpeg libjpeg)
 		$(use_enable kmail kmail-miner)
 		$(use_enable mp3 id3lib)
-		$(use_enable nautilus nautilus-extensions)
 		$(use_enable pdf poppler-glib)
 		$(use_enable playlist)
 		$(use_enable test unit-tests)
@@ -141,13 +136,4 @@ pkg_setup() {
 		$(use_enable vorbis libvorbis)
 		$(use_enable xml libxml2)
 		$(use_enable xmp exempi)"
-		# FIXME: Missing files to run functional tests
-		# $(use_enable test functional-tests)
-		# FIXME: useless without quill (extract mp3 albumart...)
-		# $(use_enable gtk gdkpixbuf)
-}
-
-src_test() {
-	export XDG_CONFIG_HOME="${T}"
-	emake check || die "tests failed"
 }

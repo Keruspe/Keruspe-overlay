@@ -1,9 +1,9 @@
 diff --git a/dlls/winepulse.drv/Makefile.in b/dlls/winepulse.drv/Makefile.in
 new file mode 100644
-index 0000000..c99c1da
+index 0000000..80a751d
 --- /dev/null
 +++ b/dlls/winepulse.drv/Makefile.in
-@@ -0,0 +1,15 @@
+@@ -0,0 +1,16 @@
 +TOPSRCDIR = @top_srcdir@
 +TOPOBJDIR = ../..
 +SRCDIR    = @srcdir@
@@ -11,6 +11,7 @@ index 0000000..c99c1da
 +MODULE    = winepulse.drv
 +IMPORTS   = winmm user32 kernel32
 +EXTRALIBS = @PULSELIBS@
++EXTRACFLAGS = @PULSEINCL@
 +
 +C_SRCS = waveout.c \
 +         wavein.c \
@@ -21,7 +22,7 @@ index 0000000..c99c1da
 +@DEPENDENCIES@  # everything below this line is overwritten by make depend
 diff --git a/dlls/winepulse.drv/pulse.c b/dlls/winepulse.drv/pulse.c
 new file mode 100644
-index 0000000..971d003
+index 0000000..9dd1f80
 --- /dev/null
 +++ b/dlls/winepulse.drv/pulse.c
 @@ -0,0 +1,805 @@
@@ -493,11 +494,11 @@ index 0000000..971d003
 +            TRACE("Stream %p ready\n", userdata);
 +            break;
 +
-+        case PA_STREAM_TERMINATED:
++        case PA_STREAM_TERMINATED: /* Stream closed normally */
 +            TRACE("Stream %p terminated\n", userdata);
 +            break;
 +
-+        case PA_STREAM_FAILED:
++        case PA_STREAM_FAILED: /* Stream closed not-normally */
 +            ERR("Stream %p failed!\n", userdata);
 +            break;
 +
@@ -549,7 +550,7 @@ index 0000000..971d003
 +            break;
 +
 +        case PA_CONTEXT_FAILED:
-+            ERR("Context failure: %s\n", pa_strerror(pa_context_errno(c)));
++            ERR("Context failed: %s\n", pa_strerror(pa_context_errno(c)));
 +            pa_threaded_mainloop_signal(PULSE_ml, 0);
 +            break;
 +    }
@@ -576,7 +577,7 @@ index 0000000..971d003
 +    memset(&(wdi->caps.in), 0, sizeof(wdi->caps.in));
 +    snprintf(wdi->interface_name, MAXPNAMELEN * 2, "winepulse: %s", name);
 +    wdi->device_name = pa_xstrdup(device);
-+    MultiByteToWideChar(CP_ACP, 0, description, -1, wdi->caps.in.szPname, sizeof(wdi->caps.in.szPname)/sizeof(WCHAR));
++    MultiByteToWideChar(CP_UTF8, 0, description, -1, wdi->caps.in.szPname, sizeof(wdi->caps.in.szPname)/sizeof(WCHAR));
 +    wdi->caps.in.szPname[sizeof(wdi->caps.in.szPname)/sizeof(WCHAR) - 1] = '\0';
 +    wdi->caps.in.wMid = MM_CREATIVE;
 +    wdi->caps.in.wPid = MM_CREATIVE_SBP16_WAVEOUT;
@@ -625,7 +626,7 @@ index 0000000..971d003
 +    wdo->volume.channels = v->channels;
 +    for (x = 0; x < v->channels; x++) wdo->volume.values[x] = v->values[x];
 +    snprintf(wdo->interface_name, MAXPNAMELEN * 2, "winepulse: %s", name);
-+    MultiByteToWideChar(CP_ACP, 0, description, -1, wdo->caps.out.szPname, sizeof(wdo->caps.out.szPname)/sizeof(WCHAR));
++    MultiByteToWideChar(CP_UTF8, 0, description, -1, wdo->caps.out.szPname, sizeof(wdo->caps.out.szPname)/sizeof(WCHAR));
 +    wdo->caps.out.szPname[sizeof(wdo->caps.out.szPname)/sizeof(WCHAR) - 1] = '\0';
 +    wdo->caps.out.wMid = MM_CREATIVE;
 +    wdo->caps.out.wPid = MM_CREATIVE_SBP16_WAVEOUT;
@@ -736,7 +737,7 @@ index 0000000..971d003
 +    PULSE_ml = NULL;
 +
 +    if (!(PULSE_ml = pa_threaded_mainloop_new())) {
-+        WARN("Failed to create mainloop object.");
++        ERR("Failed to create mainloop object.");
 +        return DRV_FAILURE;
 +    }
 +
@@ -765,7 +766,6 @@ index 0000000..971d003
 +    pa_threaded_mainloop_lock(PULSE_ml);
 +
 +    TRACE("libpulse protocol version: %u. API Version %u\n", pa_context_get_protocol_version(PULSE_context), PA_API_VERSION);
-+    TRACE("Attempting to connect to pulseaudio server.\n");
 +    if (pa_context_connect(PULSE_context, NULL, 0, NULL) < 0)
 +        goto fail;
 +
@@ -801,7 +801,8 @@ index 0000000..971d003
 +
 +fail:
 +    pa_threaded_mainloop_unlock(PULSE_ml);
-+    ERR("Failed to connect to server\n");
++    /* Only warn, because if we failed wine may still choose the next driver */
++    WARN("Failed to connect to server\n");
 +    return DRV_FAILURE;
 +}
 +
@@ -832,7 +833,7 @@ index 0000000..971d003
 +}
 diff --git a/dlls/winepulse.drv/wavein.c b/dlls/winepulse.drv/wavein.c
 new file mode 100644
-index 0000000..9149106
+index 0000000..8aea538
 --- /dev/null
 +++ b/dlls/winepulse.drv/wavein.c
 @@ -0,0 +1,588 @@
@@ -1350,7 +1351,7 @@ index 0000000..9149106
 +static DWORD widDevInterfaceSize(UINT wDevID, LPDWORD dwParam1) {
 +    TRACE("(%u, %p)\n", wDevID, dwParam1);
 +
-+    *dwParam1 = MultiByteToWideChar(CP_UNIXCP, 0, WInDev[wDevID].interface_name, -1,
++    *dwParam1 = MultiByteToWideChar(CP_UTF8, 0, WInDev[wDevID].interface_name, -1,
 +                                    NULL, 0 ) * sizeof(WCHAR);
 +    return MMSYSERR_NOERROR;
 +}
@@ -1359,10 +1360,10 @@ index 0000000..9149106
 + *                              widDevInterface                 [internal]
 + */
 +static DWORD widDevInterface(UINT wDevID, PWCHAR dwParam1, DWORD dwParam2) {
-+    if (dwParam2 >= MultiByteToWideChar(CP_UNIXCP, 0, WInDev[wDevID].interface_name, -1,
++    if (dwParam2 >= MultiByteToWideChar(CP_UTF8, 0, WInDev[wDevID].interface_name, -1,
 +                                        NULL, 0 ) * sizeof(WCHAR))
 +    {
-+        MultiByteToWideChar(CP_UNIXCP, 0, WInDev[wDevID].interface_name, -1,
++        MultiByteToWideChar(CP_UTF8, 0, WInDev[wDevID].interface_name, -1,
 +                            dwParam1, dwParam2 / sizeof(WCHAR));
 +        return MMSYSERR_NOERROR;
 +    }
@@ -1426,7 +1427,7 @@ index 0000000..9149106
 +#endif /* HAVE_PULSEAUDIO */
 diff --git a/dlls/winepulse.drv/waveout.c b/dlls/winepulse.drv/waveout.c
 new file mode 100644
-index 0000000..157b2db
+index 0000000..989dff5
 --- /dev/null
 +++ b/dlls/winepulse.drv/waveout.c
 @@ -0,0 +1,1024 @@
@@ -2367,7 +2368,7 @@ index 0000000..157b2db
 + */
 +static DWORD wodDevInterfaceSize(UINT wDevID, LPDWORD dwParam1) {
 +
-+    *dwParam1 = MultiByteToWideChar(CP_ACP, 0, WOutDev[wDevID].interface_name, -1, NULL, 0) * sizeof(WCHAR);
++    *dwParam1 = MultiByteToWideChar(CP_UTF8, 0, WOutDev[wDevID].interface_name, -1, NULL, 0) * sizeof(WCHAR);
 +    return MMSYSERR_NOERROR;
 +}
 +
@@ -2375,10 +2376,10 @@ index 0000000..157b2db
 + *                  wodDevInterface                             [internal]
 + */
 +static DWORD wodDevInterface(UINT wDevID, PWCHAR dwParam1, DWORD dwParam2) {
-+    if (dwParam2 >= MultiByteToWideChar(CP_ACP, 0, WOutDev[wDevID].interface_name, -1,
++    if (dwParam2 >= MultiByteToWideChar(CP_UTF8, 0, WOutDev[wDevID].interface_name, -1,
 +                                        NULL, 0 ) * sizeof(WCHAR))
 +    {
-+        MultiByteToWideChar(CP_ACP, 0, WOutDev[wDevID].interface_name, -1,
++        MultiByteToWideChar(CP_UTF8, 0, WOutDev[wDevID].interface_name, -1,
 +                            dwParam1, dwParam2 / sizeof(WCHAR));
 +        return MMSYSERR_NOERROR;
 +    }

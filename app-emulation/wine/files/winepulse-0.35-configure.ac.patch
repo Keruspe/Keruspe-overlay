@@ -1,7 +1,8 @@
 diff --git a/configure.ac b/configure.ac
+index f823045..583f9c1 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -64,6 +64,7 @@
+@@ -64,6 +64,7 @@ AC_ARG_WITH(png,       AS_HELP_STRING([--without-png],[do not use PNG]),
              [if test "x$withval" = "xno"; then ac_cv_header_png_h=no; fi])
  AC_ARG_WITH(pthread,   AS_HELP_STRING([--without-pthread],[do not use the pthread library]),
              [if test "x$withval" = "xno"; then ac_cv_header_pthread_h=no; fi])
@@ -9,36 +10,38 @@ diff --git a/configure.ac b/configure.ac
  AC_ARG_WITH(sane,      AS_HELP_STRING([--without-sane],[do not use SANE (scanner support)]))
  AC_ARG_WITH(v4l,       AS_HELP_STRING([--without-v4l],[do not use v4l1 (v4l support)]))
  AC_ARG_WITH(xcomposite,AS_HELP_STRING([--without-xcomposite],[do not use the Xcomposite extension]),
-@@ -1307,6 +1308,28 @@
+@@ -1308,6 +1309,30 @@ then
      CFLAGS="$save_CFLAGS"
  fi
  
 +dnl **** Check for PulseAudio ****
-+if test "x$with_pulse" != "xno"; then
-+    if test "$PKG_CONFIG" != "false"; then
-+        AC_MSG_CHECKING([for pulseaudio >= 0.9.14])
-+        if "$PKG_CONFIG" --atleast-version=0.9.14 libpulse; then
-+            have_pulseaudio="yes"
-+        else
-+            have_pulseaudio="no"
-+        fi
-+        AC_MSG_RESULT([$have_pulseaudio])
-+        if test x"$have_pulseaudio" = xyes; then
-+            ac_pulse_libs=`$PKG_CONFIG --libs libpulse`
-+            AC_DEFINE([HAVE_PULSEAUDIO], 1, [define this if you have pulseaudio])
-+            AC_SUBST(PULSELIBS, "$ac_pulse_libs")
-+	else
-+            dnl This warning should be removed if ever commited.
-+            dnl Only useful to show that the problem wasn't the patch.
-+            WINE_WARNING([libpulse not found or too old. Pulseaudio support will NOT be built.])
-+        fi
++AC_SUBST(PULSELIBS,"")
++AC_SUBST(PULSECFLAGS,"")
++if test "x$with_pulse" != "xno";
++then
++    ac_save_CPPFLAGS="$CPPFLAGS"
++    if test "$PKG_CONFIG" != "false";
++    then
++        ac_pulse_libs="`$PKG_CONFIG --libs libpulse 2>/dev/null`"
++        ac_pulse_cflags="`$PKG_CONFIG --cflags libpulse 2>/dev/null`"
++
++        CPPFLAGS="$CPPFLAGS $ac_pulse_cflags"
++        AC_CHECK_HEADERS(pulse/pulseaudio.h,
++            [AC_CHECK_LIB(pulse, pa_stream_is_corked,
++                [AC_DEFINE(HAVE_PULSEAUDIO, 1, [Define if you have pulseaudio])
++                 PULSELIBS="$ac_pulse_libs"
++                 PULSECFLAGS="$ac_pulse_cflags"],,$ac_pulse_libs)
++        ])
 +    fi
++    CPPFLAGS="$ac_save_CPPFLAGS"
 +fi
++WINE_WARNING_WITH(pulse, [test "$ac_cv_lib_pulse_pa_stream_is_corked" != "yes"],
++        [libpulse ${notice_platform}development files not found or too old, Pulse won't be supported.])
 +
  dnl **** Check for ALSA 1.x ****
  AC_SUBST(ALSALIBS,"")
  if test "$ac_cv_header_sys_asoundlib_h" = "yes" -o "$ac_cv_header_alsa_asoundlib_h" = "yes"
-@@ -1459,7 +1482,7 @@
+@@ -1460,7 +1485,7 @@ dnl **** Check for libodbc ****
  WINE_CHECK_SONAME(odbc,SQLConnect,,[AC_DEFINE_UNQUOTED(SONAME_LIBODBC,["libodbc.$LIBEXT"])])
  
  dnl **** Check for any sound system ****
@@ -47,7 +50,7 @@ diff --git a/configure.ac b/configure.ac
          "$ac_cv_header_sys_soundcard_h" != "yes" -a \
          "$ac_cv_header_machine_soundcard_h" != "yes" -a \
          "$ac_cv_header_soundcard_h" != "yes" -a \
-@@ -2563,6 +2586,7 @@
+@@ -2555,6 +2580,7 @@ WINE_CONFIG_DLL(winenas.drv)
  WINE_CONFIG_DLL(wineoss.drv)
  WINE_CONFIG_DLL(wineps.drv)
  WINE_CONFIG_DLL(wineps16.drv16,enable_win16)
