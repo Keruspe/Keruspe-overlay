@@ -12,7 +12,7 @@ HOMEPAGE="http://freshmeat.net/projects/goffice/"
 LICENSE="GPL-2"
 SLOT="0.8"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc"
+IUSE="doc gnome"
 
 RDEPEND=">=dev-libs/glib-2.14
 	>=gnome-extra/libgsf-1.13.3[gnome?]
