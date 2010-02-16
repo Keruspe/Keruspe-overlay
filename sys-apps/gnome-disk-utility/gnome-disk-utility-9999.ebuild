@@ -43,20 +43,20 @@ src_unpack() {
     git_src_unpack
 }
 
-src_prepare() {
-    gnome2_src_prepare
-    gtkdocize || die "gtkdocize failed"
-    gnome-doc-prepare
-	intltoolize --force --copy --automake || die "intltoolize failed"
-    eautoreconf
-}
-
 pkg_setup() {
 	G2CONF="${G2CONF}
 		--disable-static
 		$(use_enable gnome-keyring)
 		$(use_enable nautilus)
 		$(use_enable nls)"
+}
+
+src_prepare() {
+    gnome2_src_prepare
+    gtkdocize
+    gnome-doc-prepare
+	intltoolize --force --copy --automake || die "intltoolize failed"
+    eautoreconf
 }
 
 src_install() {

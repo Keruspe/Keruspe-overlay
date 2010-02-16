@@ -49,8 +49,7 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-
-    gtkdocize || die "gtkdocize failed"
+    gtkdocize
     gnome-doc-prepare
 	intltoolize --force --copy --automake || die "intltoolize failed"
     eautoreconf
