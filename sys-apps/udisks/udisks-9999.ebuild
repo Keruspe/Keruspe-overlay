@@ -33,7 +33,7 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	!sys-apps/devicekit-disks
 	dev-libs/libxslt
-	doc? ( >=dev-util/gtk-doc-1.3 )"
+	>=dev-util/gtk-doc-1.3"
 
 src_unpack() {
     git_src_unpack
