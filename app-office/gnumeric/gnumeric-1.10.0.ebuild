@@ -20,7 +20,7 @@ RDEPEND="sys-libs/zlib
 	app-arch/bzip2
 	>=dev-libs/glib-2.6
 	>=gnome-extra/libgsf-1.14.6[gnome?]
-	>=x11-libs/goffice-0.6.3
+	>=x11-libs/goffice-0.8.0
 	>=dev-libs/libxml2-2.4.12
 	>=x11-libs/pango-1.8.1
 
@@ -51,8 +51,6 @@ pkg_setup() {
 		--enable-ssindex
 		--disable-static
 		--without-gda
-		--without-guile
-		--without-mono
 		--with-zlib
 		$(use_with perl)
 		$(use_with python)
@@ -62,10 +60,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-CVE-2009-0318.patch"
-	epatch "${FILESDIR}/${P}-gtk216-abi-spinbuttons.patch"
-	epatch "${FILESDIR}/${P}-gtk216-im-block.patch"
-
 	intltoolize --automake --copy --force || die "intltoolize failed"
 	eautoreconf
 }

@@ -15,7 +15,7 @@ SRC_URI="http://www.abisource.com/downloads/${PN}/${PV}/source/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="2"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug gnome spell xml"
+IUSE="debug gnome spell"
 
 RDEPEND="dev-libs/popt
 	sys-libs/zlib
@@ -26,14 +26,12 @@ RDEPEND="dev-libs/popt
 	>=gnome-base/libglade-2
 	>=gnome-base/libgnomeprint-2.2
 	>=gnome-base/libgnomeprintui-2.2
-	>=x11-libs/goffice-0.6:0.6
+	>=x11-libs/goffice-0.8.0
 	>=media-libs/libpng-1.2
 	>=media-libs/fontconfig-2.1
 	>=media-libs/freetype-2.1
 	>=app-text/wv-1.2
 	>=dev-libs/fribidi-0.10.4
-	xml? ( >=dev-libs/libxml2-2.4.10 )
-	!xml? ( dev-libs/expat )
 	spell? ( >=app-text/enchant-1.2 )
 	gnome?	(
 		>=gnome-base/libbonobo-2
@@ -47,16 +45,11 @@ DEPEND="${RDEPEND}
 
 pkg_setup() {
 	G2CONF="${G2CONF}
-		$(use_enable debug)
-		$(use_enable debug symbols)
-		$(use_enable gnome gnomeui)
-		$(use_enable gnome gucharmap)
-		$(use_enable gnome gnomevfs)
-		$(use_enable spell spellcheck)
-		$(use_with xml libxml2)
-		$(use_with !xml expat)
-		--enable-libabiword
-		--enable-printing"
+		$(use_enable gnome print)
+		$(use_enable gnome statusbar)
+		$(use_enable spell)
+		$(use_enable debug)"
+		#$(use_enable gnome menubutton) # fails for now
 }
 
 src_install() {
@@ -78,8 +71,4 @@ pkg_postinst() {
 	gnome2_pkg_postinst
 
 	alternatives_auto_makesym "/usr/bin/abiword" "/usr/bin/abiword-[0-9].[0-9]"
-
-	elog "As of version 2.4, all abiword plugins have been moved"
-	elog "into a seperate app-office/abiword-plugins package"
-	elog "You can install them by running emerge abiword-plugins"
 }
