@@ -26,8 +26,9 @@ DEPEND=">=dev-python/dbus-python-0.80.2
 	>=dev-python/python-distutils-extra-1.91
 	net-libs/webkit-gtk
 	>=dev-python/pywebkitgtk-1.0.2"
-
+	
 RDEPEND="${DEPEND}
+	dev-python/libwnck-python
 	dev-python/desktopcouch
 	dev-python/python-oauth
 	dev-python/pyxdg"
