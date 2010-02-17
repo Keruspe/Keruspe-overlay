@@ -33,6 +33,7 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	!sys-apps/devicekit-disks
 	dev-libs/libxslt
+	>=sys-fs/lvm2-2.02.61
 	>=dev-util/gtk-doc-1.3"
 
 src_unpack() {
