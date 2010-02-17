@@ -13,7 +13,7 @@ HOMEPAGE="http://www.tracker-project.org/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ia64 ~sparc ~x86"
-IUSE="applet deskbar doc eds exif gsf gstreamer gtk hal iptc +jpeg kmail laptop mp3 nautilus pdf playlist test +tiff +vorbis xine +xml xmp"
+IUSE="applet deskbar doc eds exif flac gsf gstreamer gtk hal iptc +jpeg kmail laptop mp3 nautilus pdf playlist test +tiff +vorbis xine +xml xmp"
 
 RDEPEND="
 	>=app-i18n/enca-1.9
@@ -34,21 +34,21 @@ RDEPEND="
 	eds? (
 		>=gnome-extra/evolution-data-server-2.25.5 )
 	exif? ( >=media-libs/libexif-0.6 )
-	iptc? ( media-libs/libiptcdata )
-	jpeg? ( media-libs/jpeg:0 )
+	flac? ( >=media-libs/flac-1.2.1 )
 	gsf? ( >=gnome-extra/libgsf-1.13 )
 	gstreamer? ( >=media-libs/gstreamer-0.10.12 )
 	!gstreamer? ( !xine? ( || ( media-video/totem media-video/mplayer ) ) )
 	gtk? ( >=x11-libs/gtk+-2.16.0 )
+	iptc? ( media-libs/libiptcdata )
+	jpeg? ( media-libs/jpeg:0 )
 	laptop? (
 		hal? ( >=sys-apps/hal-0.5 )
-		!hal? ( || ( sys-apps/udisks
-			>=sys-apps/devicekit-power-007 ) ) )
+		!hal? ( || ( sys-apps/upower >=sys-apps/devicekit-power-007 ) ) )
 	mp3? ( >=media-libs/id3lib-3.8.3 )
 	nautilus? ( gnome-base/nautilus )
 	pdf? (
 		>=x11-libs/cairo-1
-		app-text/poppler
+		>=app-text/poppler-0.12.3-r3[cairo,utils]
 		>=x11-libs/gtk+-2.12 )
 	playlist? ( dev-libs/totem-pl-parser )
 	tiff? ( media-libs/tiff )
@@ -72,6 +72,8 @@ DEPEND="${RDEPEND}
 
 DOCS="AUTHORS ChangeLog NEWS README"
 
+# FIXME: find if it is a tracker or gtester bug and report
+# Tests fail when run in sequence, but succeed when called individually
 RESTRICT="test"
 
 function inotify_enabled() {
@@ -97,8 +99,8 @@ pkg_setup() {
 	if use gstreamer ; then
 		G2CONF="${G2CONF}
 			--enable-video-extractor=gstreamer
-			--enable-gstreamer-tagreadbin
-			--enable-gstreamer-helix"
+			--enable-gstreamer-tagreadbin"
+		# --enable-gstreamer-helix (real media)
 	elif use xine ; then
 		G2CONF="${G2CONF} --enable-video-extractor=xine"
 	else
@@ -112,19 +114,26 @@ pkg_setup() {
 		G2CONF="${G2CONF} --disable-hal --disable-devkit-power"
 	fi
 
+	if use nautilus; then
+		G2CONF="${G2CONF} --enable-nautilus-extension=yes"
+	else
+		G2CONF="${G2CONF} --enable-nautilus-extension=no"
+	fi
+
 	G2CONF="${G2CONF}
 		--disable-unac
 		--disable-functional-tests
+		--with-enca
 		$(use_enable applet tracker-status-icon)
 		$(use_enable applet tracker-search-bar)
 		$(use_enable deskbar deskbar-applet)
 		$(use_enable eds evolution-miner)
 		$(use_enable exif libexif)
+		$(use_enable flac libflac)
 		$(use_enable gsf libgsf)
 		$(use_enable gtk tracker-explorer)
 		$(use_enable gtk tracker-preferences)
 		$(use_enable gtk tracker-search-tool)
-		$(use_enable gtk gdkpixbuf)
 		$(use_enable iptc libiptcdata)
 		$(use_enable jpeg libjpeg)
 		$(use_enable kmail kmail-miner)
@@ -136,4 +145,13 @@ pkg_setup() {
 		$(use_enable vorbis libvorbis)
 		$(use_enable xml libxml2)
 		$(use_enable xmp exempi)"
+		# FIXME: Missing files to run functional tests
+		# $(use_enable test functional-tests)
+		# FIXME: useless without quill (extract mp3 albumart...)
+		# $(use_enable gtk gdkpixbuf)
+}
+
+src_test() {
+	export XDG_CONFIG_HOME="${T}"
+	emake check || die "tests failed"
 }

@@ -15,7 +15,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="nautilus nfs policykit samba"
 
 RDEPEND="
-	>=dev-libs/liboobs-2.29.3
+	>=dev-libs/liboobs-${PV}
 	>=x11-libs/gtk+-2.11.3
 	>=dev-libs/glib-2.15.2
 	>=gnome-base/gconf-2.2
