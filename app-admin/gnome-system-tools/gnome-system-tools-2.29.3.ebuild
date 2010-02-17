@@ -12,7 +12,7 @@ HOMEPAGE="http://www.gnome.org/projects/gst/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="nfs samba"
+IUSE="nautilus nfs policykit samba"
 
 RDEPEND="
 	>=dev-libs/liboobs-2.29.3
@@ -20,11 +20,11 @@ RDEPEND="
 	>=dev-libs/glib-2.15.2
 	>=gnome-base/gconf-2.2
 	dev-libs/dbus-glib
-	>=gnome-base/nautilus-2.9.90
 	sys-libs/cracklib
+	nautilus? ( >=gnome-base/nautilus-2.9.90 )
 	nfs? ( net-fs/nfs-utils )
 	samba? ( >=net-fs/samba-3 )
-	policykit? ( >=sys-auth/polkit-0.95 )"
+	policykit? ( >=gnome-extra/polkit-gnome-0.95 )"
 
 DEPEND="${RDEPEND}
 	>=app-admin/system-tools-backends-2.8.2
@@ -36,6 +36,8 @@ DOCS="AUTHORS BUGS ChangeLog HACKING NEWS README TODO"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
+		$(use_enable policykit polkit-gtk)
+		$(use_enable nautilus)
 		--disable-static"
 
 	if ! use nfs && ! use samba; then
