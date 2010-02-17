@@ -6,3 +6,6 @@ gnome-base/gnome
 =net-misc/gwibber-9999
 =sys-apps/gnome-disk-utility-9999
 =sys-apps/udisks-9999
+
+# Maybe there are things to change
+sys-fs/lvm2
