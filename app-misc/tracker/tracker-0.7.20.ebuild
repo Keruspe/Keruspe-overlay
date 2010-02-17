@@ -72,8 +72,6 @@ DEPEND="${RDEPEND}
 
 DOCS="AUTHORS ChangeLog NEWS README"
 
-# FIXME: find if it is a tracker or gtester bug and report
-# Tests fail when run in sequence, but succeed when called individually
 RESTRICT="test"
 
 function inotify_enabled() {
@@ -99,15 +97,14 @@ pkg_setup() {
 	if use gstreamer ; then
 		G2CONF="${G2CONF}
 			--enable-video-extractor=gstreamer
+			--enable-gstreamer-helix
 			--enable-gstreamer-tagreadbin"
-		# --enable-gstreamer-helix (real media)
 	elif use xine ; then
 		G2CONF="${G2CONF} --enable-video-extractor=xine"
 	else
 		G2CONF="${G2CONF} --enable-video-extractor=external"
 	fi
 
-	# hal and dk-p are used for AC power detection
 	if use laptop; then
 		G2CONF="${G2CONF} $(use_enable hal) $(use_enable !hal devkit-power)"
 	else
@@ -134,6 +131,7 @@ pkg_setup() {
 		$(use_enable gtk tracker-explorer)
 		$(use_enable gtk tracker-preferences)
 		$(use_enable gtk tracker-search-tool)
+		$(use_enable gtk gdkpixbuf)
 		$(use_enable iptc libiptcdata)
 		$(use_enable jpeg libjpeg)
 		$(use_enable kmail kmail-miner)
@@ -145,10 +143,6 @@ pkg_setup() {
 		$(use_enable vorbis libvorbis)
 		$(use_enable xml libxml2)
 		$(use_enable xmp exempi)"
-		# FIXME: Missing files to run functional tests
-		# $(use_enable test functional-tests)
-		# FIXME: useless without quill (extract mp3 albumart...)
-		# $(use_enable gtk gdkpixbuf)
 }
 
 src_test() {
