@@ -1,0 +1,4 @@
+Use this overlay at your own risks.
+Some are ebuilds from tree with modified deps to allow using for example gnome-shell, udisks, upower...
+Some are new ebuilds.
+Please report any failure or missing dep or request to add anything to Marc-Antoine@Perennou.com
