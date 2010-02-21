@@ -66,6 +66,7 @@ RDEPEND="truetype? ( >=media-libs/freetype-2.0.0 media-fonts/corefonts )
 			>=app-emulation/emul-linux-x86-soundlibs-2.1
 		)
 		app-emulation/emul-linux-x86-baselibs
+		openal? ( app-emulation/emul-linux-x86-sdl )
 		>=sys-kernel/linux-headers-2.6
 	) )
 	xcomposite? ( x11-libs/libXcomposite )
