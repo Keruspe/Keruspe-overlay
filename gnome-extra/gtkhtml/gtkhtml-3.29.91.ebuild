@@ -15,7 +15,7 @@ SLOT="3.14"
 KEYWORDS="~amd64 ~x86"
 IUSE="glade"
 
-RDEPEND=">=x11-libs/gtk+-2.16
+RDEPEND=">=x11-libs/gtk+-2.18
 	>=x11-themes/gnome-icon-theme-2.22.0
 	>=gnome-base/orbit-2
 	>=app-text/enchant-1.1.7
@@ -40,15 +40,9 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 
-	cp "${FILESDIR}/gtkhtml-editor.xml" \
-		"${S}/components/editor/gtkhtml-editor.xml" || die "cp failed"
-
 	sed 's/CFLAGS="$CFLAGS $WARNING_FLAGS"//' \
 		-i configure.ac configure || die "sed 1 failed"
 
 	sed -i -e 's:-DGTK_DISABLE_DEPRECATED=1 -DGDK_DISABLE_DEPRECATED=1 -DG_DISABLE_DEPRECATED=1 -DGNOME_DISABLE_DEPRECATED=1::g' \
 		a11y/Makefile.am a11y/Makefile.in || die "sed 2 failed"
-
-	intltoolize --force --copy --automake || die "intltoolize failed"
-	eautoreconf
 }
