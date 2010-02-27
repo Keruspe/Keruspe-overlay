@@ -40,6 +40,9 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 
+	cp "${FILESDIR}/gtkhtml-editor.xml" \
+		"${S}/components/editor/gtkhtml-editor.xml" || die "cp failed"
+
 	sed 's/CFLAGS="$CFLAGS $WARNING_FLAGS"//' \
 		-i configure.ac configure || die "sed 1 failed"
 
