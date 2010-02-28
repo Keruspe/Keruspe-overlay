@@ -22,7 +22,7 @@ RDEPEND=">=dev-libs/glib-2.20
 	>=media-libs/gstreamer-0.10.16
 	>=media-libs/gst-plugins-base-0.10.16
 	>=gnome-base/gnome-desktop-2.26
-	>=dev-libs/gobject-introspection-0.6.5
+	>=dev-libs/gobject-introspection-9999
 	
 	dev-libs/dbus-glib
 	dev-libs/gjs
@@ -44,7 +44,7 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.26
 	gnome-base/gnome-common
 "
-DOCS="AUTHORS ChangeLog NEWS README"
+DOCS="AUTHORS README"
 
 src_unpack() {
 	git_src_unpack
