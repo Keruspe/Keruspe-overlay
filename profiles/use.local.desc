@@ -3,6 +3,7 @@
 # $Header: $
 
 app-admin/gnome-system-tools:nautilus - Enable nautilus plugin
+app-misc/kupfer:keybinder - Use python keybinder
 gnome-base/gdm:applet - Build fast-user-switch-applet
 gnome-base/gnome:note - Enable note writer
 net-libs/webkit-gtk:geoclue - Enable geoclue support (geolocation)

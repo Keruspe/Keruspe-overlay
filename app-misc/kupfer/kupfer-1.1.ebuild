@@ -14,7 +14,7 @@ SRC_URI="http://kaizer.se/publicfiles/${PN}/${MY_P}.tar.gz"
 LICENSE="LGPL"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="+keybinder"
 
 DEPEND=">=dev-lang/python-2.5
 	sys-devel/gcc
@@ -22,7 +22,9 @@ DEPEND=">=dev-lang/python-2.5
 	dev-python/pyxdg
 	dev-python/dbus-python
 	dev-python/libwnck-python
-	dev-python/libgnome-python"
+	dev-python/pygobject
+	dev-python/libgnome-python
+	keybinder? ( dev-python/keybinder )"
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${MY_P}
