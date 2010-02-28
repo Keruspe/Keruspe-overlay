@@ -2,12 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=3
 
-inherit gnome2
+inherit autotools gnome2 git
+
+EGIT_REPO_URI="git://git.gnome.org/gjs"
 
 DESCRIPTION="Javascript bindings for GNOME"
 HOMEPAGE="http://live.gnome.org/Gjs"
+SRC_URI=""
 
 LICENSE="MIT MPL-1.1 LGPL-2 GPL-2"
 SLOT="0"
@@ -25,5 +28,12 @@ DEPEND="${RDEPEND}
 	coverage? (
 		sys-devel/gcc
 		dev-util/lcov )"
-# AUTHORS, ChangeLog are empty
 DOCS="NEWS README"
+
+S=${WORKDIR}/trunk
+
+src_unpack() {
+	git_src_unpack
+	cd ${S}
+	eautoreconf
+}
