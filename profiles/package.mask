@@ -2,9 +2,11 @@
 gnome-base/gnome
 
 # Mask Scm packages
+=app-pda/gtkpod-9999
 =dev-libs/gjs-9999
 =dev-libs/gobject-introspection-9999
 =gnome-base/gnome-shell-9999
+=media-libs/libgpod-9999
 =net-misc/gwibber-9999
 =net-misc/pino-9999
 =sys-apps/gnome-disk-utility-9999

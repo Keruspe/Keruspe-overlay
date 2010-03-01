@@ -2,6 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=3
 DESCRIPTION="Mount Apple iPhone/iPod Touch file systems for backup purposes"
 HOMEPAGE="http://matt.colyer.name/projects/iphone-linux/index.php?title=Main_Page"
 SRC_URI="http://cloud.github.com/downloads/MattColyer/${PN}/${P}.tar.bz2"
