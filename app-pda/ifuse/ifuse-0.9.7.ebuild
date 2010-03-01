@@ -25,4 +25,6 @@ pkg_postinst() {
 	ewarn "cause the iPod/iPhone to consider your database unauthorised."
 	ewarn "It will respond by wiping all media files, requiring a restore "
 	ewarn "through iTunes. You have been warned."
+	ewarn "Note that you have to run /etc/init.d/usbmuxd start to have "
+	ewarn "ifuse working."
 }
