@@ -21,7 +21,8 @@ RDEPEND=">=x11-libs/gtk+-2.8
 	>=gnome-base/libgnomecanvas-2.14
 	>=media-libs/libgpod-0.7
 	>=net-misc/curl-7.10
-	mp3? ( media-sound/lame )
+	mp3? ( media-sound/lame
+		media-sound/id3v2 )
 	aac? ( media-libs/libmp4v2 )
 	ogg? ( media-libs/libvorbis
 		media-sound/vorbis-tools )
