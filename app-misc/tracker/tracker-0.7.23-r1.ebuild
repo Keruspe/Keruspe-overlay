@@ -13,7 +13,8 @@ HOMEPAGE="http://www.tracker-project.org/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ia64 ~sparc ~x86"
-IUSE="applet deskbar doc eds exif flac gsf gstreamer gtk hal iptc +jpeg kmail laptop mp3 nautilus pdf playlist test +tiff +vorbis xine +xml xmp"
+IUSE="applet deskbar doc eds exif flac gsf gstreamer gtk hal iptc +jpeg kmail
+laptop mp3 nautilus nls pdf playlist test +tiff +vorbis xine +xml xmp"
 
 RDEPEND="
 	>=app-i18n/enca-1.9
@@ -67,7 +68,9 @@ DEPEND="${RDEPEND}
 		>=dev-libs/libgee-0.3 )
 	doc? (
 		>=dev-util/gtk-doc-1.8
-		media-gfx/graphviz )"
+		media-gfx/graphviz )
+	nls? ( dev-util/intltool
+		sys-devel/gettext )"
 
 DOCS="AUTHORS ChangeLog NEWS README"
 
@@ -120,7 +123,8 @@ pkg_setup() {
 		--disable-unac
 		--disable-functional-tests
 		--with-enca
-		$(use_enable applet tracker-status-icon)
+		--enable-tracker-status-icon
+		$(use_enable nls)
 		$(use_enable applet tracker-search-bar)
 		$(use_enable deskbar deskbar-applet)
 		$(use_enable eds evolution-miner)
@@ -142,6 +146,7 @@ pkg_setup() {
 		$(use_enable vorbis libvorbis)
 		$(use_enable xml libxml2)
 		$(use_enable xmp exempi)"
+		#$(use_enable applet tracker-status-icon)
 }
 
 src_test() {
