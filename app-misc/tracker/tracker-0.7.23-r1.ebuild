@@ -146,7 +146,6 @@ pkg_setup() {
 		$(use_enable vorbis libvorbis)
 		$(use_enable xml libxml2)
 		$(use_enable xmp exempi)"
-		#$(use_enable applet tracker-status-icon)
 }
 
 src_test() {
