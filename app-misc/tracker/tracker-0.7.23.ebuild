@@ -20,7 +20,6 @@ RDEPEND="
 	>=dev-db/sqlite-3.6.16[threadsafe]
 	>=dev-libs/dbus-glib-0.82-r1
 	>=dev-libs/glib-2.20
-	>=gnome-base/gconf-2
 	>=media-gfx/imagemagick-5.2.1[png,jpeg=]
 	>=media-libs/libpng-1.2
 	>=x11-libs/pango-1
