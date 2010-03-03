@@ -17,8 +17,8 @@ SRC_URI=""
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="atk avahi babl dbus gconf gnome-keyring gnome-menus goocanvas gtk 
-gtksourceview gupnp libnotify libsoup libwnck nautilus pango poppler vte"
+IUSE="atk avahi babl dbus gconf gnome-keyring gnome-menus goocanvas gtk gtksourceview
+gupnp libnotify libsoup libwnck nautilus pango poppler vte webkit"
 
 RDEPEND=">=dev-libs/gobject-introspection-0.6.5"
 DEPEND="${RDEPEND}
@@ -42,6 +42,7 @@ DEPEND="${RDEPEND}
 	pango? ( >=x11-libs/pango-1.27.1[introspection] )
 	poppler? ( >=app-text/poppler-0.12.3-r3 )
 	vte? ( x11-libs/vte )
+	webkit? ( >=net-libs/webkit-gtk-1.1.22[introspection] )
 "
 pkg_setup() {
 	SKIP="Atk,Gnio,Gst,Gtk,Pango,PangoXft,WebKit,Unique"
