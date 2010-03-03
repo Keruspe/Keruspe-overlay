@@ -71,6 +71,8 @@ src_prepare() {
 		|| die "sed 4 failed"
 
 	epatch "${FILESDIR}/${PN}-2.27.4-change-reg-desktop-file-with-no-desktop.patch"
+	# tabs on top !
+	sed -i 243d src/nautilus-notebook.c
 }
 
 src_test() {
