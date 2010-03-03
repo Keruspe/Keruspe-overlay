@@ -5,6 +5,7 @@ gnome-base/gnome
 =app-pda/gtkpod-9999
 =app-pda/usbmuxd-9999
 =dev-libs/gjs-9999
+=dev-libs/gir-repository-9999
 =dev-libs/gobject-introspection-9999
 =gnome-base/gnome-shell-9999
 =gnome-extra/pino-9999

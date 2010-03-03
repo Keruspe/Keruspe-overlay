@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=3
 
 inherit gnome.org flag-o-matic eutils libtool virtualx
 
@@ -12,7 +12,7 @@ HOMEPAGE="http://www.gtk.org/"
 LICENSE="LGPL-2"
 SLOT="2"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
-IUSE="aqua cups debug doc jpeg jpeg2k tiff test vim-syntax xinerama"
+IUSE="aqua cups debug doc introspection jpeg jpeg2k tiff test vim-syntax xinerama"
 
 RDEPEND="!aqua? (
 		x11-libs/libXrender
@@ -40,8 +40,7 @@ RDEPEND="!aqua? (
 	cups? ( net-print/cups )
 	jpeg? ( >=media-libs/jpeg-6b-r9:0 )
 	jpeg2k? ( media-libs/jasper )
-	tiff? ( >=media-libs/tiff-3.9.2 )
-	!<gnome-base/gail-1000"
+	tiff? ( >=media-libs/tiff-3.9.2 )"
 DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.9
 	!aqua? (
@@ -55,6 +54,7 @@ DEPEND="${RDEPEND}
 	doc? (
 		>=dev-util/gtk-doc-1.11
 		~app-text/docbook-xml-dtd-4.1.2 )
+	introspection? ( dev-libs/gobject-introspection )
 	test? (
 		media-fonts/font-misc-misc
 		media-fonts/font-cursor-misc )"
@@ -95,6 +95,7 @@ src_configure() {
 		$(use_with tiff libtiff) \
 		$(use_enable xinerama) \
 		$(use_enable cups cups auto) \
+		$(use_enable introspection) \
 		--disable-papi \
 		--with-libpng"
 	if use aqua; then
