@@ -28,6 +28,6 @@ src_install() {
 	cd ${S}
 	insinto /usr/share/paludis/hooks/demos
 	doins *.hook
-	exeinto /opt/sbin
+	exeinto /opt/bin
 	doexe `find . -maxdepth 1 -type f ! -name *.hook`
 }
