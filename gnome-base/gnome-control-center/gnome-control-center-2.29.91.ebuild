@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=3
 
 inherit eutils gnome2
 
@@ -77,7 +77,7 @@ src_prepare() {
 
 	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in || die "sed failed"
 
-	epatch "${FILESDIR}/${P}-gdm-default-bg.patch"
+	epatch "${FILESDIR}/${PN}-gdm-default-bg.patch"
 }
 
 src_install() {
