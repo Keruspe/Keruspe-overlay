@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=3
-G2CONF_DEBUG="no"
 
 inherit gnome2 linux-info
 
@@ -73,8 +72,6 @@ DEPEND="${RDEPEND}
 		sys-devel/gettext )"
 
 DOCS="AUTHORS ChangeLog NEWS README"
-
-RESTRICT="test"
 
 function inotify_enabled() {
 	if linux_config_exists; then

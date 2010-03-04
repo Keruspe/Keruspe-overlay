@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=3
-GCONF_DEBUG="no"
 
 inherit eutils gnome2 virtualx
 

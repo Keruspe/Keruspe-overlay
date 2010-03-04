@@ -4,14 +4,11 @@
 
 EAPI=3
 
-GCONF_DEBUG="no"
-
-inherit autotools eutils gnome2 git
-
-EGIT_REPO_URI="git://git.gnome.org/gir-repository"
+inherit autotools gnome2 git
 
 DESCRIPTION="Gobject-Introspection file Repository"
 HOMEPAGE="http://live.gnome.org/GObjectIntrospection/"
+EGIT_REPO_URI="git://git.gnome.org/gir-repository"
 SRC_URI=""
 
 LICENSE="LGPL-2"
@@ -63,12 +60,10 @@ pkg_setup() {
 	use !vte && SKIP="${SKIP},Vte"
 
 	G2CONF="${G2CONF} --with-skipped-gir-modules=${SKIP}"
-
 }
 
 src_unpack() {
 	git_src_unpack	
 	cd ${S}
-
 	eautoreconf
 }

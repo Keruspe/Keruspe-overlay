@@ -39,10 +39,6 @@ pkg_setup() {
 	fi
 }
 
-src_unpack() {
-	unpack ${A}
-}
-
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-2.02.56-dmeventd.patch
 	epatch "${FILESDIR}"/lvm.conf-2.02.56.patch

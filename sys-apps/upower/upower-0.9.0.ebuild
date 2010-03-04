@@ -3,9 +3,7 @@
 # $Header: $
 
 EAPI=3
-GCONF_DEBUG="no"
-
-inherit eutils gnome2 linux-info
+inherit gnome2 linux-info
 
 MY_PN="DeviceKit-power"
 

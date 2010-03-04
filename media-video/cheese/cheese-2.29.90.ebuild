@@ -3,8 +3,6 @@
 # $Header: $
 
 EAPI=3
-GCONF_DEBUG="no"
-
 inherit gnome2
 
 DESCRIPTION="A cheesy program to take pictures and videos from your webcam"

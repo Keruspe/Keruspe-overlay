@@ -7,6 +7,7 @@ inherit eutils toolchain-funcs flag-o-matic
 PATCH_VER="2"
 MY_PN="sysvinit"
 MY_P="${MY_PN}-${PV}"
+
 DESCRIPTION="Sysvinit without /sbin/init (usefull with runit)"
 HOMEPAGE="http://freshmeat.net/projects/sysvinit/"
 SRC_URI="mirror://debian/pool/main/s/sysvinit/${MY_PN}_${PV}dsf.orig.tar.gz

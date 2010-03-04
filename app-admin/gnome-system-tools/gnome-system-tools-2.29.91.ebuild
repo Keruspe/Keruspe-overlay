@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit autotools eutils gnome2
+inherit autotools gnome2
 
 DESCRIPTION="Tools aimed to make easy the administration of UNIX systems"
 HOMEPAGE="http://www.gnome.org/projects/gst/"

@@ -3,8 +3,7 @@
 # $Header: $
 
 EAPI=3
-
-inherit autotools libtool
+inherit autotools eutils libtool
 
 DESCRIPTION="A TLS 1.0 and SSL 3.0 implementation for the GNU project"
 HOMEPAGE="http://www.gnutls.org/"

@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit mercurial gnome2
+inherit mercurial
 
 DESCRIPTION="A lightweight microblogging client for Gnome"
 HOMEPAGE="http://pino-app.appspot.com/"

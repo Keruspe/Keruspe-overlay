@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=3
-
 inherit mount-boot eutils flag-o-matic toolchain-funcs
 
 SRC_URI="ftp://alpha.gnu.org/gnu/${PN}/${P}.tar.gz

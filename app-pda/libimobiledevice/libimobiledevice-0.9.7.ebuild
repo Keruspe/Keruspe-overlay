@@ -3,13 +3,16 @@
 # $Header: $
 
 EAPI=3
+
 DESCRIPTION="Support library to communicate with Apple iPhone/iPod Touch devices"
 HOMEPAGE="http://matt.colyer.name/projects/iphone-linux/index.php?title=Main_Page"
 SRC_URI="http://cloud.github.com/downloads/MattColyer/libiphone/${P}.tar.bz2"
+
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="python"
+
 DEPEND="dev-util/pkgconfig
 	${RDEPEND}"
 RDEPEND=">=app-pda/libplist-1.1

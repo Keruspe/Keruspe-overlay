@@ -3,15 +3,12 @@
 # $Header: $
 
 EAPI=3
-GCONF_DEBUG="no"
-
 inherit autotools git gnome2
 
 DESCRIPTION="Disk Utility for GNOME using devicekit-disks"
 HOMEPAGE="http://git.gnome.org/cgit/gnome-disk-utility/"
-SRC_URI=""
-EGIT_BRANCH="master"
 EGIT_REPO_URI="git://git.gnome.org/${PN}"
+SRC_URI=""
 
 LICENSE="LGPL-2.1"
 SLOT="0"

@@ -6,10 +6,9 @@ EAPI=3
 
 inherit autotools gnome2 git
 
-EGIT_REPO_URI="git://git.gnome.org/gjs"
-
 DESCRIPTION="Javascript bindings for GNOME"
 HOMEPAGE="http://live.gnome.org/Gjs"
+EGIT_REPO_URI="git://git.gnome.org/gjs"
 SRC_URI=""
 
 LICENSE="MIT MPL-1.1 LGPL-2 GPL-2"
@@ -19,7 +18,6 @@ IUSE="coverage"
 
 RDEPEND=">=dev-libs/glib-2.16.0
 	>=dev-libs/gobject-introspection-0.6.3
-
 	dev-libs/dbus-glib
 	net-libs/xulrunner:1.9"
 DEPEND="${RDEPEND}

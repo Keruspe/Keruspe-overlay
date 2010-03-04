@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=3
-
 inherit autotools bash-completion git gnome2
 
 DESCRIPTION="Daemon providing interfaces to work with storage devices"

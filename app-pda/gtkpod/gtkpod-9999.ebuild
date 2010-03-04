@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit autotools eutils git
+inherit autotools git
 
 DESCRIPTION="GUI for iPod using GTK2"
 HOMEPAGE="http://gtkpod.sourceforge.net/"

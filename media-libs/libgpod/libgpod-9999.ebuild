@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit autotools eutils git
+inherit autotools  git
 
 DESCRIPTION="Shared library to access the contents of an iPod"
 HOMEPAGE="http://www.gtkpod.org/libgpod.html"

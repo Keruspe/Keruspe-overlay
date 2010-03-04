@@ -3,9 +3,8 @@
 # $Header: $
 
 EAPI=3
-GCONF_DEBUG="no"
 
-inherit autotools eutils gnome2
+inherit eutils gnome2
 
 DESCRIPTION="Tools aimed to make easy the administration of UNIX systems"
 HOMEPAGE="http://www.gnome.org/projects/gst/"

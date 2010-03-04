@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit autotools
+inherit autotools eutils
 
 DESCRIPTION="A modular geoinformation service built on top of the D-Bus messaging system"
 HOMEPAGE="http://freedesktop.org/wiki/Software/GeoClue"

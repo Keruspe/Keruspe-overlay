@@ -5,7 +5,7 @@
 EAPI=3
 JAVA_PKG_IUSE="doc source test"
 
-inherit java-pkg-2 java-ant-2
+inherit eutils java-pkg-2 java-ant-2
 
 DESCRIPTION="Java library for working with XML"
 HOMEPAGE="http://dom4j.sourceforge.net/"

@@ -3,13 +3,16 @@
 # $Header: $
 
 EAPI=3
+
 DESCRIPTION="Mount Apple iPhone/iPod Touch file systems for backup purposes"
 HOMEPAGE="http://matt.colyer.name/projects/iphone-linux/index.php?title=Main_Page"
 SRC_URI="http://cloud.github.com/downloads/MattColyer/${PN}/${P}.tar.bz2"
+
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
+
 RDEPEND=">=app-pda/libplist-1.1
 	>=app-pda/libimobiledevice-0.9.7
 	=dev-libs/glib-2*

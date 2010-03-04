@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit autotools gnome2 git
+inherit autotools eutils gnome2 git
 
 EGIT_REPO_URI="git://git.gnome.org/gnome-shell"
 

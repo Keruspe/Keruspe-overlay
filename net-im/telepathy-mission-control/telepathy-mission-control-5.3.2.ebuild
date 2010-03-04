@@ -4,8 +4,6 @@
 
 EAPI=3
 
-inherit eutils
-
 DESCRIPTION="Telepathy Mission Control"
 HOMEPAGE="http://telepathy.freedesktop.org"
 SRC_URI="http://telepathy.freedesktop.org/releases/telepathy-mission-control/${P}.tar.gz"

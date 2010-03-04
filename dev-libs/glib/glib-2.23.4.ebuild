@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit gnome.org libtool eutils flag-o-matic
+inherit gnome.org eutils flag-o-matic
 
 DESCRIPTION="The GLib library of C routines"
 HOMEPAGE="http://www.gtk.org/"

@@ -9,12 +9,8 @@ HOMEPAGE="http://www.gnome.org/"
 
 LICENSE="as-is"
 SLOT="2.0"
-
 KEYWORDS="~amd64 ~x86"
-
 IUSE="accessibility cdr cups dvdr esd ldap mono"
-
-S=${WORKDIR}
 
 RDEPEND="
 	>=dev-libs/glib-2.22.4

@@ -4,9 +4,7 @@
 
 EAPI=3
 
-GCONF_DEBUG="no"
-
-inherit eutils gnome2
+inherit gnome2
 
 DESCRIPTION="Liboobs is a wrapping library to the System Tools Backends."
 HOMEPAGE="http://www.gnome.org"

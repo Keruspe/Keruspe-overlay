@@ -4,8 +4,6 @@
 
 EAPI=3
 
-inherit base
-
 DESCRIPTION="A link-local XMPP connection manager for Telepathy"
 HOMEPAGE="http://telepathy.freedesktop.org/wiki/Components"
 SRC_URI="http://telepathy.freedesktop.org/releases/${PN}/${P}.tar.gz"

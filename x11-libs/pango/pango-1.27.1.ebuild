@@ -3,8 +3,6 @@
 # $Header: $
 
 EAPI=3
-GCONF_DEBUG="yes"
-
 inherit autotools eutils gnome2 multilib
 
 DESCRIPTION="Internationalized text layout and rendering library"

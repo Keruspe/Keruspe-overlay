@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=3
-
 inherit gnome.org flag-o-matic eutils libtool virtualx
 
 DESCRIPTION="Gimp ToolKit +"

@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=3
-
 inherit autotools
 
 MY_P="webkit-${PV}"

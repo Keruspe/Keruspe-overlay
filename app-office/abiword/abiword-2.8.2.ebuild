@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit alternatives eutils gnome2 versionator
+inherit alternatives gnome2 versionator
 
 MY_MAJORV=$(get_version_component_range 1-2)
 
@@ -49,7 +49,6 @@ pkg_setup() {
 		$(use_enable gnome statusbar)
 		$(use_enable spell)
 		$(use_enable debug)"
-		#$(use_enable gnome menubutton) # fails for now
 }
 
 src_install() {

@@ -2,11 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EBZR_REPO_URI="https://code.launchpad.net/~gwibber-committers/gwibber/trunk"
+EAPI=3
 inherit bzr
 
 DESCRIPTION="Gwibber is an open source microblogging client for GNOME developed with Python and GTK. It supports Twitter, Jaiku, Identi.ca, Facebook, and Digg."
 HOMEPAGE="https://launchpad.net/gwibber"
+EBZR_REPO_URI="https://code.launchpad.net/~gwibber-committers/gwibber/trunk"
 SRC_URI=""
 
 LICENSE="GPL-2"

@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit autotools eutils gnome2 virtualx
+inherit autotools eutils gnome2
 
 DESCRIPTION="Gnome Power Manager"
 HOMEPAGE="http://www.gnome.org/projects/gnome-power-manager/"
@@ -13,8 +13,6 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="applets doc policykit test"
-
-RESTRICT="test"
 
 COMMON_DEPEND=">=dev-libs/glib-2.6.0
 	>=x11-libs/gtk+-2.17.7

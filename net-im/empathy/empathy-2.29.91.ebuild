@@ -3,8 +3,7 @@
 # $Header: $
 
 EAPI=3
-
-inherit eutils gnome2 multilib
+inherit gnome2
 
 DESCRIPTION="Telepathy client and library using GTK+"
 HOMEPAGE="http://live.gnome.org/Empathy"

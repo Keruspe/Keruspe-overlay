@@ -3,8 +3,7 @@
 # $Header: $
 
 EAPI=3
-
-inherit autotools multilib
+inherit autotools
 
 MY_P=${PN}_${PV}
 

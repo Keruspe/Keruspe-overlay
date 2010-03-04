@@ -7,10 +7,9 @@ PYTHON_DEPEND=2:2.6
 
 inherit autotools python gnome2 git
 
-EGIT_REPO_URI="git://git.gnome.org/gobject-introspection"
-
 DESCRIPTION="Introspection infrastructure for gobject library bindings"
 HOMEPAGE="http://live.gnome.org/GObjectIntrospection/"
+EGIT_REPO_URI="git://git.gnome.org/gobject-introspection"
 SRC_URI=""
 
 LICENSE="LGPL-2 GPL-2"
@@ -28,9 +27,7 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	G2CONF="${G2CONF} --disable-static"
-
 	use doc && MAKEOPTS="-j1"
-
 	ln -sf $(type -P true) py-compile
 }
 
