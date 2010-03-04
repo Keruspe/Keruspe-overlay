@@ -3,8 +3,7 @@
 # $Header: $
 
 EAPI=3
-
-inherit autotools eutils gnome2
+inherit autotools eutils gnome2 virtualx
 
 DESCRIPTION="Gnome Power Manager"
 HOMEPAGE="http://www.gnome.org/projects/gnome-power-manager/"
@@ -74,3 +73,9 @@ src_prepare() {
 
 	use elibc_glibc || sed -e 's/-lresolv//' -i configure || die "sed 5 failed"
 }
+
+src_test() {
+	unset DBUS_SESSION_BUS_ADDRESS
+	Xemake check || die "Test phase failed"
+}
+
