@@ -3,9 +3,6 @@
 # $Header: $
 
 EAPI=3
-PYTHON_DEPEND=2:2.6
-
-inherit python multilib
 
 DESCRIPTION="An MSN connection manager for Telepathy"
 HOMEPAGE="http://telepathy.freedesktop.org/releases/telepathy-butterfly/"
@@ -37,14 +34,4 @@ src_install() {
 		install || die "./waf install failed"
 	rm -f $(find "${D}" -name *.py[co])
 	dodoc ${DOCS}
-}
-
-pkg_postinst() {
-	python_version
-	python_mod_optimize \
-		/usr/$(get_libdir)/python${PYVER}/site-packages/butterfly
-}
-
-pkg_postrm() {
-	python_mod_cleanup
 }
