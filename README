@@ -1,4 +1,10 @@
 Use this overlay at your own risks.
 Some are ebuilds from tree with modified deps to allow using for example gnome-shell, udisks, upower...
 Some are new ebuilds.
-Please report any failure or missing dep or request to add anything to Marc-Antoine@Perennou.com
+
+You are supposed to be using ~amd64 or ~x86 if you use this overlay
+
+Please report any failure or missing dep.
+You can also request to add any ebuild.
+
+Marc-Antoine@Perennou.com
