@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=3
 
 DESCRIPTION="Farsight connection manager for the Telepathy framework"
 HOMEPAGE="http://telepathy.freedesktop.org"

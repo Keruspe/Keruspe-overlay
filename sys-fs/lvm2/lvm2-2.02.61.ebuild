@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=3
 inherit eutils multilib toolchain-funcs autotools
 
 DESCRIPTION="User-land utilities for LVM2 (device-mapper) software."

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=3
 JAVA_PKG_IUSE="doc source test"
 
 inherit java-pkg-2 java-ant-2
