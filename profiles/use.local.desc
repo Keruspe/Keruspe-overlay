@@ -3,6 +3,7 @@
 # $Header: $
 
 app-admin/gnome-system-tools:nautilus - Enable nautilus plugin
+app-editors/gedit:updater - Build plugins updater
 app-misc/kupfer:keybinder - Use python keybinder
 dev-libs/atk:introspection - Enable gobject-introspection support
 gnome-base/gdm:applet - Build fast-user-switch-applet

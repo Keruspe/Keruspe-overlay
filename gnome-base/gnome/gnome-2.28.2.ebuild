@@ -66,7 +66,7 @@ RDEPEND="
 	>=gnome-extra/gconf-editor-2.28.0
 	>=gnome-base/gdm-2.20.10-r2
 	>=x11-libs/gtksourceview-2.8.2:2.0
-	>=app-editors/gedit-2.28.3
+	>=app-editors/gedit-plugins-2.28.3
 
 	>=app-text/evince-2.28.2
 
