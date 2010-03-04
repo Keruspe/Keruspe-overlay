@@ -1,5 +1,8 @@
 # Personnal meta-package a bit soft
-gnome-base/gnome
+=gnome-base/gnome-2.28.2
+
+# Libxklavier 5.0
+=gnome-base/libgnomekbd-2.29.5
 
 # Mask Scm packages
 =app-pda/gtkpod-9999
@@ -16,4 +19,4 @@ gnome-base/gnome
 =x11-wm/mutter-9999
 
 # Maybe there are things to change
-sys-fs/lvm2
+=sys-fs/lvm2-2.02.61
