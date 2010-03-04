@@ -18,7 +18,6 @@ IUSE="aac curl flac mp3 nls ogg"
 RDEPEND=">=x11-libs/gtk+-2.8
 	>=media-libs/libid3tag-0.15
 	>=gnome-base/libglade-2.4
-	>=gnome-base/libgnomecanvas-2.14
 	>=media-libs/libgpod-0.7
 	>=net-misc/curl-7.10
 	mp3? ( media-sound/lame
