@@ -2,9 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
-
-NEED_PYTHON="2.6"
+EAPI=3
+PYTHON_DEPEND=2:2.6
 
 inherit python multilib
 

@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI=3
+PYTHON_DEPEND=2:2.6
 
 inherit gnome2 flag-o-matic python autotools
 
