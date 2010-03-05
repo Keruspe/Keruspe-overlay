@@ -4,9 +4,6 @@
 # Libxklavier 5.0
 =gnome-base/libgnomekbd-2.29.5
 
-# Bug with dbus
-=gnome-base/gvfs-1.5.4
-
 # Keyring buggy
 =gnome-base/gnome-keyring-2.29.90
 =gnome-base/libgnome-keyring-2.29.4
