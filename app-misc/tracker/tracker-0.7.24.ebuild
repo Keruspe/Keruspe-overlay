@@ -28,7 +28,7 @@ RDEPEND="
 	applet? (
 		>=x11-libs/libnotify-0.4.3
 		gnome-base/gnome-panel
-		>=x11-libs/gtk+-2.16 )
+		>=x11-libs/gtk+-2.18 )
 	deskbar? ( >=gnome-extra/deskbar-applet-2.19 )
 	eds? (
 		>=gnome-extra/evolution-data-server-2.25.5 )
@@ -37,7 +37,7 @@ RDEPEND="
 	gsf? ( >=gnome-extra/libgsf-1.13 )
 	gstreamer? ( >=media-libs/gstreamer-0.10.12 )
 	!gstreamer? ( !xine? ( || ( media-video/totem media-video/mplayer ) ) )
-	gtk? ( >=x11-libs/gtk+-2.16.0 )
+	gtk? ( >=x11-libs/gtk+-2.18.0 )
 	iptc? ( media-libs/libiptcdata )
 	jpeg? ( media-libs/jpeg:0 )
 	laptop? (
@@ -48,7 +48,7 @@ RDEPEND="
 	pdf? (
 		>=x11-libs/cairo-1
 		>=app-text/poppler-0.12.3-r3[cairo,utils]
-		>=x11-libs/gtk+-2.12 )
+		>=x11-libs/gtk+-2.18 )
 	playlist? ( dev-libs/totem-pl-parser )
 	tiff? ( media-libs/tiff )
 	vorbis? ( >=media-libs/libvorbis-0.22 )
