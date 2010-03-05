@@ -4,8 +4,7 @@
 
 EAPI=3
 PYTHON_DEPEND=2:2.6
-
-inherit autotools python gnome2 git
+inherit autotools gnome2 git python
 
 DESCRIPTION="Introspection infrastructure for gobject library bindings"
 HOMEPAGE="http://live.gnome.org/GObjectIntrospection/"
@@ -39,10 +38,10 @@ src_unpack() {
 }
 
 pkg_postinst() {
-	python_mod_optimize /usr/$(get_libdir)/${PN}/giscanner/*
+	python_mod_optimize /usr/$(get_libdir)/${PN}/giscanner
 	python_need_rebuild
 }
 
 pkg_postrm() {
-	python_mod_cleanup /usr/lib*/${PN}/giscanner/*
+	python_mod_cleanup /usr/$(get_libdir)/${PN}/giscanner
 }

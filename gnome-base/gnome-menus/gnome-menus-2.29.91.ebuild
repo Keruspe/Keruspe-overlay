@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit eutils gnome2 python
+inherit eutils gnome2
 
 DESCRIPTION="The GNOME menu system, implementing the F.D.O cross-desktop spec"
 HOMEPAGE="http://www.gnome.org"
@@ -34,11 +34,7 @@ pkg_setup() {
 
 src_unpack() {
 	gnome2_src_unpack
-
 	epatch "${FILESDIR}/${PN}-2.18.3-ignore_kde_standalone.patch"
-
-	mv py-compile py-compile-disabled
-	ln -s $(type -P true) py-compile
 }
 
 src_install() {
