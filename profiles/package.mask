@@ -7,6 +7,10 @@
 # Bug with dbus
 =gnome-base/gvfs-1.5.4
 
+# Keyring buggy
+=gnome-base/gnome-keyring-2.29.90
+=gnome-base/libgnome-keyring-2.29.4
+
 # Mask Scm packages
 =app-pda/gtkpod-9999
 =app-pda/usbmuxd-9999
