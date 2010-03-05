@@ -11,7 +11,7 @@ HOMEPAGE="http://live.gnome.org/Empathy"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="map networkmanager spell test webkit"
+IUSE="map nautilus-sendto networkmanager spell test webkit"
 
 RDEPEND=">=dev-libs/glib-2.16.0
 	>=x11-libs/gtk+-2.16.0
@@ -23,6 +23,7 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	>=x11-libs/libnotify-0.4.4
 	>=gnome-base/gnome-keyring-2.22
 
+	nautilus-sendto? ( gnome-extra/nautilus-sendto )
 	dev-libs/libunique
 	net-libs/farsight2
 	media-libs/gstreamer:0.10
@@ -62,7 +63,7 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		--disable-maintainer-mode
 		--disable-static
-		--disable-location
+		$(use_enable nautilus-sendto)
 		$(use_enable debug)
 		$(use_with networkmanager connectivity nm)
 		$(use_enable map)

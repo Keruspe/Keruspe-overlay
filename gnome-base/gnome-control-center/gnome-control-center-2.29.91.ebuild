@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=3
-
 inherit eutils gnome2
 
 DESCRIPTION="The gnome2 Desktop configuration tool"
