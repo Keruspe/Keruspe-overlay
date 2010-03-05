@@ -64,7 +64,6 @@ pkg_setup() {
 		--disable-maintainer-mode
 		--disable-static
 		$(use_enable nautilus-sendto)
-		$(use_enable debug)
 		$(use_with networkmanager connectivity nm)
 		$(use_enable map)
 		$(use_enable map location)

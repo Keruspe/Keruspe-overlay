@@ -11,7 +11,7 @@ SRC_URI="http://telepathy.freedesktop.org/releases/${PN}/${P}.tar.gz"
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug test"
+IUSE="test"
 
 RDEPEND=">=dev-libs/glib-2.16
 	>=sys-apps/dbus-1.1.0
@@ -28,10 +28,7 @@ DEPEND="${RDEPEND}
 		>=dev-python/dbus-python-0.83 )"
 
 src_configure() {
-	econf \
-		--docdir=/usr/share/doc/${PF} \
-		$(use_enable debug) \
-		$(use_enable debug handle-leak-debug)
+	econf --docdir=/usr/share/doc/${PF}
 }
 
 src_test() {
