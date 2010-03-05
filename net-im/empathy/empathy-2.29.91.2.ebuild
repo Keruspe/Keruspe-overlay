@@ -74,17 +74,13 @@ pkg_setup() {
 }
 
 src_prepare() {
-	gnome2_src_prepare
 	sed -i "s:-Werror::g" configure || die "sed 1 failed"
+	gnome2_src_prepare
 }
 
 src_test() {
 	unset DBUS_SESSION_BUS_ADDRESS
 	emake check || die "emake check failed."
-}
-
-pkg_preinst() {
-	gnome2_pkg_preinst
 }
 
 pkg_postinst() {
