@@ -21,6 +21,7 @@ net-libs
 net-misc
 net-voip
 sys-apps
+sys-auth
 sys-boot
 sys-fs
 x11-libs
