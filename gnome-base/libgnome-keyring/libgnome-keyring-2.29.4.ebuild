@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit gnome2
+inherit autotools gnome2
 
 DESCRIPTION="Password and keyring managing daemon"
 HOMEPAGE="http://www.gnome.org/"
@@ -20,9 +20,15 @@ RDEPEND=">=dev-libs/glib-2.16
 	>=dev-libs/libgcrypt-1.2.2
 	>=dev-libs/libtasn1-1"
 DEPEND="${RDEPEND}
+	!<gnome-base/gnome-keyring-2.29.90
 	sys-devel/gettext
 	>=dev-util/intltool-0.35
 	>=dev-util/pkgconfig-0.9"
+
+src_prepare() {
+	gnome2_src_prepare
+	epatch ${FILESDIR}/fix-buggy-from-trunk.patch
+}
 
 pkg_setup() {
 	G2CONF="${G2CONF}

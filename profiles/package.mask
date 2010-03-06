@@ -4,10 +4,6 @@
 # Libxklavier 5.0
 =gnome-base/libgnomekbd-2.29.5
 
-# Keyring buggy
-=gnome-base/gnome-keyring-2.29.90
-=gnome-base/libgnome-keyring-2.29.4
-
 # need a masked gnome-disk-utility
 ~gnome-base/gvfs-1.5.4
 
