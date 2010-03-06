@@ -8,6 +8,5 @@ app-misc/kupfer:keybinder - Use python keybinder
 gnome-base/gdm:applet - Build fast-user-switch-applet
 gnome-base/gnome:note - Enable note writer
 gnome-base/gnome-shell:seconds - Show seconds in clock
-net-im/empathy:nautilus-sendto - Enable nautilus-sendto plugin
 net-libs/webkit-gtk:geoclue - Enable geoclue support (geolocation)
 sys-boot/grub:efi - Build grub for EFI

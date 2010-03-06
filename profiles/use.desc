@@ -3,3 +3,4 @@
 # $Header: $
 
 introspection - Enable dev-libs/gobject-introspection for introspection
+nautilus-sendto - Enable nautilus-sendto plugin
