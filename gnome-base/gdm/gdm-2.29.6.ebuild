@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI="2"
 
 inherit eutils pam gnome2 autotools
 
@@ -91,12 +91,13 @@ src_prepare() {
 	use applet || epatch ${FILESDIR}/${P}-remove-fusa.patch
 
 	epatch "${WORKDIR}/${PN}-2.26.1-selinux-remove-attr.patch"
-	epatch "${WORKDIR}/${PN}-2.26.1-fix-daemonize-regression.patch"
+	epatch "${FILESDIR}/${P}-fix-daemonize-regression.patch"
 	epatch "${WORKDIR}/${PN}-2.26.1-broken-VT-detection.patch"
-	epatch "${WORKDIR}/${PN}-2.26.1-custom-session.patch"
+	epatch "${FILESDIR}/${P}-custom-session.patch"
 	epatch "${WORKDIR}/${PN}-2.26.1-xinitrc-ssh-agent.patch"
 	epatch "${WORKDIR}/${PN}-2.26.1-automagic-libxklavier-support.patch"
-
+	
+	mkdir m4
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 }
@@ -106,10 +107,10 @@ src_install() {
 
 	local gentoodir="${WORKDIR}/${GDM_EXTRA}"
 
-	rm -f "${D}/usr/sbin/gdm"
-	dosym /usr/sbin/gdm-binary /usr/sbin/gdm
-
-	dosym /usr/sbin/gdm-binary /usr/bin/gdm
+	#rm -f "${D}/usr/sbin/gdm"
+	#dosym /usr/sbin/gdm-binary /usr/sbin/gdm
+	dosym /usr/sbin/gdm /usr/bin/gdm
+	#dosym /usr/sbin/gdm-binary /usr/bin/gdm
 
 	keepdir /var/log/gdm
 	keepdir /var/gdm
