@@ -2,8 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
-
+EAPI=3
 inherit eutils pam gnome2 autotools
 
 DESCRIPTION="GNOME Display Manager"
@@ -107,10 +106,9 @@ src_install() {
 
 	local gentoodir="${WORKDIR}/${GDM_EXTRA}"
 
-	#rm -f "${D}/usr/sbin/gdm"
-	#dosym /usr/sbin/gdm-binary /usr/sbin/gdm
-	dosym /usr/sbin/gdm /usr/bin/gdm
-	#dosym /usr/sbin/gdm-binary /usr/bin/gdm
+	rm -f "${D}/usr/sbin/gdm"
+	dosym /usr/sbin/gdm-binary /usr/sbin/gdm
+	dosym /usr/sbin/gdm-binary /usr/bin/gdm
 
 	keepdir /var/log/gdm
 	keepdir /var/gdm
