@@ -5,13 +5,9 @@
 app-admin/gnome-system-tools:nautilus - Enable nautilus plugin
 app-editors/gedit:updater - Build plugins updater
 app-misc/kupfer:keybinder - Use python keybinder
-dev-libs/atk:introspection - Enable gobject-introspection support
 gnome-base/gdm:applet - Build fast-user-switch-applet
 gnome-base/gnome:note - Enable note writer
 gnome-base/gnome-shell:seconds - Show seconds in clock
 net-im/empathy:nautilus-sendto - Enable nautilus-sendto plugin
 net-libs/webkit-gtk:geoclue - Enable geoclue support (geolocation)
-sys-apps/upower:introspection - Enable gobject-introspection support
 sys-boot/grub:efi - Build grub for EFI
-x11-libs/gtk+:introspection - Enable gobject-introspection support
-x11-libs/pango:introspection - Enable gobject-introspection support
