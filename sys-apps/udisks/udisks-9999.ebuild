@@ -9,7 +9,7 @@ DESCRIPTION="Daemon providing interfaces to work with storage devices"
 HOMEPAGE="http://www.freedesktop.org/wiki/Software/DeviceKit"
 SRC_URI=""
 EGIT_BRANCH="master"
-EGIT_REPO_URI="git://anongit.freedesktop.org/DeviceKit/DeviceKit-disks"
+EGIT_REPO_URI="git://anongit.freedesktop.org/udisks"
 
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
