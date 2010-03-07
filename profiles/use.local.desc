@@ -9,5 +9,6 @@ gnome-base/gdm:applet - Build fast-user-switch-applet
 gnome-base/gnome:note - Enable note writer
 gnome-base/gnome-shell:seconds - Show seconds in clock
 gnome-extra/gnome-games:clutter - Enable clutter-based games
+gnome-extra/gnome-utils:applet - Enable Gdict applet
 net-libs/webkit-gtk:geoclue - Enable geoclue support (geolocation)
 sys-boot/grub:efi - Build grub for EFI
