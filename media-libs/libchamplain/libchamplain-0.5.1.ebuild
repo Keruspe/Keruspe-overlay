@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit gnome2
+inherit autotools gnome2
 
 DESCRIPTION="Clutter based world map renderer"
 HOMEPAGE="http://blog.pierlux.com/projects/libchamplain/en/"
@@ -24,6 +24,7 @@ RDEPEND=">=dev-libs/glib-2.16
 		>=x11-libs/gtk+-2.10
 		>=media-libs/clutter-gtk-0.10:1.0 )"
 DEPEND="${RDEPEND}
+	media-libs/memphis
 	dev-util/pkgconfig
 	doc? ( >=dev-util/gtk-doc-1.9 )
 	introspection? ( >=dev-libs/gobject-introspection-0.6.3 )"
@@ -32,6 +33,12 @@ G2CONF="${G2CONF}
 	--disable-static
 	$(use_enable introspection)
 	$(use_enable gtk)"
+
+src_prepare() {
+	gnome2_src_prepare
+	sed -i 's/memphis-0\.1/memphis-0.2/' configure.ac
+	eautoreconf
+}
 
 src_install() {
 	gnome2_src_install
