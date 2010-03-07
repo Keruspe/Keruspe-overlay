@@ -21,24 +21,19 @@ RDEPEND=">=dev-libs/glib-2.16
 	dev-db/sqlite:3
 
 	gtk? (
-		>=x11-libs/gtk+-2.10
+		>=x11-libs/gtk+-2.18
+		media-libs/memphis:0.1
 		>=media-libs/clutter-gtk-0.10:1.0 )"
 DEPEND="${RDEPEND}
-	media-libs/memphis
 	dev-util/pkgconfig
 	doc? ( >=dev-util/gtk-doc-1.9 )
 	introspection? ( >=dev-libs/gobject-introspection-0.6.3 )"
 
 G2CONF="${G2CONF}
 	--disable-static
-	$(use_enable introspection)
+	--disable-introspection
 	$(use_enable gtk)"
-
-src_prepare() {
-	gnome2_src_prepare
-	sed -i 's/memphis-0\.1/memphis-0.2/' configure.ac
-	eautoreconf
-}
+	#$(use_enable introspection) #needs memphis 0.2
 
 src_install() {
 	gnome2_src_install

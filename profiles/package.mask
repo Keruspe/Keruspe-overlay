@@ -6,8 +6,9 @@
 =gnome-base/libgnomekbd-2.29.5
 =gnome-base/gnome-settings-daemon-2.29.91.1
 
-# needs patching
+# not ready
 =media-libs/libchamplain-0.5.1
+media-libs/memphis
 
 # need a masked gnome-disk-utility
 ~gnome-base/gvfs-1.5.4

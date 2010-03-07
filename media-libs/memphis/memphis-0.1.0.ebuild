@@ -10,16 +10,11 @@ HOMEPAGE="http://trac.openstreetmap.ch/trac/memphis"
 SRC_URI="http://wenner.ch/files/public/mirror/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL"
-SLOT="0.2"
+SLOT="0.1"
 KEYWORDS="~amd64 ~x86"
-IUSE="introspection"
+IUSE=""
 
 DEPEND=">=dev-libs/expat-2.0.1
-	introspection? ( dev-libs/gobject-introspection )
 	>=x11-libs/cairo-1.8.8
 	>=dev-libs/glib-2.3.4"
 RDEPEND="${DEPEND}"
-
-src_configure() {
-	econf $(use_enable introspection)
-}

@@ -34,7 +34,7 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	net-voip/telepathy-connection-managers
 
 	map? (
-		>=media-libs/libchamplain-0.4[gtk]
+		>=media-libs/libchamplain-0.4
 		>=media-libs/clutter-gtk-0.10:1.0 
 		>=gnome-extra/geoclue-0.11.1 )
 	networkmanager? ( >=net-misc/networkmanager-0.7 )
@@ -57,21 +57,17 @@ PDEPEND=">=net-im/telepathy-mission-control-5"
 
 DOCS="CONTRIBUTORS AUTHORS ChangeLog NEWS README"
 
-MAKEOPTS="${MAKEOPTS} -j1"
-
-pkg_setup() {
-	G2CONF="${G2CONF}
-		--disable-maintainer-mode
-		--disable-static
-		$(use_enable nautilus-sendto)
-		$(use_with networkmanager connectivity nm)
-		$(use_enable map)
-		$(use_enable map location)
-		$(use_enable spell)
-		$(use_enable test coding-style-checks)
-		$(use_enable webkit)
-	"
-}
+G2CONF="${G2CONF}
+	--disable-maintainer-mode
+	--disable-static
+	$(use_enable nautilus-sendto)
+	$(use_with networkmanager connectivity nm)
+	$(use_enable map)
+	$(use_enable map location)
+	$(use_enable spell)
+	$(use_enable test coding-style-checks)
+	$(use_enable webkit)
+"
 
 src_prepare() {
 	sed -i "s:-Werror::g" configure || die "sed 1 failed"
