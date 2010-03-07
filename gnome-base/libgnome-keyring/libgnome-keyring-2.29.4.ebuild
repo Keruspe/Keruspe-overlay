@@ -20,7 +20,7 @@ RDEPEND=">=dev-libs/glib-2.16
 	>=dev-libs/libgcrypt-1.2.2
 	>=dev-libs/libtasn1-1"
 DEPEND="${RDEPEND}
-	!<gnome-base/gnome-keyring-2.29.90
+	>=gnome-base/gnome-keyring-2.29.90
 	sys-devel/gettext
 	>=dev-util/intltool-0.35
 	>=dev-util/pkgconfig-0.9"

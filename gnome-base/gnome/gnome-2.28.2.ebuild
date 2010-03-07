@@ -49,7 +49,6 @@ RDEPEND="
 	>=gnome-base/gnome-settings-daemon-2.28.1
 	>=gnome-base/gnome-control-center-2.28.1
 
-	>=gnome-base/gvfs-1.4.3
 	>=gnome-base/nautilus-2.28.4
 
 	>=media-libs/gstreamer-0.10.25
@@ -130,6 +129,7 @@ RDEPEND="
 	mono? (
 		>=dev-dotnet/gtk-sharp-2.12.9
 		>=app-misc/tomboy-1.0.1 )"
+	PDEPEND=">=gnome-base/gvfs-1.4.3[gdu]"
 
 pkg_postinst() {
 	elog "The main file alteration monitoring functionality is"
