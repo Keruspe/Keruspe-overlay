@@ -75,8 +75,6 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 
-	epatch ${FILESDIR}/fix-dbus.patch
-
 	use gphoto2 && epatch "${FILESDIR}/${PN}-1.2.2-gphoto2-stricter-checks.patch"
 	if use archive; then
 		epatch "${FILESDIR}/${PN}-1.2.2-expose-archive-backend.patch"
