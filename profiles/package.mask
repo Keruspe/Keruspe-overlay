@@ -9,6 +9,8 @@
 # not ready
 =media-libs/libchamplain-0.5.1
 media-libs/memphis
+=gnome-base/gnome-keyring-2.29.90
+=gnome-base/libgnome-keyring-2.29.4
 
 # need a masked gnome-disk-utility
 ~gnome-base/gvfs-1.5.4
