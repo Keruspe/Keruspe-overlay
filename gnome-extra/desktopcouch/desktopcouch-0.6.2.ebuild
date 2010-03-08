@@ -17,6 +17,7 @@ IUSE=""
 
 DEPEND=">=dev-lang/python-2.5"
 RDEPEND="dev-db/couchdb
+	dev-python/gnome-keyring-python
 	dev-python/couchdb-python
 	dev-python/twisted
 	net-dns/avahi[python]"
