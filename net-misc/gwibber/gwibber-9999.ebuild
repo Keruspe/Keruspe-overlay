@@ -30,7 +30,7 @@ DEPEND=">=dev-python/dbus-python-0.80.2
 	
 RDEPEND="${DEPEND}
 	dev-python/libwnck-python
-	dev-python/desktopcouch
+	gnome-extra/desktopcouch
 	dev-python/python-oauth
 	dev-python/pyxdg"
 
