@@ -24,6 +24,7 @@ media-libs/memphis
 =media-libs/libgpod-9999
 =net-misc/gwibber-9999
 =sys-apps/gnome-disk-utility-9999
+=sys-apps/paludis-9999
 =sys-apps/udisks-9999
 =x11-wm/mutter-9999
 

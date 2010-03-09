@@ -1,0 +1,297 @@
+diff --git a/bash-completion/paludis b/bash-completion/paludis
+index 832bac7..09cc5e8 100644
+--- a/bash-completion/paludis
++++ b/bash-completion/paludis
+@@ -98,6 +98,7 @@ _paludis() {
+         --compact \
+         --no-compact"
+     install_opts="--pretend -p \
++        --ask -a \
+         --destinations -d \
+         --preserve-world -1 \
+         --add-to-world-spec \
+@@ -114,6 +115,7 @@ _paludis() {
+         --compact \
+         ${deplist_opts}"
+     uninstall_opts="--pretend -p \
++        --ask -a \
+         --destinations -d \
+         --preserve-world -1 \
+         --show-reasons \
+diff --git a/doc/faq/misfunctionality.html.part b/doc/faq/misfunctionality.html.part
+index a43287f..6416974 100644
+--- a/doc/faq/misfunctionality.html.part
++++ b/doc/faq/misfunctionality.html.part
+@@ -63,14 +63,6 @@ elegant.</p>
+ <p>Rationale: Learn how to use <code>nice</code>. There's no
+ <code>GCC_NICENESS</code> or <code>VIM_NICENESS</code> either.</p>
+ 
+-<h2 id="ask">No Ask Support</h2>
+-
+-<p>Non-Problem: There's nothing like <code>emerge --ask</code>.</p>
+-
+-<p>Rationale: the <code>paludis</code> client is non-interactive. If someone is
+-making an interactive client, there are much better ways of doing it than
+-the limited functionality that <code>emerge --ask</code> provides.</p>
+-
+ <h2 id="xtermtitles">Restoring XTerm Titles</h2>
+ 
+ <p>Non-Problem: Paludis doesn't restore the xterm title on exit.</p>
+diff --git a/paludis/args/install_args_group.cc b/paludis/args/install_args_group.cc
+index afb8533..e135c4a 100644
+--- a/paludis/args/install_args_group.cc
++++ b/paludis/args/install_args_group.cc
+@@ -33,6 +33,7 @@ InstallArgsGroup::InstallArgsGroup(ArgsSection * h, const std::string & our_name
+     ArgsGroup(h, our_name, our_description),
+ 
+     a_pretend(this, "pretend", 'p', "Pretend only", false),
++    a_ask(this, "ask", 'a', "Ask before executing", false),
+     a_destinations(this, "destinations", 'd', "Use specified destinations instead of defaults"),
+     a_preserve_world(this, "preserve-world", '1', "Don't modify the world file", true),
+     a_add_to_world_spec(this, "add-to-world-spec", '\0',
+@@ -121,6 +122,7 @@ InstallArgsGroup::populate_install_task(const Environment *, InstallTask & task)
+ {
+     task.set_fetch_only(a_fetch.specified());
+     task.set_pretend(a_pretend.specified());
++    task.set_ask(a_ask.specified());
+     task.set_preserve_world(a_preserve_world.specified());
+     task.set_safe_resume(! a_no_safe_resume.specified());
+ 
+diff --git a/paludis/args/install_args_group.hh b/paludis/args/install_args_group.hh
+index 4f392f8..9ce79ba 100644
+--- a/paludis/args/install_args_group.hh
++++ b/paludis/args/install_args_group.hh
+@@ -64,6 +64,9 @@ namespace paludis
+                 /// --pretend
+                 paludis::args::SwitchArg a_pretend;
+ 
++                /// --ask
++                paludis::args::SwitchArg a_ask;
++
+                 /// --destinations
+                 paludis::args::StringSetArg a_destinations;
+ 
+diff --git a/paludis/install_task.cc b/paludis/install_task.cc
+index 8862669..e68b299 100644
+--- a/paludis/install_task.cc
++++ b/paludis/install_task.cc
+@@ -130,6 +130,7 @@ namespace paludis
+         std::tr1::shared_ptr<const DestinationsSet> destinations;
+ 
+         bool pretend;
++        bool ask;
+         bool fetch_only;
+         bool preserve_world;
+         bool safe_resume;
+@@ -157,6 +158,7 @@ namespace paludis
+             targets(new SetSpecTree(make_shared_ptr(new AllDepSpec))),
+             destinations(d),
+             pretend(false),
++            ask(false),
+             fetch_only(false),
+             preserve_world(false),
+             safe_resume(false),
+@@ -799,6 +801,9 @@ InstallTask::_pretend()
+ 
+     on_pretend_all_post();
+ 
++    if (! _imp->pretend && _imp->ask && ! on_ask())
++        set_pretend(true);
++
+     if (_imp->pretend)
+     {
+         if (0 != perform_hook(Hook("install_pretend_post")
+@@ -1333,6 +1338,12 @@ InstallTask::set_pretend(const bool value)
+ }
+ 
+ void
++InstallTask::set_ask(const bool value)
++{
++    _imp->ask = value;
++}
++
++void
+ InstallTask::set_preserve_world(const bool value)
+ {
+     _imp->preserve_world = value;
+diff --git a/paludis/install_task.hh b/paludis/install_task.hh
+index f0d0287..68eda56 100644
+--- a/paludis/install_task.hh
++++ b/paludis/install_task.hh
+@@ -110,6 +110,7 @@ namespace paludis
+ 
+             void set_fetch_only(const bool value);
+             void set_pretend(const bool value);
++            void set_ask(const bool value);
+             void set_preserve_world(const bool value);
+             void set_add_to_world_spec(const std::string &);
+             void set_safe_resume(const bool);
+@@ -165,6 +166,8 @@ namespace paludis
+             virtual void on_pretend_post(const DepListEntry &) = 0;
+             virtual void on_pretend_all_post() = 0;
+ 
++            virtual bool on_ask() = 0;
++
+             virtual void on_fetch_all_pre() = 0;
+             virtual void on_fetch_pre(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
+             virtual void on_fetch_post(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
+diff --git a/paludis/uninstall_task.cc b/paludis/uninstall_task.cc
+index d60371e..c1bb388 100644
+--- a/paludis/uninstall_task.cc
++++ b/paludis/uninstall_task.cc
+@@ -92,6 +92,7 @@ namespace paludis
+         std::list<std::tr1::shared_ptr<const PackageDepSpec> > targets;
+ 
+         bool pretend;
++        bool ask;
+         bool preserve_world;
+         bool all_versions;
+         bool with_unused_dependencies;
+@@ -105,6 +106,7 @@ namespace paludis
+         Implementation<UninstallTask>(Environment * const e) :
+             env(e),
+             pretend(false),
++            ask(false),    
+             preserve_world(false),
+             all_versions(false),
+             with_unused_dependencies(false),
+@@ -140,6 +142,12 @@ UninstallTask::set_pretend(const bool v)
+ }
+ 
+ void
++UninstallTask::set_ask(const bool v)
++{
++    _imp->ask = v;
++}
++
++void
+ UninstallTask::set_preserve_world(const bool v)
+ {
+     _imp->preserve_world = v;
+@@ -310,6 +318,9 @@ UninstallTask::execute()
+         return;
+     }
+ 
++    if (_imp->ask && ! on_ask())
++        return;
++
+     if (_imp->preserve_world)
+         on_preserve_world();
+     else
+diff --git a/paludis/uninstall_task.hh b/paludis/uninstall_task.hh
+index b2af2f9..6ec2576 100644
+--- a/paludis/uninstall_task.hh
++++ b/paludis/uninstall_task.hh
+@@ -112,6 +112,7 @@ namespace paludis
+             ///\{
+ 
+             void set_pretend(const bool value);
++            void set_ask(const bool value);
+             void set_preserve_world(const bool value);
+             void set_all_versions(const bool value);
+             void set_with_unused_dependencies(const bool value);
+@@ -138,6 +139,8 @@ namespace paludis
+             virtual void on_display_unmerge_list_post() = 0;
+             virtual void on_display_unmerge_list_entry(const UninstallListEntry &) = 0;
+ 
++            virtual bool on_ask() = 0;
++
+             virtual void on_uninstall_all_pre() = 0;
+             virtual void on_uninstall_pre(const UninstallListEntry &) = 0;
+             virtual void on_uninstall_post(const UninstallListEntry &) = 0;
+diff --git a/src/clients/paludis/uninstall.cc b/src/clients/paludis/uninstall.cc
+index 60f9ff3..9896af6 100644
+--- a/src/clients/paludis/uninstall.cc
++++ b/src/clients/paludis/uninstall.cc
+@@ -163,6 +163,25 @@ namespace
+                 cout << endl;
+             }
+ 
++            virtual bool on_ask()
++            {
++                if (_count == 0)
++                    return true;
++                std::string answer;
++                cout << endl << "* Do you really want to do this ? [Yes/No] ... ";
++                while (true)
++                {
++                    getline(std::cin, answer);
++                    for (int i(0) ; i < answer.length() ; ++i)
++                        answer[i] = tolower(answer[i]);
++                    if (answer == "no" || answer == "n")
++                        return false;
++                    else if (answer == "yes" || answer == "ye" || answer == "y" || answer == "")
++                        return true;
++                    cout << endl << "Unknown answer : " + answer + " [Yes/no] ... ";
++                }
++            }
++
+             virtual void on_uninstall_all_pre()
+             {
+             }
+@@ -230,6 +249,7 @@ namespace
+         OurUninstallTask task(env);
+ 
+         task.set_pretend(CommandLine::get_instance()->install_args.a_pretend.specified());
++        task.set_ask(CommandLine::get_instance()->install_args.a_ask.specified());
+         task.set_preserve_world(CommandLine::get_instance()->install_args.a_preserve_world.specified());
+         task.set_with_unused_dependencies(CommandLine::get_instance()->a_with_unused_dependencies.specified());
+         task.set_with_dependencies(CommandLine::get_instance()->a_with_dependencies.specified());
+diff --git a/src/output/console_install_task.cc b/src/output/console_install_task.cc
+index ce93409..e07613d 100644
+--- a/src/output/console_install_task.cc
++++ b/src/output/console_install_task.cc
+@@ -570,6 +570,28 @@ ConsoleInstallTask::on_pretend_all_post()
+ {
+ }
+ 
++bool
++ConsoleInstallTask::on_ask()
++{
++    if (count<max_count>() == 0)
++        return true;
++    std::string answer;
++    output_endl();
++    output_starred_item_no_endl("Do you really want to do this ? [Yes/No] ... ");
++    while (true)
++    {
++        getline(std::cin, answer);
++        for (int i(0) ; i < answer.length() ; ++i)
++            answer[i] = tolower(answer[i]);
++        if (answer == "no" || answer == "n")
++            return false;
++        else if (answer == "yes" || answer == "ye" || answer == "y" || answer == "")
++            return true;
++        output_endl();
++        output_no_endl("Unknown answer : " + answer + " [Yes/no] ... ");
++    }
++}
++
+ void
+ ConsoleInstallTask::on_fetch_all_pre()
+ {
+diff --git a/src/output/console_install_task.hh b/src/output/console_install_task.hh
+index beadfdc..9cf5dfe 100644
+--- a/src/output/console_install_task.hh
++++ b/src/output/console_install_task.hh
+@@ -143,6 +143,8 @@ namespace paludis
+             virtual void on_pretend_post(const DepListEntry &);
+             virtual void on_pretend_all_post();
+ 
++            virtual bool on_ask();
++
+             virtual void on_fetch_all_pre();
+             virtual void on_fetch_pre(const DepListEntry &, const int x, const int y, const int s, const int f);
+             virtual void on_fetch_post(const DepListEntry &, const int x, const int y, const int s, const int f);
+diff --git a/zsh-completion/_paludis b/zsh-completion/_paludis
+index f3fb939..8049d1f 100644
+--- a/zsh-completion/_paludis
++++ b/zsh-completion/_paludis
+@@ -19,6 +19,7 @@ _paludis() {
+ 
+     install_uninstall_args=(
+         "(--pretend -p)"{--pretend,-p}"[Pretend only]"
++        "(--ask -a)"{--ask,-a}"[Ask before executing]"
+         "(--destinations -d)"{--destinations,-d}"[Use specified destinations instead of defaults]:Destinations:_paludis_packages repositories"
+         "(--preserve-world -1)"{--preserve-world,-1}"[Don't modify the world file]"
+         "--add-to-world-spec[Use this atom, rather than all targets, for updating world (for resume commands)]"
