@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=3
-
 inherit gnome2
 
 DESCRIPTION="Lightweight HTML Rendering/Printing/Editing Engine"
