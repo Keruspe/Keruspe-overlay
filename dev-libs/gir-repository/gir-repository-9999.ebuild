@@ -19,15 +19,12 @@ gupnp libnotify libsoup libwnck nautilus pango poppler vte webkit"
 
 RDEPEND=">=dev-libs/gobject-introspection-0.6.5"
 DEPEND="${RDEPEND}
-	atk? ( >=dev-libs/atk-1.29.4[introspection] ) 
 	avahi? ( >=net-dns/avahi-0.6 )
 	babl? ( =media-libs/babl-0.0 )
 	dbus? ( dev-libs/dbus-glib )
 	gconf? ( gnome-base/gconf )
 	gnome-keyring? ( gnome-base/gnome-keyring )
-	gnome-menus? ( gnome-base/gnome-menus )
 	goocanvas? ( x11-libs/goocanvas )
-	gtk? ( >=x11-libs/gtk+-2.19.6[introspection] )
 	gtksourceview? ( x11-libs/gtksourceview )
 	gupnp? (
 		net-libs/gssdp
@@ -36,19 +33,25 @@ DEPEND="${RDEPEND}
 	libsoup? ( net-libs/libsoup:2.4 )
 	libwnck? ( x11-libs/libwnck )
 	nautilus? ( gnome-base/nautilus )
-	pango? ( >=x11-libs/pango-1.27.1[introspection] )
 	poppler? ( >=app-text/poppler-0.12.3-r3 )
 	vte? ( x11-libs/vte )
+"
+
+PDEPEND="
+	atk? ( >=dev-libs/atk-1.29.4[introspection] ) 
+	gnome-menus? ( gnome-base/gnome-menus[introspection] )
+	gtk? ( >=x11-libs/gtk+-2.19.6[introspection] )
+	pango? ( >=x11-libs/pango-1.27.1[introspection] )
 	webkit? ( >=net-libs/webkit-gtk-1.1.22[introspection] )
 "
+
 pkg_setup() {
-	SKIP="Atk,Gnio,Gst,Gtk,Pango,PangoXft,WebKit,Unique"
+	SKIP="Atk,GMenu,Gnio,Gst,Gtk,Pango,PangoXft,WebKit,Unique"
 	use !avahi && SKIP="${SKIP},Avahi"
 	use !babl && SKIP="${SKIP},BABL"
 	use !dbus && SKIP="${SKIP},DBus"
 	use !gconf && SKIP="${SKIP},GConf"
 	use !gnome-keyring && SKIP="${SKIP},GnomeKeyring"
-	use !gnome-menus && SKIP="${SKIP},GMenu"
 	use !goocanvas && SKIP="${SKIP},GooCanvas"
 	use !gtksourceview && SKIP="${SKIP},GTKSOURCEVIEW"
 	use !gupnp && SKIP="${SKIP},GUPNP"

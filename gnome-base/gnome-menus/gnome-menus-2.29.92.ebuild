@@ -10,8 +10,8 @@ HOMEPAGE="http://www.gnome.org"
 
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
-IUSE="debug python"
+KEYWORDS="~amd64 ~x86"
+IUSE="debug introspection python"
 
 RDEPEND=">=dev-libs/glib-2.18.0
 	python? (
@@ -19,6 +19,7 @@ RDEPEND=">=dev-libs/glib-2.18.0
 		dev-python/pygtk )"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
+	introspection? ( dev-libs/gobject-introspection )
 	>=dev-util/pkgconfig-0.9
 	>=dev-util/intltool-0.40"
 
@@ -29,7 +30,7 @@ pkg_setup() {
 		G2CONF="${G2CONF} --enable-debug=minimum"
 	fi
 
-	G2CONF="${G2CONF} $(use_enable python) --disable-static"
+	G2CONF="${G2CONF} $(use_enable python) $(use_enable introspection) --disable-static"
 }
 
 src_unpack() {
