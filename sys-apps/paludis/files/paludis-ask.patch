@@ -76,7 +76,7 @@ index 4f392f8..9ce79ba 100644
                  paludis::args::StringSetArg a_destinations;
  
 diff --git a/paludis/install_task.cc b/paludis/install_task.cc
-index 8862669..5dd7391 100644
+index 8862669..5206387 100644
 --- a/paludis/install_task.cc
 +++ b/paludis/install_task.cc
 @@ -130,6 +130,7 @@ namespace paludis
@@ -105,7 +105,20 @@ index 8862669..5dd7391 100644
      if (_imp->pretend)
      {
          if (0 != perform_hook(Hook("install_pretend_post")
-@@ -1333,6 +1338,12 @@ InstallTask::set_pretend(const bool value)
+@@ -1312,6 +1317,12 @@ InstallTask::execute()
+                 ("DEPLIST_HAS_ERRORS", stringify(_imp->dep_list.has_errors()))
+                 ).max_exit_status())
+         throw ActionAbortedError("Install task execute aborted by hook");
++    if (_imp->fetch_only && _imp->ask && on_ask())
++    {
++        set_fetch_only(false);
++        set_ask(false);
++        _main_actions();
++    }
+ }
+ 
+ const DepList &
+@@ -1333,6 +1344,12 @@ InstallTask::set_pretend(const bool value)
  }
  
  void
@@ -204,7 +217,7 @@ index b2af2f9..6ec2576 100644
              virtual void on_uninstall_pre(const UninstallListEntry &) = 0;
              virtual void on_uninstall_post(const UninstallListEntry &) = 0;
 diff --git a/src/clients/paludis/uninstall.cc b/src/clients/paludis/uninstall.cc
-index 60f9ff3..9896af6 100644
+index 60f9ff3..c646b5f 100644
 --- a/src/clients/paludis/uninstall.cc
 +++ b/src/clients/paludis/uninstall.cc
 @@ -163,6 +163,25 @@ namespace
@@ -242,7 +255,7 @@ index 60f9ff3..9896af6 100644
          task.set_with_unused_dependencies(CommandLine::get_instance()->a_with_unused_dependencies.specified());
          task.set_with_dependencies(CommandLine::get_instance()->a_with_dependencies.specified());
 diff --git a/src/output/console_install_task.cc b/src/output/console_install_task.cc
-index ce93409..e07613d 100644
+index ce93409..e21dcfb 100644
 --- a/src/output/console_install_task.cc
 +++ b/src/output/console_install_task.cc
 @@ -570,6 +570,28 @@ ConsoleInstallTask::on_pretend_all_post()
