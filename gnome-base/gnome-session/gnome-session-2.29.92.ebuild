@@ -43,20 +43,18 @@ DEPEND="${RDEPEND}
 
 DOCS="AUTHORS ChangeLog NEWS README"
 
-pkg_setup() {
-	G2CONF="${G2CONF}
-		--docdir=/usr/share/doc/${PF}
-		--with-default-wm=gnome-wm
-		$(use_enable splash)
-		$(use_enable doc docbook-docs)
-		$(use_enable ipv6)"
+G2CONF="${G2CONF}
+	--docdir=/usr/share/doc/${PF}
+	--with-default-wm=gnome-wm
+	$(use_enable splash)
+	$(use_enable doc docbook-docs)
+	$(use_enable ipv6)"
 
-	if use branding && ! use splash; then
-		ewarn "You have disabled splash but enabled branding support"
-		ewarn "splash support has been auto-enabled for branding"
-		G2CONF="${G2CONF} --enable-splash"
-	fi
-}
+if use branding && ! use splash; then
+	ewarn "You have disabled splash but enabled branding support"
+	ewarn "splash support has been auto-enabled for branding"
+	G2CONF="${G2CONF} --enable-splash"
+fi
 
 src_prepare() {
 	gnome2_src_prepare
