@@ -39,7 +39,7 @@ DEPEND="${RDEPEND}
 
 PDEPEND="
 	atk? ( >=dev-libs/atk-1.29.4[introspection] ) 
-	gnome-menus? ( gnome-base/gnome-menus[introspection] )
+	gnome-menus? ( >=gnome-base/gnome-menus-2.29.92[introspection] )
 	gtk? ( >=x11-libs/gtk+-2.19.6[introspection] )
 	pango? ( >=x11-libs/pango-1.27.1[introspection] )
 	webkit? ( >=net-libs/webkit-gtk-1.1.22[introspection] )

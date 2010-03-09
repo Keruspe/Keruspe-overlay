@@ -80,7 +80,7 @@ pkg_setup() {
 		_omitgame quadrapassel
 		_omitgame lightsoff
 		_omitgame swell-foop
-		_omitgames gnibbles
+		_omitgame gnibbles
 	fi
 
 	if ! use guile; then
