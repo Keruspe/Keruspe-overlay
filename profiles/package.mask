@@ -26,7 +26,7 @@ media-libs/memphis
 =sys-apps/gnome-disk-utility-9999
 =sys-apps/paludis-9999
 =sys-apps/udisks-9999
-=x11-term/terminator-9999
+=x11-terms/terminator-9999
 =x11-wm/mutter-9999
 
 # Maybe there are things to change
