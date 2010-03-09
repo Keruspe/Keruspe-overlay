@@ -76,7 +76,7 @@ index 4f392f8..9ce79ba 100644
                  paludis::args::StringSetArg a_destinations;
  
 diff --git a/paludis/install_task.cc b/paludis/install_task.cc
-index 8862669..e68b299 100644
+index 8862669..5dd7391 100644
 --- a/paludis/install_task.cc
 +++ b/paludis/install_task.cc
 @@ -130,6 +130,7 @@ namespace paludis
@@ -99,7 +99,7 @@ index 8862669..e68b299 100644
  
      on_pretend_all_post();
  
-+    if (! _imp->pretend && _imp->ask && ! on_ask())
++    if (! _imp->pretend && ! _imp->fetch_only && _imp->ask && ! on_ask())
 +        set_pretend(true);
 +
      if (_imp->pretend)
