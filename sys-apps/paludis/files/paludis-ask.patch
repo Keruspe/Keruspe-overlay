@@ -1,3 +1,7 @@
+---
+Created by Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+---
+
 diff --git a/bash-completion/paludis b/bash-completion/paludis
 index 832bac7..09cc5e8 100644
 --- a/bash-completion/paludis
@@ -222,7 +226,7 @@ index 60f9ff3..9896af6 100644
 +                        return false;
 +                    else if (answer == "yes" || answer == "ye" || answer == "y" || answer == "")
 +                        return true;
-+                    cout << endl << "Unknown answer : " + answer + " [Yes/no] ... ";
++                    cout << endl << "Unknown answer : " + answer + " [Yes/No] ... ";
 +                }
 +            }
 +
@@ -263,7 +267,7 @@ index ce93409..e07613d 100644
 +        else if (answer == "yes" || answer == "ye" || answer == "y" || answer == "")
 +            return true;
 +        output_endl();
-+        output_no_endl("Unknown answer : " + answer + " [Yes/no] ... ");
++        output_no_endl("Unknown answer : " + answer + " [Yes/No] ... ");
 +    }
 +}
 +
