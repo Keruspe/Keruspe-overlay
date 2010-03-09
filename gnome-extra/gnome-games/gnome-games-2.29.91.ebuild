@@ -49,7 +49,8 @@ DEPEND="${RDEPEND}
 	>=gnome-base/gnome-common-2.12.0
 	>=app-text/scrollkeeper-0.3.8
 	>=app-text/gnome-doc-utils-0.10
-	clutter? ( media-libs/clutter )
+	clutter? ( media-libs/clutter-gtk
+		media-libs/clutter )
 	introspection? (
 		dev-libs/gobject-introspection )
 	test? ( >=dev-libs/check-0.9.4 )"
