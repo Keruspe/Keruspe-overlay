@@ -26,30 +26,28 @@ PROVIDE="virtual/bootloader"
 export STRIP_MASK="*/grub/*/*.mod"
 QA_EXECSTACK="sbin/grub-probe sbin/grub-setup sbin/grub-mkdevicemap"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-	epatch "${FILESDIR}"/${PN}-1.96-genkernel.patch #256335
+src_prepare() {
+	epatch "${FILESDIR}"/${PN}-1.96-genkernel.patch
 	epatch_user
 }
 
 src_configure() {
 	use custom-cflags || unset CFLAGS CPPFLAGS LDFLAGS
 	use static && append-ldflags -static
-	use efi && efiopts="--with-platform=efi" || efiopts="" 
 
 	econf \
-		${efiopts} \
 		--disable-werror \
 		--sbindir=/sbin \
 		--bindir=/bin \
 		--libdir=/$(get_libdir) \
-		$(use_enable efi efiemu) \
+		--disable-efiemu \
 		$(use_enable truetype grub-mkfont) \
 		$(use_enable debug mm-debug) \
 		$(use_enable debug grub-emu) \
 		$(use_enable debug grub-emu-usb) \
-		$(use_enable debug grub-fstest)
+		$(use_enable debug grub-fstest) \
+		$(use_with efi platform efi) \
+		--target=x86_64
 }
 
 src_compile() {
