@@ -3,15 +3,15 @@
 # $Header: $
 
 # Libxklavier 5.0
-=gnome-base/libgnomekbd-2.29.5
-=gnome-base/gnome-settings-daemon-2.29.91.1
+=gnome-base/libgnomekbd-2.29.92
+=gnome-base/gnome-settings-daemon-2.29.92
 
 # not ready
 =media-libs/libchamplain-0.5.1
 media-libs/memphis
 
 # need a masked gnome-disk-utility
-~gnome-base/gvfs-1.5.4
+~gnome-base/gvfs-1.5.5
 
 # Mask Scm packages
 =app-pda/gtkpod-9999
