@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=3
-
 inherit gnome2
 
 DESCRIPTION="Libraries for the gnome desktop that are not part of the UI"
@@ -32,12 +31,10 @@ PDEPEND=">=dev-python/pygtk-2.8
 
 DOCS="AUTHORS ChangeLog HACKING NEWS README"
 
-pkg_setup() {
-	G2CONF="${G2CONF}
-		--with-gnome-distributor=Gentoo
-		--disable-scrollkeeper
-		--disable-static"
-}
+G2CONF="${G2CONF}
+	--with-gnome-distributor=Gentoo
+	--disable-scrollkeeper
+	--disable-static"
 
 src_prepare() {
 	gnome2_src_prepare
