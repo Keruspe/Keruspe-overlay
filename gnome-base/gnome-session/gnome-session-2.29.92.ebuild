@@ -60,8 +60,8 @@ src_prepare() {
 	gnome2_src_prepare
 
 	use branding && epatch "${FILESDIR}/${PN}-2.27.91-gentoo-branding.patch"
-	epatch "${FILESDIR}/${P}-xsmp-stop-throw-error.patch"
-	epatch "${FILESDIR}/${P}-do-not-keep-zombie-clients.patch"
+	epatch "${FILESDIR}/${PN}-2.29.6-xsmp-stop-throw-error.patch"
+	epatch "${FILESDIR}/${PN}-2.29.6-do-not-keep-zombie-clients.patch"
 }
 
 src_install() {
