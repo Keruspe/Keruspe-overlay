@@ -64,8 +64,8 @@ _omitgame() {
 
 pkg_setup() {
 	games_pkg_setup
+	use clutter || omitgames="quadrapassel,lightsoff,swell-foop,gnibbles"
 	G2CONF="${G2CONF}
-		$(use_enable clutter aisleriot-clutter)
 		$(use_enable clutter staging)
 		$(use_enable introspection)
 		--enable-sound
@@ -75,11 +75,13 @@ pkg_setup() {
 		--with-card-theme-formats=all
 		--with-smclient
 		--enable-omitgames=none"
+		#$(use_enable clutter aisleriot-clutter)
 
 	if ! use clutter; then
+		_omitgame quadrapassel
 		_omitgame lightsoff
-		_omitgame gnometris
-		_omitgame same-gnome-clutter
+		_omitgame swell-foop
+		_omitgames gnibbles
 	fi
 
 	if ! use guile; then
