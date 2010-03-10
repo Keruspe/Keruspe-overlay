@@ -1,0 +1,22 @@
+From 771c2007f51fa5ed0607bbde23d7a5b062e6c5fc Mon Sep 17 00:00:00 2001
+From: Sergey V. Udaltsov <svu@gnome.org>
+Date: Tue, 09 Mar 2010 21:25:00 +0000
+Subject: Unneeded g_object_unref dropped
+
+It caused crash - the resource is not owned.
+https://bugzilla.gnome.org/show_bug.cgi?id=612341
+---
+diff --git a/libgnomekbd/gkbd-indicator-config.c b/libgnomekbd/gkbd-indicator-config.c
+index a34456c..89e6385 100644
+--- a/libgnomekbd/gkbd-indicator-config.c
++++ b/libgnomekbd/gkbd-indicator-config.c
+@@ -175,7 +175,6 @@ gkbd_indicator_config_load_font_from_gconf (GkbdIndicatorConfig *
+ 				     ((double) style->fg[GTK_STATE_NORMAL].
+ 				      blue) / 0x10000);
+ 
+-		g_object_unref (style);
+ 	}
+ }
+ 
+--
+cgit v0.8.3.1
