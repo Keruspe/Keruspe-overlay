@@ -31,6 +31,7 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
+	epatch ${FILESDIR}/fix-gsd-bug.patch
 	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
 		|| die "sed expression failed"
 }
