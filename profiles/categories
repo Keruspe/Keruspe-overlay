@@ -9,6 +9,7 @@ app-text
 dev-java
 dev-libs
 dev-python
+dev-util
 gnome-base
 gnome-extra
 media-gfx
@@ -27,4 +28,5 @@ sys-fs
 x11-libs
 x11-misc
 x11-terms
+x11-themes
 x11-wm
