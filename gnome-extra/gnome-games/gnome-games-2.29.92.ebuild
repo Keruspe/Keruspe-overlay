@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=3
-WANT_AUTOMAKE="1.11"
 inherit games games-ggz eutils gnome2 python virtualx autotools
 
 DESCRIPTION="Collection of games for the GNOME desktop"
@@ -11,7 +10,7 @@ HOMEPAGE="http://live.gnome.org/GnomeGames/"
 
 LICENSE="GPL-2 FDL-1.1"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~amd64 ~x86"
 IUSE="artworkextra clutter guile introspection opengl sdl test"
 
 RDEPEND="
@@ -56,7 +55,6 @@ DEPEND="${RDEPEND}
 	test? ( >=dev-libs/check-0.9.4 )"
 
 DOCS="AUTHORS HACKING MAINTAINERS TODO"
-RESTRICT="test"
 
 _omitgame() {
 	G2CONF="${G2CONF},${1}"
@@ -96,9 +94,12 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-
 	mv py-compile py-compile.orig
 	ln -s $(type -P true) py-compile
+	if use clutter; then
+		epatch ${FILESDIR}/fix-clutter-gtk-0.10.patch
+		eautoreconf
+	fi
 }
 
 src_test() {

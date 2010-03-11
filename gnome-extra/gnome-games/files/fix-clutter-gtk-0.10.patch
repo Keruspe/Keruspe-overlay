@@ -1,0 +1,29 @@
+From b16f167ecd0c5e7b8dbed4cf792b8a3696c58d78 Mon Sep 17 00:00:00 2001
+From: Christian Persch <chpe@gnome.org>
+Date: Tue, 09 Mar 2010 17:47:14 +0000
+Subject: build: Fix build with clutter-gtk 0.10
+
+Bug #612319.
+---
+diff --git a/configure.in b/configure.in
+index e46d49b..22c6fc0 100644
+--- a/configure.in
++++ b/configure.in
+@@ -620,11 +620,10 @@ if test "$need_clutter" = "yes"; then
+   AC_SUBST([CLUTTER_CFLAGS])
+   AC_SUBST([CLUTTER_LIBS])
+ 
+-  PKG_CHECK_EXISTS([clutter-1.0 >= 1.2.0],
+-    [CLUTTER_GTK_API_VERSION=0.90 CLUTTER_GTK_REQUIRED=0.90.0],
+-    [CLUTTER_GTK_API_VERSION=0.10 CLUTTER_GTK_REQUIRED=0.10.2])
+-
+-  PKG_CHECK_MODULES([CLUTTER_GTK],[clutter-gtk-$CLUTTER_GTK_API_VERSION  >= $CLUTTER_GTK_REQUIRED])
++  PKG_CHECK_MODULES([CLUTTER_GTK],
++    [clutter-gtk-0.90 >= 0.90.0],[],
++    [PKG_CHECK_MODULES([CLUTTER_GTK],
++      [clutter-gtk-0.10 >= 0.10.2])])
+   AC_SUBST([CLUTTER_GTK_CFLAGS])
+   AC_SUBST([CLUTTER_GTK_LIBS])
+ fi
+--
+cgit v0.8.3.1
