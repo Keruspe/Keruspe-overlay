@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=3
-
 inherit gnome2 linux-info
 
 DESCRIPTION="A tagging metadata database, search tool and indexer"
@@ -11,7 +10,7 @@ HOMEPAGE="http://www.tracker-project.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ia64 ~sparc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="applet deskbar doc eds exif flac gsf gstreamer gtk hal iptc +jpeg kmail
 laptop mp3 nautilus nls pdf playlist test +tiff +vorbis xine +xml xmp"
 
