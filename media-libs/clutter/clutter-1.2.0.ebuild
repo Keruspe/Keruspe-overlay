@@ -65,12 +65,10 @@ src_configure() {
 	fi
 
 	myconf="${myconf}
-		--disable-tests
 		--enable-maintainer-flags=no
 		--enable-xinput
 		--with-json=internal
-		$(use_enable introspection)
-		$(use_enable doc manual)"
+		$(use_enable introspection)"
 	econf ${myconf}
 }
 
