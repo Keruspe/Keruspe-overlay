@@ -7,7 +7,7 @@ inherit autotools clutter
 
 DESCRIPTION="Clutter is a library for creating graphical user interfaces"
 
-SLOT="1.2"
+SLOT="1.0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug doc +gtk introspection +opengl"
 
