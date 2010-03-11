@@ -25,7 +25,7 @@ RDEPEND=">=dev-libs/glib-2.20
 	
 	dev-libs/dbus-glib
 	=dev-libs/gjs-9999
-	media-libs/clutter:1.2[opengl,introspection]
+	media-libs/clutter:1.0[opengl,introspection]
 
 	gnome-base/gconf
 	gnome-base/gnome-menus
