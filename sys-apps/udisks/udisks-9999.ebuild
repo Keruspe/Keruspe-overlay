@@ -20,7 +20,7 @@ RDEPEND=">=dev-libs/glib-2.16.1
 	>=dev-libs/dbus-glib-0.82
 	>=sys-apps/dbus-1.0
 	>=sys-auth/polkit-0.92
-	>=sys-fs/udev-145[extras]
+	>=sys-fs/udev-147[extras]
 	>=sys-fs/lvm2-2.02.48-r2
 	>=sys-apps/parted-1.8.8[device-mapper]
 	>=dev-libs/libatasmart-0.14
