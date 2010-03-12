@@ -1,0 +1,14 @@
+--- libtomboy/tomboyutil.c.old	2010-03-12 14:33:26.585193586 +0100
++++ libtomboy/tomboyutil.c	2010-03-12 14:35:37.925192586 +0100
+@@ -153,9 +153,9 @@
+ void
+ tomboy_window_present_hardcore (GtkWindow *window)
+ {
+-	if (!GTK_WIDGET_REALIZED (window))
++	if (! gtk_widget_get_realized(window))
+ 		gtk_widget_realize (GTK_WIDGET (window));
+-	else if (GTK_WIDGET_VISIBLE (window))
++	else if (gtk_widget_get_visible(window))
+ 		tomboy_window_move_to_current_workspace (window);
+ 
+ 	tomboy_window_override_user_time (window);

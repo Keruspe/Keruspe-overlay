@@ -15,7 +15,7 @@ diff -p -up clutter-gtk-0.10.2/clutter-gtk/gtk-clutter-embed.c~ clutter-gtk-0.10
    clutter_actor_realize (priv->stage);
  
 -  if (GTK_WIDGET_VISIBLE (widget))
-+  if (gtk_widget_get_realized (widget))
++  if (gtk_widget_get_visible (widget))
      clutter_actor_show (priv->stage);
  
    gtk_clutter_embed_send_configure (GTK_CLUTTER_EMBED (widget));
