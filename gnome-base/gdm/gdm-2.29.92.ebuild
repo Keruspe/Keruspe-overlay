@@ -59,7 +59,9 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.40
 	>=dev-util/pkgconfig-0.19
 	>=app-text/gnome-doc-utils-0.3.2"
-PDEPEND=">=sys-auth/pambase-20090430[consolekit=,gnome-keyring=]"
+PDEPEND=">=sys-auth/pambase-20090430[consolekit=,gnome-keyring=]
+	>=gnome-base/gnome-session-2.29.92
+	>=gnome-base/gnome-settings-daemon-2.29.92"
 
 DOCS="AUTHORS ChangeLog NEWS README TODO"
 
