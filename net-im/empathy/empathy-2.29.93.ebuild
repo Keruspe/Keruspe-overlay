@@ -7,11 +7,11 @@ inherit gnome2
 
 DESCRIPTION="Telepathy client and library using GTK+"
 HOMEPAGE="http://live.gnome.org/Empathy"
-
 LICENSE="GPL-2"
+
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="map nautilus-sendto networkmanager spell test webkit"
+IUSE="favourite-contacts map nautilus-sendto networkmanager spell test webkit"
 
 RDEPEND=">=dev-libs/glib-2.16.0
 	>=x11-libs/gtk+-2.16.0
@@ -47,6 +47,7 @@ DEPEND="${RDEPEND}
 	>=app-text/gnome-doc-utils-0.17.3
 	>=dev-util/intltool-0.35.0
 	>=dev-util/pkgconfig-0.16
+	favourite-contacts? ( net-im/telepathy-logger )
 	test? (
 		sys-apps/grep
 		>=dev-libs/check-0.9.4 )
@@ -66,6 +67,7 @@ G2CONF="${G2CONF}
 	$(use_enable map location)
 	$(use_enable spell)
 	$(use_enable test coding-style-checks)
+	$(use_enable favourite-contacts)
 	$(use_enable webkit)
 "
 
