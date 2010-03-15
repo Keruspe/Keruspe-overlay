@@ -16,6 +16,7 @@ IUSE="pulseaudio"
 RDEPEND=">=dev-libs/glib-2.18.2:2
 	>=x11-libs/gtk+-2.15.1:2
 	>=gnome-base/libglade-2
+	>=dev-util/glade-3.7.0
 	>=gnome-base/gconf-2.6.1
 	>=media-libs/gstreamer-0.10.23
 	>=media-libs/gst-plugins-base-0.10.23
