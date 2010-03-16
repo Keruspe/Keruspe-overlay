@@ -19,18 +19,16 @@ RDEPEND=">=dev-libs/glib-2.16.1
 	>=sys-apps/dbus-1.0
 	>=sys-auth/polkit-0.92
 	>=sys-fs/udev-147[extras]
-	>=sys-fs/lvm2-2.02.48-r2
 	>=sys-apps/parted-1.8.8[device-mapper]
 	>=dev-libs/libatasmart-0.14
 	>=sys-apps/sg3_utils-1.27.20090411
-
+	>=sys-fs/lvm2-2.02.61
 	dev-db/sqlite:3"
 DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.40
 	dev-util/pkgconfig
 	!sys-apps/devicekit-disks
-	dev-libs/libxslt
-	>=sys-fs/lvm2-2.02.61"
+	dev-libs/libxslt"
 
 G2CONF="${G2CONF}
 	--localstatedir=/var

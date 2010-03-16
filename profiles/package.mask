@@ -23,6 +23,3 @@ media-libs/memphis
 =sys-apps/paludis-9999
 =x11-terms/terminator-9999
 =x11-wm/mutter-9999
-
-# Maybe there are things to change
-=sys-fs/lvm2-2.02.61
