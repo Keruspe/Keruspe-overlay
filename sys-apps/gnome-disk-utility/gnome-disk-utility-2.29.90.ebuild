@@ -3,14 +3,12 @@
 # $Header: $
 
 EAPI=3
-inherit autotools git gnome2
+inherit gnome2
 
 DESCRIPTION="Disk Utility for GNOME using devicekit-disks"
 HOMEPAGE="http://git.gnome.org/cgit/gnome-disk-utility/"
-EGIT_REPO_URI="git://git.gnome.org/${PN}"
-SRC_URI=""
-
 LICENSE="LGPL-2.1"
+
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc gnome-keyring +nautilus nls"
@@ -23,8 +21,7 @@ RDEPEND="
 	>=dev-libs/libatasmart-0.14
 	>=gnome-base/gnome-keyring-2.22
 	>=x11-libs/libnotify-0.3
-	sys-apps/udisks
-
+	>=sys-apps/udisks-1.0.0
 	nautilus? ( >=gnome-base/nautilus-2.24 )"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
@@ -34,27 +31,13 @@ DEPEND="${RDEPEND}
 	>=dev-util/gtk-doc-1.3"
 DOCS="AUTHORS NEWS README TODO"
 
-WANT_AUTOMAKE="1.9"
+#WANT_AUTOMAKE="1.9"
 
-src_unpack() {
-    git_src_unpack
-}
-
-pkg_setup() {
-	G2CONF="${G2CONF}
-		--disable-static
-		$(use_enable gnome-keyring)
-		$(use_enable nautilus)
-		$(use_enable nls)"
-}
-
-src_prepare() {
-    gnome2_src_prepare
-    gtkdocize
-    gnome-doc-prepare
-	intltoolize --force --copy --automake || die "intltoolize failed"
-    eautoreconf
-}
+G2CONF="${G2CONF}
+	--disable-static
+	$(use_enable gnome-keyring)
+	$(use_enable nautilus)
+	$(use_enable nls)"
 
 src_install() {
 	gnome2_src_install

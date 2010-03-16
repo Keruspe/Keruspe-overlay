@@ -3,13 +3,11 @@
 # $Header: $
 
 EAPI=3
-inherit autotools bash-completion git gnome2
+inherit bash-completion gnome2
 
 DESCRIPTION="Daemon providing interfaces to work with storage devices"
 HOMEPAGE="http://www.freedesktop.org/wiki/Software/DeviceKit"
-SRC_URI=""
-EGIT_BRANCH="master"
-EGIT_REPO_URI="git://anongit.freedesktop.org/udisks"
+SRC_URI="http://hal.freedesktop.org/releases/${P}.tar.gz"
 
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
@@ -32,28 +30,13 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	!sys-apps/devicekit-disks
 	dev-libs/libxslt
-	>=sys-fs/lvm2-2.02.61
-	>=dev-util/gtk-doc-1.3"
+	>=sys-fs/lvm2-2.02.61"
 
-src_unpack() {
-    git_src_unpack
-}
-
-pkg_setup() {
-	G2CONF="${G2CONF}
-		--localstatedir=/var
-		--disable-ansi
-		--enable-man-pages
-		$(use_enable debug verbose-mode)"
-}
-
-src_prepare() {
-	gnome2_src_prepare
-    gtkdocize
-    gnome-doc-prepare
-	intltoolize --force --copy --automake || die "intltoolize failed"
-    eautoreconf
-}
+G2CONF="${G2CONF}
+	--localstatedir=/var
+	--disable-ansi
+	--enable-man-pages
+	$(use_enable debug verbose-mode)"
 
 src_install() {
 	gnome2_src_install

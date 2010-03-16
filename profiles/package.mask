@@ -11,9 +11,6 @@
 =media-libs/libchamplain-0.5.1
 media-libs/memphis
 
-# need a masked gnome-disk-utility
-~gnome-base/gvfs-1.5.5
-
 # Mask Scm packages
 =app-pda/gtkpod-9999
 =app-pda/usbmuxd-9999
@@ -23,9 +20,7 @@ media-libs/memphis
 =gnome-base/gnome-shell-9999
 =gnome-extra/pino-9999
 =media-libs/libgpod-9999
-=sys-apps/gnome-disk-utility-9999
 =sys-apps/paludis-9999
-=sys-apps/udisks-9999
 =x11-terms/terminator-9999
 =x11-wm/mutter-9999
 
