@@ -8,11 +8,11 @@ inherit autotools gnome2
 
 DESCRIPTION="Tools aimed to make easy the administration of UNIX systems"
 HOMEPAGE="http://www.gnome.org/projects/gst/"
-
 LICENSE="GPL-2"
+
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="nautilus nfs policykit samba"
+IUSE="nautilus nfs ntp policykit samba"
 
 RDEPEND="
 	>=dev-libs/liboobs-${PV}
@@ -23,6 +23,7 @@ RDEPEND="
 	sys-libs/cracklib
 	nautilus? ( >=gnome-base/nautilus-2.9.90 )
 	nfs? ( net-fs/nfs-utils )
+	ntp? ( net-misc/ntp )
 	samba? ( >=net-fs/samba-3 )
 	policykit? ( >=gnome-extra/polkit-gnome-0.95 )"
 
