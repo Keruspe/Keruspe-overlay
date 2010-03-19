@@ -144,6 +144,11 @@ pkg_setup() {
 		$(use_enable xmp exempi)"
 }
 
+src_prepare() {
+	gnome2_src_prepare
+	cp ${FILESDIR}/tracker-miner-web.xml ${S}/data/dbus/
+}
+
 src_test() {
 	export XDG_CONFIG_HOME="${T}"
 	emake check || die "tests failed"
