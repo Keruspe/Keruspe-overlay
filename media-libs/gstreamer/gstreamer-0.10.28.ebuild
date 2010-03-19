@@ -18,6 +18,7 @@ IUSE="introspection nls test"
 
 RDEPEND=">=dev-libs/glib-2.16:2
 	dev-libs/libxml2
+	!<media-libs/gst-plugins-base-0.10.26
 	>=dev-libs/check-0.9.2"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
