@@ -12,7 +12,7 @@ SRC_URI="http://www.webkitgtk.org/${MY_P}.tar.gz"
 
 LICENSE="LGPL-2 LGPL-2.1 BSD"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~amd64 ~x86"
 IUSE="coverage debug doc geoclue +gstreamer introspection pango"
 
 RDEPEND="
@@ -56,6 +56,7 @@ src_prepare() {
 	rm -v autotools/lt* autotools/libtool.m4 \
 		|| die "removing libtool macros failed"
 	sed -i 's/-O2//g' "${S}"/configure.ac || die "sed failed"
+	epatch ${FILESDIR}/webkit-icu-4.4.patch
 	AT_M4DIR=autotools eautoreconf
 }
 
