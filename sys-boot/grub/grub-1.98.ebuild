@@ -43,7 +43,6 @@ src_configure() {
 		--disable-efiemu \
 		$(use_enable truetype grub-mkfont) \
 		$(use_enable debug mm-debug) \
-		$(use_enable debug grub-emu) \
 		$(use_enable debug grub-emu-usb) \
 		$(use_enable debug grub-fstest) \
 		$(use_with efi platform efi) \
