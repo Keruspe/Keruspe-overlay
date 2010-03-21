@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND=">=dev-python/telepathy-python-0.15.11
+RDEPEND=">=dev-python/telepathy-python-0.15.17
 	>=dev-python/papyon-0.4.2"
 
 DOCS="AUTHORS NEWS"

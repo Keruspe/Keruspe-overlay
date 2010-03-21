@@ -58,6 +58,8 @@ PDEPEND=">=net-im/telepathy-mission-control-5"
 
 DOCS="CONTRIBUTORS AUTHORS ChangeLog NEWS README"
 
+MAKEOPTS="-j1"
+
 G2CONF="${G2CONF}
 	--disable-maintainer-mode
 	--disable-static
