@@ -36,7 +36,7 @@ src_configure() {
 	use static && append-ldflags -static
 
 	local myconf=''
-	use efi && myconf='--target=x86_64'
+	use efi && myconf='--with-platform=efi --target=x86_64'
 
 	econf \
 		--disable-werror \
@@ -48,7 +48,6 @@ src_configure() {
 		$(use_enable debug mm-debug) \
 		$(use_enable debug grub-emu-usb) \
 		$(use_enable debug grub-fstest) \
-		$(use_with efi platform efi) \
 		${myconf}
 }
 
