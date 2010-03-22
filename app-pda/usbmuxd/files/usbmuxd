@@ -9,7 +9,7 @@ depend() {
 
 start() {
     ebegin "Starting usbmuxd"
-    start-stop-daemon --start --exec /usr/sbin/usbmuxd -- -u -v -v
+    start-stop-daemon --start --make-pidfile --pidfile /var/run/usbmuxd.pid --exec /usr/sbin/usbmuxd -- -u -v -v
     eend $?
 }
 
@@ -17,10 +17,4 @@ stop() {
     ebegin "Stopping usbmuxd"
     start-stop-daemon --stop --pidfile /var/run/usbmuxd.pid
     eend $?
-}
-
-
-restart() {
-    stop
-    start
 }
