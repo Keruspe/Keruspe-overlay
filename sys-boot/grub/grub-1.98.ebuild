@@ -35,6 +35,9 @@ src_configure() {
 	use custom-cflags || unset CFLAGS CPPFLAGS LDFLAGS
 	use static && append-ldflags -static
 
+	local myconf=''
+	use efi && myconf='--target=x86_64'
+
 	econf \
 		--disable-werror \
 		--sbindir=/sbin \
@@ -46,7 +49,7 @@ src_configure() {
 		$(use_enable debug grub-emu-usb) \
 		$(use_enable debug grub-fstest) \
 		$(use_with efi platform efi) \
-		--target=x86_64
+		${myconf}
 }
 
 src_compile() {
