@@ -3,12 +3,11 @@
 # $Header: $
 
 EAPI=3
-inherit cmake-utils eutils git
+inherit eutils cmake-utils
 
 DESCRIPTION="USB multiplex daemon for use with Apple iPhone/iPod Touch devices"
 HOMEPAGE="http://marcansoft.com/blog/iphonelinux/usbmuxd/"
-EGIT_REPO_URI="git://git.marcansoft.com/usbmuxd.git"
-SRC_URI=""
+SRC_URI="http://marcansoft.com/uploads/${PN}/${P/_/-}.tar.bz2"
 
 LICENSE="GPL-2 LGPL-2.1"
 SLOT="0"
@@ -18,14 +17,7 @@ IUSE=""
 DEPEND="virtual/libusb:1"
 RDEPEND="${DEPEND}"
 
-src_unpack() {
-	git_src_unpack
-}
-
-src_install() {
-	cmake-utils_src_install
-	dodoc README
-}
+S=${WORKDIR}/${P/_/-}
 
 pkg_setup() {
 	enewuser usbmux -1 -1 -1 "usb"
