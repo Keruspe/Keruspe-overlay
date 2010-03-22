@@ -3,8 +3,7 @@
 # $Header: $
 
 EAPI=3
-
-inherit cmake-utils git
+inherit cmake-utils eutils git
 
 DESCRIPTION="USB multiplex daemon for use with Apple iPhone/iPod Touch devices"
 HOMEPAGE="http://marcansoft.com/blog/iphonelinux/usbmuxd/"
@@ -26,5 +25,8 @@ src_unpack() {
 src_install() {
 	cmake-utils_src_install
 	dodoc README
-	doinitd ${FILESDIR}/usbmuxd
+}
+
+pkg_setup() {
+	enewuser usbmux -1 -1 -1 "usb"
 }
