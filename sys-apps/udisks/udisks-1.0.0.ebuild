@@ -32,9 +32,9 @@ DEPEND="${RDEPEND}
 
 G2CONF="${G2CONF}
 	--localstatedir=/var
-	--disable-ansi
 	--enable-man-pages
 	$(use_enable lvm lvm2)
+	$(use_enable lvm dmmp)
 	$(use_enable debug verbose-mode)"
 
 src_install() {
