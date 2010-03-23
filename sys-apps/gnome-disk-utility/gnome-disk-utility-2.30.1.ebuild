@@ -8,6 +8,7 @@ inherit gnome2
 DESCRIPTION="Disk Utility for GNOME using devicekit-disks"
 HOMEPAGE="http://git.gnome.org/cgit/gnome-disk-utility/"
 LICENSE="LGPL-2.1"
+SRC_URI="http://hal.freedesktop.org/releases/${P}.tar.bz2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -30,8 +31,6 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35
 	>=dev-util/gtk-doc-1.3"
 DOCS="AUTHORS NEWS README TODO"
-
-#WANT_AUTOMAKE="1.9"
 
 G2CONF="${G2CONF}
 	--disable-static
