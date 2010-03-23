@@ -34,7 +34,7 @@ RDEPEND=">=dev-libs/glib-2.20
 	x11-libs/startup-notification
 	x11-libs/libXfixes
 	x11-apps/mesa-progs
-	=x11-wm/mutter-2.29.1[introspection]
+	>=x11-wm/mutter-2.29.1[introspection]
 "
 DEPEND="${RDEPEND}
 	>=dev-lang/python-2.5
