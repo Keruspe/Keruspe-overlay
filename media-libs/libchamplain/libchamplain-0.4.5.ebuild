@@ -7,6 +7,7 @@ inherit gnome2
 
 DESCRIPTION="Clutter based world map renderer"
 HOMEPAGE="http://blog.pierlux.com/projects/libchamplain/en/"
+SRC_URI=${SRC_URI/bz2/gz}
 
 LICENSE="LGPL-2"
 SLOT="0"
