@@ -14,7 +14,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND=">=app-pda/libplist-1.1
-	>=app-pda/libimobiledevice-0.9.7
+	>=app-pda/libimobiledevice-1.0.0
 	=dev-libs/glib-2*
 	sys-fs/fuse"
 
@@ -28,6 +28,4 @@ pkg_postinst() {
 	ewarn "cause the iPod/iPhone to consider your database unauthorised."
 	ewarn "It will respond by wiping all media files, requiring a restore "
 	ewarn "through iTunes. You have been warned."
-	ewarn "Note that you have to run /etc/init.d/usbmuxd start to have "
-	ewarn "ifuse working."
 }
