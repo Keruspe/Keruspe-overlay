@@ -75,6 +75,9 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 
+	sed 's/AFC_E_INVALID_ARGUMENT/AFC_E_INVALID_ARG/g' -i \
+	daemon/gvfsbackendafc.c || die
+
 	use gphoto2 && epatch "${FILESDIR}/${PN}-1.2.2-gphoto2-stricter-checks.patch"
 	if use archive; then
 		epatch "${FILESDIR}/${PN}-1.2.2-expose-archive-backend.patch"
