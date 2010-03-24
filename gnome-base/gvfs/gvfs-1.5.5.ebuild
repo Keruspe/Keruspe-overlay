@@ -48,35 +48,33 @@ DEPEND="${RDEPEND}
 
 DOCS="AUTHORS ChangeLog NEWS README TODO"
 
-pkg_setup() {
-	if use cdda && ! use hal && ! use udev; then
-		ewarn "You have \"+cdda\", but you have \"-hal\" and \"-udev\""
-		ewarn "cdda support will NOT be built unless you enable EITHER hal OR udev"
-	fi
+if use cdda && ! use hal && ! use udev; then
+	ewarn "You have \"+cdda\", but you have \"-hal\" and \"-udev\""
+	ewarn "cdda support will NOT be built unless you enable EITHER hal OR udev"
+fi
 
-	G2CONF="${G2CONF}
-		--enable-udev
-		--disable-bash-completion
-		$(use_enable archive)
-		$(use_enable avahi)
-		$(use_enable bluetooth obexftp)
-		$(use_enable cdda)
-		$(use_enable fuse)
-		$(use_enable gdu)
-		$(use_enable gnome gconf)
-		$(use_enable gphoto2)
-		$(use_enable udev gudev)
-		$(use_enable hal)
-		$(use_enable http)
-		$(use_enable gnome-keyring keyring)
-		$(use_enable samba)"
-}
+G2CONF="${G2CONF}
+	--enable-udev
+	--disable-bash-completion
+	$(use_enable archive)
+	$(use_enable avahi)
+	$(use_enable bluetooth obexftp)
+	$(use_enable cdda)
+	$(use_enable fuse)
+	$(use_enable gdu)
+	$(use_enable gnome gconf)
+	$(use_enable gphoto2)
+	$(use_enable udev gudev)
+	$(use_enable hal)
+	$(use_enable http)
+	$(use_enable gnome-keyring keyring)
+	$(use_enable samba)"
 
 src_prepare() {
 	gnome2_src_prepare
 
-	sed 's/AFC_E_INVALID_ARGUMENT/AFC_E_INVALID_ARG/g' -i \
-	daemon/gvfsbackendafc.c || die
+	cd ${S}
+	epatch ${FILESDIR}/fix-libimobiledevice.patch
 
 	use gphoto2 && epatch "${FILESDIR}/${PN}-1.2.2-gphoto2-stricter-checks.patch"
 	if use archive; then
