@@ -12,12 +12,10 @@
 media-libs/memphis
 
 # Mask Scm packages
-=app-pda/gtkpod-9999
 =dev-libs/gjs-9999
 =dev-libs/gir-repository-9999
 =dev-libs/gobject-introspection-9999
 =gnome-base/gnome-shell-9999
-=media-libs/libgpod-9999
 =gnome-extra/pino-9999
 =sys-apps/paludis-9999
 =x11-terms/terminator-9999

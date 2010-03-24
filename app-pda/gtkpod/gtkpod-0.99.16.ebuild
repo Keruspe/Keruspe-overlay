@@ -3,12 +3,10 @@
 # $Header: $
 
 EAPI=3
-inherit autotools git
 
 DESCRIPTION="GUI for iPod using GTK2"
 HOMEPAGE="http://gtkpod.sourceforge.net/"
-EGIT_REPO_URI="git://gtkpod.git.sourceforge.net/gitroot/gtkpod/gtkpod"
-SRC_URI=""
+SRC_URI="http://downloads.sourceforge.net/project/${PN}/${PN}/${P}/${P}.tar.gz"
 
 LICENSE="GPL-2 FDL-1.2"
 SLOT="0"
@@ -18,7 +16,7 @@ IUSE="aac curl flac mp3 nls ogg"
 RDEPEND=">=x11-libs/gtk+-2.8
 	>=media-libs/libid3tag-0.15
 	>=gnome-base/libglade-2.4
-	>=media-libs/libgpod-0.7
+	>=media-libs/libgpod-0.7.92
 	>=net-misc/curl-7.10
 	mp3? ( media-sound/lame
 		media-sound/id3v2 )
@@ -32,15 +30,6 @@ DEPEND="${RDEPEND}
 	sys-devel/flex
 	nls? ( dev-util/intltool
 		sys-devel/gettext )"
-
-src_unpack() {
-	git_src_unpack
-}
-
-src_prepare() {
-	intltoolize --force --copy --automake
-	eautoreconf
-}
 
 src_configure() {
 	econf \

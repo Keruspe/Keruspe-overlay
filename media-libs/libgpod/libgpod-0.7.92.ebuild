@@ -3,12 +3,10 @@
 # $Header: $
 
 EAPI=3
-inherit autotools  git
 
 DESCRIPTION="Shared library to access the contents of an iPod"
 HOMEPAGE="http://www.gtkpod.org/libgpod.html"
-EGIT_REPO_URI="git://gtkpod.git.sourceforge.net/gitroot/gtkpod/libgpod"
-SRC_URI=""
+SRC_URI="http://downloads.sourceforge.net/project/gtkpod/${PN}/${P/2/x}/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
@@ -33,16 +31,6 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	dev-util/gtk-doc
 	dev-libs/libxslt"
-
-src_unpack() {
-	git_src_unpack
-}
-
-src_prepare() {
-	gtkdocize
-	intltoolize --force --copy --automake
-	eautoreconf
-}
 
 src_configure() {
 	econf \
