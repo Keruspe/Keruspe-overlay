@@ -11,7 +11,7 @@ HOMEPAGE="http://www.tracker-project.org/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="applet deskbar doc eds exif flac gsf gstreamer gtk hal iptc +jpeg kmail
+IUSE="applet doc eds exif flac gsf gstreamer gtk hal iptc +jpeg kmail
 laptop mp3 nautilus nls pdf playlist test +tiff +vorbis xine +xml xmp"
 
 RDEPEND="
@@ -28,7 +28,6 @@ RDEPEND="
 		>=x11-libs/libnotify-0.4.3
 		gnome-base/gnome-panel
 		>=x11-libs/gtk+-2.18 )
-	deskbar? ( >=gnome-extra/deskbar-applet-2.19 )
 	eds? (
 		>=gnome-extra/evolution-data-server-2.25.5 )
 	exif? ( >=media-libs/libexif-0.6 )
@@ -122,7 +121,6 @@ pkg_setup() {
 		--enable-tracker-status-icon
 		$(use_enable nls)
 		$(use_enable applet tracker-search-bar)
-		$(use_enable deskbar deskbar-applet)
 		$(use_enable eds evolution-miner)
 		$(use_enable exif libexif)
 		$(use_enable flac libflac)
