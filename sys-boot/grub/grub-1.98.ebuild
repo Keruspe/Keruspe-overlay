@@ -36,7 +36,7 @@ src_configure() {
 	use static && append-ldflags -static
 
 	local myconf=''
-	use efi && myconf='--with-platform=efi --target=x86_64'
+	use efi && myconf='--with-platform=efi'
 
 	econf \
 		--disable-werror \
