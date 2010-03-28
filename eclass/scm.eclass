@@ -37,9 +37,21 @@ scm_die_unless_nonfatal() {
 
 scm_for_each() {
 	[[ ${#} -ge 1 ]] || die "scm_for_each needs at least one argument"
-	local SCM_THIS
-	for SCM_THIS in "" ${SCM_SECONDARY_REPOSITORIES}; do
-		"${@}"
+	local t active=true
+	       local -i level=0
+	       for t in ${SCM_SECONDARY_REPOSITORIES}; do
+	               if [[ ${t} == *\? ]]; then
+	                       ${active} && ! use ${t%\?} && active=false
+	               elif [[ ${t} == \( ]]; then
+	                       ${active} || (( level++ ))
+	               elif [[ ${t} == \) ]]; then
+	                       if ! ${active}; then
+	                               (( level-- ))
+	                               [[ ${level} -eq 0 ]] && active=true
+	                       fi
+	               else
+	                       ${active} && SCM_THIS=${t} "${@}"
+	               fi
 	done
 }
 
@@ -56,7 +68,7 @@ scm_get_var() {
 
 scm_set_var() {
 	[[ ${#} -eq 2 ]] || die "scm_set_var needs exactly two arguments"
-	eval "$(scm_var_name ${1})=\${2}"
+	printf -v $(scm_var_name ${1}) %s "${2}"
 }
 
 scm_modify_var() {
@@ -219,7 +231,7 @@ scm_src_fetch_extra() {
 scm_scmrevision_one() {
 	local rev=$(scm_call revision)
 	[[ -n ${rev} ]] || die "could not determine revision for ${SCM_THIS:-primary repository}"
-	SCM_PKG_SCM_REVISION_RESULT=${SCM_PKG_SCM_REVISION_RESULT},${SCM_THIS}=${rev}
+	SCM_PKG_SCM_REVISION_RESULT+=,${SCM_THIS}=${rev}
 }
 
 scm_pkg_scm_revision() {
@@ -334,15 +346,25 @@ scm_global_stuff() {
 
 	scm_call check_vars
 
-	DEPEND="${DEPEND} $(scm_call dependencies)"
+	DEPEND+=" $(scm_call dependencies)"
 }
 
 SCM_HOME=${PORTAGE_ACTUAL_DISTDIR-${DISTDIR}}/scm
 scm_finalise() {
-	DEPEND="${DEPEND} >=sys-apps/util-linux-2.13_pre2"
-	scm_{for_each,global_stuff}
+	DEPEND+=" >=sys-apps/util-linux-2.13_pre2"
+
+	[[ -z ${SCM_NO_PRIMARY_REPOSITORY} ]] && SCM_THIS= scm_global_stuff
+	
+	       local t
+	       for t in ${SCM_SECONDARY_REPOSITORIES}; do
+	               if [[ ${t} == *\? || ${t} == \( || ${t} == \) ]]; then
+	                       DEPEND+=" ${t}"
+	               else
+	                       SCM_THIS=${t} scm_global_stuff
+	               fi
+	       done
 }
-[[ -n ${SCM_REPOSITORY} ]] && scm_finalise
+[[ -z ${SCM_NO_AUTOMATIC_FINALISE} ]] && scm_finalise
 
 #EXPORT_FUNCTIONS src_fetch_extra pkg_scm_revision src_unpack pkg_info
 EXPORT_FUNCTIONS src_unpack pkg_info
