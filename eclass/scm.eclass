@@ -37,6 +37,9 @@ scm_die_unless_nonfatal() {
 
 scm_for_each() {
 	[[ ${#} -ge 1 ]] || die "scm_for_each needs at least one argument"
+
+	[[ -z ${SCM_NO_PRIMARY_REPOSITORY} ]] && SCM_THIS= "${@}"
+
 	local t active=true
 	       local -i level=0
 	       for t in ${SCM_SECONDARY_REPOSITORIES}; do
