@@ -7,8 +7,8 @@ inherit eutils gnome2 virtualx
 
 DESCRIPTION="A file manager for the GNOME desktop"
 HOMEPAGE="http://www.gnome.org/projects/nautilus/"
-
 LICENSE="GPL-2 LGPL-2 FDL-1.1"
+
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc gnome xmp"
