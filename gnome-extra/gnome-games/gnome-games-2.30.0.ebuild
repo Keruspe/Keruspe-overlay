@@ -96,10 +96,6 @@ src_prepare() {
 	gnome2_src_prepare
 	mv py-compile py-compile.orig
 	ln -s $(type -P true) py-compile
-	if use clutter; then
-		epatch ${FILESDIR}/fix-clutter-gtk-0.10.patch
-		eautoreconf
-	fi
 }
 
 src_test() {
