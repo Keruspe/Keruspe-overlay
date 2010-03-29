@@ -64,12 +64,10 @@ DEPEND="${RDEPEND}
 
 DOCS="AUTHORS ChangeLog NEWS README TODO"
 
-pkg_setup() {
-	G2CONF="${G2CONF}
-		--disable-update-mimedb
-		--disable-static
-		$(use_enable eds aboutme)"
-}
+G2CONF="${G2CONF}
+	--disable-update-mimedb
+	--disable-static
+	$(use_enable eds aboutme)"
 
 src_prepare() {
 	gnome2_src_prepare
