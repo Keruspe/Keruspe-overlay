@@ -61,7 +61,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	use applets || epatch ${FILESDIR}/no-applets.patch
 	gnome2_src_prepare
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
