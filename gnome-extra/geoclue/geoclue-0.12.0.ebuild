@@ -27,7 +27,7 @@ DEPEND="${RDEPEND}
         doc? ( >=dev-util/gtk-doc-1 )"
 
 src_prepare() {
-	sed 's/libnm_glib/linm-glib/' -i configure.ac
+	sed 's/libnm_glib/libnm-glib/' -i configure.ac
 	eautoreconf
 }
 
