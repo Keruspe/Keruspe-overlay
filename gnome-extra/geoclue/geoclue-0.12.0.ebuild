@@ -2,6 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=3
 inherit autotools eutils
 
 DESCRIPTION="A modular geoinformation service built on top of the D-Bus messaging system"
@@ -25,13 +26,8 @@ DEPEND="${RDEPEND}
         dev-libs/libxslt
         doc? ( >=dev-util/gtk-doc-1 )"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-
-	epatch "${FILESDIR}/0001-Remove-automagic-deps-and-add-switches-to-enable-dis.patch"
-	epatch "${FILESDIR}/0002-Fix-NM-pkgcheck.patch"
-
+src_prepare() {
+	sed 's/libnm_glib/linm-glib' -i configure.ac
 	eautoreconf
 }
 
