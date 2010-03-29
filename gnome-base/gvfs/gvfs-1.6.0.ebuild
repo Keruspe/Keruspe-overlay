@@ -11,7 +11,7 @@ HOMEPAGE="http://www.gnome.org"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="archive avahi bluetooth cdda doc fuse gdu gnome gnome-keyring gphoto2 hal
+IUSE="afc archive avahi bluetooth cdda doc fuse gdu gnome gnome-keyring gphoto2 hal
 +http samba +udev"
 
 RDEPEND=">=dev-libs/glib-2.21.2
@@ -19,6 +19,7 @@ RDEPEND=">=dev-libs/glib-2.21.2
 	dev-libs/libxml2
 	net-misc/openssh
 	>=sys-fs/udev-145
+	afc? ( app-pda/libimobiledevice )
 	archive? ( app-arch/libarchive )
 	avahi? ( >=net-dns/avahi-0.6 )
 	bluetooth? (
@@ -56,6 +57,7 @@ fi
 G2CONF="${G2CONF}
 	--enable-udev
 	--disable-bash-completion
+	$(use_enable afc)
 	$(use_enable archive)
 	$(use_enable avahi)
 	$(use_enable bluetooth obexftp)
