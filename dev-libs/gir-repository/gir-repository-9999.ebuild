@@ -34,7 +34,7 @@ DEPEND="${RDEPEND}
 	libwnck? ( x11-libs/libwnck )
 	nautilus? ( gnome-base/nautilus )
 	poppler? ( >=app-text/poppler-0.12.3-r3 )
-	vte? ( x11-libs/vte )
+	vte? ( >=x11-libs/vte-0.24[introspection] )
 "
 
 PDEPEND="
@@ -46,7 +46,7 @@ PDEPEND="
 "
 
 pkg_setup() {
-	SKIP="Atk,GMenu,Gnio,Gst,Gtk,Pango,PangoXft,WebKit,Unique"
+	SKIP="Atk,GMenu,Gnio,Gst,Gtk,Pango,PangoXft,Vte,WebKit,Unique"
 	use !avahi && SKIP="${SKIP},Avahi"
 	use !babl && SKIP="${SKIP},BABL"
 	use !dbus && SKIP="${SKIP},DBus"
@@ -60,7 +60,6 @@ pkg_setup() {
 	use !libwnck && SKIP="${SKIP},Wnck"
 	use !nautilus && SKIP="${SKIP},Nautilus"
 	use !poppler && SKIP="${SKIP},Poppler"
-	use !vte && SKIP="${SKIP},Vte"
 
 	G2CONF="${G2CONF} --with-skipped-gir-modules=${SKIP}"
 }

@@ -11,7 +11,7 @@ LICENSE="LGPL-2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc glade python"
+IUSE="debug doc glade introspection python"
 
 RDEPEND=">=dev-libs/glib-2.22.0
 	>=x11-libs/gtk+-2.14.0
@@ -23,6 +23,7 @@ RDEPEND=">=dev-libs/glib-2.22.0
 	x11-libs/libXft"
 DEPEND="${RDEPEND}
 	doc? ( >=dev-util/gtk-doc-1.0 )
+	introspection? ( dev-libs/gobject-introspection )
 	>=dev-util/intltool-0.35
 	>=dev-util/pkgconfig-0.9
 	sys-devel/gettext"
@@ -35,4 +36,5 @@ G2CONF="${G2CONF}
 	$(use_enable debug)
 	$(use_enable glade glade-catalogue)
 	$(use_enable python)
+	$(use_enable introspection)
 	--with-html-dir=/usr/share/doc/${PF}/html"
