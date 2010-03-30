@@ -38,3 +38,9 @@ G2CONF="${G2CONF}
 	$(use_enable python)
 	$(use_enable introspection)
 	--with-html-dir=/usr/share/doc/${PF}/html"
+
+src_prepare() {
+	gnome2_src_prepare
+	cd ${S}
+	epatch ${FILESDIR}/fix-backgrounds.patch
+}
