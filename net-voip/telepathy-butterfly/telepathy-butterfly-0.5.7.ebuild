@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI=3
+inherit base
 
 DESCRIPTION="An MSN connection manager for Telepathy"
 HOMEPAGE="http://telepathy.freedesktop.org/releases/telepathy-butterfly/"
@@ -18,20 +19,8 @@ RDEPEND=">=dev-python/telepathy-python-0.15.17
 
 DOCS="AUTHORS NEWS"
 
-src_configure() {
-	./waf --prefix=/usr \
-		configure || die "./waf configure failed"
-}
-
-src_compile() {
-	local myjobs=$(echo "$MAKEOPTS" | sed -n -e 's,.*\(-j[[:digit:]]\+\).*,\1,p')
-	./waf ${myjobs} build || die "./waf build failed"
-}
-
 src_install() {
-	./waf \
-		--destdir="${D}" \
-		install || die "./waf install failed"
+	base_src_install
 	rm -f $(find "${D}" -name *.py[co])
 	dodoc ${DOCS}
 }
