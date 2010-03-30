@@ -33,6 +33,7 @@ DOCS="AUTHORS ChangeLog NEWS README THANKS"
 
 G2CONF="${G2CONF}
 	$(use_enable ipv6)
+	$(use_enable applet gdict-applet)
 	--enable-maintainer-flags=no
 	--enable-zlib
 	--disable-static
@@ -51,8 +52,6 @@ src_prepare() {
 	if ! use test ; then
 		sed -e 's/ tests//' -i logview/Makefile.{am,in} || die "sed failed";
 	fi
-
-	use !applet && epatch ${FILESDIR}/no-applet.patch && eautoreconf
 }
 
 src_install() {
