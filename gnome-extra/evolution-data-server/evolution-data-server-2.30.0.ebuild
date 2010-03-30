@@ -61,8 +61,6 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-2.28.0-gentoo_etc_services.patch"
 	epatch "${FILESDIR}/${PN}-1.8.0-camel-rewind.patch"
 	epatch "${FILESDIR}/e-d-s-camel-skip-failing-test.patch"
-	epatch "${FILESDIR}/e-d-s-imapx-update-flags-on-move.patch"
-	epatch "${FILESDIR}/e-d-s-fix-wrong-item-in-ldflags.patch"
 
 	if use doc; then
 		sed "/^TARGET_DIR/i \GTKDOC_REBASE=/usr/bin/gtkdoc-rebase" \
