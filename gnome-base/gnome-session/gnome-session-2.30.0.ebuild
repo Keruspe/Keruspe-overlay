@@ -3,7 +3,6 @@
 # $Header: Exp $
 
 EAPI=3
-
 inherit eutils gnome2
 
 DESCRIPTION="Gnome session manager"

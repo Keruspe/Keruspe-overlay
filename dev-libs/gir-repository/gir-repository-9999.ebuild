@@ -31,22 +31,22 @@ DEPEND="${RDEPEND}
 		net-libs/gupnp )
 	libnotify? ( x11-libs/libnotify )
 	libsoup? ( net-libs/libsoup:2.4 )
-	libwnck? ( x11-libs/libwnck )
+	libwnck? ( >=x11-libs/libwnck-2.30[introspection] )
 	nautilus? ( gnome-base/nautilus )
 	poppler? ( >=app-text/poppler-0.12.3-r3 )
 	vte? ( >=x11-libs/vte-0.24[introspection] )
 "
 
 PDEPEND="
-	atk? ( >=dev-libs/atk-1.29.92[introspection] ) 
-	gnome-menus? ( >=gnome-base/gnome-menus-2.29.92[introspection] )
-	gtk? ( >=x11-libs/gtk+-2.19.6[introspection] )
+	atk? ( >=dev-libs/atk-1.30[introspection] ) 
+	gnome-menus? ( >=gnome-base/gnome-menus-2.30[introspection] )
+	gtk? ( >=x11-libs/gtk+-2.20[introspection] )
 	pango? ( >=x11-libs/pango-1.27.1[introspection] )
-	webkit? ( >=net-libs/webkit-gtk-1.1.22[introspection] )
+	webkit? ( >=net-libs/webkit-gtk-1.1.90[introspection] )
 "
 
 pkg_setup() {
-	SKIP="Atk,GMenu,Gnio,Gst,Gtk,Pango,PangoXft,Vte,WebKit,Unique"
+	SKIP="Atk,GMenu,Gnio,Gst,Gtk,Pango,PangoXft,Vte,WebKit,Wnck,Unique"
 	use !avahi && SKIP="${SKIP},Avahi"
 	use !babl && SKIP="${SKIP},BABL"
 	use !dbus && SKIP="${SKIP},DBus"
@@ -57,7 +57,6 @@ pkg_setup() {
 	use !gupnp && SKIP="${SKIP},GUPNP"
 	use !libnotify && SKIP="${SKIP},Notify"
 	use !libsoup && SKIP="${SKIP},Soup"
-	use !libwnck && SKIP="${SKIP},Wnck"
 	use !nautilus && SKIP="${SKIP},Nautilus"
 	use !poppler && SKIP="${SKIP},Poppler"
 

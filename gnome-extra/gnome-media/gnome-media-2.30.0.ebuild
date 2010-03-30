@@ -36,17 +36,15 @@ DEPEND="${RDEPEND}
 
 DOCS="AUTHORS ChangeLog* NEWS MAINTAINERS README"
 
-pkg_setup() {
-	G2CONF="${G2CONF}
-		--disable-static
-		--disable-scrollkeeper
-		--disable-schemas-install
-		--enable-gstprops
-		--enable-grecord
-		--enable-profiles
-		$(use_enable pulseaudio)
-		$(use_enable !pulseaudio gstmix)"
-}
+G2CONF="${G2CONF}
+	--disable-static
+	--disable-scrollkeeper
+	--disable-schemas-install
+	--enable-gstprops
+	--enable-grecord
+	--enable-profiles
+	$(use_enable pulseaudio)
+	$(use_enable !pulseaudio gstmix)"
 
 src_prepare() {
 	gnome2_src_prepare

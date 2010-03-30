@@ -26,17 +26,15 @@ DEPEND="${RDEPEND}
 
 DOCS="AUTHORS ChangeLog HACKING MAINTAINERS NEWS README TODO"
 
-pkg_setup() {
-	G2CONF="${G2CONF}
-		--disable-dependency-tracking
-		--disable-scrollkeeper
-		--disable-run-in-place
-		--disable-static"
+G2CONF="${G2CONF}
+	--disable-dependency-tracking
+	--disable-scrollkeeper
+	--disable-run-in-place
+	--disable-static"
 
-	if ! use nautilus ; then
-		G2CONF="${G2CONF} --disable-nautilus-actions"
-	fi
-}
+if ! use nautilus ; then
+	G2CONF="${G2CONF} --disable-nautilus-actions"
+fi
 
 src_prepare() {
 	gnome2_src_prepare
