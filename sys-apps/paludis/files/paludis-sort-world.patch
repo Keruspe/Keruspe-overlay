@@ -1,0 +1,168 @@
+---
+Created by Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+---
+
+diff --git a/paludis/environments/paludis/world.cc b/paludis/environments/paludis/world.cc
+index f78daca..a8eb0d4 100644
+--- a/paludis/environments/paludis/world.cc
++++ b/paludis/environments/paludis/world.cc
+@@ -124,6 +124,7 @@ World::_add_string_to_world(const std::string & n) const
+                 value_for<n::type>(sft_simple)
+                 ));
+     world.add(n);
++    world.sort();
+     world.rewrite();
+ }
+ 
+@@ -155,6 +156,7 @@ World::_remove_string_from_world(const std::string & n) const
+                 ));
+ 
+         world.remove(n);
++        world.sort();
+         world.rewrite();
+     }
+ }
+diff --git a/paludis/set_file.cc b/paludis/set_file.cc
+index d00a292..b3e3670 100644
+--- a/paludis/set_file.cc
++++ b/paludis/set_file.cc
+@@ -54,12 +54,15 @@ namespace
+         protected:
+             SetFileHandler();
+ 
++            static bool compareNoCase(const std::string &, const std::string &);
++
+         public:
+             virtual ~SetFileHandler();
+ 
+             virtual std::tr1::shared_ptr<SetSpecTree> contents() const = 0;
+             virtual void add(const std::string &) = 0;
+             virtual void remove(const std::string &) = 0;
++            virtual void sort() = 0;
+             virtual void rewrite() const = 0;
+     };
+ 
+@@ -81,6 +84,7 @@ namespace
+             virtual std::tr1::shared_ptr<SetSpecTree> contents() const;
+             virtual void add(const std::string &);
+             virtual void remove(const std::string &);
++            virtual void sort();
+             virtual void rewrite() const;
+     };
+ 
+@@ -97,6 +101,7 @@ namespace
+             virtual std::tr1::shared_ptr<SetSpecTree> contents() const;
+             virtual void add(const std::string &) PALUDIS_ATTRIBUTE((noreturn));
+             virtual void remove(const std::string &) PALUDIS_ATTRIBUTE((noreturn));
++            virtual void sort() PALUDIS_ATTRIBUTE((noreturn));
+             virtual void rewrite() const PALUDIS_ATTRIBUTE((noreturn));
+     };
+ 
+@@ -118,6 +123,7 @@ namespace
+             virtual std::tr1::shared_ptr<SetSpecTree> contents() const;
+             virtual void add(const std::string &);
+             virtual void remove(const std::string &);
++            virtual void sort();
+             virtual void rewrite() const;
+     };
+ 
+@@ -305,6 +311,21 @@ SetFileHandler::~SetFileHandler()
+ {
+ }
+ 
++bool
++SetFileHandler::compareNoCase(const std::string & first, const std::string & second)
++{
++    for (unsigned int i(0) ; i < first.length() && i < second.length() ; ++i)
++    {
++        if (tolower(first[i]) < tolower(second[i]))
++            return true;
++        else if (tolower(first[i]) > tolower(second[i]))
++            return false;
++    }
++    if (first.length()<second.length())
++        return true;
++    return false;
++}
++
+ SimpleHandler::SimpleHandler(const SetFileParams & p) :
+     _p(p)
+ {
+@@ -395,6 +416,17 @@ SimpleHandler::remove(const std::string & p)
+ }
+ 
+ void
++SimpleHandler::sort()
++{
++    Lock l(_mutex);
++
++    Context context("When sorting simple set file '" + stringify(_p.file_name()) + "':");
++
++    _lines.sort(SetFileHandler::compareNoCase);
++    _contents.reset();
++}
++
++void
+ SimpleHandler::rewrite() const
+ {
+     Lock l(_mutex);
+@@ -473,6 +505,17 @@ PaludisConfHandler::remove(const std::string & p)
+ }
+ 
+ void
++PaludisConfHandler::sort()
++{
++    Context context("When sorting paludis conf set file '" + stringify(_p.file_name()) + "':");
++
++    Lock l(_mutex);
++
++    _lines.sort(SetFileHandler::compareNoCase);
++    _contents.reset();
++}
++
++void
+ PaludisConfHandler::rewrite() const
+ {
+     Context context("When rewriting paludis conf set file '" + stringify(_p.file_name()) + "':");
+@@ -545,6 +588,12 @@ PaludisBashHandler::remove(const std::string & p)
+ }
+ 
+ void
++PaludisBashHandler::sort()
++{
++    throw SetFileError(_p.file_name(), "Cannot modify bash script '" + stringify(_p.file_name()) + "'");
++}
++
++void
+ PaludisBashHandler::rewrite() const
+ {
+     throw SetFileError(_p.file_name(), "Cannot modify bash script '" + stringify(_p.file_name()) + "'");
+@@ -582,6 +631,12 @@ SetFile::contents() const
+ }
+ 
+ void
++SetFile::sort()
++{
++    _imp->handler->sort();
++}
++
++void
+ SetFile::rewrite() const
+ {
+     _imp->handler->rewrite();
+diff --git a/paludis/set_file.hh b/paludis/set_file.hh
+index 3954df9..7a10f03 100644
+--- a/paludis/set_file.hh
++++ b/paludis/set_file.hh
+@@ -131,6 +131,11 @@ namespace paludis
+             const std::tr1::shared_ptr<const SetSpecTree> contents() const;
+ 
+             /**
++             * Sort our contents.
++             */
++            void sort();
++
++            /**
+              * Rewrite our contents.
+              */
+             void rewrite() const;

@@ -12,7 +12,8 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="ask cave cran doc gems inquisitio portage pink python-bindings ruby-bindings vim-syntax visibility xml zsh-completion"
+IUSE="ask cave cran doc gems inquisitio portage pink python-bindings
+ruby-bindings sort-world vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -68,6 +69,7 @@ src_unpack() {
 	scm_src_unpack
 	cd "${S}"
 	use ask && epatch ${FILESDIR}/paludis-ask.patch
+	use sort-world && epatch ${FILESDIR}/paludis-sort-world.patch
 	./autogen.bash || die "autogen.bash failed"
 }
 
