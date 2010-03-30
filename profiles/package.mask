@@ -3,9 +3,9 @@
 # $Header: $
 
 # Libxklavier 5.0
-=gnome-base/libgnomekbd-2.29.92
-=gnome-base/gnome-settings-daemon-2.29.92
-=gnome-base/gdm-2.29.92
+=gnome-base/libgnomekbd-2.30.0
+=gnome-base/gnome-settings-daemon-2.30.0
+=gnome-base/gdm-2.30.0
 
 # not ready
 =media-libs/libchamplain-0.5.1
