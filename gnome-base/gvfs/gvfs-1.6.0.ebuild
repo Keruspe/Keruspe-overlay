@@ -39,7 +39,7 @@ RDEPEND=">=dev-libs/glib-2.21.2
 		cdda? ( >=dev-libs/libcdio-0.78.2[-minimal] )
 		>=sys-apps/hal-0.5.10 )
 	http? ( >=net-libs/libsoup-gnome-2.25.1 )
-	samba? ( || ( net-fs/samba-libs[smbclient]
+	samba? ( || ( >=net-fs/samba-libs-3.4[smbclient]
 			<=net-fs/samba-3.3 ) )"
 DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.40
