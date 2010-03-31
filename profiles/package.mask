@@ -18,5 +18,4 @@ media-libs/memphis
 =gnome-base/gnome-shell-9999
 =gnome-extra/pino-9999
 =sys-apps/paludis-9999
-=x11-terms/terminator-9999
 =x11-wm/mutter-9999
