@@ -105,20 +105,19 @@ index 8862669..5206387 100644
      if (_imp->pretend)
      {
          if (0 != perform_hook(Hook("install_pretend_post")
-@@ -1312,6 +1317,12 @@ InstallTask::execute()
+@@ -1312,6 +1317,11 @@ InstallTask::execute()
                  ("DEPLIST_HAS_ERRORS", stringify(_imp->dep_list.has_errors()))
                  ).max_exit_status())
          throw ActionAbortedError("Install task execute aborted by hook");
-+    if (_imp->fetch_only && _imp->ask && on_ask())
++    if (_imp->fetch_only && _imp->ask)
 +    {
 +        set_fetch_only(false);
-+        set_ask(false);
 +        _main_actions();
 +    }
  }
  
  const DepList &
-@@ -1333,6 +1344,12 @@ InstallTask::set_pretend(const bool value)
+@@ -1333,6 +1343,12 @@ InstallTask::set_pretend(const bool value)
  }
  
  void
@@ -229,7 +228,7 @@ index 60f9ff3..c646b5f 100644
 +                if (_count == 0)
 +                    return true;
 +                std::string answer;
-+                cout << endl << "* Do you really want to do this ? [Yes/No] ... ";
++                cout << endl << "* Do you really want to do this ? [Y/n] ... ";
 +                while (true)
 +                {
 +                    getline(std::cin, answer);
@@ -239,7 +238,7 @@ index 60f9ff3..c646b5f 100644
 +                        return false;
 +                    else if (answer == "yes" || answer == "ye" || answer == "y" || answer == "")
 +                        return true;
-+                    cout << endl << "Unknown answer : " + answer + " [Yes/No] ... ";
++                    cout << endl << "Unknown answer : " + answer + " [Y/n] ... ";
 +                }
 +            }
 +
@@ -269,7 +268,7 @@ index ce93409..e21dcfb 100644
 +        return true;
 +    std::string answer;
 +    output_endl();
-+    output_starred_item_no_endl("Do you really want to do this ? [Yes/No] ... ");
++    output_starred_item_no_endl("Do you really want to do this ? [Y/n] ... ");
 +    while (true)
 +    {
 +        getline(std::cin, answer);
@@ -280,7 +279,7 @@ index ce93409..e21dcfb 100644
 +        else if (answer == "yes" || answer == "ye" || answer == "y" || answer == "")
 +            return true;
 +        output_endl();
-+        output_no_endl("Unknown answer : " + answer + " [Yes/No] ... ");
++        output_no_endl("Unknown answer : " + answer + " [Y/n] ... ");
 +    }
 +}
 +
