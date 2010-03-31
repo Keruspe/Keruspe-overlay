@@ -5,12 +5,16 @@
 app-admin/gnome-system-tools:nautilus - Enable nautilus plugin
 app-editors/gedit:updater - Build plugins updater
 app-misc/kupfer:keybinder - Use python keybinder
+dev-util/anjuta-extras:scintilla - Enable scintilla plugin
+dev-util/anjuta-extras:valgrind - Enable valgrind plugin
 gnome-base/gdm:applet - Build fast-user-switch-applet
 gnome-base/gnome:note - Enable note writer
-gnome-base/gvfs:afc - Enable afc backend (iPod, iPhone)
+gnome-base/gnome-control-center:mutter - Use mutter instead of metacity
 gnome-base/gnome-shell:seconds - Show seconds in clock
+gnome-base/gvfs:afc - Enable afc backend (iPod, iPhone)
 gnome-extra/gnome-games:clutter - Enable clutter-based games
 gnome-extra/gnome-utils:applet - Enable Gdict applet
+net-im/empathy:cc-embedding - Enable control-center embedding
 net-im/empathy:favourite-contacts - Enable possibility of favourite contacts
 net-libs/webkit-gtk:geoclue - Enable geoclue support (geolocation)
 sys-apps/paludis:ask - Enable ask option (not supported upstream)

@@ -15,6 +15,7 @@ media-libs/memphis
 =dev-libs/gjs-9999
 =dev-libs/gir-repository-9999
 =dev-libs/gobject-introspection-9999
+=gnome-base/gnome-control-center-9999
 =gnome-base/gnome-shell-9999
 =gnome-extra/pino-9999
 =sys-apps/paludis-9999

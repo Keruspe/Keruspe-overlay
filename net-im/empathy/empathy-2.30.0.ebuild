@@ -11,7 +11,7 @@ LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="favourite-contacts map nautilus-sendto networkmanager spell test webkit"
+IUSE="cc-embedding favourite-contacts map nautilus-sendto networkmanager spell test webkit"
 
 RDEPEND=">=dev-libs/glib-2.16.0
 	>=x11-libs/gtk+-2.16.0
@@ -32,6 +32,8 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	dev-libs/libxml2
 	x11-libs/libX11
 	net-voip/telepathy-connection-managers
+
+	cc-embedding? ( gnome-base/gnome-control-center-9999 )
 
 	map? (
 		>=media-libs/libchamplain-0.4
@@ -71,6 +73,7 @@ G2CONF="${G2CONF}
 	$(use_enable test coding-style-checks)
 	$(use_enable favourite-contacts)
 	$(use_enable webkit)
+	$(use_enable cc-embedding control-center-embedding)
 "
 
 src_prepare() {
