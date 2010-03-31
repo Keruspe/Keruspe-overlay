@@ -105,19 +105,21 @@ index 8862669..5206387 100644
      if (_imp->pretend)
      {
          if (0 != perform_hook(Hook("install_pretend_post")
-@@ -1312,6 +1317,11 @@ InstallTask::execute()
+@@ -1312,6 +1317,13 @@ InstallTask::execute()
                  ("DEPLIST_HAS_ERRORS", stringify(_imp->dep_list.has_errors()))
                  ).max_exit_status())
          throw ActionAbortedError("Install task execute aborted by hook");
 +    if (_imp->fetch_only && _imp->ask)
 +    {
++        if (! on_ask())
++            set_pretend(true);
 +        set_fetch_only(false);
 +        _main_actions();
 +    }
  }
  
  const DepList &
-@@ -1333,6 +1343,12 @@ InstallTask::set_pretend(const bool value)
+@@ -1333,6 +1345,12 @@ InstallTask::set_pretend(const bool value)
  }
  
  void
