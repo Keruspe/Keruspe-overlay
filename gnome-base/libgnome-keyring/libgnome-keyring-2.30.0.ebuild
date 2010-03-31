@@ -25,13 +25,6 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35
 	>=dev-util/pkgconfig-0.9"
 
-src_prepare() {
-	gnome2_src_prepare
-	epatch ${FILESDIR}/fix-buggy-from-trunk.patch
-}
-
-pkg_setup() {
-	G2CONF="${G2CONF}
-		$(use_enable debug)
-		$(use_enable test tests)"
-}
+G2CONF="${G2CONF}
+	$(use_enable debug)
+	$(use_enable test tests)"
