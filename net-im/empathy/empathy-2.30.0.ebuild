@@ -33,7 +33,6 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	x11-libs/libX11
 	net-voip/telepathy-connection-managers
 
-	cc-embedding? ( gnome-base/gnome-control-center-9999 )
 
 	map? (
 		>=media-libs/libchamplain-0.4
@@ -44,6 +43,7 @@ RDEPEND=">=dev-libs/glib-2.16.0
 		app-text/enchant
 		app-text/iso-codes )
 	webkit? ( >=net-libs/webkit-gtk-1.1.7 )
+	cc-embedding? ( =gnome-base/gnome-control-center-9999 )
 "
 DEPEND="${RDEPEND}
 	>=app-text/gnome-doc-utils-0.17.3
