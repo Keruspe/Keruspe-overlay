@@ -1,0 +1,14 @@
+_mtime_=1268644539
+_guessed_eapi_=0
+_eclasses_=fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=dev-libs/glib-2 >=x11-libs/gtk+-2.12 >=dev-libs/libxml2-2.4 !<dev-python/gdl-python-2.19.1-r1 !<=dev-python/gnome-python-extras-2.19.1-r2 dev-util/pkgconfig >=dev-util/intltool-0.35 doc? ( >=dev-util/gtk-doc-1.4 ) >=sys-apps/sed-4
+RDEPEND=>=dev-libs/glib-2 >=x11-libs/gtk+-2.12 >=dev-libs/libxml2-2.4
+SLOT=0
+SRC_URI=mirror://gnome/sources/gdl/2.30/gdl-2.30.0.tar.bz2
+HOMEPAGE=http://www.gnome.org/
+LICENSE=LGPL-2.1
+DESCRIPTION=The Gnome Devtool Libraries
+KEYWORDS=~amd64 ~x86
+IUSE=debug doc
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare unpack

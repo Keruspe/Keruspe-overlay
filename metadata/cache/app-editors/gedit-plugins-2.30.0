@@ -1,0 +1,14 @@
+_mtime_=1267728101
+_guessed_eapi_=0
+_eclasses_=fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=x11-libs/gtk+-2.14 gnome-base/gconf >=x11-libs/gtksourceview-2.6 >=app-editors/gedit-2.29.8[python] >=dev-python/pygtk-2.14 >=dev-python/pygtksourceview-2.2.0 charmap? ( >=gnome-extra/gucharmap-2.24.3 ) session? ( dev-lang/python[xml] ) terminal? ( >=x11-libs/vte-0.19.4[python] ) dev-util/pkgconfig dev-util/intltool >=sys-apps/sed-4
+RDEPEND=>=x11-libs/gtk+-2.14 gnome-base/gconf >=x11-libs/gtksourceview-2.6 >=app-editors/gedit-2.29.8[python] >=dev-python/pygtk-2.14 >=dev-python/pygtksourceview-2.2.0 charmap? ( >=gnome-extra/gucharmap-2.24.3 ) session? ( dev-lang/python[xml] ) terminal? ( >=x11-libs/vte-0.19.4[python] )
+SLOT=0
+SRC_URI=mirror://gnome/sources/gedit-plugins/2.30/gedit-plugins-2.30.0.tar.bz2
+HOMEPAGE=http://live.gnome.org/GeditPlugins
+LICENSE=GPL-2
+DESCRIPTION=Offical plugins for gedit.
+KEYWORDS=~amd64 ~x86
+IUSE=+bracketcompletion +drawspaces +joinlines +session bookmarks charmap colorpicker debug showtabbar smartspaces terminal
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare setup test unpack

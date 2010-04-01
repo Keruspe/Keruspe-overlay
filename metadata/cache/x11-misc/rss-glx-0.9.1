@@ -1,0 +1,14 @@
+_mtime_=1267725756
+_guessed_eapi_=0
+_eclasses_=autotools	/var/paludis/repositories/gentoo/eclass	1270118144	eutils	/var/paludis/repositories/gentoo/eclass	1269317283	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=x11-libs/libX11 x11-libs/libXext >=media-libs/glew-1.5.1 media-libs/mesa || ( >=gnome-extra/gnome-screensaver-2.26.1 >=x11-misc/xscreensaver-5.10 ) >=media-gfx/imagemagick-6.2 bzip2? ( app-arch/bzip2 ) openal? ( >=media-libs/freealut-1.1.0-r1 ) x11-proto/xextproto dev-util/pkgconfig sys-apps/sed || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b
+RDEPEND=x11-libs/libX11 x11-libs/libXext >=media-libs/glew-1.5.1 media-libs/mesa || ( >=gnome-extra/gnome-screensaver-2.26.1 >=x11-misc/xscreensaver-5.10 ) >=media-gfx/imagemagick-6.2 bzip2? ( app-arch/bzip2 ) openal? ( >=media-libs/freealut-1.1.0-r1 )
+SLOT=0
+SRC_URI=mirror://sourceforge/rss-glx/rss-glx_0.9.1.tar.bz2
+HOMEPAGE=http://rss-glx.sourceforge.net
+LICENSE=GPL-2
+DESCRIPTION=Really Slick OpenGL Screensavers for XScreenSaver
+KEYWORDS=~alpha amd64 ppc ~ppc64 sparc x86
+IUSE=+bzip2 openal
+EAPI=3
+DEFINED_PHASES=configure install postinst postrm prepare

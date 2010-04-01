@@ -1,0 +1,14 @@
+_mtime_=1269866715
+_guessed_eapi_=0
+_eclasses_=autotools	/var/paludis/repositories/gentoo/eclass	1270118144	eutils	/var/paludis/repositories/gentoo/eclass	1269317283	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=dev-libs/glib-2 >=gnome-base/gconf-2 >=dev-libs/dbus-glib-0.60 dev-libs/libxml2 gpsd? ( sci-geosciences/gpsd ) gtk? ( >=x11-libs/gtk+-2 ) networkmanager? ( net-misc/networkmanager ) dev-util/pkgconfig dev-libs/libxslt doc? ( >=dev-util/gtk-doc-1 ) || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b
+RDEPEND=>=dev-libs/glib-2 >=gnome-base/gconf-2 >=dev-libs/dbus-glib-0.60 dev-libs/libxml2 gpsd? ( sci-geosciences/gpsd ) gtk? ( >=x11-libs/gtk+-2 ) networkmanager? ( net-misc/networkmanager )
+SLOT=0
+SRC_URI=http://folks.o-hand.com/jku/geoclue-releases/geoclue-0.12.0.tar.gz
+HOMEPAGE=http://freedesktop.org/wiki/Software/GeoClue
+LICENSE=LGPL-2
+DESCRIPTION=A modular geoinformation service built on top of the D-Bus messaging system
+KEYWORDS=~amd64 ~x86
+IUSE=dbus doc gpsd gtk networkmanager
+EAPI=3
+DEFINED_PHASES=compile install prepare

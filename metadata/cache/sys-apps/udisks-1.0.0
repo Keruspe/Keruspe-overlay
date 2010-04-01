@@ -1,0 +1,15 @@
+_mtime_=1269372569
+_guessed_eapi_=0
+_eclasses_=bash-completion	/var/paludis/repositories/gentoo/eclass	1262392538	fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=dev-libs/glib-2.16.1 >=dev-libs/dbus-glib-0.82 >=sys-apps/dbus-1.0 >=sys-auth/polkit-0.92 >=sys-fs/udev-147[extras] >=sys-apps/parted-1.8.8[device-mapper] >=dev-libs/libatasmart-0.14 >=sys-apps/sg3_utils-1.27.20090411 lvm? ( >=sys-fs/lvm2-2.02.61 ) dev-db/sqlite:3 >=dev-util/intltool-0.40 dev-util/pkgconfig !sys-apps/devicekit-disks dev-libs/libxslt >=sys-apps/sed-4
+RDEPEND=>=dev-libs/glib-2.16.1 >=dev-libs/dbus-glib-0.82 >=sys-apps/dbus-1.0 >=sys-auth/polkit-0.92 >=sys-fs/udev-147[extras] >=sys-apps/parted-1.8.8[device-mapper] >=dev-libs/libatasmart-0.14 >=sys-apps/sg3_utils-1.27.20090411 lvm? ( >=sys-fs/lvm2-2.02.61 ) dev-db/sqlite:3 bash-completion? ( app-admin/eselect )
+SLOT=0
+SRC_URI=http://hal.freedesktop.org/releases/udisks-1.0.0.tar.gz
+HOMEPAGE=http://www.freedesktop.org/wiki/Software/DeviceKit
+LICENSE=GPL-2 LGPL-2
+DESCRIPTION=Daemon providing interfaces to work with storage devices
+KEYWORDS=~amd64 ~x86
+IUSE=bash-completion debug doc lvm
+PDEPEND=bash-completion? ( app-shells/bash-completion )
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare unpack

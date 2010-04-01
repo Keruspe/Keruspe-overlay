@@ -1,0 +1,15 @@
+_mtime_=1270075623
+_guessed_eapi_=0
+_eclasses_=fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=dev-libs/glib-2.16.0 >=x11-libs/gtk+-2.16.0 >=gnome-base/gconf-2 >=dev-libs/dbus-glib-0.51 >=gnome-extra/evolution-data-server-1.2 >=net-libs/telepathy-glib-0.9.0 >=media-libs/libcanberra-0.4[gtk] >=x11-libs/libnotify-0.4.4 >=gnome-base/gnome-keyring-2.22 nautilus-sendto? ( gnome-extra/nautilus-sendto ) dev-libs/libunique net-libs/farsight2 media-libs/gstreamer:0.10 media-libs/gst-plugins-base:0.10 net-libs/telepathy-farsight dev-libs/libxml2 x11-libs/libX11 net-voip/telepathy-connection-managers map? ( >=media-libs/libchamplain-0.4 >=media-libs/clutter-gtk-0.10:1.0 >=gnome-extra/geoclue-0.11.1 ) networkmanager? ( >=net-misc/networkmanager-0.7 ) spell? ( app-text/enchant app-text/iso-codes ) webkit? ( >=net-libs/webkit-gtk-1.1.7 ) cc-embedding? ( =gnome-base/gnome-control-center-9999 ) >=app-text/gnome-doc-utils-0.17.3 >=dev-util/intltool-0.35.0 >=dev-util/pkgconfig-0.16 favourite-contacts? ( net-im/telepathy-logger ) test? ( sys-apps/grep >=dev-libs/check-0.9.4 ) dev-libs/libxslt virtual/python >=sys-apps/sed-4
+RDEPEND=>=dev-libs/glib-2.16.0 >=x11-libs/gtk+-2.16.0 >=gnome-base/gconf-2 >=dev-libs/dbus-glib-0.51 >=gnome-extra/evolution-data-server-1.2 >=net-libs/telepathy-glib-0.9.0 >=media-libs/libcanberra-0.4[gtk] >=x11-libs/libnotify-0.4.4 >=gnome-base/gnome-keyring-2.22 nautilus-sendto? ( gnome-extra/nautilus-sendto ) dev-libs/libunique net-libs/farsight2 media-libs/gstreamer:0.10 media-libs/gst-plugins-base:0.10 net-libs/telepathy-farsight dev-libs/libxml2 x11-libs/libX11 net-voip/telepathy-connection-managers map? ( >=media-libs/libchamplain-0.4 >=media-libs/clutter-gtk-0.10:1.0 >=gnome-extra/geoclue-0.11.1 ) networkmanager? ( >=net-misc/networkmanager-0.7 ) spell? ( app-text/enchant app-text/iso-codes ) webkit? ( >=net-libs/webkit-gtk-1.1.7 ) cc-embedding? ( =gnome-base/gnome-control-center-9999 )
+SLOT=0
+SRC_URI=mirror://gnome/sources/empathy/2.30/empathy-2.30.0.tar.bz2
+HOMEPAGE=http://live.gnome.org/Empathy
+LICENSE=GPL-2
+DESCRIPTION=Telepathy client and library using GTK+
+KEYWORDS=~amd64 ~x86
+IUSE=cc-embedding debug favourite-contacts map nautilus-sendto networkmanager spell test webkit
+PDEPEND=>=net-im/telepathy-mission-control-5
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare test unpack

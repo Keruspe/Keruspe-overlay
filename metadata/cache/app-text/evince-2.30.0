@@ -1,0 +1,15 @@
+_mtime_=1268293562
+_guessed_eapi_=0
+_eclasses_=autotools	/var/paludis/repositories/gentoo/eclass	1270118144	eutils	/var/paludis/repositories/gentoo/eclass	1269317283	fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=app-text/libspectre-0.2.0 >=dev-libs/glib-2.18.0 >=dev-libs/libxml2-2.5 >=x11-libs/gtk+-2.14 >=x11-libs/libSM-1 >=x11-themes/gnome-icon-theme-2.17.1 dbus? ( >=dev-libs/dbus-glib-0.71 ) gnome? ( >=gnome-base/gconf-2 ) gnome-keyring? ( >=gnome-base/gnome-keyring-2.22.0 ) introspection? ( >=dev-libs/gobject-introspection-0.6 ) nautilus? ( >=gnome-base/nautilus-2.10 ) >=app-text/poppler-0.12.3-r3[cairo] dvi? ( virtual/tex-base t1lib? ( >=media-libs/t1lib-5.0.0 ) ) tiff? ( >=media-libs/tiff-3.6 ) djvu? ( >=app-text/djvu-3.5.17 ) app-text/scrollkeeper >=app-text/gnome-doc-utils-0.3.2 ~app-text/docbook-xml-dtd-4.1.2 >=dev-util/pkgconfig-0.9 sys-devel/gettext >=dev-util/intltool-0.35 dev-util/gtk-doc-am doc? ( dev-util/gtk-doc ) || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b >=sys-apps/sed-4
+RDEPEND=>=app-text/libspectre-0.2.0 >=dev-libs/glib-2.18.0 >=dev-libs/libxml2-2.5 >=x11-libs/gtk+-2.14 >=x11-libs/libSM-1 >=x11-themes/gnome-icon-theme-2.17.1 dbus? ( >=dev-libs/dbus-glib-0.71 ) gnome? ( >=gnome-base/gconf-2 ) gnome-keyring? ( >=gnome-base/gnome-keyring-2.22.0 ) introspection? ( >=dev-libs/gobject-introspection-0.6 ) nautilus? ( >=gnome-base/nautilus-2.10 ) >=app-text/poppler-0.12.3-r3[cairo] dvi? ( virtual/tex-base t1lib? ( >=media-libs/t1lib-5.0.0 ) ) tiff? ( >=media-libs/tiff-3.6 ) djvu? ( >=app-text/djvu-3.5.17 )
+SLOT=0
+SRC_URI=mirror://gnome/sources/evince/2.30/evince-2.30.0.tar.bz2
+RESTRICT=test
+HOMEPAGE=http://www.gnome.org/projects/evince/
+LICENSE=GPL-2
+DESCRIPTION=Simple document viewer for GNOME
+KEYWORDS=~amd64 ~x86
+IUSE=dbus debug djvu doc dvi gnome gnome-keyring introspection nautilus t1lib tiff
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare unpack

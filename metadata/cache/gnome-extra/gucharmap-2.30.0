@@ -1,0 +1,14 @@
+_mtime_=1267894979
+_guessed_eapi_=0
+_eclasses_=fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=dev-libs/glib-2.16.3 >=x11-libs/pango-1.2.1 >=x11-libs/gtk+-2.13.6 gnome? ( gnome-base/gconf ) python? ( >=dev-python/pygtk-2.7.1 ) app-text/scrollkeeper >=dev-util/pkgconfig-0.9 >=dev-util/intltool-0.40 >=app-text/gnome-doc-utils-0.9.0 doc? ( >=dev-util/gtk-doc-1.0 ) introspection? ( dev-libs/gobject-introspection ) test? ( ~app-text/docbook-xml-dtd-4.1.2 ) >=sys-apps/sed-4
+RDEPEND=>=dev-libs/glib-2.16.3 >=x11-libs/pango-1.2.1 >=x11-libs/gtk+-2.13.6 gnome? ( gnome-base/gconf ) python? ( >=dev-python/pygtk-2.7.1 )
+SLOT=0
+SRC_URI=mirror://gnome/sources/gucharmap/2.30/gucharmap-2.30.0.tar.bz2
+HOMEPAGE=http://gucharmap.sourceforge.net/
+LICENSE=GPL-2 LGPL-2.1
+DESCRIPTION=Unicode character map viewer
+KEYWORDS=~amd64 ~x86
+IUSE=cjk debug doc gnome introspection python test
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare setup unpack

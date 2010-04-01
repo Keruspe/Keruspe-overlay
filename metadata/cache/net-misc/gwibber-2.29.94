@@ -1,0 +1,13 @@
+_mtime_=1270030454
+_guessed_eapi_=0
+_eclasses_=distutils	/var/paludis/repositories/gentoo/eclass	1267725941	eutils	/var/paludis/repositories/gentoo/eclass	1269317283	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	python	/var/paludis/repositories/gentoo/eclass	1269617752	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=app-admin/eselect-python-20091230 =dev-lang/python-2*
+RDEPEND=>=dev-python/dbus-python-0.80.2 >=dev-python/gconf-python-2.18.0 >=dev-python/imaging-1.1.6 >=dev-python/notify-python-0.1.1 >=dev-python/pywebkitgtk-1.0.1 >=dev-python/simplejson-1.9.1 >=dev-python/egenix-mx-base-3.0.0 >=dev-python/python-distutils-extra-2.15 >=dev-python/pycurl-7.19.0 >=dev-python/libwnck-python-2.26.0 >=dev-python/feedparser-4.1 >=dev-python/pyxdg-0.15 >=dev-python/mako-0.2.4 >=dev-db/desktopcouch-0.4.6 >=dev-python/pygtk-2.16 >=gnome-base/librsvg-2.22.2 >=app-admin/eselect-python-20091230 =dev-lang/python-2*
+SLOT=0
+SRC_URI=http://launchpad.net/gwibber/2.30/2.29.94/+download/gwibber-2.29.94.tar.gz
+HOMEPAGE=https://launchpad.net/gwibber
+LICENSE=GPL-2
+DESCRIPTION=Gwibber is an open source microblogging client for GNOME developed with Python and GTK.
+KEYWORDS=~amd64 ~x86
+EAPI=3
+DEFINED_PHASES=compile install postinst postrm prepare

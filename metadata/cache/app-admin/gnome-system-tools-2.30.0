@@ -1,0 +1,14 @@
+_mtime_=1268844127
+_guessed_eapi_=0
+_eclasses_=autotools	/var/paludis/repositories/gentoo/eclass	1270118144	eutils	/var/paludis/repositories/gentoo/eclass	1269317283	fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=dev-libs/liboobs-2.30.0 >=x11-libs/gtk+-2.11.3 >=dev-libs/glib-2.15.2 >=gnome-base/gconf-2.2 dev-libs/dbus-glib sys-libs/cracklib nautilus? ( >=gnome-base/nautilus-2.9.90 ) nfs? ( net-fs/nfs-utils ) ntp? ( net-misc/ntp ) samba? ( >=net-fs/samba-3 ) policykit? ( >=gnome-extra/polkit-gnome-0.95 ) >=app-admin/system-tools-backends-2.8.2 >=app-text/gnome-doc-utils-0.3.2 dev-util/pkgconfig >=dev-util/intltool-0.35.0 || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b >=sys-apps/sed-4
+RDEPEND=>=dev-libs/liboobs-2.30.0 >=x11-libs/gtk+-2.11.3 >=dev-libs/glib-2.15.2 >=gnome-base/gconf-2.2 dev-libs/dbus-glib sys-libs/cracklib nautilus? ( >=gnome-base/nautilus-2.9.90 ) nfs? ( net-fs/nfs-utils ) ntp? ( net-misc/ntp ) samba? ( >=net-fs/samba-3 ) policykit? ( >=gnome-extra/polkit-gnome-0.95 )
+SLOT=0
+SRC_URI=mirror://gnome/sources/gnome-system-tools/2.30/gnome-system-tools-2.30.0.tar.bz2
+HOMEPAGE=http://www.gnome.org/projects/gst/
+LICENSE=GPL-2
+DESCRIPTION=Tools aimed to make easy the administration of UNIX systems
+KEYWORDS=~amd64 ~x86
+IUSE=debug nautilus nfs ntp policykit samba
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare setup unpack

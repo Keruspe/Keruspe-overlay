@@ -1,0 +1,14 @@
+_mtime_=1269934868
+_guessed_eapi_=0
+_eclasses_=fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=x11-libs/gtk+-2.12 lua? ( dev-lang/lua ) >=dev-util/intltool-0.31 >=dev-util/pkgconfig-0.9 >=sys-apps/sed-4
+RDEPEND=>=x11-libs/gtk+-2.12 lua? ( dev-lang/lua )
+SLOT=2
+SRC_URI=mirror://gnome/sources/gtk-engines/2.20/gtk-engines-2.20.0.tar.bz2
+HOMEPAGE=http://www.gtk.org/
+LICENSE=LGPL-2.1
+DESCRIPTION=GTK+2 standard engines and themes
+KEYWORDS=~amd64 ~x86
+IUSE=accessibility debug lua
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare unpack

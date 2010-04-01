@@ -1,0 +1,14 @@
+_mtime_=1268648885
+_guessed_eapi_=0
+_eclasses_=autotools	/var/paludis/repositories/gentoo/eclass	1270118144	db-use	/var/paludis/repositories/gentoo/eclass	1259040938	eutils	/var/paludis/repositories/gentoo/eclass	1269317283	fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	flag-o-matic	/var/paludis/repositories/gentoo/eclass	1266435415	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	java-pkg-opt-2	/var/paludis/repositories/gentoo/eclass	1265018740	java-utils-2	/var/paludis/repositories/gentoo/eclass	1269434142	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989	versionator	/var/paludis/repositories/gentoo/eclass	1213275960
+DEPEND=app-text/iso-codes >=dev-libs/glib-2.16 >=dev-libs/libxml2-2 dev-libs/libxslt dev-libs/libunique sys-libs/readline sys-libs/ncurses >=net-libs/libsoup-2.24:2.4 berkdb? ( sys-libs/db ) freetds? ( >=dev-db/freetds-0.62 ) !bindist? ( firebird? ( dev-db/firebird ) ) gtk? ( >=x11-libs/gtk+-2.12 canvas? ( x11-libs/goocanvas ) sourceview? ( x11-libs/gtksourceview:2.0 ) graphviz? ( media-gfx/graphviz ) ) ldap? ( >=net-nds/openldap-2.0.25 ) mysql? ( virtual/mysql ) odbc? ( >=dev-db/unixODBC-2.0.6 ) postgres? ( >=virtual/postgresql-base-7.2.1 ) xbase? ( dev-db/xbase ) >=dev-db/sqlite-3.6.22:3 >=dev-util/pkgconfig-0.18 >=dev-util/intltool-0.35.5 doc? ( >=dev-util/gtk-doc-1 ) || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b >=sys-apps/sed-4 java? ( >=dev-java/java-config-2.1.9-r1 )
+RDEPEND=app-text/iso-codes >=dev-libs/glib-2.16 >=dev-libs/libxml2-2 dev-libs/libxslt dev-libs/libunique sys-libs/readline sys-libs/ncurses >=net-libs/libsoup-2.24:2.4 berkdb? ( sys-libs/db ) freetds? ( >=dev-db/freetds-0.62 ) !bindist? ( firebird? ( dev-db/firebird ) ) gtk? ( >=x11-libs/gtk+-2.12 canvas? ( x11-libs/goocanvas ) sourceview? ( x11-libs/gtksourceview:2.0 ) graphviz? ( media-gfx/graphviz ) ) ldap? ( >=net-nds/openldap-2.0.25 ) mysql? ( virtual/mysql ) odbc? ( >=dev-db/unixODBC-2.0.6 ) postgres? ( >=virtual/postgresql-base-7.2.1 ) xbase? ( dev-db/xbase ) >=dev-db/sqlite-3.6.22:3 java? ( >=dev-java/java-config-2.1.9-r1 )
+SLOT=4
+SRC_URI=mirror://gnome/sources/libgda/4.1/libgda-4.1.4.tar.bz2
+HOMEPAGE=http://www.gnome-db.org/
+LICENSE=GPL-2 LGPL-2
+DESCRIPTION=Gnome Database Access Library
+KEYWORDS=~amd64 ~x86
+IUSE=berkdb bindist canvas debug doc elibc_FreeBSD firebird freetds graphviz gtk java ldap mysql oci8 odbc postgres sourceview xbase
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare setup test unpack

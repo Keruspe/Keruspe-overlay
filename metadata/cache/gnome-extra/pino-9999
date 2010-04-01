@@ -1,0 +1,12 @@
+_mtime_=1267723864
+_guessed_eapi_=0
+_eclasses_=eutils	/var/paludis/repositories/gentoo/eclass	1269317283	mercurial	/var/paludis/repositories/gentoo/eclass	1267879073	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=dev-lang/vala-0.7.10 >=sys-devel/gcc-4.2 dev-util/intltool sys-devel/gettext >=x11-libs/gtk+-2.0 >=dev-libs/libgee-0.5.0 >=dev-libs/glib-2.0 x11-libs/libnotify >=net-libs/libsoup-2.4 dev-libs/libxml2 >=net-libs/webkit-gtk-1.0 dev-vcs/mercurial
+RDEPEND=>=dev-lang/vala-0.7.10 >=sys-devel/gcc-4.2 dev-util/intltool sys-devel/gettext >=x11-libs/gtk+-2.0 >=dev-libs/libgee-0.5.0 >=dev-libs/glib-2.0 x11-libs/libnotify >=net-libs/libsoup-2.4 dev-libs/libxml2 >=net-libs/webkit-gtk-1.0
+SLOT=0
+HOMEPAGE=http://pino-app.appspot.com/
+LICENSE=LGPL
+DESCRIPTION=A lightweight microblogging client for Gnome
+KEYWORDS=~amd64 ~x86
+EAPI=3
+DEFINED_PHASES=compile configure install unpack

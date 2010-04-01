@@ -1,0 +1,14 @@
+_mtime_=1269860989
+_guessed_eapi_=0
+_eclasses_=fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=dev-libs/libsigc++-2.2 >=dev-libs/glib-2.21.1 dev-util/pkgconfig doc? ( app-doc/doxygen ) >=sys-apps/sed-4
+RDEPEND=>=dev-libs/libsigc++-2.2 >=dev-libs/glib-2.21.1
+SLOT=2
+SRC_URI=mirror://gnome/sources/glibmm/2.24/glibmm-2.24.0.tar.bz2
+HOMEPAGE=http://www.gtkmm.org
+LICENSE=|| ( LGPL-2.1 GPL-2 )
+DESCRIPTION=C++ interface for glib2
+KEYWORDS=~amd64 ~x86
+IUSE=debug doc examples test
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare test unpack

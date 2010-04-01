@@ -1,0 +1,14 @@
+_mtime_=1270114882
+_guessed_eapi_=0
+_eclasses_=autotools	/var/paludis/repositories/gentoo/eclass	1270118144	eutils	/var/paludis/repositories/gentoo/eclass	1269317283	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=!!sys-fs/device-mapper clvm? ( =sys-cluster/dlm-2* cman? ( =sys-cluster/cman-2* ) ) dev-util/pkgconfig || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b
+RDEPEND=!!sys-fs/device-mapper clvm? ( =sys-cluster/dlm-2* cman? ( =sys-cluster/cman-2* ) ) !<sys-apps/openrc-0.4 !!sys-fs/lvm-user !!sys-fs/clvm >=sys-apps/util-linux-2.16
+SLOT=0
+SRC_URI=ftp://sources.redhat.com/pub/lvm2/LVM2.2.02.61.tgz ftp://sources.redhat.com/pub/lvm2/old/LVM2.2.02.61.tgz
+HOMEPAGE=http://sources.redhat.com/lvm2/
+LICENSE=GPL-2
+DESCRIPTION=User-land utilities for LVM2 (device-mapper) software.
+KEYWORDS=~amd64 ~x86
+IUSE=+lvm1 +static clvm cman readline selinux
+EAPI=3
+DEFINED_PHASES=compile configure install postinst prepare setup test

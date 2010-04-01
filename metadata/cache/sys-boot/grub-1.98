@@ -1,0 +1,15 @@
+_mtime_=1269626635
+_guessed_eapi_=0
+_eclasses_=eutils	/var/paludis/repositories/gentoo/eclass	1269317283	flag-o-matic	/var/paludis/repositories/gentoo/eclass	1266435415	mount-boot	/var/paludis/repositories/gentoo/eclass	1255122398	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=sys-libs/ncurses-5.2-r5 dev-libs/lzo truetype? ( media-libs/freetype ) dev-lang/ruby
+RDEPEND=>=sys-libs/ncurses-5.2-r5 dev-libs/lzo truetype? ( media-libs/freetype )
+SLOT=0
+SRC_URI=ftp://alpha.gnu.org/gnu/grub/grub-1.98.tar.gz mirror://gentoo/grub-1.98.tar.gz
+HOMEPAGE=http://www.gnu.org/software/grub/
+LICENSE=GPL-3
+DESCRIPTION=GNU GRUB 2 boot loader
+KEYWORDS=~amd64
+IUSE=custom-cflags debug efi multislot static truetype
+PROVIDE=virtual/bootloader
+EAPI=3
+DEFINED_PHASES=compile configure install postinst preinst prepare prerm

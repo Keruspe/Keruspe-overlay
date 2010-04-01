@@ -1,0 +1,14 @@
+_mtime_=1267734409
+_guessed_eapi_=0
+_eclasses_=autotools	/var/paludis/repositories/gentoo/eclass	1270118144	eutils	/var/paludis/repositories/gentoo/eclass	1269317283	fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=gnome-base/gconf-2.0 >=dev-libs/glib-2.10 >=x11-libs/gtk+-2.10 >=dev-libs/dbus-glib-0.72 >=gnome-base/gnome-keyring-2.25.5 net-libs/libsoup:2.4 x11-misc/shared-mime-info net-misc/openssh >=app-crypt/gpgme-1.0.0 || ( =app-crypt/gnupg-2.0* =app-crypt/gnupg-1.4* ) avahi? ( >=net-dns/avahi-0.6 ) ldap? ( net-nds/openldap ) libnotify? ( >=x11-libs/libnotify-0.3.2 ) sys-devel/gettext >=app-text/gnome-doc-utils-0.3.2 >=app-text/scrollkeeper-0.3 >=dev-util/pkgconfig-0.20 >=dev-util/intltool-0.35 introspection? ( dev-libs/gobject-introspection ) doc? ( >=dev-util/gtk-doc-1.9 ) || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b >=sys-apps/sed-4
+RDEPEND=>=gnome-base/gconf-2.0 >=dev-libs/glib-2.10 >=x11-libs/gtk+-2.10 >=dev-libs/dbus-glib-0.72 >=gnome-base/gnome-keyring-2.25.5 net-libs/libsoup:2.4 x11-misc/shared-mime-info net-misc/openssh >=app-crypt/gpgme-1.0.0 || ( =app-crypt/gnupg-2.0* =app-crypt/gnupg-1.4* ) avahi? ( >=net-dns/avahi-0.6 ) ldap? ( net-nds/openldap ) libnotify? ( >=x11-libs/libnotify-0.3.2 )
+SLOT=0
+SRC_URI=mirror://gnome/sources/seahorse/2.30/seahorse-2.30.0.tar.bz2
+HOMEPAGE=http://www.gnome.org/projects/seahorse/index.html
+LICENSE=GPL-2
+DESCRIPTION=A GNOME application for managing encryption keys
+KEYWORDS=~amd64 ~x86
+IUSE=avahi debug doc introspection ldap libnotify test
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare setup unpack

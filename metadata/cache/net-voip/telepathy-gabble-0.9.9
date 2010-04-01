@@ -1,0 +1,13 @@
+_mtime_=1267809382
+_guessed_eapi_=0
+DEPEND=>=dev-libs/glib-2.16 >=sys-apps/dbus-1.1.0 >=dev-libs/dbus-glib-0.78 >=net-libs/telepathy-glib-0.7.37 >=net-libs/loudmouth-1.3.2[ssl] net-libs/libsoup:2.4[ssl] dev-libs/libxslt >=dev-lang/python-2.5 test? ( >=dev-python/twisted-0.8.2 >=dev-python/twisted-words-0.8.2 >=dev-python/dbus-python-0.83 )
+RDEPEND=>=dev-libs/glib-2.16 >=sys-apps/dbus-1.1.0 >=dev-libs/dbus-glib-0.78 >=net-libs/telepathy-glib-0.7.37 >=net-libs/loudmouth-1.3.2[ssl] net-libs/libsoup:2.4[ssl]
+SLOT=0
+SRC_URI=http://telepathy.freedesktop.org/releases/telepathy-gabble/telepathy-gabble-0.9.9.tar.gz
+HOMEPAGE=http://telepathy.freedesktop.org
+LICENSE=LGPL-2.1
+DESCRIPTION=A Jabber/XMPP connection manager, this handles single and multi user chats and voice calls.
+KEYWORDS=~amd64 ~x86
+IUSE=test
+EAPI=3
+DEFINED_PHASES=configure install test

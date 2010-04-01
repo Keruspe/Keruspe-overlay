@@ -1,0 +1,14 @@
+_mtime_=1268400222
+_guessed_eapi_=0
+_eclasses_=clutter	/var/paludis/repositories/gentoo/eclass	1267218955	eutils	/var/paludis/repositories/gentoo/eclass	1269317283	fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989	versionator	/var/paludis/repositories/gentoo/eclass	1213275960
+DEPEND=>=x11-libs/gtk+-2.17.9 >=media-libs/clutter-1.2[opengl] doc? ( >=dev-util/gtk-doc-1.11 ) introspection? ( media-libs/clutter[introspection] >=dev-libs/gobject-introspection-0.6.3 >=dev-libs/gir-repository-0.6.3[gtk] ) >=sys-apps/sed-4 dev-util/pkgconfig
+RDEPEND=>=x11-libs/gtk+-2.17.9 >=media-libs/clutter-1.2[opengl]
+SLOT=1.0
+SRC_URI=http://www.clutter-project.org/sources/clutter-gtk/0.10/clutter-gtk-0.10.2.tar.bz2
+HOMEPAGE=http://www.clutter-project.org/
+LICENSE=LGPL-2
+DESCRIPTION=Clutter-GTK - GTK+ Integration library for Clutter
+KEYWORDS=~amd64 ~x86
+IUSE=debug doc examples introspection
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare unpack

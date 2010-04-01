@@ -1,0 +1,14 @@
+_mtime_=1269608587
+_guessed_eapi_=0
+_eclasses_=fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=dev-libs/glib-2.21.6 >=x11-libs/gtk+-2.12 dev-libs/gmime:2.4 !<media-video/totem-2.21 >=dev-util/intltool-0.35 dev-util/gtk-doc-am introspection? ( dev-libs/gobject-introspection ) doc? ( >=dev-util/gtk-doc-1.11 ) >=sys-apps/sed-4
+RDEPEND=>=dev-libs/glib-2.21.6 >=x11-libs/gtk+-2.12 dev-libs/gmime:2.4
+SLOT=0
+SRC_URI=mirror://gnome/sources/totem-pl-parser/2.30/totem-pl-parser-2.30.0.tar.bz2
+HOMEPAGE=http://www.gnome.org/projects/totem/
+LICENSE=LGPL-2
+DESCRIPTION=Playlist parsing library
+KEYWORDS=~amd64 ~x86
+IUSE=debug doc introspection test
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare unpack

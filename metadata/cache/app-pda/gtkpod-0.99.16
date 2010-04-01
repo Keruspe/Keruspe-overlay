@@ -1,0 +1,13 @@
+_mtime_=1269423969
+_guessed_eapi_=0
+DEPEND=>=x11-libs/gtk+-2.8 >=media-libs/libid3tag-0.15 >=gnome-base/libglade-2.4 >=media-libs/libgpod-0.7.92 >=net-misc/curl-7.10 mp3? ( media-sound/lame media-sound/id3v2 ) aac? ( media-libs/libmp4v2 ) ogg? ( media-libs/libvorbis media-sound/vorbis-tools ) flac? ( media-libs/flac ) curl? ( net-misc/curl ) dev-util/pkgconfig sys-devel/flex nls? ( dev-util/intltool sys-devel/gettext )
+RDEPEND=>=x11-libs/gtk+-2.8 >=media-libs/libid3tag-0.15 >=gnome-base/libglade-2.4 >=media-libs/libgpod-0.7.92 >=net-misc/curl-7.10 mp3? ( media-sound/lame media-sound/id3v2 ) aac? ( media-libs/libmp4v2 ) ogg? ( media-libs/libvorbis media-sound/vorbis-tools ) flac? ( media-libs/flac )
+SLOT=0
+SRC_URI=http://downloads.sourceforge.net/project/gtkpod/gtkpod/gtkpod-0.99.16/gtkpod-0.99.16.tar.gz
+HOMEPAGE=http://gtkpod.sourceforge.net/
+LICENSE=GPL-2 FDL-1.2
+DESCRIPTION=GUI for iPod using GTK2
+KEYWORDS=~amd64 ~x86
+IUSE=aac curl flac mp3 nls ogg
+EAPI=3
+DEFINED_PHASES=configure install

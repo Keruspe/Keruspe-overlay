@@ -1,0 +1,14 @@
+_mtime_=1270070868
+_guessed_eapi_=0
+_eclasses_=fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=dev-libs/glib-2.12 sys-devel/flex || ( sys-devel/bison dev-util/byacc dev-util/yacc ) dev-util/pkgconfig dev-libs/libxslt test? ( dev-libs/dbus-glib ) >=sys-apps/sed-4
+RDEPEND=>=dev-libs/glib-2.12
+SLOT=0
+SRC_URI=mirror://gnome/sources/vala/0.8/vala-0.8.0.tar.bz2
+HOMEPAGE=http://live.gnome.org/Vala
+LICENSE=LGPL-2.1
+DESCRIPTION=Vala - Compiler for the GObject type system
+KEYWORDS=~amd64 ~x86
+IUSE=+coverage +vapigen debug test
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare unpack

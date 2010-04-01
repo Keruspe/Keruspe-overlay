@@ -1,0 +1,13 @@
+_mtime_=1267722986
+_guessed_eapi_=0
+DEPEND=dev-util/pkgconfig
+RDEPEND=>=app-pda/libplist-1.1 >=app-pda/usbmuxd-1.0.0_rc2 >=dev-libs/glib-2.14.1 dev-libs/libgcrypt net-libs/gnutls sys-fs/fuse virtual/libusb:0 !app-pda/libiphone
+SLOT=0
+SRC_URI=http://cloud.github.com/downloads/MattColyer/libiphone/libimobiledevice-1.0.0.tar.bz2
+HOMEPAGE=http://matt.colyer.name/projects/iphone-linux/index.php?title=Main_Page
+LICENSE=GPL-2
+DESCRIPTION=Support library to communicate with Apple iPhone/iPod Touch devices
+KEYWORDS=~amd64 ~x86
+IUSE=python
+EAPI=3
+DEFINED_PHASES=configure install

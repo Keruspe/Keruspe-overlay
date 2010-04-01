@@ -1,0 +1,14 @@
+_mtime_=1267711234
+_guessed_eapi_=0
+_eclasses_=eutils	/var/paludis/repositories/gentoo/eclass	1269317283	java-ant-2	/var/paludis/repositories/gentoo/eclass	1266019538	java-osgi	/var/paludis/repositories/gentoo/eclass	1231801562	java-pkg-2	/var/paludis/repositories/gentoo/eclass	1265018740	java-utils-2	/var/paludis/repositories/gentoo/eclass	1269434142	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989	versionator	/var/paludis/repositories/gentoo/eclass	1213275960
+DEPEND=|| ( =virtual/jdk-1.6* =virtual/jdk-1.5* =virtual/jdk-1.4* ) app-arch/unzip >=dev-java/java-config-2.1.9-r1 source? ( app-arch/zip ) >=dev-java/ant-core-1.7.0 >=dev-java/javatoolkit-0.3.0-r2
+RDEPEND=>=virtual/jre-1.4 >=dev-java/java-config-2.1.9-r1 source? ( app-arch/zip )
+SLOT=0
+SRC_URI=http://download.icu-project.org/files/icu4j/3.8.1/icu4j-3_8_1-src.jar doc? ( http://download.icu-project.org/files/icu4j/3.8.1/icu4j-3_8_1-docs.jar )
+HOMEPAGE=http://www.icu-project.org/
+LICENSE=icu
+DESCRIPTION=ICU4J is a set of Java libraries providing Unicode and Globalization support.
+KEYWORDS=amd64 ~amd64-linux ~ia64 ppc ~ppc-macos ppc64 x86 ~x86-fbsd ~x86-freebsd ~x86-linux ~x86-macos
+IUSE=doc elibc_FreeBSD source
+EAPI=3
+DEFINED_PHASES=compile configure install preinst prepare setup unpack

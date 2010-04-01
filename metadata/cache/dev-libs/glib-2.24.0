@@ -1,0 +1,14 @@
+_mtime_=1268293759
+_guessed_eapi_=0
+_eclasses_=eutils	/var/paludis/repositories/gentoo/eclass	1269317283	flag-o-matic	/var/paludis/repositories/gentoo/eclass	1266435415	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=virtual/libiconv xattr? ( sys-apps/attr ) fam? ( virtual/fam ) >=dev-util/pkgconfig-0.16 >=sys-devel/gettext-0.11 doc? ( >=dev-libs/libxslt-1.0 >=dev-util/gtk-doc-1.11 ~app-text/docbook-xml-dtd-4.1.2 )
+RDEPEND=virtual/libiconv xattr? ( sys-apps/attr ) fam? ( virtual/fam )
+SLOT=2
+SRC_URI=mirror://gnome/sources/glib/2.24/glib-2.24.0.tar.bz2
+HOMEPAGE=http://www.gtk.org/
+LICENSE=LGPL-2
+DESCRIPTION=The GLib library of C routines
+KEYWORDS=~amd64 ~x86
+IUSE=debug doc fam hardened selinux xattr
+EAPI=3
+DEFINED_PHASES=configure install prepare test

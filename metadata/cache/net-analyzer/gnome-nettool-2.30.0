@@ -1,0 +1,14 @@
+_mtime_=1269935720
+_guessed_eapi_=0
+_eclasses_=eutils	/var/paludis/repositories/gentoo/eclass	1269317283	fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=x11-libs/gtk+-2.12:2 >=gnome-base/gconf-2 gnome-base/libgtop:2 >=dev-util/intltool-0.35 >=dev-util/pkgconfig-0.9 app-text/gnome-doc-utils >=sys-apps/sed-4
+RDEPEND=>=x11-libs/gtk+-2.12:2 >=gnome-base/gconf-2 gnome-base/libgtop:2 || ( net-analyzer/traceroute sys-freebsd/freebsd-usbin ) net-dns/bind-tools userland_GNU? ( net-misc/netkit-fingerd net-misc/whois ) userland_BSD? ( net-misc/bsdwhois )
+SLOT=0
+SRC_URI=mirror://gnome/sources/gnome-nettool/2.30/gnome-nettool-2.30.0.tar.bz2
+HOMEPAGE=http://www.gnome.org/projects/gnome-network/
+LICENSE=GPL-2
+DESCRIPTION=Collection of network tools
+KEYWORDS=~amd64 ~x86
+IUSE=debug
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare unpack

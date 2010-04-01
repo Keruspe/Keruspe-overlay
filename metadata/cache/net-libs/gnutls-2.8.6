@@ -1,0 +1,14 @@
+_mtime_=1267725079
+_guessed_eapi_=0
+_eclasses_=autotools	/var/paludis/repositories/gentoo/eclass	1270118144	eutils	/var/paludis/repositories/gentoo/eclass	1269317283	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=dev-libs/libgpg-error >=dev-libs/libgcrypt-1.4.0 >=dev-libs/libtasn1-0.3.4 nls? ( virtual/libintl ) guile? ( >=dev-scheme/guile-1.8.4[networking] ) zlib? ( >=sys-libs/zlib-1.1 ) !bindist? ( lzo? ( >=dev-libs/lzo-2 ) ) sys-devel/libtool doc? ( dev-util/gtk-doc ) nls? ( sys-devel/gettext ) || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b
+RDEPEND=dev-libs/libgpg-error >=dev-libs/libgcrypt-1.4.0 >=dev-libs/libtasn1-0.3.4 nls? ( virtual/libintl ) guile? ( >=dev-scheme/guile-1.8.4[networking] ) zlib? ( >=sys-libs/zlib-1.1 ) !bindist? ( lzo? ( >=dev-libs/lzo-2 ) )
+SLOT=0
+SRC_URI=mirror://gnu/gnutls/gnutls-2.8.6.tar.bz2
+HOMEPAGE=http://www.gnutls.org/
+LICENSE=LGPL-2.1 GPL-3
+DESCRIPTION=A TLS 1.0 and SSL 3.0 implementation for the GNU project
+KEYWORDS=~alpha ~amd64 ~arm hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd
+IUSE=+cxx bindist doc examples guile lzo nls zlib
+EAPI=3
+DEFINED_PHASES=configure install prepare setup

@@ -1,0 +1,14 @@
+_mtime_=1269351556
+_guessed_eapi_=0
+_eclasses_=fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=dev-libs/glib-2.16 >=dev-libs/dbus-glib-0.71 >=dev-libs/libunique-1.0 >=x11-libs/gtk+-2.17 >=dev-libs/libatasmart-0.14 >=gnome-base/gnome-keyring-2.22 >=x11-libs/libnotify-0.3 >=sys-apps/udisks-1.0.0 nautilus? ( >=gnome-base/nautilus-2.24 ) sys-devel/gettext app-text/gnome-doc-utils >=dev-util/pkgconfig-0.9 >=dev-util/intltool-0.35 >=dev-util/gtk-doc-1.3 >=sys-apps/sed-4
+RDEPEND=>=dev-libs/glib-2.16 >=dev-libs/dbus-glib-0.71 >=dev-libs/libunique-1.0 >=x11-libs/gtk+-2.17 >=dev-libs/libatasmart-0.14 >=gnome-base/gnome-keyring-2.22 >=x11-libs/libnotify-0.3 >=sys-apps/udisks-1.0.0 nautilus? ( >=gnome-base/nautilus-2.24 )
+SLOT=0
+SRC_URI=http://hal.freedesktop.org/releases/gnome-disk-utility-2.30.1.tar.bz2
+HOMEPAGE=http://git.gnome.org/cgit/gnome-disk-utility/
+LICENSE=LGPL-2.1
+DESCRIPTION=Disk Utility for GNOME using devicekit-disks
+KEYWORDS=~amd64 ~x86
+IUSE=+nautilus debug doc gnome-keyring nls
+EAPI=3
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare unpack

@@ -1,0 +1,14 @@
+_mtime_=1267725425
+_guessed_eapi_=0
+_eclasses_=eutils	/var/paludis/repositories/gentoo/eclass	1269317283	flag-o-matic	/var/paludis/repositories/gentoo/eclass	1266435415	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=selinux? ( >=sys-libs/libselinux-1.28 ) !sys-apps/sysvinit virtual/os-headers
+RDEPEND=selinux? ( >=sys-libs/libselinux-1.28 )
+SLOT=0
+SRC_URI=mirror://debian/pool/main/s/sysvinit/sysvinit_2.87dsf.orig.tar.gz mirror://gentoo/sysvinit-2.87-patches-2.tar.bz2
+HOMEPAGE=http://freshmeat.net/projects/sysvinit/
+LICENSE=GPL-2
+DESCRIPTION=Sysvinit without /sbin/init (usefull with runit)
+KEYWORDS=~amd64 ~x86
+IUSE=selinux static
+EAPI=0
+DEFINED_PHASES=compile install unpack

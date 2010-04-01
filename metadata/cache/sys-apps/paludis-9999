@@ -1,0 +1,15 @@
+_mtime_=1269799609
+_guessed_eapi_=0
+_eclasses_=bash-completion	/var/paludis/repositories/gentoo/eclass	1262392538	eutils	/var/paludis/repositories/gentoo/eclass	1269317283	flag-o-matic	/var/paludis/repositories/gentoo/eclass	1266435415	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	scm	/var/paludis/repositories/keruspe/eclass	1269799486	scm-git	/var/paludis/repositories/keruspe/eclass	1269795246	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=app-admin/eselect-1.2_rc1 >=app-shells/bash-3.2 inquisitio? ( dev-libs/libpcre[cxx] ) ruby-bindings? ( >=dev-lang/ruby-1.8 ) python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0 ) gems? ( >=dev-libs/syck-0.55 virtual/rubygems ) xml? ( >=dev-libs/libxml2-2.6 ) sys-devel/autoconf:2.5 sys-devel/automake:1.11 doc? ( || ( >=app-doc/doxygen-1.5.3 <=app-doc/doxygen-1.5.1 ) media-gfx/imagemagick python-bindings? ( dev-python/epydoc dev-python/pygments ) ruby-bindings? ( dev-ruby/syntax dev-ruby/allison ) ) dev-util/pkgconfig >=sys-apps/util-linux-2.13_pre2 >=dev-vcs/git-1.6.0
+RDEPEND=>=app-admin/eselect-1.2_rc1 >=app-shells/bash-3.2 inquisitio? ( dev-libs/libpcre[cxx] ) ruby-bindings? ( >=dev-lang/ruby-1.8 ) python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0 ) gems? ( >=dev-libs/syck-0.55 virtual/rubygems ) xml? ( >=dev-libs/libxml2-2.6 ) sys-apps/sandbox bash-completion? ( app-admin/eselect )
+SLOT=0
+HOMEPAGE=http://paludis.pioto.org/
+LICENSE=GPL-2 vim-syntax? ( vim )
+DESCRIPTION=paludis, the other package mangler
+KEYWORDS=~amd64 ~x86
+IUSE=ask bash-completion cave cran doc gems inquisitio pink portage python-bindings ruby-bindings sort-world vim-syntax visibility xml zsh-completion
+PDEPEND=vim-syntax? ( >=app-editors/vim-core-7 ) suggested: dev-vcs/git dev-util/subversion dev-util/cvs dev-vcs/darcs net-misc/rsync net-misc/wget bash-completion? ( app-shells/bash-completion )
+PROVIDE=virtual/portage
+EAPI=paludis-1
+DEFINED_PHASES=compile info install postinst setup test unpack

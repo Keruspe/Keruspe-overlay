@@ -1,0 +1,13 @@
+_mtime_=1269424004
+_guessed_eapi_=0
+DEPEND=>=dev-libs/glib-2.18 sys-apps/sg3_utils hal? ( sys-apps/hal ) gtk? ( >=x11-libs/gtk+-2.6 ) python? ( >=dev-lang/python-2.5 >=media-libs/mutagen-1.8 >=dev-python/pygobject-2.8 ) test? ( media-libs/taglib ) python? ( >=dev-lang/swig-1.3.24 ) xml? ( dev-libs/libxml2 ) nls? ( dev-util/intltool sys-devel/gettext ) udev? ( sys-fs/udev ) iphone? ( app-pda/libimobiledevice ) dev-util/pkgconfig dev-util/gtk-doc dev-libs/libxslt
+RDEPEND=>=dev-libs/glib-2.18 sys-apps/sg3_utils hal? ( sys-apps/hal ) gtk? ( >=x11-libs/gtk+-2.6 ) python? ( >=dev-lang/python-2.5 >=media-libs/mutagen-1.8 >=dev-python/pygobject-2.8 ) test? ( media-libs/taglib )
+SLOT=0
+SRC_URI=http://downloads.sourceforge.net/project/gtkpod/libgpod/libgpod-0.7.9x/libgpod-0.7.92.tar.gz
+HOMEPAGE=http://www.gtkpod.org/libgpod.html
+LICENSE=LGPL-2
+DESCRIPTION=Shared library to access the contents of an iPod
+KEYWORDS=~amd64 ~x86
+IUSE=+gtk +nls +udev +xml hal iphone python test
+EAPI=3
+DEFINED_PHASES=configure install

@@ -1,0 +1,12 @@
+_mtime_=1267711234
+_guessed_eapi_=0
+_eclasses_=eutils	/var/paludis/repositories/gentoo/eclass	1269317283	git	/var/paludis/repositories/gentoo/eclass	1268840140	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
+DEPEND=>=dev-vcs/git-1.6
+RDEPEND=sys-apps/paludis[ruby-bindings]
+SLOT=0
+HOMEPAGE=http://paludis.pioto.org/
+LICENSE=GPL-2
+DESCRIPTION=Scripts for paludis, the other package mangler
+KEYWORDS=~amd64 ~x86
+EAPI=3
+DEFINED_PHASES=install prepare unpack
