@@ -53,7 +53,8 @@ DEPEND="${RDEPEND}
 	doc? (
 		>=dev-util/gtk-doc-1.11
 		~app-text/docbook-xml-dtd-4.1.2 )
-	introspection? ( dev-libs/gobject-introspection )
+	introspection? ( dev-libs/gobject-introspection
+		>=dev-libs/atk-1.30.0[introspection] )
 	test? (
 		media-fonts/font-misc-misc
 		media-fonts/font-cursor-misc )"

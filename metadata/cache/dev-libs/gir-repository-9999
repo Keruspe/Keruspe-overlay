@@ -1,4 +1,4 @@
-_mtime_=1270151804
+_mtime_=1270155682
 _guessed_eapi_=0
 _eclasses_=autotools	/var/paludis/repositories/gentoo/eclass	1270118144	eutils	/var/paludis/repositories/gentoo/eclass	1269317283	fdo-mime	/var/paludis/repositories/gentoo/eclass	1229996133	git	/var/paludis/repositories/gentoo/eclass	1268840140	gnome.org	/var/paludis/repositories/gentoo/eclass	1121096137	gnome2	/var/paludis/repositories/gentoo/eclass	1234887017	gnome2-utils	/var/paludis/repositories/gentoo/eclass	1224709573	libtool	/var/paludis/repositories/gentoo/eclass	1268383043	multilib	/var/paludis/repositories/gentoo/eclass	1255041468	portability	/var/paludis/repositories/gentoo/eclass	1267209340	toolchain-funcs	/var/paludis/repositories/gentoo/eclass	1268697989
 DEPEND=>=dev-libs/gobject-introspection-0.6.5 avahi? ( >=net-dns/avahi-0.6 ) babl? ( =media-libs/babl-0.0 ) dbus? ( dev-libs/dbus-glib ) gconf? ( gnome-base/gconf ) gnome-keyring? ( gnome-base/gnome-keyring ) goocanvas? ( x11-libs/goocanvas ) gtksourceview? ( x11-libs/gtksourceview ) gupnp? ( net-libs/gssdp net-libs/gupnp ) libnotify? ( x11-libs/libnotify ) libsoup? ( net-libs/libsoup:2.4 ) nautilus? ( gnome-base/nautilus ) poppler? ( >=app-text/poppler-0.12.3-r3 ) vte? ( x11-libs/vte ) || ( =sys-devel/automake-1.11* =sys-devel/automake-1.10* ) >=sys-devel/autoconf-2.61 >=sys-devel/libtool-2.2.6b >=sys-apps/sed-4 >=dev-vcs/git-1.6
@@ -8,6 +8,6 @@ HOMEPAGE=http://live.gnome.org/GObjectIntrospection/
 LICENSE=LGPL-2
 DESCRIPTION=Gobject-Introspection file Repository
 KEYWORDS=~amd64 ~x86
-IUSE=avahi babl dbus debug gconf gnome-keyring goocanvas gtksourceview gupnp libnotify libsoup nautilus poppler vte
+IUSE=avahi babl dbus debug gconf gnome-keyring goocanvas gtk gtksourceview gupnp libnotify libsoup nautilus pango poppler vte
 EAPI=3
 DEFINED_PHASES=compile configure install postinst postrm preinst prepare setup unpack
