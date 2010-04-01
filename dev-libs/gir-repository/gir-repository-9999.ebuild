@@ -14,8 +14,8 @@ SRC_URI=""
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="atk avahi babl dbus gconf gnome-keyring gnome-menus goocanvas gtk gtksourceview
-gupnp libnotify libsoup libwnck nautilus pango poppler vte webkit"
+IUSE="avahi babl dbus gconf gnome-keyring goocanvas gtksourceview
+gupnp libnotify libsoup nautilus poppler vte"
 
 RDEPEND=">=dev-libs/gobject-introspection-0.6.5"
 DEPEND="${RDEPEND}
@@ -31,22 +31,13 @@ DEPEND="${RDEPEND}
 		net-libs/gupnp )
 	libnotify? ( x11-libs/libnotify )
 	libsoup? ( net-libs/libsoup:2.4 )
-	libwnck? ( >=x11-libs/libwnck-2.30[introspection] )
 	nautilus? ( gnome-base/nautilus )
 	poppler? ( >=app-text/poppler-0.12.3-r3 )
-	vte? ( >=x11-libs/vte-0.24[introspection] )
-"
-
-PDEPEND="
-	atk? ( >=dev-libs/atk-1.30[introspection] ) 
-	gnome-menus? ( >=gnome-base/gnome-menus-2.30[introspection] )
-	gtk? ( >=x11-libs/gtk+-2.20[introspection] )
-	pango? ( >=x11-libs/pango-1.27.1[introspection] )
-	webkit? ( >=net-libs/webkit-gtk-1.1.90[introspection] )
+	vte? ( x11-libs/vte )
 "
 
 pkg_setup() {
-	SKIP="Atk,GMenu,Gnio,Gst,Gtk,Pango,PangoXft,Vte,WebKit,Wnck,Unique"
+	SKIP="Atk,GMenu,Gnio,Gst,Gtk,Pango,PangoXft,WebKit,Wnck,Unique"
 	use !avahi && SKIP="${SKIP},Avahi"
 	use !babl && SKIP="${SKIP},BABL"
 	use !dbus && SKIP="${SKIP},DBus"
@@ -59,6 +50,7 @@ pkg_setup() {
 	use !libsoup && SKIP="${SKIP},Soup"
 	use !nautilus && SKIP="${SKIP},Nautilus"
 	use !poppler && SKIP="${SKIP},Poppler"
+	use !vte && SKIP="${SKIP},Vte"
 
 	G2CONF="${G2CONF} --with-skipped-gir-modules=${SKIP}"
 }
