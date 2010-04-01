@@ -2,11 +2,6 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-# Libxklavier 5.0
-=gnome-base/libgnomekbd-2.30.0
-=gnome-base/gnome-settings-daemon-2.30.0
-=gnome-base/gdm-2.30.0
-
 # not ready
 =media-libs/libchamplain-0.5.1
 media-libs/memphis
