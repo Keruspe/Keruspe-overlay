@@ -1,5 +1,4 @@
 app-admin
-app-arch
 app-crypt
 app-editors
 app-office
@@ -14,10 +13,8 @@ dev-python
 dev-util
 gnome-base
 gnome-extra
-media-gfx
 media-libs
 media-sound
-media-video
 net-analyzer
 net-im
 net-libs
