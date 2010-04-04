@@ -14,7 +14,7 @@ SRC_URI=""
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="avahi babl dbus gconf gnome-keyring goocanvas gtk gtksourceview
+IUSE="avahi babl dbus gconf gnome-keyring goocanvas gtksourceview
 gupnp libnotify libsoup nautilus pango poppler vte"
 
 RDEPEND=">=dev-libs/gobject-introspection-0.6.5"
