@@ -25,7 +25,7 @@ RDEPEND="
 	gnome-keyring? ( >=gnome-base/gnome-keyring-2.22.0 )
 	introspection? ( >=dev-libs/gobject-introspection-0.6 )
 	nautilus? ( >=gnome-base/nautilus-2.10 )
-	>=app-text/poppler-0.12.3-r3[cairo]
+	>=app-text/poppler-0.12.3-r3[cairo,glib]
 	dvi? (
 		virtual/tex-base
 		t1lib? ( >=media-libs/t1lib-5.0.0 ) )
