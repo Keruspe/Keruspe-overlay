@@ -33,7 +33,6 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	x11-libs/libX11
 	net-voip/telepathy-connection-managers
 
-
 	map? (
 		>=media-libs/libchamplain-0.4
 		>=media-libs/clutter-gtk-0.10:1.0 
@@ -72,6 +71,7 @@ G2CONF="${G2CONF}
 	$(use_enable spell)
 	$(use_enable test coding-style-checks)
 	$(use_enable favourite-contacts)
+	$(use_enable favourite-contacts tpl)
 	$(use_enable webkit)
 	$(use_enable cc-embedding control-center-embedding)
 "
