@@ -11,11 +11,10 @@ SRC_URI="http://downloads.sourceforge.net/project/gtkpod/${PN}/${P/2/x}/${P}.tar
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+gtk hal iphone +nls python test +udev +xml"
+IUSE="+gtk iphone +nls python test +udev +xml"
 
 RDEPEND=">=dev-libs/glib-2.18
 	sys-apps/sg3_utils
-	hal? ( sys-apps/hal )
 	gtk? ( >=x11-libs/gtk+-2.6 )
 	python? ( >=dev-lang/python-2.5
 		>=media-libs/mutagen-1.8
@@ -34,7 +33,7 @@ DEPEND="${RDEPEND}
 
 src_configure() {
 	econf \
-		$(use_with hal) \
+		--without-hal \
 		$(use_enable nls) \
 		$(use_enable xml libxml) \
 		$(use_enable gtk gdk-pixbuf) \
