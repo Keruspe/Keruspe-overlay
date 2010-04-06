@@ -101,12 +101,6 @@ pkg_setup() {
 		G2CONF="${G2CONF} --enable-video-extractor=external"
 	fi
 
-	if use laptop; then
-		G2CONF="${G2CONF} --enable-devkit-power)"
-	else
-		G2CONF="${G2CONF} --disable-devkit-power"
-	fi
-
 	if use nautilus; then
 		G2CONF="${G2CONF} --enable-nautilus-extension=yes"
 	else
@@ -119,6 +113,7 @@ pkg_setup() {
 		--disable-functional-tests
 		--with-enca
 		--enable-tracker-status-icon
+		$(use_enable laptop devkit-power)
 		$(use_enable nls)
 		$(use_enable applet tracker-search-bar)
 		$(use_enable eds evolution-miner)
