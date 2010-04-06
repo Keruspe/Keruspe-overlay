@@ -12,12 +12,11 @@ HOMEPAGE="http://www.gnome.org"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="hal"
+IUSE=""
 
 RDEPEND=">=dev-libs/glib-2.14
 	>=dev-libs/dbus-glib-0.70
-	>=app-admin/system-tools-backends-2.5.4
-	hal? ( >=sys-apps/hal-0.5.9 )"
+	>=app-admin/system-tools-backends-2.5.4"
 
 DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.9"

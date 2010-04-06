@@ -11,7 +11,7 @@ HOMEPAGE="http://www.tracker-project.org/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="applet doc eds exif flac gsf gstreamer gtk hal iptc +jpeg kmail
+IUSE="applet doc eds exif flac gsf gstreamer gtk iptc +jpeg kmail
 laptop mp3 nautilus nls pdf playlist test +tiff +vorbis xine +xml xmp"
 
 RDEPEND="
@@ -39,8 +39,7 @@ RDEPEND="
 	iptc? ( media-libs/libiptcdata )
 	jpeg? ( media-libs/jpeg:0 )
 	laptop? (
-		hal? ( >=sys-apps/hal-0.5 )
-		!hal? ( || ( sys-apps/upower >=sys-apps/devicekit-power-007 ) ) )
+		|| ( sys-apps/upower >=sys-apps/devicekit-power-007 ) )
 	mp3? ( >=media-libs/id3lib-3.8.3 )
 	nautilus? ( gnome-base/nautilus )
 	pdf? (
@@ -103,9 +102,9 @@ pkg_setup() {
 	fi
 
 	if use laptop; then
-		G2CONF="${G2CONF} $(use_enable hal) $(use_enable !hal devkit-power)"
+		G2CONF="${G2CONF} --enable-devkit-power)"
 	else
-		G2CONF="${G2CONF} --disable-hal --disable-devkit-power"
+		G2CONF="${G2CONF} --disable-devkit-power"
 	fi
 
 	if use nautilus; then
@@ -115,6 +114,7 @@ pkg_setup() {
 	fi
 
 	G2CONF="${G2CONF}
+		--disable-hal 
 		--disable-unac
 		--disable-functional-tests
 		--with-enca

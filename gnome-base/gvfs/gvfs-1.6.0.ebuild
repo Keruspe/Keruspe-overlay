@@ -11,7 +11,7 @@ HOMEPAGE="http://www.gnome.org"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="afc archive avahi bluetooth cdda doc fuse gdu gnome gnome-keyring gphoto2 hal
+IUSE="afc archive avahi bluetooth cdda doc fuse gdu gnome gnome-keyring gphoto2
 +http samba +udev"
 
 RDEPEND=">=dev-libs/glib-2.21.2
@@ -35,9 +35,6 @@ RDEPEND=">=dev-libs/glib-2.21.2
 	udev? (
 		cdda? ( >=dev-libs/libcdio-0.78.2[-minimal] )
 		>=sys-fs/udev-145[extras] )
-	hal? (
-		cdda? ( >=dev-libs/libcdio-0.78.2[-minimal] )
-		>=sys-apps/hal-0.5.10 )
 	http? ( >=net-libs/libsoup-gnome-2.25.1 )
 	samba? ( || ( >=net-fs/samba-libs-3.4[smbclient]
 			<=net-fs/samba-3.3 ) )"
@@ -49,9 +46,9 @@ DEPEND="${RDEPEND}
 
 DOCS="AUTHORS ChangeLog NEWS README TODO"
 
-if use cdda && ! use hal && ! use udev; then
-	ewarn "You have \"+cdda\", but you have \"-hal\" and \"-udev\""
-	ewarn "cdda support will NOT be built unless you enable EITHER hal OR udev"
+if use cdda && ! use udev; then
+	ewarn "You have \"+cdda\", but you have \"-udev\""
+	ewarn "cdda support will NOT be built unless you enable udev"
 fi
 
 G2CONF="${G2CONF}
@@ -67,7 +64,7 @@ G2CONF="${G2CONF}
 	$(use_enable gnome gconf)
 	$(use_enable gphoto2)
 	$(use_enable udev gudev)
-	$(use_enable hal)
+	--disable-hal
 	$(use_enable http)
 	$(use_enable gnome-keyring keyring)
 	$(use_enable samba)"
