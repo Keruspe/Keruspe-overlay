@@ -6,7 +6,7 @@ EAPI=3
 
 DESCRIPTION="Shared library to access the contents of an iPod"
 HOMEPAGE="http://www.gtkpod.org/libgpod.html"
-SRC_URI="http://downloads.sourceforge.net/project/gtkpod/${PN}/${P/2/x}/${P}.tar.gz"
+SRC_URI="http://downloads.sourceforge.net/project/gtkpod/${PN}/${P/3/x}/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
