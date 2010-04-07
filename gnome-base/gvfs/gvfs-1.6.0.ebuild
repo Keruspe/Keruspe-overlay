@@ -36,8 +36,8 @@ RDEPEND=">=dev-libs/glib-2.21.2
 		cdda? ( >=dev-libs/libcdio-0.78.2[-minimal] )
 		>=sys-fs/udev-145[extras] )
 	http? ( >=net-libs/libsoup-gnome-2.25.1 )
-	samba? ( || ( >=net-fs/samba-libs-3.4[smbclient]
-			<=net-fs/samba-3.3 ) )"
+	samba? ( >=net-fs/samba-3.4[smbclient] )"
+
 DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.40
 	>=dev-util/pkgconfig-0.19
