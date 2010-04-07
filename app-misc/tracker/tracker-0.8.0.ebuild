@@ -39,7 +39,7 @@ RDEPEND="
 	iptc? ( media-libs/libiptcdata )
 	jpeg? ( media-libs/jpeg:0 )
 	laptop? (
-		|| ( sys-apps/upower >=sys-apps/devicekit-power-007 ) )
+		|| ( sys-power/upower >=sys-apps/devicekit-power-007 ) )
 	mp3? ( >=media-libs/id3lib-3.8.3 )
 	nautilus? ( gnome-base/nautilus )
 	pdf? (

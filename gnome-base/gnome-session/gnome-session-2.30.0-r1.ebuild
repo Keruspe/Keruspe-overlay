@@ -22,7 +22,7 @@ RDEPEND=">=dev-libs/glib-2.16
 	>=dev-libs/dbus-glib-0.76
 	>=gnome-base/gconf-2
 	>=x11-libs/startup-notification-0.9
-	|| ( sys-apps/upower >=sys-apps/devicekit-power-008 )
+	|| ( sys-power/upower >=sys-apps/devicekit-power-008 )
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
 
 	x11-libs/libSM
