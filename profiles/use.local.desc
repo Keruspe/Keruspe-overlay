@@ -16,6 +16,7 @@ gnome-extra/gnome-games:clutter - Enable clutter-based games
 gnome-extra/gnome-utils:applet - Enable Gdict applet
 net-im/empathy:cc-embedding - Enable control-center embedding
 net-im/empathy:favourite-contacts - Enable possibility of favourite contacts
+net-im/empathy:map - Enable geolocalisation stuff
 net-libs/webkit-gtk:geoclue - Enable geoclue support (geolocation)
 sys-apps/paludis:ask - Enable ask option (not supported upstream)
 sys-apps/paludis:cave - Enable cave client (experimental)
