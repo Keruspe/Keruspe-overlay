@@ -18,6 +18,7 @@ net-im/empathy:cc-embedding - Enable control-center embedding
 net-im/empathy:favourite-contacts - Enable possibility of favourite contacts
 net-im/empathy:map - Enable geolocalisation stuff
 net-libs/webkit-gtk:geoclue - Enable geoclue support (geolocation)
+net-misc/networkmanager:modem - Enable modemmanager
 sys-apps/paludis:ask - Enable ask option (not supported upstream)
 sys-apps/paludis:cave - Enable cave client (experimental)
 sys-apps/paludis:sort-world - Sort the world file when modifying it (not supported upstream)
