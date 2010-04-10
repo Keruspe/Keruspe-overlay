@@ -24,8 +24,6 @@ RDEPEND="dev-libs/popt
 	x11-libs/libXft
 	>=x11-libs/pango-1.24.2[X]
 	>=gnome-base/libglade-2
-	>=gnome-base/libgnomeprint-2.2
-	>=gnome-base/libgnomeprintui-2.2
 	>=x11-libs/goffice-0.8.0
 	>=media-libs/libpng-1.2
 	>=media-libs/fontconfig-2.1
