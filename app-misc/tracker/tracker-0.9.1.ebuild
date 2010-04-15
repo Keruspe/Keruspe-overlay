@@ -28,7 +28,7 @@ RDEPEND="
 		>=x11-libs/libnotify-0.4.3
 		gnome-base/gnome-panel
 		>=x11-libs/gtk+-2.18 )
-	eds? (
+	eds? ( >=gnome-extra/evolution-2.30
 		>=gnome-extra/evolution-data-server-2.25.5 )
 	exif? ( >=media-libs/libexif-0.6 )
 	flac? ( >=media-libs/flac-1.2.1 )
@@ -41,7 +41,7 @@ RDEPEND="
 	laptop? (
 		|| ( sys-power/upower >=sys-apps/devicekit-power-007 ) )
 	mp3? ( >=media-libs/id3lib-3.8.3 )
-	nautilus? ( gnome-base/nautilus )
+	nautilus? ( gnome-base/nautilus  )
 	pdf? (
 		>=x11-libs/cairo-1
 		>=app-text/poppler-0.12.3-r3[cairo,utils]
