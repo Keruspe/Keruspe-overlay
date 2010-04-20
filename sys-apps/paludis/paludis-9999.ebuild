@@ -23,7 +23,7 @@ COMMON_DEPEND="
 	>=app-shells/bash-3.2
 	inquisitio? ( dev-libs/libpcre[cxx] )
 	ruby-bindings? ( >=dev-lang/ruby-1.8 )
-	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0 )
+	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0[python] )
 	gems? ( >=dev-libs/syck-0.55 virtual/rubygems )
 	xml? ( >=dev-libs/libxml2-2.6 )"
 
@@ -102,17 +102,17 @@ src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	dodoc AUTHORS README NEWS
 
-	BASH_COMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
-	BASH_COMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
-	BASH_COMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
-	BASH_COMPLETION_NAME="importare" dobashcompletion bash-completion/importare
-	BASH_COMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
-	BASH_COMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
+	BASHCOMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
+	BASHCOMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
+	BASHCOMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
+	BASHCOMPLETION_NAME="importare" dobashcompletion bash-completion/importare
+	BASHCOMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
+	BASHCOMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
 	use inquisitio && \
-		BASH_COMPLETION_NAME="inquisitio" \
+		BASHCOMPLETION_NAME="inquisitio" \
 		dobashcompletion bash-completion/inquisitio
 	use cave && \
-		BASH_COMPLETION_NAME="cave" \
+		BASHCOMPLETION_NAME="cave" \
 		dobashcompletion bash-completion/cave
 
 	if use zsh-completion ; then
