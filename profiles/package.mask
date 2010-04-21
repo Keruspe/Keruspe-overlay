@@ -12,6 +12,6 @@ media-libs/memphis
 =dev-libs/gobject-introspection-9999
 =gnome-base/gnome-control-center-9999
 =gnome-base/gnome-shell-9999
-=gnome-extra/pino-9999
+=net-misc/pino-9999
 =sys-apps/paludis-9999
 =x11-wm/mutter-9999
