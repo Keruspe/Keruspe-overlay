@@ -15,6 +15,3 @@ media-libs/memphis
 =net-misc/pino-9999
 =sys-apps/paludis-9999
 =x11-wm/mutter-9999
-
-# Gnome-shell fails with it
-=media-libs/clutter-1.2.6
