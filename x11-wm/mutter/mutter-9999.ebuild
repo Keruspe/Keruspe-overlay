@@ -61,9 +61,9 @@ pkg_setup() {
 		$(use_enable xinerama)"
 }
 
-src_unpack() {
-	git_src_unpack
-	cd ${S}
+src_prepare() {
+	gnome2_src_prepare
+	epatch ${FILESDIR}/fix-gcc-4.5-build.patch
 	intltoolize --force --copy --automake || die
 	eautoreconf
 }
