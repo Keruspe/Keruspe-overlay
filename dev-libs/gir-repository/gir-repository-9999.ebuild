@@ -33,11 +33,10 @@ DEPEND="${RDEPEND}
 	libsoup? ( net-libs/libsoup:2.4 )
 	nautilus? ( gnome-base/nautilus )
 	poppler? ( >=app-text/poppler-0.12.3-r3 )
-	vte? ( x11-libs/vte )
 "
 
 pkg_setup() {
-	SKIP="Atk,GMenu,Gnio,Gst,Gtk,Pango,PangoXft,WebKit,Wnck,Unique"
+	SKIP="Atk,GMenu,Gnio,Gst,Gtk,Pango,PangoXft,Vte,WebKit,Wnck,Unique"
 	use !avahi && SKIP="${SKIP},Avahi"
 	use !babl && SKIP="${SKIP},BABL"
 	use !dbus && SKIP="${SKIP},DBus"
@@ -50,7 +49,6 @@ pkg_setup() {
 	use !libsoup && SKIP="${SKIP},Soup"
 	use !nautilus && SKIP="${SKIP},Nautilus"
 	use !poppler && SKIP="${SKIP},Poppler"
-	use !vte && SKIP="${SKIP},Vte"
 
 	G2CONF="${G2CONF} --with-skipped-gir-modules=${SKIP}"
 }

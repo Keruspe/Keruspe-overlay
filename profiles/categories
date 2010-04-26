@@ -14,6 +14,7 @@ dev-python
 dev-util
 gnome-base
 gnome-extra
+mail-client
 media-libs
 media-sound
 net-analyzer
