@@ -63,7 +63,6 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-	epatch ${FILESDIR}/fix-gcc-4.5-build.patch
 	intltoolize --force --copy --automake || die
 	eautoreconf
 }
