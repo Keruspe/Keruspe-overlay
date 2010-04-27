@@ -97,7 +97,8 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-2.29.6-custom-session.patch"
 	epatch "${WORKDIR}/${PN}-2.26.1-xinitrc-ssh-agent.patch"
 	epatch "${WORKDIR}/${PN}-2.26.1-automagic-libxklavier-support.patch"
-	
+
+	mkdir m4
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 }
