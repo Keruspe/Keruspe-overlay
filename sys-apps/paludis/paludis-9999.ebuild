@@ -22,7 +22,7 @@ COMMON_DEPEND="
 	>=app-admin/eselect-1.2_rc1
 	>=app-shells/bash-3.2
 	inquisitio? ( dev-libs/libpcre[cxx] )
-	ruby-bindings? ( >=dev-lang/ruby-1.8 )
+	ruby-bindings? ( dev-lang/ruby:1.8 )
 	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0[python] )
 	gems? ( >=dev-libs/syck-0.55 virtual/rubygems )
 	xml? ( >=dev-libs/libxml2-2.6 )"
@@ -63,6 +63,7 @@ create-paludis-user() {
 pkg_setup() {
 	create-paludis-user
 	replace-flags -Os -O2
+	alias ruby='ruby18' # palduis currently doesn't work with ruby 1.9
 }
 
 src_unpack() {
