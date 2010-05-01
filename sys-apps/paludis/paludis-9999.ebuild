@@ -63,12 +63,12 @@ create-paludis-user() {
 pkg_setup() {
 	create-paludis-user
 	replace-flags -Os -O2
-	alias ruby='ruby18' # palduis currently doesn't work with ruby 1.9
 }
 
 src_unpack() {
 	scm_src_unpack
 	cd "${S}"
+	epatch ${FILESDIR}/paludis-configure-ruby.patch
 	use ask && epatch ${FILESDIR}/paludis-ask.patch
 	use sort-world && epatch ${FILESDIR}/paludis-sort-world.patch
 	./autogen.bash || die "autogen.bash failed"

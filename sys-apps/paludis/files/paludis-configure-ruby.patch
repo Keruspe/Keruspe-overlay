@@ -1,0 +1,13 @@
+diff --git a/configure.ac b/configure.ac
+index 5fd58ba..cceca01 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -984,7 +984,7 @@ AC_ARG_ENABLE([ruby],
+ AC_MSG_RESULT($enable_ruby)
+ 
+ if test "x$enable_ruby" = "xyes" ; then
+-	AC_CHECK_PROGS(RUBY, ruby, )
++	AC_CHECK_PROGS(RUBY, ruby18, )
+ 	if test "x$RUBY" = "x" ; then
+ 		AC_MSG_ERROR([Ruby is required for --enable-ruby])
+ 	fi
