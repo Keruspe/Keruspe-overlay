@@ -92,13 +92,12 @@ src_prepare() {
 	use applet || epatch ${FILESDIR}/${PN}-2.29.6-remove-fusa.patch
 
 	epatch "${WORKDIR}/${PN}-2.26.1-selinux-remove-attr.patch"
-	epatch "${FILESDIR}/${PN}-2.29.6-fix-daemonize-regression.patch"
+	epatch "${FILESDIR}/${PN}-2.31.0-fix-daemonize-regression.patch"
 	epatch "${WORKDIR}/${PN}-2.26.1-broken-VT-detection.patch"
 	epatch "${FILESDIR}/${PN}-2.29.6-custom-session.patch"
 	epatch "${WORKDIR}/${PN}-2.26.1-xinitrc-ssh-agent.patch"
 	epatch "${WORKDIR}/${PN}-2.26.1-automagic-libxklavier-support.patch"
 
-	mkdir m4
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 }
