@@ -12,7 +12,7 @@ SRC_URI="mirror://kernel/linux/utils/kernel/hotplug/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="selinux devfs-compat introspection old-hd-rules extras +static test"
+IUSE="selinux introspection extras +static test"
 
 COMMON_DEPEND="selinux? ( sys-libs/libselinux )
 	extras? (
@@ -101,9 +101,6 @@ sed_libexec_dir() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/udev-150-fix-missing-firmware-timeout.diff
-	if ! use devfs-compat; then
-		epatch "${FILESDIR}"/udev-141-remove-devfs-names.diff
-	fi
 
 	sed -e 's/GROUP="dialout"/GROUP="uucp"/' \
 		-i rules/{rules.d,packages,gentoo}/*.rules \
@@ -117,10 +114,6 @@ src_prepare() {
 		eerror "50-udev-default.rules has been updated, please validate!"
 		eerror "md5sum: ${MD5}"
 		die "50-udev-default.rules has been updated, please validate!"
-	fi
-
-	if use old-hd-rules; then
-		epatch "${FILESDIR}"/udev-151-readd-hd-rules.diff
 	fi
 
 	sed_libexec_dir \
@@ -426,25 +419,6 @@ pkg_postinst() {
 	ewarn "mount options for directory /dev are no longer"
 	ewarn "set in /etc/udev/udev.conf, but in /etc/fstab"
 	ewarn "as for other directories."
-
-	if use devfs-compat; then
-		ewarn
-		ewarn "devfs-compat use flag is enabled (by default)."
-		ewarn "This enables devfs compatible device names."
-		ewarn "If you use /dev/md/*, /dev/loop/* or /dev/rd/*,"
-		ewarn "then please migrate over to using the device names"
-		ewarn "/dev/md*, /dev/loop* and /dev/ram*."
-		ewarn "The devfs-compat rules will be removed in the future."
-		ewarn "For reference see Bug #269359."
-	fi
-
-	if use old-hd-rules; then
-		ewarn
-		ewarn "old-hd-rules use flag is enabled (by default)."
-		ewarn "This adds the removed rules for /dev/hd* devices"
-		ewarn "Please migrate to the new libata."
-		ewarn "These rules will be removed in the future"
-	fi
 
 	elog
 	elog "For more information on udev on Gentoo, writing udev rules, and"
