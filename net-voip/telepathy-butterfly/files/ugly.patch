@@ -1,0 +1,25 @@
+diff --git a/butterfly/contacts.py b/butterfly/contacts.py
+index 57df7f8..57ff4e6 100644
+--- a/butterfly/contacts.py
++++ b/butterfly/contacts.py
+@@ -39,8 +39,7 @@ class ButterflyContacts(
+         telepathy.CONNECTION_INTERFACE_SIMPLE_PRESENCE : 'presence',
+         telepathy.CONNECTION_INTERFACE_ALIASING : 'alias',
+         telepathy.CONNECTION_INTERFACE_AVATARS : 'token',
+-        telepathy.CONNECTION_INTERFACE_CAPABILITIES : 'caps',
+-        telepathy.CONNECTION_INTERFACE_CONTACT_CAPABILITIES : 'capabilities'
++        telepathy.CONNECTION_INTERFACE_CAPABILITIES : 'caps'
+         }
+ 
+     def __init__(self):
+@@ -80,9 +79,7 @@ class ButterflyContacts(
+             telepathy.CONNECTION_INTERFACE_AVATARS :
+                 lambda x: self.GetKnownAvatarTokens(x).items(),
+             telepathy.CONNECTION_INTERFACE_CAPABILITIES :
+-                lambda x: self.GetCapabilities(x).items(),
+-            telepathy.CONNECTION_INTERFACE_CONTACT_CAPABILITIES :
+-                lambda x: self.GetContactCapabilities(x).items()
++                lambda x: self.GetCapabilities(x).items()
+             }
+ 
+         #Hold handles if needed
