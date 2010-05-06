@@ -144,7 +144,7 @@ src_compile() {
 }
 
 src_install() {
-	local scriptdir="${FILESDIR}/151"
+	local scriptdir="${FILESDIR}/151-r4"
 
 	into /
 	emake DESTDIR="${D}" install || die "make install failed"

@@ -43,6 +43,13 @@ persistent_cd_disable="no"
 # There should be no need to change this.
 #udev_settle_timeout="60"
 
+# Run udevd so that all events are serialized, read more in man udevd at --debug-trace
+#udev_trace="YES"
+
+# Run udevd --debug and write output to /dev/.udev/udev.log
+# Should not be kept on as it fills diskspace slowly
+#udev_debug="YES"
+
 # Run udevadmin monitor to get a log of all events
 # in /dev/.udev/udevmonitor.log
 #udev_monitor="YES"

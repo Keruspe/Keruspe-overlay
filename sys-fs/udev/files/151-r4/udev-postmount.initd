@@ -1,7 +1,7 @@
 #!/sbin/runscript
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/udev/files/151/udev-postmount.initd,v 1.1 2010/01/29 21:14:43 zzam Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/udev/files/151-r4/udev-postmount.initd,v 1.1 2010/05/05 19:35:07 zzam Exp $
 
 depend() {
 	need localmount
