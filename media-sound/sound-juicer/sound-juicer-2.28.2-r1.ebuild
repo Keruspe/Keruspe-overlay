@@ -52,6 +52,12 @@ pkg_setup() {
 	export GST_INSPECT=/bin/true
 }
 
+src_prepare() {
+	gnome2_src_prepare
+	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
+			|| die "sed failed"
+}
+
 pkg_postinst() {
 	gnome2_pkg_postinst
 	echo
