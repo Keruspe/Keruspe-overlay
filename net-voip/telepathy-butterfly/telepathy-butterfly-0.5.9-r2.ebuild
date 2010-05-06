@@ -19,10 +19,6 @@ RDEPEND=">=dev-python/telepathy-python-0.15.17
 
 DOCS="AUTHORS NEWS"
 
-src_prepare() {
-	epatch ${FILESDIR}/ugly.patch
-}
-
 src_install() {
 	base_src_install
 	rm -f $(find "${D}" -name *.py[co])
