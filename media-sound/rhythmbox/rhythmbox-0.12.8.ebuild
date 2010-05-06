@@ -137,6 +137,11 @@ pkg_setup() {
 	export GST_INSPECT=/bin/true
 }
 
+src_prepare() {
+	gnome2_src_prepare
+	epatch "${FILESDIR}/${PN}-0.12-python-initialization.patch"
+}
+
 src_compile() {
 	addpredict "$(unset HOME; echo ~)/.gconf"
 	addpredict "$(unset HOME; echo ~)/.gconfd"
