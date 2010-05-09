@@ -51,7 +51,6 @@ src_unpack() {
 
 src_prepare() {
 	mkdir m4
-	use seconds && epatch ${FILESDIR}/show-seconds.patch
 	intltoolize --force --copy --automake || die
 	eautoreconf
 }

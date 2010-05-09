@@ -10,7 +10,6 @@ dev-util/anjuta-extras:valgrind - Enable valgrind plugin
 gnome-base/gdm:applet - Build fast-user-switch-applet
 gnome-base/gnome:note - Enable note writer
 gnome-base/gnome-control-center:mutter - Use mutter instead of metacity
-gnome-base/gnome-shell:seconds - Show seconds in clock
 gnome-base/gvfs:afc - Enable afc backend (iPod, iPhone)
 gnome-extra/gnome-games:clutter - Enable clutter-based games
 gnome-extra/gnome-utils:applet - Enable Gdict applet
