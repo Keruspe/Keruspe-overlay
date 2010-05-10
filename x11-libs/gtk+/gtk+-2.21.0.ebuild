@@ -35,7 +35,7 @@ RDEPEND="!aqua? (
 	>=dev-libs/atk-1.29.2
 	media-libs/fontconfig
 	x11-misc/shared-mime-info
-	<media-libs/libpng-1.4:0
+	media-libs/libpng
 	cups? ( net-print/cups )
 	jpeg? ( >=media-libs/jpeg-6b-r9:0 )
 	jpeg2k? ( media-libs/jasper )
