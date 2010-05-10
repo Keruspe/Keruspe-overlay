@@ -73,6 +73,5 @@ src_configure() {
 }
 
 src_prepare() {
-	rm -v build/autotools/lt* build/autotools/libtool.m4 || die "removing libtool macros failed"
 	eautoreconf
 }
