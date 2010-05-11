@@ -2,5 +2,5 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-introspection - Enable dev-libs/gobject-introspection for introspection
+introspection - Use dev-libs/gobject-introspection for introspection
 nautilus-sendto - Enable nautilus-sendto plugin
