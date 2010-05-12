@@ -100,8 +100,6 @@ sed_libexec_dir() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/udev-150-fix-missing-firmware-timeout.diff
-
 	sed -e 's/GROUP="dialout"/GROUP="uucp"/' \
 		-i rules/{rules.d,packages,gentoo}/*.rules \
 	|| die "failed to change group dialout to uucp"
