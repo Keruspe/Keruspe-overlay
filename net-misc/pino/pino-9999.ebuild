@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit mercurial
+inherit cmake-utils mercurial
 
 DESCRIPTION="Twitter and Identi.ca client"
 HOMEPAGE="http://pino-app.appspot.com/"
@@ -18,41 +18,31 @@ KEYWORDS="~amd64 ~x86"
 IUSE="debug indicate"
 
 RDEPEND="x11-libs/gtk+:2
+	>=sys-devel/gcc-4.2
 	>=dev-libs/libgee-0.5.0
-	dev-libs/glib:2
 	x11-libs/libnotify
 	net-libs/libsoup:2.4
 	dev-libs/libxml2
-	>=net-libs/webkit-gtk-1.1
-	dev-libs/libunique
+	>=net-libs/webkit-gtk-1.0
+	>=dev-libs/libunique-1.0
 	app-text/gtkspell
-	indicate? ( >=dev-libs/libindicate-0.3 )"
+	indicate? ( dev-libs/libindicate )"
 DEPEND="${RDEPEND}
-	>=dev-lang/vala-0.8.0
+	>=dev-lang/vala-0.7.10
 	sys-devel/gettext
 	dev-util/intltool
 	dev-lang/python"
 
 src_configure() {
-	local myconf=""
-	use debug && myconf="--debug"
-
-	if ! use indicate ; then
-		# sabotage the detection since no configure option
-		sed -i \
-			-e 's|indicate|indicate-false|' \
-			wscript || die "sed failed"
-	fi
-
-	./waf configure ${myconf} --prefix=/usr || die "configure failed"
-}
-
-src_compile() {
-	./waf build || die "building failed"
+	mycmakeargs=(
+		-DUBUNTU_ICONS=OFF
+		$(cmake-utils_use debug ENABLE_DEBUG)
+	)
+	cmake-utils_src_configure
 }
 
 src_install() {
-	./waf --destdir="${D}" install || die "install failed"
+	cmake-utils_src_install
 
 	doicon img/pino.svg
 
