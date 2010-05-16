@@ -14,7 +14,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="telepathy"
 
 RDEPEND=">=dev-libs/glib-2.20
 	>=x11-libs/gtk+-2.16
@@ -36,7 +36,7 @@ RDEPEND=">=dev-libs/glib-2.20
 	x11-apps/mesa-progs
 	>=x11-wm/mutter-2.29.1[introspection]
 
-	>=net-libs/telepathy-glib-0.11.5[introspection]
+	telepathy? ( >=net-libs/telepathy-glib-0.11.5[introspection] )
 "
 DEPEND="${RDEPEND}
 	>=dev-lang/python-2.5
