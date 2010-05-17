@@ -70,7 +70,7 @@ src_unpack() {
 	cd "${S}"
 	epatch ${FILESDIR}/paludis-configure-ruby.patch
 	use ask && epatch ${FILESDIR}/paludis-ask.patch
-	use sort-world && epatch ${FILESDIR}/paludis-sort-world.patch
+	#use sort-world && epatch ${FILESDIR}/paludis-sort-world.patch
 	./autogen.bash || die "autogen.bash failed"
 }
 
