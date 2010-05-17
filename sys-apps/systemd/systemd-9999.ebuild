@@ -3,25 +3,41 @@
 
 EAPI=3
 
-inherit git
+inherit autotools git
 
 EGIT_BRANCH="master"
 EGIT_REPO_URI="git://anongit.freedesktop.org/systemd"
 
-DESCRIPTION="Systemd"
+DESCRIPTION="Systemd : rethinking PID 1"
 HOMEPAGE="http://www.freedesktop.org/wiki/Software/systemd"
 SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="gtk"
 
-DEPEND=""
-RDEPEND="dev-libs/libcgroup"
+RDEPEND=">=dev-lang/vala-0.8
+      >=dev-libs/libcgroup-0.35
+      >=sys-apps/dbus-1.2.24
+      >=sys-fs/udev-151
+	  >=sys-kernel/linux-headers-2.6.32
+	  sys-libs/libcap
+      gtk? ( >=x11-libs/gtk+-2.20 )"
+DEPEND="${RDEPEND}"
+
+CFLAGS+=" -g -O0"
+WANT_AUTOMAKE=2.11
+
+src_prepare() {
+	eautoreconf
+}
 
 src_configure() {
-	./bootstrap.sh --with-distro=gentoo --prefix=/usr
+	econf --with-distro=gentoo \
+		$(use_enable gtk) \
+		--libexecdir=/usr/libexec \
+		--prefix=/
 }
 
 src_install() {
