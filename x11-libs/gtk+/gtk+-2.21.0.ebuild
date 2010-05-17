@@ -76,6 +76,8 @@ src_prepare() {
 
 	epatch "${FILESDIR}/${PN}-2.18.5-macosx-aqua.patch"
 
+	epatch ${FILESDIR}/${PN}-2.21.0-fix-libpng.patch 
+
 	replace-flags -O3 -O2
 	strip-flags
 
