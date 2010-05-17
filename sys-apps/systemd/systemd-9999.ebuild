@@ -20,10 +20,6 @@ IUSE=""
 DEPEND=""
 RDEPEND="dev-libs/libcgroup"
 
-src_prepare() {
-	sed -i '/ExecStart/s/.*/ExecStart=\/sbin\/agetty 38400 %I linux/' units/getty@.service.m4
-}
-
 src_configure() {
 	./bootstrap.sh --with-distro=gentoo --prefix=/usr
 }
