@@ -43,10 +43,10 @@ src_install() {
 
 pkg_postinst() {
 	python_mod_optimize /usr/$(get_libdir)/conduit/modules/
-	python_mod_optimize /usr/$(get_libdir)/python$(python_get_version)/site-packages/conduit/
+	python_mod_optimize conduit
 }
 
 pkg_postrm() {
 	python_mod_cleanup /usr/$(get_libdir)/conduit/modules/
-	python_mod_cleanup /usr/$(get_libdir)/python$(python_get_version)/site-packages/conduit/
+	python_mod_cleanup conduit
 }
