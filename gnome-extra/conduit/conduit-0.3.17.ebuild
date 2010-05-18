@@ -42,13 +42,11 @@ src_install() {
 }
 
 pkg_postinst() {
-	python_version
 	python_mod_optimize /usr/$(get_libdir)/conduit/modules/
-	python_mod_optimize /usr/$(get_libdir)/python${PYVER}/site-packages/conduit/
+	python_mod_optimize /usr/$(get_libdir)/python$(python_get_version)/site-packages/conduit/
 }
 
 pkg_postrm() {
-	python_version
 	python_mod_cleanup /usr/$(get_libdir)/conduit/modules/
-	python_mod_cleanup /usr/$(get_libdir)/python${PYVER}/site-packages/conduit/
+	python_mod_cleanup /usr/$(get_libdir)/python$(python_get_version)/site-packages/conduit/
 }
