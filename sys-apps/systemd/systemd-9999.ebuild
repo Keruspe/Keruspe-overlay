@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="gtk"
 
 RDEPEND=">=dev-lang/vala-0.8
-      >=dev-libs/libcgroup-0.35
+      >=dev-libs/libcgroup-0.36
       >=sys-apps/dbus-1.2.24
       >=sys-fs/udev-151
 	  >=sys-kernel/linux-headers-2.6.32
