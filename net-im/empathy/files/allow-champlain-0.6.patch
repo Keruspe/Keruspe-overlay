@@ -1,0 +1,15 @@
+--- configure.ac.old	2010-05-19 21:52:47.355661793 +0200
++++ configure.ac	2010-05-19 21:53:30.826661707 +0200
+@@ -383,6 +383,12 @@
+       champlain-gtk-0.4 >= $LIBCHAMPLAIN_GTK_REQUIRED
+       clutter-gtk-0.10 >= $CLUTTER_GTK_REQUIRED
+    ], have_libchamplain="yes", have_libchamplain="no")
++   PKG_CHECK_MODULES(LIBCHAMPLAIN,
++   [
++      champlain-0.6 >= $LIBCHAMPLAIN_REQUIRED,
++      champlain-gtk-0.6 >= $LIBCHAMPLAIN_GTK_REQUIRED
++      clutter-gtk-0.10 >= $CLUTTER_GTK_REQUIRED
++   ], have_libchamplain="yes", have_libchamplain="$have_libchamplain")
+ 
+    if test "x$have_libchamplain" = "xyes"; then
+       AC_DEFINE(HAVE_LIBCHAMPLAIN, 1, [Define if you have libchamplain])

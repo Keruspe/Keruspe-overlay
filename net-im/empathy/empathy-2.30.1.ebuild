@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit gnome2
+inherit autotools gnome2
 
 DESCRIPTION="Telepathy client and library using GTK+"
 HOMEPAGE="http://live.gnome.org/Empathy"
@@ -79,6 +79,10 @@ G2CONF="${G2CONF}
 src_prepare() {
 	sed -i "s:-Werror::g" configure || die "sed 1 failed"
 	gnome2_src_prepare
+	if use map; then
+		epatch ${FILESDIR}/allow-champlain-0.6.patch
+		eautoreconf
+	fi
 }
 
 src_test() {
