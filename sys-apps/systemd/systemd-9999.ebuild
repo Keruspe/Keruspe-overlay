@@ -24,7 +24,11 @@ RDEPEND=">=dev-lang/vala-0.8
 	  >=sys-kernel/linux-headers-2.6.32
 	  sys-libs/libcap
       gtk? ( >=x11-libs/gtk+-2.20 )"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	app-text/docbook-xml-dtd
+	app-text/docbook-xsl-stylesheets
+	app-text/build-docbook-catalog
+	dev-libs/libxslt"
 
 CFLAGS+=" -g -O0"
 WANT_AUTOMAKE=2.11
