@@ -65,10 +65,6 @@ set_gtk2_confdir() {
 	GTK2_CONFDIR=${GTK2_CONFDIR:=/etc/gtk-2.0}
 }
 
-pkg_setup() {
-	use prefix || EPREFIX=
-}
-
 src_prepare() {
 	has_multilib_profile && epatch "${FILESDIR}/${PN}-2.8.0-multilib.patch"
 
