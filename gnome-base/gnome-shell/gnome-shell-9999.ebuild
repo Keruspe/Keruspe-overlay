@@ -48,8 +48,7 @@ DEPEND="${RDEPEND}
 DOCS="AUTHORS README"
 
 src_unpack() {
-	#git_src_unpack
-	git clone /var/paludis/distfiles/git-src/gnome-shell $S
+	git_src_unpack
 }
 
 src_prepare() {
