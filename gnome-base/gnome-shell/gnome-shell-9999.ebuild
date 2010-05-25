@@ -21,7 +21,7 @@ RDEPEND=">=dev-libs/glib-2.20
 	>=media-libs/gstreamer-0.10.16
 	>=media-libs/gst-plugins-base-0.10.16
 	>=gnome-base/gnome-desktop-2.26
-	>=dev-libs/gobject-introspection-0.6.9
+	>=dev-libs/gobject-introspection-0.6.11
 	
 	dev-libs/dbus-glib
 	>=dev-libs/gjs-0.6
@@ -34,7 +34,7 @@ RDEPEND=">=dev-libs/glib-2.20
 	x11-libs/startup-notification
 	x11-libs/libXfixes
 	x11-apps/mesa-progs
-	>=x11-wm/mutter-2.29.1[introspection]
+	>=x11-wm/mutter-2.31.2[introspection]
 
 	telepathy? ( >=net-libs/telepathy-glib-0.11.5[introspection] )
 "
@@ -48,7 +48,8 @@ DEPEND="${RDEPEND}
 DOCS="AUTHORS README"
 
 src_unpack() {
-	git_src_unpack
+	#git_src_unpack
+	git clone /var/paludis/distfiles/git-src/gnome-shell $S
 }
 
 src_prepare() {
