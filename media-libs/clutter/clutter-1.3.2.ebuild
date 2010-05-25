@@ -11,6 +11,8 @@ SLOT="1.0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug doc +gtk introspection +opengl"
 
+WANT_AUTOMAKE=1.11
+
 RDEPEND=">=dev-libs/glib-2.16
 	>=x11-libs/cairo-1.4
 	>=x11-libs/pango-1.20
