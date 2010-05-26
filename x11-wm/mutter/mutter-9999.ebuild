@@ -34,7 +34,7 @@ RDEPEND=">=x11-libs/gtk+-2.10
 	x11-libs/libXrender
 
 	introspection? ( dev-libs/gobject-introspection 
-		>=media-libs/clutter[introspection] )
+		media-libs/clutter[introspection] )
 	xinerama? ( x11-libs/libXinerama )
 	gnome-extra/zenity
 	!x11-misc/expocity"
