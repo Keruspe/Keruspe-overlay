@@ -22,7 +22,7 @@ RDEPEND=">=x11-libs/gtk+-2.10
 	>=x11-libs/startup-notification-0.7
 	>=x11-libs/libXcomposite-0.2
 
-	>=media-libs/clutter-1.2[introspection]
+	>=media-libs/clutter-1.2
 	x11-libs/libICE
 	x11-libs/libSM
 	x11-libs/libX11
@@ -33,7 +33,8 @@ RDEPEND=">=x11-libs/gtk+-2.10
 	x11-libs/libXrandr
 	x11-libs/libXrender
 
-	introspection? ( dev-libs/gobject-introspection )
+	introspection? ( dev-libs/gobject-introspection 
+		>=media-libs/clutter[introspection] )
 	xinerama? ( x11-libs/libXinerama )
 	gnome-extra/zenity
 	!x11-misc/expocity"
