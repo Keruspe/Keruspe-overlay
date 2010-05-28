@@ -75,5 +75,6 @@ src_configure() {
 }
 
 src_prepare() {
+	epatch ${FILESDIR}/clutter-group-atk-include.patch
 	eautoreconf
 }
