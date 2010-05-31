@@ -3,7 +3,6 @@ app-backup
 app-crypt
 app-editors
 app-paludis
-app-pda
 app-text
 dev-cpp
 dev-java
@@ -11,6 +10,7 @@ dev-libs
 dev-perl
 dev-python
 dev-util
+games-action
 gnome-base
 gnome-extra
 mail-client
