@@ -23,7 +23,7 @@ DEPEND="media-libs/sdl-ttf
 RDEPEND="${DEPEND}"
 
 src_compile() {
-	emake
+	emake ROOTDIR=/
 	use doc && emake doc
 }
 
