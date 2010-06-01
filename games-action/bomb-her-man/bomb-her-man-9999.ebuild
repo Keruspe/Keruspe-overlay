@@ -9,7 +9,7 @@ inherit games git
 DESCRIPTION="A bomberman clone, student project for SUPINFO, France"
 HOMEPAGE="http://github.com/Keruspe/Bomb-her-man"
 SRC_URI=""
-EGIT_REPO_URI="git://github.com/Keruspe/Bomb-her-man.git"
+EGIT_REPO_URI="http://github.com/Keruspe/Bomb-her-man.git"
 
 LICENSE="GPL-3"
 SLOT="0"
