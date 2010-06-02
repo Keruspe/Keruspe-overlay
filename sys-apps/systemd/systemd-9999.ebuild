@@ -41,10 +41,12 @@ src_prepare() {
 src_configure() {
 	econf --with-distro=gentoo \
 		$(use_enable gtk) \
-		--libexecdir=/usr/libexec \
-		--prefix=/
+		--prefix=/usr \
+		--with-rootdir=/
 }
 
 src_install() {
 	emake DESTDIR=${D} install
+	# make sure all directory are created
+	mkdir -p ${D}/crgoup/{cpu,cpuacct,cpuset,debug,devices,freezer,memory,ns,systemd}
 }
