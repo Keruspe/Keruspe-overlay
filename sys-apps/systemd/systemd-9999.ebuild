@@ -23,8 +23,10 @@ RDEPEND="
       >=sys-fs/udev-151
 	  >=sys-kernel/linux-headers-2.6.32
 	  sys-libs/libcap
-      gtk? ( >=x11-libs/gtk+-2.20 
-	  >=dev-lang/vala-0.8 )"
+      gtk? ( >=x11-libs/gtk+-2.20 ) 
+	  >=dev-lang/vala-0.8
+	  >=sys-apps/baselayout-2
+	  >=app-admin/syslog-ng-3"
 DEPEND="${RDEPEND}
 	app-text/docbook-xml-dtd
 	app-text/docbook-xsl-stylesheets
