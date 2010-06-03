@@ -18,7 +18,7 @@ DEPEND="${RDEPEND}
 	introspection? (
 		media-libs/clutter[introspection]
 		>=dev-libs/gobject-introspection-0.6.3
-		>=dev-libs/gir-repository-0.6.3[gtk] )"
+		>=x11-libs/gtk+-2.21.0[introspection] )"
 EXAMPLES="examples/{*.c,redhand.png}"
 
 G2CONF="${G2CONF}

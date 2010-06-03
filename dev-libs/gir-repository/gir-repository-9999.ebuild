@@ -22,7 +22,6 @@ DEPEND="${RDEPEND}
 	avahi? ( >=net-dns/avahi-0.6 )
 	babl? ( =media-libs/babl-0.0 )
 	dbus? ( dev-libs/dbus-glib )
-	gconf? ( gnome-base/gconf )
 	gnome-keyring? ( gnome-base/gnome-keyring )
 	goocanvas? ( x11-libs/goocanvas )
 	gtksourceview? ( x11-libs/gtksourceview )
@@ -36,11 +35,10 @@ DEPEND="${RDEPEND}
 "
 
 pkg_setup() {
-	SKIP="Atk,GMenu,Gnio,Gst,Gtk,Pango,PangoXft,Vte,WebKit,Wnck,Unique"
+	SKIP="Atk,Gconf,GMenu,Gnio,Gst,Gtk,Pango,PangoXft,Vte,WebKit,Wnck,Unique"
 	use !avahi && SKIP="${SKIP},Avahi"
 	use !babl && SKIP="${SKIP},BABL"
 	use !dbus && SKIP="${SKIP},DBus"
-	use !gconf && SKIP="${SKIP},GConf"
 	use !gnome-keyring && SKIP="${SKIP},GnomeKeyring"
 	use !goocanvas && SKIP="${SKIP},GooCanvas"
 	use !gtksourceview && SKIP="${SKIP},GTKSOURCEVIEW"

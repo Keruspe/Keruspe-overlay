@@ -39,7 +39,7 @@ DEPEND="${RDEPEND}
 		app-text/xmlto )
 	introspection? (
 		>=dev-libs/gobject-introspection-0.6.4
-		>=dev-libs/gir-repository-0.6.3[pango] )"
+		>=x11-libs/pango-1.28.0[introspection] )"
 
 src_configure() {
 	local myconf=""
