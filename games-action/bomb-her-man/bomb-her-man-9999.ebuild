@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit games git
+inherit autotools games git
 
 DESCRIPTION="A bomberman clone, student project for SUPINFO, France"
 HOMEPAGE="http://github.com/Keruspe/Bomb-her-man"
@@ -18,16 +18,10 @@ IUSE="doc"
 
 DEPEND="media-libs/sdl-ttf
 	x11-libs/cairo
-	gnome-base/librsvg
-	doc? ( app-doc/doxygen )"
+	gnome-base/librsvg"
+	#doc? ( app-doc/doxygen )"
 RDEPEND="${DEPEND}"
 
-src_compile() {
-	emake ROOTDIR=/
-	use doc && emake doc
-}
-
-src_install() {
-	emake DESTDIR=${D} install
-	use doc && emake DESTDIR=${D} install-doc
+src_prepare() {
+	eautoreconf
 }
