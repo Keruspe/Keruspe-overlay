@@ -18,6 +18,37 @@ index 02e1841..71ae550 100644
          world.rewrite();
      }
  
+diff --git a/paludis/environments/paludis/world_TEST.cc b/paludis/environments/paludis/world_TEST.cc
+index 3a4e10b..864ff94 100644
+--- a/paludis/environments/paludis/world_TEST.cc
++++ b/paludis/environments/paludis/world_TEST.cc
+@@ -51,9 +51,9 @@ namespace test_cases
+             SafeIFStream f(*w);
+             std::string ff((std::istreambuf_iterator<char>(f)), std::istreambuf_iterator<char>());
+             TEST_CHECK_EQUAL(ff,
+-                    "cat/unchanged\n"
+-                    "cat/alsounchanged\n"
+                     "cat/after\n"
++                    "cat/alsounchanged\n"
++                    "cat/unchanged\n"
+                     );
+         }
+     } world_updates_test;
+diff --git a/paludis/environments/paludis/world_TEST_setup.sh b/paludis/environments/paludis/world_TEST_setup.sh
+index f81a62b..0d8916c 100755
+--- a/paludis/environments/paludis/world_TEST_setup.sh
++++ b/paludis/environments/paludis/world_TEST_setup.sh
+@@ -5,8 +5,8 @@ mkdir world_TEST_dir || exit 2
+ cd world_TEST_dir || exit 3
+ 
+ cat <<END > world
+-cat/unchanged
+-cat/before
+ cat/alsounchanged
++cat/before
++cat/unchanged
+ END
+ 
 diff --git a/paludis/set_file.cc b/paludis/set_file.cc
 index a8c7442..7494625 100644
 --- a/paludis/set_file.cc
