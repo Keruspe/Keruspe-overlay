@@ -25,3 +25,7 @@ RDEPEND="${DEPEND}"
 src_prepare() {
 	eautoreconf
 }
+
+src_configure() {
+	egamesconf
+}
