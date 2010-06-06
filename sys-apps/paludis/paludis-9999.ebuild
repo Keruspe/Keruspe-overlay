@@ -70,12 +70,12 @@ src_unpack() {
 	cd "${S}"
 	epatch ${FILESDIR}/paludis-configure-ruby.patch
 	use ask && epatch ${FILESDIR}/paludis-ask.patch
-	#use sort-world && epatch ${FILESDIR}/paludis-sort-world.patch
+	use sort-world && epatch ${FILESDIR}/paludis-sort-world.patch
 	./autogen.bash || die "autogen.bash failed"
 }
 
 src_compile() {
-	local repositories=`echo default unavailable unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
+	local repositories=`echo default repository unavailable unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
 	local clients=`echo default accerso appareo adjutrix importare \
 		$(usev inquisitio ) instruo paludis reconcilio $(usev cave) | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
