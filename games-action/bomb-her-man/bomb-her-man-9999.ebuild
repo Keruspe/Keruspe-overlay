@@ -20,7 +20,8 @@ DEPEND="media-libs/sdl-ttf
 	x11-libs/cairo
 	gnome-base/librsvg"
 	#doc? ( app-doc/doxygen )"
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	media-fonts/libertine-ttf"
 
 src_prepare() {
 	eautoreconf
@@ -28,4 +29,10 @@ src_prepare() {
 
 src_configure() {
 	egamesconf
+}
+
+src_install() {
+	base_src_install
+	rm -f ${D}${GAMES_DATADIR}/${PN}/biolinum.ttf
+	dosym /usr/share/fonts/libertine-ttf/Biolinum_Re-0.4.1.ttf ${GAMES_DATADIR}/${PN}/biolinum.ttf
 }
