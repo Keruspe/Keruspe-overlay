@@ -73,8 +73,3 @@ src_configure() {
 		$(use_enable introspection)"
 	econf ${myconf}
 }
-
-src_prepare() {
-	epatch ${FILESDIR}/clutter-group-atk-include.patch
-	eautoreconf
-}
