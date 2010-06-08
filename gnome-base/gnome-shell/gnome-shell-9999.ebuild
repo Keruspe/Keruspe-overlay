@@ -47,8 +47,6 @@ DEPEND="${RDEPEND}
 "
 DOCS="AUTHORS README"
 
-CFLAGS+=" -DCLUTTER_COMPILATION"
-
 src_unpack() {
 	git_src_unpack
 }
