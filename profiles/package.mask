@@ -9,6 +9,7 @@
 =dev-libs/libcgroup-9999
 =gnome-base/gnome-control-center-9999
 =gnome-base/gnome-shell-9999
+=media-sound/rhythmbox-9999
 =net-misc/pino-9999
 =sys-apps/paludis-9999
 =sys-apps/systemd-9999
