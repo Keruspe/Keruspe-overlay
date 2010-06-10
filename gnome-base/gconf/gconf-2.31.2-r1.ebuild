@@ -25,7 +25,8 @@ RDEPEND=">=dev-libs/glib-2.25.1
 	>=gnome-base/orbit-2.4
 	>=dev-libs/libxml2-2
 	ldap? ( net-nds/openldap )
-	introspection? ( dev-libs/gobject-introspection )
+	introspection? ( dev-libs/gobject-introspection 
+		!!dev-libs/gir-repository[gconf] )
 	policykit? ( sys-auth/polkit )"
 DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35

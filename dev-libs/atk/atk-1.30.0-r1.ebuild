@@ -20,7 +20,8 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.9
 	doc? ( >=dev-util/gtk-doc-1 )
-	introspection? ( dev-libs/gobject-introspection )"
+	introspection? ( dev-libs/gobject-introspection 
+		!!dev-libs/gir-repository[atk] )"
 
 DOCS="AUTHORS ChangeLog NEWS README"
 

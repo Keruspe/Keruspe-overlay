@@ -21,7 +21,8 @@ RDEPEND=">=dev-libs/glib-2.22.0
 	python? ( >=dev-python/pygtk-2.4 )
 	x11-libs/libX11
 	x11-libs/libXft
-	introspection? ( dev-libs/gobject-introspection )"
+	introspection? ( dev-libs/gobject-introspection
+		!!dev-libs/gir-repository[vte] )"
 DEPEND="${RDEPEND}
 	doc? ( >=dev-util/gtk-doc-1.0 )
 	>=dev-util/intltool-0.35
