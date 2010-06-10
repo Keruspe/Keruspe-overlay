@@ -40,6 +40,6 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 	sed -e 's/\(test.*\)==/\1=/g' -i configure.ac configure || die "sed failed"
-	epatch "${FILESDIR}"/${PN}-system-lib.patch
+	#epatch "${FILESDIR}"/${PN}-system-lib.patch
 	eautoreconf
 }
