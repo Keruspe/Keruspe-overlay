@@ -33,7 +33,6 @@ src_configure() {
 		--disable-valgrind \
 		--disable-examples \
 		--enable-check \
-		--disable-introspection \
 		$(use_enable introspection) \
 		$(use_enable test tests) \
 		--with-package-name="GStreamer ebuild for Gentoo" \
