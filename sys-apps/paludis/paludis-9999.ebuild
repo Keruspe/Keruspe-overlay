@@ -22,7 +22,7 @@ COMMON_DEPEND="
 	>=app-admin/eselect-1.2_rc1
 	>=app-shells/bash-3.2
 	inquisitio? ( dev-libs/libpcre[cxx] )
-	ruby-bindings? ( dev-lang/ruby:1.8 )
+	ruby-bindings? ( dev-lang/ruby )
 	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0[python] )
 	gems? ( >=dev-libs/syck-0.55 virtual/rubygems )
 	xml? ( >=dev-libs/libxml2-2.6 )"
@@ -68,7 +68,6 @@ pkg_setup() {
 src_unpack() {
 	scm_src_unpack
 	cd "${S}"
-	epatch ${FILESDIR}/paludis-configure-ruby.patch
 	use ask && epatch ${FILESDIR}/paludis-ask.patch
 	use sort-world && epatch ${FILESDIR}/paludis-sort-world.patch
 	./autogen.bash || die "autogen.bash failed"
