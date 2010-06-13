@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-util/gtk-doc/gtk-doc-1.13-r2.ebuild,v 1.1 2010/03/06 22:47:06 nirbheek Exp $
+# $Header: $
 
 EAPI=3
 inherit eutils elisp-common gnome2
@@ -20,7 +20,7 @@ RDEPEND=">=dev-libs/glib-2.6
 	>=dev-libs/libxml2-2.3.6
 	~app-text/docbook-xml-dtd-4.3
 	app-text/docbook-xsl-stylesheets
-	~app-text/docbook-sgml-dtd-3.0
+	app-text/docbook-sgml-dtd
 	>=app-text/docbook-dsssl-stylesheets-1.40
 	emacs? ( virtual/emacs )"
 
