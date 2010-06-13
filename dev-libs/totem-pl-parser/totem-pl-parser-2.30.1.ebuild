@@ -14,8 +14,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc introspection test"
 
 RDEPEND=">=dev-libs/glib-2.21.6
-	>=x11-libs/gtk+-2.12
-	dev-libs/gmime:2.4"
+	>=dev-libs/gmime-2.4"
 DEPEND="${RDEPEND}
 	!<media-video/totem-2.21
 	>=dev-util/intltool-0.35
@@ -28,6 +27,11 @@ G2CONF="${G2CONF} $(use_enable introspection) --disable-static"
 
 src_prepare() {
 	gnome2_src_prepare
+
+	sed -e 's,^\(.*/parser/resolution.*\)$,/*\1*/,' \
+		-e 's,^\(.*/parser/parsability.*\)$,/*\1*/,' \
+		-e 's,^\(.*/parser/parsing/hadess.*\)$,/*\1*/,' \
+		-i plparse/tests/parser.c || die
 
 	if use doc; then
 		sed "/^TARGET_DIR/i \GTKDOC_REBASE=/usr/bin/gtkdoc-rebase" \
