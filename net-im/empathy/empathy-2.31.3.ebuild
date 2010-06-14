@@ -18,7 +18,7 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	>=gnome-base/gconf-2
 	>=dev-libs/dbus-glib-0.51
 	>=gnome-extra/evolution-data-server-1.2
-	>=net-libs/telepathy-glib-0.9.0
+	>=net-libs/telepathy-glib-0.11.6
 	>=media-libs/libcanberra-0.4[gtk]
 	>=x11-libs/libnotify-0.4.4
 	>=gnome-base/gnome-keyring-2.22
