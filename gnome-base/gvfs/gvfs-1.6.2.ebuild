@@ -14,7 +14,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="afc archive avahi bluetooth cdda doc fuse gdu gnome gnome-keyring gphoto2
 +http samba +udev"
 
-RDEPEND=">=dev-libs/glib-2.21.2
+RDEPEND=">=dev-libs/glib-2.23.4
 	>=sys-apps/dbus-1.0
 	dev-libs/libxml2
 	net-misc/openssh
@@ -35,8 +35,8 @@ RDEPEND=">=dev-libs/glib-2.21.2
 	udev? (
 		cdda? ( >=dev-libs/libcdio-0.78.2[-minimal] )
 		>=sys-fs/udev-145[extras] )
-	http? ( >=net-libs/libsoup-gnome-2.25.1 )
-	samba? ( >=net-fs/samba-3.4[smbclient] )"
+	http? ( >=net-libs/libsoup-gnome-2.26.0 )
+	samba? ( >=net-fs/samba-3.4.6[smbclient] )"
 
 DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.40
@@ -53,6 +53,7 @@ fi
 
 G2CONF="${G2CONF}
 	--enable-udev
+	--with-dbus-service-dir=/usr/share/dbus-1/services
 	--disable-bash-completion
 	$(use_enable afc)
 	$(use_enable archive)

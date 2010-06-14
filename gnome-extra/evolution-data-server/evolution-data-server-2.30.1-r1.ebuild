@@ -22,7 +22,6 @@ RDEPEND=">=dev-libs/glib-2.16.1
 	>=dev-libs/libgweather-2.25.4
 	>=dev-libs/libical-0.43
 	>=dev-libs/dbus-glib-0.6
-	sys-devel/bison
 	gnome-keyring? ( >=gnome-base/gnome-keyring-2.20.1 )
 	>=sys-libs/db-4
 	virtual/libiconv
@@ -39,6 +38,7 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35.5
 	>=gnome-base/gnome-common-2
 	>=dev-util/gtk-doc-am-1.9
+	sys-devel/bison
 	doc? ( >=dev-util/gtk-doc-1.9 )"
 
 DOCS="ChangeLog MAINTAINERS NEWS TODO"
@@ -80,6 +80,7 @@ src_prepare() {
 	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
 		|| die "intltool rules fix failed"
 
+	eautoreconf
 }
 
 src_install() {

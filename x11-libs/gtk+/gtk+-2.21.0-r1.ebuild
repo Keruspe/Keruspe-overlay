@@ -35,7 +35,7 @@ RDEPEND="!aqua? (
 	>=dev-libs/atk-1.29.2
 	media-libs/fontconfig
 	x11-misc/shared-mime-info
-	media-libs/libpng
+	>=media-libs/libpng-1.2.43-r2:0
 	cups? ( net-print/cups )
 	jpeg? ( >=media-libs/jpeg-6b-r9:0 )
 	jpeg2k? ( media-libs/jasper )
@@ -139,20 +139,20 @@ src_install() {
 pkg_postinst() {
 	set_gtk2_confdir
 
-	if [ -d "${ROOT%/}${EPREFIX}${GTK2_CONFDIR}" ]; then
-		gtk-query-immodules-2.0  > "${ROOT%/}${EPREFIX}${GTK2_CONFDIR}/gtk.immodules"
-		gdk-pixbuf-query-loaders > "${ROOT%/}${EPREFIX}${GTK2_CONFDIR}/gdk-pixbuf.loaders"
+	if [ -d "${EROOT%/}${GTK2_CONFDIR}" ]; then
+		gtk-query-immodules-2.0  > "${EROOT%/}${GTK2_CONFDIR}/gtk.immodules"
+		gdk-pixbuf-query-loaders > "${EROOT%/}${GTK2_CONFDIR}/gdk-pixbuf.loaders"
 	else
-		ewarn "The destination path ${ROOT%/}${EPREFIX}${GTK2_CONFDIR} doesn't exist;"
+		ewarn "The destination path ${EROOT%/}${GTK2_CONFDIR} doesn't exist;"
 		ewarn "to complete the installation of GTK+, please create the"
 		ewarn "directory and then manually run:"
-		ewarn "  cd ${ROOT%/}${EPREFIX}${GTK2_CONFDIR}"
+		ewarn "  cd ${EROOT%/}${GTK2_CONFDIR}"
 		ewarn "  gtk-query-immodules-2.0  > gtk.immodules"
 		ewarn "  gdk-pixbuf-query-loaders > gdk-pixbuf.loaders"
 	fi
 
-	if [ -e "${ROOT%/}${EPREFIX}"/usr/lib/gtk-2.0/2.[^1]* ]; then
-		elog "You need to rebuild ebuilds that installed into" "${ROOT%/}${EPREFIX}"/usr/lib/gtk-2.0/2.[^1]*
+	if [ -e "${EROOT%/}"/usr/lib/gtk-2.0/2.[^1]* ]; then
+		elog "You need to rebuild ebuilds that installed into" "${EROOT%/}"/usr/lib/gtk-2.0/2.[^1]*
 		elog "to do that you can use qfile from portage-utils:"
 		elog "emerge -va1 \$(qfile -qC ${EPREFIX}/usr/lib/gtk-2.0/2.[^1]*)"
 	fi
