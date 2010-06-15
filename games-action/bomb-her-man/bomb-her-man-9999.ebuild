@@ -24,6 +24,7 @@ RDEPEND="${DEPEND}
 	media-fonts/libertine-ttf"
 
 src_prepare() {
+	mkdir m4
 	eautoreconf
 }
 
