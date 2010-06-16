@@ -14,10 +14,11 @@ EGIT_REPO_URI="http://github.com/Keruspe/Bomb-her-man.git"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc"
+IUSE="doc nls"
 
 DEPEND="media-libs/sdl-ttf
 	x11-libs/cairo
+	nls? ( sys-devel/gettext )
 	gnome-base/librsvg"
 	#doc? ( app-doc/doxygen )"
 RDEPEND="${DEPEND}
@@ -25,11 +26,12 @@ RDEPEND="${DEPEND}
 
 src_prepare() {
 	mkdir m4
+	use nls && autopoint
 	eautoreconf
 }
 
 src_configure() {
-	egamesconf
+	egamesconf $(use_enable nls)
 }
 
 src_install() {
