@@ -26,7 +26,7 @@ RDEPEND="${DEPEND}
 
 src_prepare() {
 	mkdir m4
-	use nls && autopoint
+	autopoint
 	eautoreconf
 }
 
