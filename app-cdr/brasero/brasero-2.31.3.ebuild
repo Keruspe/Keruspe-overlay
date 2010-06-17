@@ -13,21 +13,22 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="beagle +cdr +css doc introspection +libburn nautilus playlist test"
 
-COMMON_DEPEND=">=dev-libs/glib-2.15.6:2
-	>=x11-libs/gtk+-2.16:2
+COMMON_DEPEND=">=dev-libs/glib-2.22
+	>=x11-libs/gtk+-2.19.7
 	>=gnome-base/gconf-2
 	>=media-libs/gstreamer-0.10.15
 	>=media-libs/gst-plugins-base-0.10
 	>=dev-libs/libxml2-2.6
 	>=dev-libs/libunique-1
 	>=dev-libs/dbus-glib-0.7.2
+	media-libs/libcanberra[gtk]
 	beagle? ( >=dev-libs/libbeagle-0.3 )
 	libburn? (
 		>=dev-libs/libburn-0.4
 		>=dev-libs/libisofs-0.6.4 )
 	nautilus? ( >=gnome-base/nautilus-2.22.2 )
 	introspection? ( dev-libs/gobject-introspection )
-	playlist? ( >=dev-libs/totem-pl-parser-2.22 )"
+	playlist? ( >=dev-libs/totem-pl-parser-2.29.1 )"
 RDEPEND="${COMMON_DEPEND}
 	app-cdr/cdrdao
 	app-cdr/dvd+rw-tools
