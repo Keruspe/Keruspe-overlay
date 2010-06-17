@@ -61,7 +61,7 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-	epatch "${FILESDIR}/${PN}-2.28.0-as-needed.patch"
+	rm -v m4/lt* m4/libtool.m4 || die "removing libtool macros failed"
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 }
