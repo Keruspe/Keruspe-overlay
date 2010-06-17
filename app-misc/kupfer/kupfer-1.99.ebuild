@@ -24,13 +24,14 @@ DEPEND=">=dev-lang/python-2.5
 	dev-python/libwnck-python
 	dev-python/pygobject
 	dev-python/libgnome-python
+	dev-python/gnome-keyring-python
 	keybinder? ( dev-python/keybinder )"
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${MY_P}
 
 src_configure() {
-	./waf configure --prefix=/usr
+	./waf configure --prefix=/usr || die
 }
 
 src_compile() {
