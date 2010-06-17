@@ -30,6 +30,11 @@ RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${MY_P}
 
+src_prepare() {
+	sed -i "s/keyring/gnomekeyring/" wscript || die
+	sed -i "s/import keyring/import gnomekeyring/" kupfer/core/settings.py || die
+}
+
 src_configure() {
 	./waf configure --prefix=/usr || die
 }
