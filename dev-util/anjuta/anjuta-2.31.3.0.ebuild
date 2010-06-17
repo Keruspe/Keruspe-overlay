@@ -37,7 +37,7 @@ RDEPEND=">=dev-libs/glib-2.16
 		>=dev-libs/apr-1
 		>=dev-libs/apr-util-1 )
 	sourceview? ( >=x11-libs/gtksourceview-2.4 )
-	gnome-extra/libgda:4
+	>=gnome-extra/libgda-4.1.6
 	dev-util/ctags"
 DEPEND="${RDEPEND}
 	!!dev-libs/gnome-build

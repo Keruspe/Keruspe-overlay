@@ -91,7 +91,6 @@ G2CONF="${G2CONF}
 
 src_prepare() {
 	gnome2_src_prepare
-	epatch ${FILESDIR}/install-libgda.h.patch
 	eautoreconf
 }
 
