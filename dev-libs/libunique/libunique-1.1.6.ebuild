@@ -11,7 +11,7 @@ HOMEPAGE="http://live.gnome.org/LibUnique"
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="dbus doc introspection"
+IUSE="dbus debug doc introspection"
 
 RDEPEND=">=dev-libs/glib-2.12.0
 	>=x11-libs/gtk+-2.11.0
@@ -23,6 +23,7 @@ RDEPEND=">=dev-libs/glib-2.12.0
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.17
+	dev-util/gtk-doc-am
 	doc? ( >=dev-util/gtk-doc-1.11 )"
 
 DOCS="AUTHORS NEWS ChangeLog README TODO"
@@ -33,6 +34,7 @@ pkg_setup() {
 		--disable-static
 		--enable-bacon
 		$(use_enable dbus)
+		$(use_enable debug)
 		$(use_enable introspection)"
 }
 
