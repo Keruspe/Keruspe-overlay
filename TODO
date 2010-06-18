@@ -1,0 +1,3 @@
+fix build w/ latest glib
+fix introspection w/ latest gobject-introspection
+fix gnome-bluetooth[introspection] (needs dbus-glib Gir)
