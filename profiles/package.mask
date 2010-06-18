@@ -18,3 +18,4 @@
 
 # Work in progress
 =dev-libs/glib-2.25.9
+=net-im/telepathy-logger-0.1.2
