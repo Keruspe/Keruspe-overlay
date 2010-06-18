@@ -3,7 +3,9 @@
 # $Header: $
 
 EAPI=3
-inherit games games-ggz eutils gnome2 python virtualx autotools
+inherit games games-ggz eutils gnome2 python virtualx
+
+WANT_AUTOMAKE="1.11"
 
 DESCRIPTION="Collection of games for the GNOME desktop"
 HOMEPAGE="http://live.gnome.org/GnomeGames/"
@@ -11,7 +13,7 @@ HOMEPAGE="http://live.gnome.org/GnomeGames/"
 LICENSE="GPL-2 FDL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="artworkextra clutter guile introspection opengl sdl test"
+IUSE="artworkextra clutter guile introspection opengl sound test"
 
 RDEPEND="
 	>=dev-games/libggz-0.0.14
@@ -29,10 +31,7 @@ RDEPEND="
 	>=x11-libs/gtk+-2.16
 	x11-libs/libSM
 
-	!sdl? ( media-libs/libcanberra[gtk] )
-	sdl? (
-		media-libs/libsdl
-		media-libs/sdl-mixer[vorbis] )
+	sound? ( media-libs/libcanberra[gtk] )
 	guile? ( >=dev-scheme/guile-1.6.5[deprecated,regex] )
 	artworkextra? ( gnome-extra/gnome-games-extra-data )
 	opengl? (
@@ -55,6 +54,7 @@ DEPEND="${RDEPEND}
 	test? ( >=dev-libs/check-0.9.4 )"
 
 DOCS="AUTHORS HACKING MAINTAINERS TODO"
+RESTRICT="test"
 
 _omitgame() {
 	G2CONF="${G2CONF},${1}"
@@ -65,7 +65,7 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		$(use_enable clutter staging)
 		$(use_enable introspection)
-		--enable-sound
+		$(use_enable sound)
 		--disable-card-themes-installer
 		--with-scores-group=${GAMES_GROUP}
 		--with-platform=gnome
@@ -96,6 +96,7 @@ src_prepare() {
 	gnome2_src_prepare
 	mv py-compile py-compile.orig
 	ln -s $(type -P true) py-compile
+	epatch "${FILESDIR}/${PN}-2.26.3-gtali-invalid-pointer.patch"
 }
 
 src_test() {
@@ -130,9 +131,15 @@ pkg_postinst() {
 	games-ggz_update_modules
 	gnome2_pkg_postinst
 	python_need_rebuild
+	python_mod_optimize $(python_get_sitedir)/gnome_sudoku
+	if use opengl; then
+		python_mod_optimize $(python_get_sitedir)/glchess
+	fi
 }
 
 pkg_postrm() {
 	games-ggz_update_modules
 	gnome2_pkg_postrm
+	python_mod_cleanup /usr/$(get_libdir)/python*/site-packages/{gnome_sudoku,glchess}
+	python_mod_cleanup /usr/$(get_libdir)/python*/site-packages/glchess
 }
