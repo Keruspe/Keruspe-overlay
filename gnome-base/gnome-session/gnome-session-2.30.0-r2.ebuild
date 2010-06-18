@@ -21,13 +21,14 @@ RDEPEND=">=dev-libs/glib-2.16
 	>=x11-libs/gtk+-2.14.0
 	>=dev-libs/dbus-glib-0.76
 	>=gnome-base/gconf-2
-	>=x11-libs/startup-notification-0.9
+	>=x11-libs/startup-notification-0.10
 	|| ( sys-power/upower >=sys-apps/devicekit-power-008 )
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
 
 	x11-libs/libSM
 	x11-libs/libICE
 	x11-libs/libX11
+	x11-libs/libXext
 	x11-libs/libXtst
 	x11-apps/xdpyinfo"
 DEPEND="${RDEPEND}
@@ -43,7 +44,7 @@ DEPEND="${RDEPEND}
 DOCS="AUTHORS ChangeLog NEWS README"
 
 G2CONF="${G2CONF}
-	--docdir=/usr/share/doc/${PF}
+	--docdir=${EPREFIX}/usr/share/doc/${PF}
 	--with-default-wm=gnome-wm
 	$(use_enable splash)
 	$(use_enable doc docbook-docs)
@@ -59,8 +60,8 @@ src_prepare() {
 	gnome2_src_prepare
 
 	use branding && epatch "${FILESDIR}/${PN}-2.27.91-gentoo-branding.patch"
-	epatch "${FILESDIR}/${PN}-2.29.6-xsmp-stop-throw-error.patch"
-	epatch "${FILESDIR}/${PN}-2.29.6-do-not-keep-zombie-clients.patch"
+	epatch "${FILESDIR}/${PN}-2.30.0-session-saving-button.patch"
+	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in || die "sed failed"
 }
 
 src_install() {
