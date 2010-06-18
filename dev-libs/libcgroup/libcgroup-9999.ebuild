@@ -42,7 +42,6 @@ src_prepare() {
 	# Install PAM module into correct location
 	sed \
 		-e "/lib_LTLIBRARIES/ i pamlibdir=$(getpam_mod_dir)" \
-		-e 's/lib_LTLIBRARIES/pamlib_LTLIBRARIES/' \
 		-e '/pam_cgroup_la_LDFLAGS/ s/$/ -avoid-version -shared/' \
 		-i src/pam/Makefile.am || die "sed failed"
 
