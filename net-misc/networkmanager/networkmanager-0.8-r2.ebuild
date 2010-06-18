@@ -106,7 +106,4 @@ pkg_postinst() {
 	elog "You will need to restart DBUS if this is your first time"
 	elog "installing NetworkManager."
 	elog ""
-	elog "To save system-wide settings as a user, that user needs to have the"
-	elog "right policykit privileges. You can add them by running:"
-	elog 'polkit-auth --grant org.freedesktop.network-manager-settings.system.modify --user "USERNAME"'
 }
