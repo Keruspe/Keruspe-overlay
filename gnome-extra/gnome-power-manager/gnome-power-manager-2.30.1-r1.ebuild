@@ -13,7 +13,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="applets doc policykit test"
 
-COMMON_DEPEND=">=dev-libs/glib-2.6.0
+RESTRICT="test"
+
+COMMON_DEPEND=">=dev-libs/glib-2.13.0
 	>=x11-libs/gtk+-2.17.7
 	>=gnome-base/gconf-2.10.0
 	>=gnome-base/gnome-keyring-0.6.0
@@ -62,8 +64,20 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-	intltoolize --force --copy --automake || die "intltoolize failed"
-	eautoreconf
+
+	sed 's:-DG.*DISABLE_DEPRECATED::g' -i configure.ac configure \
+		|| die "sed 1a failed"
+	sed 's:-DG.*DISABLE_SINGLE_INCLUDES::g' -i configure.ac configure \
+		|| die "sed 1b failed"
+
+	sed -e 's:^CPPFLAGS="$CPPFLAGS -g"$::g' -i configure.ac \
+		|| die "sed 2 failed"
+
+	sed 's:^\(.*gpm_inhibit_test (test);\)://\1:' -i src/gpm-self-test.c \
+		|| die "sed 3 failed"
+
+	rm -v m4/lt* m4/libtool.m4 || die "removing libtool macros failed"
+
 
 	if ! use doc; then
 		sed -e 's:@HAVE_DOCBOOK2MAN_TRUE@.*::' \
@@ -71,6 +85,9 @@ src_prepare() {
 	fi
 
 	use elibc_glibc || sed -e 's/-lresolv//' -i configure || die "sed 5 failed"
+
+	intltoolize --force --copy --automake || die "intltoolize failed"
+	eautoreconf
 }
 
 src_test() {
