@@ -18,7 +18,7 @@ IUSE="custom-cflags debug efi multislot static truetype"
 
 RDEPEND=">=sys-libs/ncurses-5.2-r5
 	dev-libs/lzo
-	truetype? ( media-libs/freetype )"
+	truetype? ( media-libs/freetype media-fonts/unifont )"
 DEPEND="${RDEPEND}
 	dev-lang/ruby"
 PROVIDE="virtual/bootloader"
