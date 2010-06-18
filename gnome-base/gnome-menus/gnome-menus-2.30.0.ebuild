@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit eutils gnome2
+inherit eutils gnome2 python
 
 DESCRIPTION="The GNOME menu system, implementing the F.D.O cross-desktop spec"
 HOMEPAGE="http://www.gnome.org"
@@ -15,7 +15,7 @@ IUSE="debug introspection python"
 
 RDEPEND=">=dev-libs/glib-2.18.0
 	python? (
-		>=dev-lang/python-2.4.4-r5
+		>=virtual/python-2.4.4-r5
 		dev-python/pygtk )"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
@@ -33,9 +33,13 @@ pkg_setup() {
 	G2CONF="${G2CONF} $(use_enable python) $(use_enable introspection) --disable-static"
 }
 
-src_unpack() {
-	gnome2_src_unpack
+src_prepare() {
+	gnome2_src_prepare
 	epatch "${FILESDIR}/${PN}-2.18.3-ignore_kde_standalone.patch"
+	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
+		|| die "sed failed"
+	mv py-compile py-compile-disabled
+	ln -s $(type -P true) py-compile
 }
 
 src_install() {
@@ -51,9 +55,19 @@ src_install() {
 
 pkg_postinst() {
 	gnome2_pkg_postinst
+	if use python; then
+		python_version
+		python_need_rebuild
+		python_mod_optimize $(python_get_sitedir)/GMenuSimpleEditor
+	fi
 
 	ewarn "Due to bug #256614, you might lose icons in applications menus."
 	ewarn "If you use a login manager, please re-select your session."
 	ewarn "If you use startx and have no .xinitrc, just export XSESSION=Gnome."
 	ewarn "If you use startx and have .xinitrc, export XDG_MENU_PREFIX=gnome-."
+}
+
+pkg_postrm() {
+	gnome2_pkg_postrm
+	python_mod_cleanup /usr/$(get_libdir)/python*/site-packages/GMenuSimpleEditor
 }
