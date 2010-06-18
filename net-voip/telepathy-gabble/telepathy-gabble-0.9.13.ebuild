@@ -21,6 +21,7 @@ RDEPEND=">=dev-libs/glib-2.16
 	net-libs/libsoup:2.4[ssl]"
 
 DEPEND="${RDEPEND}
+	>=net-libs/libnice-0.0.11
 	dev-libs/libxslt
 	>=dev-lang/python-2.5
 	test? ( >=dev-python/twisted-0.8.2
