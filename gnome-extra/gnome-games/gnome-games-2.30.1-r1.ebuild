@@ -131,15 +131,9 @@ pkg_postinst() {
 	games-ggz_update_modules
 	gnome2_pkg_postinst
 	python_need_rebuild
-	python_mod_optimize $(python_get_sitedir)/gnome_sudoku
-	if use opengl; then
-		python_mod_optimize $(python_get_sitedir)/glchess
-	fi
 }
 
 pkg_postrm() {
 	games-ggz_update_modules
 	gnome2_pkg_postrm
-	python_mod_cleanup /usr/$(get_libdir)/python*/site-packages/{gnome_sudoku,glchess}
-	python_mod_cleanup /usr/$(get_libdir)/python*/site-packages/glchess
 }
