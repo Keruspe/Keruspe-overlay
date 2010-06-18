@@ -24,9 +24,9 @@ DEPEND="${RDEPEND}
 	app-text/docbook-xsl-stylesheets
 	>=dev-util/pkgconfig-0.18
 	>=dev-util/intltool-0.36
-	dev-util/gtk-doc-am
+	>=dev-util/gtk-doc-am-1.13
 	introspection? ( dev-libs/gobject-introspection )
-	doc? ( >=dev-util/gtk-doc-1.10 )"
+	doc? ( >=dev-util/gtk-doc-1.13 )"
 PDEPEND=">=sys-auth/consolekit-0.4[policykit]"
 
 pkg_setup() {
