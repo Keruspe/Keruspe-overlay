@@ -6,6 +6,7 @@
 =dev-libs/gjs-9999
 =dev-libs/gobject-introspection-9999
 =dev-libs/libcgroup-9999
+=games-action/bomb-her-man-9999
 =gnome-base/gnome-control-center-9999
 =gnome-base/gnome-shell-9999
 =media-sound/rhythmbox-9999
