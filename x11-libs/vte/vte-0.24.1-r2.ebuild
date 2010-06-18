@@ -24,7 +24,7 @@ RDEPEND=">=dev-libs/glib-2.22.0
 	introspection? ( dev-libs/gobject-introspection
 		!!dev-libs/gir-repository[vte] )"
 DEPEND="${RDEPEND}
-	doc? ( >=dev-util/gtk-doc-1.0 )
+	doc? ( >=dev-util/gtk-doc-1.13 )
 	>=dev-util/intltool-0.35
 	>=dev-util/pkgconfig-0.9
 	sys-devel/gettext"
@@ -44,5 +44,7 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-	epatch "${FILESDIR}"/${PN}-invisible-cursor-fix.patch
+	epatch "${FILESDIR}/${P}-background-color.patch"
+	epatch "${FILESDIR}/${P}-background-color2.patch"
+	epatch "${FILESDIR}/${P}-cleanup-background.patch"
 }
