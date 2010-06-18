@@ -34,7 +34,7 @@ RDEPEND="
 	ldap?     ( >=net-nds/openldap-2.0.25 )
 	mysql?    ( virtual/mysql )
 	odbc?     ( >=dev-db/unixODBC-2.0.6 )
-	postgres? ( >=virtual/postgresql-base-7.2.1 )
+	postgres? ( >=dev-db/postgresql-base-7.2.1 )
 	xbase?    ( dev-db/xbase )
 	>=dev-db/sqlite-3.6.22:3"
 DEPEND="${RDEPEND}
