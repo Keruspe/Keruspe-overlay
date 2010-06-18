@@ -16,10 +16,9 @@ SLOT=${PV_MAJ_MIN}
 KEYWORDS="~amd64 ~x86"
 IUSE="introspection nls test"
 
-RDEPEND=">=dev-libs/glib-2.16:2
+RDEPEND=">=dev-libs/glib-2.18:2
 	dev-libs/libxml2
-	!<media-libs/gst-plugins-base-0.10.26
-	>=dev-libs/check-0.9.2"
+	!<media-libs/gst-plugins-base-0.10.26"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	introspection? ( dev-libs/gobject-introspection )
