@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit eutils gnome2 clutter
+inherit gnome2 clutter
 
 DESCRIPTION="Clutter-GTK - GTK+ Integration library for Clutter"
 SLOT="1.0"
@@ -25,8 +25,3 @@ G2CONF="${G2CONF}
 	--with-flavour=x11
 	--enable-maintainer-flags=no
 	$(use_enable introspection)"
-
-src_prepare() {
-	epatch ${FILESDIR}/fix-deprecated-symbols.patch
-	gnome2_src_prepare
-}
