@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="telepathy"
 
-RDEPEND=">=dev-libs/glib-2.20
+RDEPEND=">=dev-libs/glib-2.25.9
 	>=x11-libs/gtk+-2.16
 	>=media-libs/gstreamer-0.10.16
 	>=media-libs/gst-plugins-base-0.10.16
