@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit autotools gnome2
+inherit gnome2
 
 DESCRIPTION="Utilities for the Gnome2 desktop"
 HOMEPAGE="http://www.gnome.org/"
