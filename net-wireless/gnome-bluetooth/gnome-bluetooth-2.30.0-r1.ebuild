@@ -42,8 +42,9 @@ DOCS="AUTHORS README NEWS ChangeLog"
 G2CONF="${G2CONF}
 --disable-desktop-update
 --disable-icon-update
-$(use_enable nautilus-sendto)
-$(use_enable introspection)"
+--disable-introspection
+$(use_enable nautilus-sendto)"
+#$(use_enable introspection)" needs dbus-glib[introspection] which doesn't exist
 
 src_prepare() {
 	gnome2_src_prepare
