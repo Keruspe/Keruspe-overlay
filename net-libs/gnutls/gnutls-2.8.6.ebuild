@@ -32,7 +32,6 @@ pkg_setup() {
 	if use lzo && use bindist; then
 		ewarn "lzo support was disabled for binary distribution of gnutls"
 		ewarn "due to licensing issues. See Bug 202381 for details."
-		epause 5
 	fi
 }
 
