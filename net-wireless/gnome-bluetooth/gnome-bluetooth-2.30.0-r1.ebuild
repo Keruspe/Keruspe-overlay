@@ -9,15 +9,16 @@ DESCRIPTION="Fork of bluez-gnome focused on integration with GNOME"
 HOMEPAGE="http://live.gnome.org/GnomeBluetooth"
 LICENSE="GPL-2 LGPL-2.1"
 SLOT="2"
-IUSE="doc introspection nautilus-sendto"
+IUSE="doc introspection nautilus"
 KEYWORDS="~amd64 ~x86"
 
-COMMON_DEPEND=">=dev-libs/glib-2.16
-	>=x11-libs/gtk+-2.18
+COMMON_DEPEND=">=dev-libs/glib-2.19.1
+	>=x11-libs/gtk+-2.19.1
 	>=x11-libs/libnotify-0.4.3
 	>=gnome-base/gconf-2.6
 	>=dev-libs/dbus-glib-0.74
-	dev-libs/libunique"
+	dev-libs/libunique
+	nautilus? ( >=gnome-extra/nautilus-sendto-2.28.0.1[-bluetooth] )"
 RDEPEND="${COMMON_DEPEND}
 	>=net-wireless/bluez-4.34
 	app-mobilephone/obexd"
@@ -29,10 +30,11 @@ DEPEND="${COMMON_DEPEND}
 	dev-util/intltool
 	dev-util/pkgconfig
 	sys-devel/gettext
+	x11-libs/libX11
+	x11-libs/libXi
 	x11-proto/xproto
 	gnome-base/gnome-common
 	dev-util/gtk-doc-am
-	nautilus-sendto? ( gnome-extra/nautilus-sendto )
 	introspection? ( dev-libs/gobject-introspection )
 	doc? ( >=dev-util/gtk-doc-1.9 )"
 
@@ -42,3 +44,9 @@ G2CONF="${G2CONF}
 --disable-icon-update
 $(use_enable nautilus-sendto)
 $(use_enable introspection)"
+
+src_prepare() {
+	gnome2_src_prepare
+	epatch "${FILESDIR}/${P}-add-pin.patch"
+	epatch "${FILESDIR}/${P}-mounted-failure.patch"
+}
