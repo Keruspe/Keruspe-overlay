@@ -28,7 +28,7 @@ RDEPEND="|| ( sys-power/upower >=sys-apps/devicekit-power-008 )
 	>=x11-libs/pango-1.3
 	>=media-libs/libcanberra-0.4[gtk]
 	>=gnome-base/libglade-2
-	>=gnome-base/gconf-2.6.1
+	>=gnome-base/gconf-2.31.3
 	applet? ( >=gnome-base/gnome-panel-2
 		!gnome-extra/fast-user-switch-applet )
 	xklavier? ( >=x11-libs/libxklavier-4 )
@@ -89,7 +89,7 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 
-	use applet || epatch ${FILESDIR}/${PN}-2.29.6-remove-fusa.patch
+	use applet || epatch ${FILESDIR}/${PN}-2.31.1-remove-fusa.patch
 
 	epatch "${WORKDIR}/${PN}-2.26.1-selinux-remove-attr.patch"
 	epatch "${FILESDIR}/${PN}-2.31.0-fix-daemonize-regression.patch"
