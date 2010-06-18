@@ -23,6 +23,9 @@ DEPEND="media-libs/sdl-ttf
 RDEPEND="${DEPEND}
 	media-fonts/libertine-ttf"
 
+COMMIT=85dac44
+S=${WORKDIR}/Keruspe-${PN/b/B}-${COMMIT}
+
 src_prepare() {
 	mkdir m4
 	autopoint
