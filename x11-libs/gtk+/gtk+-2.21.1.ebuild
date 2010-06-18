@@ -73,8 +73,6 @@ src_prepare() {
 
 	epatch "${FILESDIR}/${PN}-2.18.5-macosx-aqua.patch"
 
-	epatch ${FILESDIR}/${PN}-2.21.0-fix-libpng.patch 
-
 	replace-flags -O3 -O2
 	strip-flags
 
@@ -129,7 +127,7 @@ src_install() {
 
 	dodoc AUTHORS ChangeLog* HACKING NEWS* README* || die "dodoc failed"
 
-	rm "${D%/}${EPREFIX}/etc/gtk-2.0/gtk.immodules"
+	rm "${ED%/}/etc/gtk-2.0/gtk.immodules"
 
 	use aqua && for i in gtk+-2.0.pc gtk+-quartz-2.0.pc gtk+-unix-print-2.0.pc; do
 		sed -i -e "s:Libs\: :Libs\: -framework Carbon :" "${D%/}${EPREFIX}"/usr/lib/pkgconfig/$i || die "sed failed"
