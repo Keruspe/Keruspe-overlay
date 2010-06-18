@@ -13,34 +13,31 @@ SRC_URI="http://www.webkitgtk.org/${MY_P}.tar.gz"
 LICENSE="LGPL-2 LGPL-2.1 BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="coverage debug doc geoclue +gstreamer introspection pango"
+IUSE="coverage debug doc geoclue +gstreamer introspection +websockets"
 
 RDEPEND="
 	dev-libs/libxml2
 	dev-libs/libxslt
-	media-libs/jpeg
+	media-libs/jpeg:0
 	media-libs/libpng
 	x11-libs/cairo
-
-	>=x11-libs/gtk+-2.10
+	>=x11-libs/gtk+-2.13
+	>=dev-libs/glib-2.21.3
 	>=dev-libs/icu-3.8.1-r1
 	>=net-libs/libsoup-2.29.90
 	>=dev-db/sqlite-3
 	>=app-text/enchant-0.22
+	>=x11-libs/pango-1.12
 
 	geoclue? ( gnome-extra/geoclue )
 
 	gstreamer? (
 		media-libs/gstreamer:0.10
-		media-libs/gst-plugins-base:0.10 )
+		>=media-libs/gst-plugins-base-0.10.25:0.10 )
 	introspection? (
 		>=dev-libs/gobject-introspection-0.6.2
 		>=net-libs/libsoup-2.31[introspection]
 		!!dev-libs/gir-repository[webkit] )
-	pango? ( >=x11-libs/pango-1.12 )
-	!pango? (
-		media-libs/freetype:2
-		media-libs/fontconfig )
 "
 
 DEPEND="${RDEPEND}
@@ -72,22 +69,15 @@ src_configure() {
 		$(use_enable geoclue geolocation)
 		$(use_enable gstreamer video)
 		$(use_enable introspection)
+		$(use_enable websockets web_sockets)
 		"
-
-	if use pango; then
-		ewarn "You have enabled the incomplete pango backend"
-		ewarn "Please file any and all bugs *upstream*"
-		myconf="${myconf} --with-font-backend=pango"
-	else
-		myconf="${myconf} --with-font-backend=freetype"
-	fi
 
 	econf ${myconf}
 }
 
-src_compile() {
-	addpredict "$(unset HOME; echo ~)/.local"
-	emake || die "Compile failed"
+src_test() {
+	unset DISPLAY
+	Xemake check || die "Test phase failed"
 }
 
 src_install() {
