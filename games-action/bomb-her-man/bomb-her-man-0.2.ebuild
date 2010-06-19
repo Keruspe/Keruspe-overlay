@@ -13,7 +13,7 @@ SRC_URI="http://github.com/Keruspe/Bomb-her-man/tarball/v0.2 -> ${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc nls"
+IUSE="debug doc nls"
 
 DEPEND="media-libs/sdl-ttf
 	x11-libs/cairo
@@ -27,13 +27,12 @@ COMMIT=85dac44
 S=${WORKDIR}/Keruspe-${PN/b/B}-${COMMIT}
 
 src_prepare() {
-	mkdir m4
-	autopoint
+	eautopoint
 	eautoreconf
 }
 
 src_configure() {
-	egamesconf $(use_enable nls)
+	egamesconf $(use_enable nls) $(use_enable debug)
 }
 
 src_install() {

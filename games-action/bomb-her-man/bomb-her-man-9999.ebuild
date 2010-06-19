@@ -14,7 +14,7 @@ EGIT_REPO_URI="http://github.com/Keruspe/Bomb-her-man.git"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc nls"
+IUSE="debug doc nls"
 
 DEPEND="media-libs/sdl-ttf
 	x11-libs/cairo
@@ -25,13 +25,12 @@ RDEPEND="${DEPEND}
 	media-fonts/libertine-ttf"
 
 src_prepare() {
-	mkdir m4
-	autopoint
+	eautopoint
 	eautoreconf
 }
 
 src_configure() {
-	egamesconf $(use_enable nls)
+	egamesconf $(use_enable nls) $(use_enable debug)
 }
 
 src_install() {
