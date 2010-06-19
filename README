@@ -1,10 +1,12 @@
-Use this overlay at your own risks.
-Some are ebuilds from tree with modified deps to allow using for example gnome-shell, udisks, upower...
+Use this overlay at your own risks, I assume you know what you're doing and how to repair a broken system.
+Some are ebuilds from tree with modified deps to allow using for example gnome-shell...
 Some are new ebuilds.
 
 You are supposed to be using ~amd64 or ~x86 if you use this overlay
 
 Please report any failure or missing dep.
 You can also request to add any ebuild.
+
+WARNING : One of the main goals of this overlay being to use a usable gnome-shell trunk, some really unstable gnome stuff should be coming during the next weeks/monthes, you should mask what you don't want to see on your system ;)
 
 Marc-Antoine@Perennou.com
