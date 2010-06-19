@@ -6,7 +6,7 @@ EAPI=3
 inherit autotools eutils gnome2 git
 
 EGIT_REPO_URI="git://git.gnome.org/gnome-shell"
-EGIT_COMMIT="da4e24555be8c25a9609f9a00e37145a53f4e05c"
+
 DESCRIPTION="Provides core UI functions for the GNOME 3 desktop"
 HOMEPAGE="http://live.gnome.org/GnomeShell"
 SRC_URI=""
@@ -27,7 +27,7 @@ RDEPEND=">=dev-libs/glib-2.25.9
 	>=dev-libs/gjs-0.7
 	media-libs/clutter:1.0[opengl,introspection]
 
-	gnome-base/gconf
+	>=gnome-base/gconf-2.31.4
 	gnome-base/gnome-menus
 	gnome-base/librsvg
 
@@ -61,6 +61,10 @@ pkg_postinst() {
 
 	elog " Start with 'gnome-shell --replace' "
 	elog " or add gnome-shell.desktop to ~/.config/autostart/ "
+
+	ewarn "You should run"
+	ewarn "GSETTINGS_BACKEND=gconf glib-compile-schemas /usr/share/glib-2.0/schemas"
+	ewarn "or gnome-shell shoud fail to start"
 
 	gnome2_pkg_postinst
 
