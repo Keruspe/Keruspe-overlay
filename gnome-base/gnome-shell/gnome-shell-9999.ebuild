@@ -6,7 +6,7 @@ EAPI=3
 inherit autotools eutils gnome2 git
 
 EGIT_REPO_URI="git://git.gnome.org/gnome-shell"
-
+EGIT_COMMIT="da4e24555be8c25a9609f9a00e37145a53f4e05c"
 DESCRIPTION="Provides core UI functions for the GNOME 3 desktop"
 HOMEPAGE="http://live.gnome.org/GnomeShell"
 SRC_URI=""
