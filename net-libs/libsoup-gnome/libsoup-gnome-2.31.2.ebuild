@@ -15,7 +15,7 @@ SRC_URI="${SRC_URI//-gnome}"
 LICENSE="LGPL-2"
 SLOT="2.4"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc"
+IUSE="debug doc introspection"
 
 RDEPEND="~net-libs/libsoup-${PV}
 	gnome-base/gnome-keyring
@@ -23,6 +23,7 @@ RDEPEND="~net-libs/libsoup-${PV}
 	>=gnome-base/gconf-2
 	dev-db/sqlite:3"
 DEPEND="${RDEPEND}
+	introspection( dev-libs/gobject-introspectioni )
 	>=dev-util/pkgconfig-0.9
 	dev-util/gtk-doc-am
 	doc? ( >=dev-util/gtk-doc-1 )"
@@ -33,6 +34,7 @@ DOCS="AUTHORS NEWS README"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
+		$(use_enable introspection)
 		--disable-static
 		--with-libsoup-system
 		--with-gnome"
