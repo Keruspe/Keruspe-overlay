@@ -1,6 +1,7 @@
 fix build w/ latest glib
 make introspection for gnome-bluetooth not dummy
+dev-libs/libgee[introspection]
 
-package which fails w/ gtk :
+package which fails w/ masked stuff :
 gstreamer
 rhythmbox
