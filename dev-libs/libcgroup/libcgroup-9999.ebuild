@@ -45,6 +45,8 @@ src_prepare() {
 		-e '/pam_cgroup_la_LDFLAGS/ s/$/ -avoid-version -shared/' \
 		-i src/pam/Makefile.am || die "sed failed"
 
+	sed 's/%s/msg/' src/lex.l || die "sed failed"
+
 	eautoreconf
 }
 
