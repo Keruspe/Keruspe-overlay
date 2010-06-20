@@ -23,7 +23,7 @@ RDEPEND="~net-libs/libsoup-${PV}
 	>=gnome-base/gconf-2
 	dev-db/sqlite:3"
 DEPEND="${RDEPEND}
-	introspection( dev-libs/gobject-introspectioni )
+	introspection? ( dev-libs/gobject-introspection )
 	>=dev-util/pkgconfig-0.9
 	dev-util/gtk-doc-am
 	doc? ( >=dev-util/gtk-doc-1 )"
