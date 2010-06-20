@@ -69,5 +69,5 @@ pkg_postinst() {
 
 pkg_postrm() {
 	gnome2_pkg_postrm
-	python_mod_cleanup /usr/$(get_libdir)/python*/site-packages/GMenuSimpleEditor
+	python_mod_cleanup $(python_get_sitedir)/GMenuSimpleEditor
 }
