@@ -1,5 +1,4 @@
 fix build w/ latest glib
-fix introspection w/ latest gobject-introspection
 make introspection for gnome-bluetooth not dummy
 
 package which fails w/ glib :
