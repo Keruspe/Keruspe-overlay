@@ -5,3 +5,4 @@ dev-libs/libgee[introspection]
 package which fails w/ masked stuff :
 gstreamer
 rhythmbox
+webkit-gtk
