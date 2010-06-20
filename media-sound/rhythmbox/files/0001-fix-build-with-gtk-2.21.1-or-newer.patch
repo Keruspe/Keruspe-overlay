@@ -1,0 +1,181 @@
+From 5e4c607ef9cd6c8012e3e0e115ba6f8d715c7e29 Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Sun, 20 Jun 2010 19:38:35 +0200
+Subject: [PATCH] fix build with gtk+ 2.21.1 or newer
+
+---
+ lib/eggdesktopfile.c          |    8 --------
+ lib/gseal-gtk-compat.h        |   31 +++++++++----------------------
+ lib/rb-tree-dnd.c             |    8 ++++----
+ sources/rb-sourcelist-model.c |    5 +++--
+ 4 files changed, 16 insertions(+), 36 deletions(-)
+
+diff --git a/lib/eggdesktopfile.c b/lib/eggdesktopfile.c
+index 357e548..c415c91 100644
+--- a/lib/eggdesktopfile.c
++++ b/lib/eggdesktopfile.c
+@@ -909,7 +909,6 @@ parse_link (EggDesktopFile  *desktop_file,
+   return TRUE;
+ }
+ 
+-#if GTK_CHECK_VERSION (2, 12, 0)
+ static char *
+ start_startup_notification (GdkDisplay     *display,
+ 			    EggDesktopFile *desktop_file,
+@@ -1020,7 +1019,6 @@ set_startup_notification_timeout (GdkDisplay *display,
+   g_timeout_add_seconds (EGG_DESKTOP_FILE_SN_TIMEOUT_LENGTH,
+ 			 startup_notification_timeout, sn_data);
+ }
+-#endif /* GTK 2.12 */
+ 
+ static GPtrArray *
+ array_putenv (GPtrArray *env, char *variable)
+@@ -1207,7 +1205,6 @@ egg_desktop_file_launchv (EggDesktopFile *desktop_file,
+ 	}
+       g_free (command);
+ 
+-#if GTK_CHECK_VERSION (2, 12, 0)
+       startup_id = start_startup_notification (display, desktop_file,
+ 					       argv[0], screen_num,
+ 					       workspace, launch_time);
+@@ -1218,9 +1215,6 @@ egg_desktop_file_launchv (EggDesktopFile *desktop_file,
+ 	  env = array_putenv (env, startup_id_env);
+ 	  g_free (startup_id_env);
+ 	}
+-#else
+-      startup_id = NULL;
+-#endif /* GTK 2.12 */
+ 
+       if (env != NULL)
+ 	g_ptr_array_add (env, NULL);
+@@ -1238,7 +1232,6 @@ egg_desktop_file_launchv (EggDesktopFile *desktop_file,
+ 
+       if (startup_id)
+ 	{
+-#if GTK_CHECK_VERSION (2, 12, 0)
+ 	  if (current_success)
+ 	    {
+ 	      set_startup_notification_timeout (display, startup_id);
+@@ -1249,7 +1242,6 @@ egg_desktop_file_launchv (EggDesktopFile *desktop_file,
+ 		g_free (startup_id);
+ 	    }
+ 	  else
+-#endif /* GTK 2.12 */
+ 	    g_free (startup_id);
+ 	}
+       else if (ret_startup_id)
+diff --git a/lib/gseal-gtk-compat.h b/lib/gseal-gtk-compat.h
+index a839073..f9281a4 100644
+--- a/lib/gseal-gtk-compat.h
++++ b/lib/gseal-gtk-compat.h
+@@ -1,7 +1,8 @@
+ /* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*- */
+ /*
+  *  Copyright © 2009 Thomas H.P. Andersen <phomes@gmail.com>,
+- *              2009 Javier Jardón <jjardon@gnome.org>
++ *              2009 Javier Jardón <jjardon@gnome.org>,
++ *              2010 Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+  *
+  *  This runtime is free software; you can redistribute it and/or modify
+  *  it under the terms of the GNU Lesser General Public License as published by
+@@ -23,32 +24,18 @@
+ 
+ G_BEGIN_DECLS
+ 
++#if !GTK_CHECK_VERSION (2, 21, 1)
++#define gdk_drag_context_list_targets(context)			context->targets
++#define gdk_drag_context_get_actions(context)			context->actions
++#define gdk_drag_context_get_suggested_action(context)		context->suggested_action
++#define gdk_drag_context_get_selected_action(context)		context->action
++#endif
++
+ #if !GTK_CHECK_VERSION (2, 19, 5)
+ #define gtk_widget_get_realized(widget)				GTK_WIDGET_REALIZED(widget)
+ #define gtk_widget_set_realized(widget, TRUE)			GTK_WIDGET_SET_FLAGS(widget, GTK_REALIZED)
+ #endif
+ 
+-#if !GTK_CHECK_VERSION (2, 18, 0)
+-#define gtk_widget_has_focus(widget)                            (GTK_WIDGET_HAS_FOCUS (widget))
+-#define gtk_widget_is_drawable(widget)                          (GTK_WIDGET_DRAWABLE (widget))
+-#define gtk_widget_get_allocation(widget, alloc)                (*(alloc)=(widget)->allocation)
+-#define gtk_widget_get_app_paintable(widget)                    (GTK_WIDGET_APP_PAINTABLE (widget))
+-#define gtk_widget_get_has_window(widget)                       (!GTK_WIDGET_NO_WINDOW (widget))
+-#define gtk_widget_get_state(widget)                            ((widget)->state)
+-#define gtk_widget_get_visible(widget)                          (GTK_WIDGET_VISIBLE (widget))
+-#define gtk_widget_set_allocation(widget, alloc)                ((widget)->allocation=*(alloc))
+-#define gtk_widget_set_can_default(widget, TRUE)                GTK_WIDGET_SET_FLAGS (widget, GTK_CAN_DEFAULT)
+-#define gtk_widget_set_can_focus(widget, TRUE)                  GTK_WIDGET_SET_FLAGS (widget, GTK_CAN_FOCUS)
+-#define gtk_widget_set_double_buffered(widget, FALSE)           GTK_WIDGET_UNSET_FLAGS (widget, GTK_DOUBLE_BUFFERED)
+-#define gtk_widget_set_window(widget, _window)                  ((widget)->window=_window)
+-#define gtk_widget_set_visible(widget, visible)			((visible?gtk_widget_show:gtk_widget_hide)(widget))
+-
+-#define gtk_cell_renderer_get_padding(cell, xpad, ypad)		g_object_get (cell, "xpad", xpad, "ypad", ypad, NULL);
+-#define gtk_cell_renderer_get_alignment(cell, xalign, yalign)	g_object_get (cell, "xalign", xalign, "yalign", yalign, NULL);
+-#define gtk_cell_renderer_set_padding(cell, xpad, ypad)		g_object_set (cell, "xpad", xpad, "ypad", ypad, NULL);
+-
+-#endif /* GTK+ < 2.18.0 */
+-
+ G_END_DECLS
+ 
+ #endif /* GSEAL_GTK_COMPAT_H */
+diff --git a/lib/rb-tree-dnd.c b/lib/rb-tree-dnd.c
+index bc14700..8f7b0a6 100644
+--- a/lib/rb-tree-dnd.c
++++ b/lib/rb-tree-dnd.c
+@@ -448,7 +448,7 @@ filter_drop_position (GtkWidget *widget, GdkDragContext *context, GtkTreePath *p
+ 
+ 	ret = rb_tree_drag_dest_row_drop_position (RB_TREE_DRAG_DEST (model),
+ 						   path,
+-						   context->targets,
++						   gdk_drag_context_list_targets (context),
+ 						   pos);
+   
+ 	rb_debug ("filtered drop position: %s", ret ? "TRUE" : "FALSE");	
+@@ -737,10 +737,10 @@ rb_tree_dnd_drag_motion_cb (GtkWidget        *widget,
+ 	}
+ 
+ 	if (GTK_WIDGET (tree_view) == gtk_drag_get_source_widget (context) &&
+-	    context->actions & GDK_ACTION_MOVE)
++	    gdk_drag_context_get_actions (context) & GDK_ACTION_MOVE)
+ 		action = GDK_ACTION_MOVE;
+ 	else
+-		action = context->suggested_action;
++		action = gdk_drag_context_get_suggested_action (context);
+ 
+ 	if (path) {
+ 		gtk_tree_view_set_drag_dest_row (tree_view, path, pos);
+@@ -863,7 +863,7 @@ rb_tree_dnd_drag_data_received_cb (GtkWidget        *widget,
+ 
+ 	gtk_drag_finish (context,
+         		 accepted,
+-			 (context->action == GDK_ACTION_MOVE),
++			 (gdk_drag_context_get_selected_action (context) == GDK_ACTION_MOVE),
+ 			 time);
+ 
+ 	if (dest_row)
+diff --git a/sources/rb-sourcelist-model.c b/sources/rb-sourcelist-model.c
+index fca3fc3..e2e7510 100644
+--- a/sources/rb-sourcelist-model.c
++++ b/sources/rb-sourcelist-model.c
+@@ -459,7 +459,8 @@ rb_sourcelist_model_get_drag_target (RbTreeDragDest *drag_dest,
+ 				     GtkTreePath *path,
+ 				     GtkTargetList *target_list)
+ {
+-	if (g_list_find (context->targets, gdk_atom_intern ("application/x-rhythmbox-source", TRUE))) {
++	if (g_list_find (gdk_drag_context_list_targets (context),
++	    gdk_atom_intern ("application/x-rhythmbox-source", TRUE))) {
+ 		/* always accept rb source path if offered */
+ 		return gdk_atom_intern ("application/x-rhythmbox-source", TRUE);
+ 	}
+@@ -469,7 +470,7 @@ rb_sourcelist_model_get_drag_target (RbTreeDragDest *drag_dest,
+ 		GdkAtom entry_atom;
+ 
+ 		entry_atom = gdk_atom_intern ("application/x-rhythmbox-entry", FALSE);
+-		if (g_list_find (context->targets, entry_atom))
++		if (g_list_find (gdk_drag_context_list_targets (context), entry_atom))
+ 			return entry_atom;
+ 
+ 		return gdk_atom_intern ("text/uri-list", FALSE);
+-- 
+1.7.1
+
