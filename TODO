@@ -1,5 +1,6 @@
 fix build w/ latest glib
 make introspection for gnome-bluetooth not dummy
 
-package which fails w/ glib :
+package which fails w/ gtk :
 gstreamer
+rhythmbox
