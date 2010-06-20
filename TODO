@@ -3,5 +3,5 @@ make introspection for gnome-bluetooth not dummy
 dev-libs/libgee[introspection]
 
 package which fails w/ masked stuff :
-gstreamer
 rhythmbox
+sound-juicer

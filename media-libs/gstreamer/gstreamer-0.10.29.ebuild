@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit eutils multilib versionator
+inherit autotools eutils multilib versionator
 
 PV_MAJ_MIN=$(get_version_component_range '1-2')
 
@@ -23,6 +23,11 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	introspection? ( dev-libs/gobject-introspection )
 	nls? ( sys-devel/gettext )"
+
+src_prepare() {
+	epatch ${FILESDIR}/0001-introspection-Fix-with-recent-gobject-introspection.patch
+	eautoreconf
+}
 
 src_configure() {
 	econf \

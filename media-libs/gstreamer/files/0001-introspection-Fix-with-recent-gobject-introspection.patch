@@ -1,0 +1,138 @@
+From 9635e5527d983582ebd5793f37229d7e08b02c5c Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Sun, 20 Jun 2010 14:14:19 +0200
+Subject: [PATCH] introspection : Fix with recent gobject-introspection
+
+---
+ gst/Makefile.am                   |    2 --
+ libs/gst/base/Makefile.am         |    2 --
+ libs/gst/check/Makefile.am        |    3 ---
+ libs/gst/controller/Makefile.am   |    2 --
+ libs/gst/dataprotocol/Makefile.am |    2 --
+ libs/gst/net/Makefile.am          |    2 --
+ 6 files changed, 0 insertions(+), 13 deletions(-)
+
+diff --git a/gst/Makefile.am b/gst/Makefile.am
+index 7ea62e4..a8233a8 100644
+--- a/gst/Makefile.am
++++ b/gst/Makefile.am
+@@ -246,7 +246,6 @@ gcov: $(libgstreamer_@GST_MAJORMINOR@_la_SOURCES:=.gcov)
+ if HAVE_INTROSPECTION
+ BUILT_GIRSOURCES = Gst-@GST_MAJORMINOR@.gir
+ 
+-gir_headers=$(patsubst %,$(srcdir)/%, $(libgstreamer_@GST_MAJORMINOR@include_HEADERS))
+ gir_sources=$(patsubst %,$(srcdir)/%, $(libgstreamer_@GST_MAJORMINOR@_la_SOURCES))
+ 
+ Gst-@GST_MAJORMINOR@.gir: $(INTROSPECTION_SCANNER) libgstreamer-@GST_MAJORMINOR@.la
+@@ -268,7 +267,6 @@ Gst-@GST_MAJORMINOR@.gir: $(INTROSPECTION_SCANNER) libgstreamer-@GST_MAJORMINOR@
+ 		--pkg gthread-2.0 \
+ 		--pkg libxml-2.0 \
+ 		--output $@ \
+-		$(gir_headers) \
+ 		$(gir_sources)
+ 
+ # INTROSPECTION_GIRDIR/INTROSPECTION_TYPELIBDIR aren't the right place to
+diff --git a/libs/gst/base/Makefile.am b/libs/gst/base/Makefile.am
+index eade3fa..dd8ee35 100644
+--- a/libs/gst/base/Makefile.am
++++ b/libs/gst/base/Makefile.am
+@@ -48,7 +48,6 @@ gcov: $(libgstbase_@GST_MAJORMINOR@_la_SOURCES:=.gcov)
+ if HAVE_INTROSPECTION
+ BUILT_GIRSOURCES = GstBase-@GST_MAJORMINOR@.gir
+ 
+-gir_headers=$(patsubst %,$(srcdir)/%, $(libgstbase_@GST_MAJORMINOR@include_HEADERS))
+ gir_sources=$(patsubst %,$(srcdir)/%, $(libgstbase_@GST_MAJORMINOR@_la_SOURCES))
+ gir_cincludes=$(patsubst %,--c-include='gst/base/%',$(libgstbase_@GST_MAJORMINOR@include_HEADERS))
+ 
+@@ -65,7 +64,6 @@ GstBase-@GST_MAJORMINOR@.gir: $(INTROSPECTION_SCANNER) libgstbase-@GST_MAJORMINO
+ 		--libtool="$(top_builddir)/libtool" \
+ 		--pkg gstreamer-0.10 \
+ 		--output $@ \
+-		$(gir_headers) \
+ 		$(gir_sources)
+ 
+ # INTROSPECTION_GIRDIR/INTROSPECTION_TYPELIBDIR aren't the right place to
+diff --git a/libs/gst/check/Makefile.am b/libs/gst/check/Makefile.am
+index 4d986a1..10fedf1 100644
+--- a/libs/gst/check/Makefile.am
++++ b/libs/gst/check/Makefile.am
+@@ -108,8 +108,6 @@ $(SYMBOLS_FILE):
+ if HAVE_INTROSPECTION
+ BUILT_GIRSOURCES = GstCheck-@GST_MAJORMINOR@.gir
+ 
+-gir_headers=$(patsubst %,$(srcdir)/%, $(libgstcheck_@GST_MAJORMINOR@include_HEADERS)) \
+-    $(patsubst %,$(builddir)/%, $(nodist_libgstcheck_@GST_MAJORMINOR@include_HEADERS))
+ gir_sources=$(patsubst %,$(srcdir)/%, $(libgstcheck_@GST_MAJORMINOR@_la_SOURCES))
+ gir_cincludes=$(patsubst %,--c-include='gst/check/%',$(libgstcheck_@GST_MAJORMINOR@include_HEADERS)) \
+     $(patsubst %,--c-include='gst/check/%',$(nodist_libgstcheck_@GST_MAJORMINOR@include_HEADERS))
+@@ -127,7 +125,6 @@ GstCheck-@GST_MAJORMINOR@.gir: $(INTROSPECTION_SCANNER) libgstcheck-@GST_MAJORMI
+ 		--libtool="$(top_builddir)/libtool" \
+ 		--pkg gstreamer-0.10 \
+ 		--output $@ \
+-		$(gir_headers) \
+ 		$(gir_sources)
+ 
+ # INTROSPECTION_GIRDIR/INTROSPECTION_TYPELIBDIR aren't the right place to
+diff --git a/libs/gst/controller/Makefile.am b/libs/gst/controller/Makefile.am
+index 03417cb..d1e1525 100644
+--- a/libs/gst/controller/Makefile.am
++++ b/libs/gst/controller/Makefile.am
+@@ -35,7 +35,6 @@ gcov: $(libgstcontroller_@GST_MAJORMINOR@_la_SOURCES:=.gcov)
+ if HAVE_INTROSPECTION
+ BUILT_GIRSOURCES = GstController-@GST_MAJORMINOR@.gir
+ 
+-gir_headers=$(patsubst %,$(srcdir)/%, $(libgstcontroller_@GST_MAJORMINOR@_include_HEADERS))
+ gir_sources=$(patsubst %,$(srcdir)/%, $(libgstcontroller_@GST_MAJORMINOR@_la_SOURCES))
+ gir_cincludes=$(patsubst %,--c-include='gst/controller/%',$(libgstcontroller_@GST_MAJORMINOR@_include_HEADERS))
+ 
+@@ -52,7 +51,6 @@ GstController-@GST_MAJORMINOR@.gir: $(INTROSPECTION_SCANNER) libgstcontroller-@G
+ 		--libtool="$(top_builddir)/libtool" \
+ 		--pkg gstreamer-0.10 \
+ 		--output $@ \
+-		$(gir_headers) \
+ 		$(gir_sources)
+ 
+ # INTROSPECTION_GIRDIR/INTROSPECTION_TYPELIBDIR aren't the right place to
+diff --git a/libs/gst/dataprotocol/Makefile.am b/libs/gst/dataprotocol/Makefile.am
+index b02bc09..bad85b4 100644
+--- a/libs/gst/dataprotocol/Makefile.am
++++ b/libs/gst/dataprotocol/Makefile.am
+@@ -25,7 +25,6 @@ if FALSE
+ if HAVE_INTROSPECTION
+ BUILT_GIRSOURCES = GstDataprotocol-@GST_MAJORMINOR@.gir
+ 
+-gir_headers=$(patsubst %,$(srcdir)/%, $(libgstdataprotocol_@GST_MAJORMINOR@_include_HEADERS))
+ gir_sources=$(patsubst %,$(srcdir)/%, $(libgstdataprotocol_@GST_MAJORMINOR@_la_SOURCES))
+ gir_cincludes=$(patsubst %,--c-include='gst/dataprotocol/%',$(libgstdataprotocol_@GST_MAJORMINOR@_include_HEADERS))
+ 
+@@ -42,7 +41,6 @@ GstDataprotocol-@GST_MAJORMINOR@.gir: $(INTROSPECTION_SCANNER) libgstdataprotoco
+ 		--libtool="$(top_builddir)/libtool" \
+ 		--pkg gstreamer-0.10 \
+ 		--output $@ \
+-		$(gir_headers) \
+ 		$(gir_sources)
+ 
+ # INTROSPECTION_GIRDIR/INTROSPECTION_TYPELIBDIR aren't the right place to
+diff --git a/libs/gst/net/Makefile.am b/libs/gst/net/Makefile.am
+index 3d44cf2..f50059d 100644
+--- a/libs/gst/net/Makefile.am
++++ b/libs/gst/net/Makefile.am
+@@ -26,7 +26,6 @@ gcov: $(libgstnet_@GST_MAJORMINOR@_la_SOURCES:=.gcov)
+ if HAVE_INTROSPECTION
+ BUILT_GIRSOURCES = GstNet-@GST_MAJORMINOR@.gir
+ 
+-gir_headers=$(patsubst %,$(srcdir)/%, $(libgstnet_@GST_MAJORMINOR@_include_HEADERS))
+ gir_sources=$(patsubst %,$(srcdir)/%, $(libgstnet_@GST_MAJORMINOR@_la_SOURCES))
+ gir_cincludes=$(patsubst %,--c-include='gst/net/%',$(libgstbase_@GST_MAJORMINOR@_include_HEADERS))
+ 
+@@ -43,7 +42,6 @@ GstNet-@GST_MAJORMINOR@.gir: $(INTROSPECTION_SCANNER) libgstnet-@GST_MAJORMINOR@
+ 		--libtool="$(top_builddir)/libtool" \
+ 		--pkg gstreamer-0.10 \
+ 		--output $@ \
+-		$(gir_headers) \
+ 		$(gir_sources)
+ 
+ # INTROSPECTION_GIRDIR/INTROSPECTION_TYPELIBDIR aren't the right place to
+-- 
+1.7.1
+
