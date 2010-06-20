@@ -18,7 +18,7 @@ SRC_URI=""
 
 COMMON_DEPEND=">=dev-libs/glib-2.18
 	dev-libs/libxml2
-	>=x11-libs/gtk+-2.16
+	>=x11-libs/gtk+-2.21.1
 	>=dev-libs/dbus-glib-0.71
 	>=dev-libs/totem-pl-parser-2.26.0
 	>=gnome-base/gconf-2
@@ -146,6 +146,7 @@ src_unpack() {
 }
 
 src_prepare() {
+	epatch ${FILESDIR}/0001-increase-gtk-version-requirement-to-2.21.1.patch
 	gnome2_src_prepare
 	gtkdocize
 	gnome-doc-prepare --automake
