@@ -1,14 +1,14 @@
-From 5e4c607ef9cd6c8012e3e0e115ba6f8d715c7e29 Mon Sep 17 00:00:00 2001
+From 26b0454e594d35bde7581bf8323d4f954a6700e1 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
-Date: Sun, 20 Jun 2010 19:38:35 +0200
+Date: Mon, 21 Jun 2010 07:35:13 +0200
 Subject: [PATCH] fix build with gtk+ 2.21.1 or newer
 
 ---
  lib/eggdesktopfile.c          |    8 --------
  lib/gseal-gtk-compat.h        |   31 +++++++++----------------------
- lib/rb-tree-dnd.c             |    8 ++++----
- sources/rb-sourcelist-model.c |    5 +++--
- 4 files changed, 16 insertions(+), 36 deletions(-)
+ lib/rb-tree-dnd.c             |   10 ++++++----
+ sources/rb-sourcelist-model.c |    7 +++++--
+ 4 files changed, 20 insertions(+), 36 deletions(-)
 
 diff --git a/lib/eggdesktopfile.c b/lib/eggdesktopfile.c
 index 357e548..c415c91 100644
@@ -119,10 +119,19 @@ index a839073..f9281a4 100644
  
  #endif /* GSEAL_GTK_COMPAT_H */
 diff --git a/lib/rb-tree-dnd.c b/lib/rb-tree-dnd.c
-index bc14700..8f7b0a6 100644
+index bc14700..7af44fd 100644
 --- a/lib/rb-tree-dnd.c
 +++ b/lib/rb-tree-dnd.c
-@@ -448,7 +448,7 @@ filter_drop_position (GtkWidget *widget, GdkDragContext *context, GtkTreePath *p
+@@ -25,6 +25,8 @@
+ 
+ #include "rb-debug.h"
+ 
++#include "gseal-gtk-compat.h"
++
+ #define RB_TREE_DND_STRING "RbTreeDndString"
+ /* must be the same value as in gtk_tree_view.c */
+ #define SCROLL_EDGE_SIZE 15
+@@ -448,7 +450,7 @@ filter_drop_position (GtkWidget *widget, GdkDragContext *context, GtkTreePath *p
  
  	ret = rb_tree_drag_dest_row_drop_position (RB_TREE_DRAG_DEST (model),
  						   path,
@@ -131,7 +140,7 @@ index bc14700..8f7b0a6 100644
  						   pos);
    
  	rb_debug ("filtered drop position: %s", ret ? "TRUE" : "FALSE");	
-@@ -737,10 +737,10 @@ rb_tree_dnd_drag_motion_cb (GtkWidget        *widget,
+@@ -737,10 +739,10 @@ rb_tree_dnd_drag_motion_cb (GtkWidget        *widget,
  	}
  
  	if (GTK_WIDGET (tree_view) == gtk_drag_get_source_widget (context) &&
@@ -144,7 +153,7 @@ index bc14700..8f7b0a6 100644
  
  	if (path) {
  		gtk_tree_view_set_drag_dest_row (tree_view, path, pos);
-@@ -863,7 +863,7 @@ rb_tree_dnd_drag_data_received_cb (GtkWidget        *widget,
+@@ -863,7 +865,7 @@ rb_tree_dnd_drag_data_received_cb (GtkWidget        *widget,
  
  	gtk_drag_finish (context,
          		 accepted,
@@ -154,10 +163,19 @@ index bc14700..8f7b0a6 100644
  
  	if (dest_row)
 diff --git a/sources/rb-sourcelist-model.c b/sources/rb-sourcelist-model.c
-index fca3fc3..e2e7510 100644
+index fca3fc3..bbc8eb3 100644
 --- a/sources/rb-sourcelist-model.c
 +++ b/sources/rb-sourcelist-model.c
-@@ -459,7 +459,8 @@ rb_sourcelist_model_get_drag_target (RbTreeDragDest *drag_dest,
+@@ -41,6 +41,8 @@
+ #include "rb-marshal.h"
+ #include "rb-playlist-source.h"
+ 
++#include "gseal-gtk-compat.h"
++
+ /**
+  * SECTION:rb-sourcelist-model
+  * @short_description: models backing the source list widget
+@@ -459,7 +461,8 @@ rb_sourcelist_model_get_drag_target (RbTreeDragDest *drag_dest,
  				     GtkTreePath *path,
  				     GtkTargetList *target_list)
  {
@@ -167,7 +185,7 @@ index fca3fc3..e2e7510 100644
  		/* always accept rb source path if offered */
  		return gdk_atom_intern ("application/x-rhythmbox-source", TRUE);
  	}
-@@ -469,7 +470,7 @@ rb_sourcelist_model_get_drag_target (RbTreeDragDest *drag_dest,
+@@ -469,7 +472,7 @@ rb_sourcelist_model_get_drag_target (RbTreeDragDest *drag_dest,
  		GdkAtom entry_atom;
  
  		entry_atom = gdk_atom_intern ("application/x-rhythmbox-entry", FALSE);
