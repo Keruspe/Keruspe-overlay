@@ -57,7 +57,6 @@ src_prepare() {
 	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
 			|| die "sed failed"
 	sed -e "s:pause:_pause:" \
-		-e "s:stop:_stop:" \
 		-i src/sj-play.c
 }
 
