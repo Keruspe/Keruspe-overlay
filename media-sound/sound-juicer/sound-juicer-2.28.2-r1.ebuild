@@ -56,6 +56,10 @@ src_prepare() {
 	gnome2_src_prepare
 	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
 			|| die "sed failed"
+	sed -e "s:pause:_pause:" \
+		-e "s:stop:_stop:" \
+		-e "s:play:_play:" \
+		-i src/sj-play.c
 }
 
 pkg_postinst() {
