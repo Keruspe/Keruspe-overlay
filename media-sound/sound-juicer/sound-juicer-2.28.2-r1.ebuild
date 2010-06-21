@@ -58,7 +58,6 @@ src_prepare() {
 			|| die "sed failed"
 	sed -e "s:pause:_pause:" \
 		-e "s:stop:_stop:" \
-		-e "s:play:_play:" \
 		-i src/sj-play.c
 }
 
