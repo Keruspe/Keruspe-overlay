@@ -30,7 +30,7 @@ RDEPEND="!aqua? (
 		>=x11-libs/cairo-1.6[aqua,svg]
 	)
 	xinerama? ( x11-libs/libXinerama )
-	>=dev-libs/glib-2.23.6
+	>=dev-libs/glib-2.25.8
 	>=x11-libs/pango-1.20
 	>=dev-libs/atk-1.29.2
 	media-libs/fontconfig

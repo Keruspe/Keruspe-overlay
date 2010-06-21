@@ -17,7 +17,4 @@
 =x11-wm/mutter-9999
 
 # Work in progress
-=dev-libs/glib-2.25.9
-=gnome-base/gconf-2.31.4
 =net-im/telepathy-logger-0.1.2
-=x11-libs/gtk+-2.21.2
