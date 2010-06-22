@@ -146,7 +146,6 @@ src_unpack() {
 }
 
 src_prepare() {
-	epatch ${FILESDIR}/0001-fix-build-with-gtk-2.21.1-or-newer.patch
 	gnome2_src_prepare
 	gtkdocize
 	gnome-doc-prepare --automake
