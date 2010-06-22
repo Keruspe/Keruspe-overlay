@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc examples +glade test"
 
-RDEPEND="x11-libs/gtk+:2
+RDEPEND=">=x11-libs/gtk+-2.18
 	glade? (
 		dev-util/glade:3
 		gnome-base/libglade
