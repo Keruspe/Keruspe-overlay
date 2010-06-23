@@ -32,7 +32,7 @@ RDEPEND=">=dev-libs/glib-2.16
 		>=net-libs/webkit-gtk-1 )
 	glade? ( >=dev-util/glade-3.6.0 )
 	subversion? (
-		>=dev-util/subversion-1.5.0
+		>=dev-vcs/subversion-1.5.0
 		>=net-libs/neon-0.28.2
 		>=dev-libs/apr-1
 		>=dev-libs/apr-util-1 )
