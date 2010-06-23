@@ -60,9 +60,9 @@ src_compile() {
 }
 
 pkg_postinst() {
-	python_mod_optimize meld
+	python_mod_optimize /usr/$(get_libdir)/meld
 }
 
 pkg_postrm() {
-	python_mod_cleanup meld
+	python_mod_cleanup /usr/$(get_libdir)/meld
 }
