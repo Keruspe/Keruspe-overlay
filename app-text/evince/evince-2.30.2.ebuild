@@ -12,9 +12,6 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-SRC_URI="${SRC_URI}
-	mirror://gentoo/${P}-patches.tar.bz2"
-
 IUSE="dbus debug djvu doc dvi gnome gnome-keyring introspection nautilus t1lib tiff"
 
 RDEPEND="
@@ -73,7 +70,6 @@ src_prepare() {
 	gnome2_src_prepare
 
 	epatch "${FILESDIR}"/${PN}-0.7.1-display-menu.patch
-	epatch "${WORKDIR}"/${P}-patches/*.patch
 	rm -v m4/lt* m4/libtool.m4 || die "removing libtool macros failed"
 	if ! use gnome; then
 		cp "${FILESDIR}/gconf-2.m4" m4/ || die "Copying gconf-2.m4 failed!"

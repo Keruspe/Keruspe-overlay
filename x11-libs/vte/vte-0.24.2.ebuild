@@ -44,7 +44,6 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-	epatch "${FILESDIR}/${P}-background-color.patch"
-	epatch "${FILESDIR}/${P}-background-color2.patch"
-	epatch "${FILESDIR}/${P}-cleanup-background.patch"
+	epatch "${FILESDIR}/${PN}-2.24.1-background-color.patch"
+	epatch "${FILESDIR}/${PN}-2.24.1-cleanup-background.patch"
 }
