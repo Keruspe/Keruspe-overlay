@@ -96,7 +96,6 @@ src_prepare() {
 	gnome2_src_prepare
 	mv py-compile py-compile.orig
 	ln -s $(type -P true) py-compile
-	epatch "${FILESDIR}/${PN}-2.26.3-gtali-invalid-pointer.patch"
 }
 
 src_test() {
