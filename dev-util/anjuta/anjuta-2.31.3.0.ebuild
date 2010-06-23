@@ -33,7 +33,7 @@ RDEPEND=">=dev-libs/glib-2.16
 	glade? ( >=dev-util/glade-3.6.0 )
 	subversion? (
 		>=dev-util/subversion-1.5.0
-		>=net-misc/neon-0.28.2
+		>=net-libs/neon-0.28.2
 		>=dev-libs/apr-1
 		>=dev-libs/apr-util-1 )
 	sourceview? ( >=x11-libs/gtksourceview-2.4 )
