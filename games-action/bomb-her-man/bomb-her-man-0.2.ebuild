@@ -26,6 +26,8 @@ RDEPEND="${DEPEND}
 COMMIT=85dac44
 S=${WORKDIR}/Keruspe-${PN/b/B}-${COMMIT}
 
+WANT_AUTOMAKE="1.11"
+
 src_prepare() {
 	eautopoint
 	eautoreconf

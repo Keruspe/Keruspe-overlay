@@ -24,6 +24,8 @@ DEPEND="media-libs/sdl-ttf
 RDEPEND="${DEPEND}
 	media-fonts/libertine-ttf"
 
+WANT_AUTOMAKE="1.11"
+
 src_prepare() {
 	eautopoint
 	eautoreconf
