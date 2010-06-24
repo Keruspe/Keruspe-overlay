@@ -62,8 +62,6 @@ pkg_postinst() {
 	elog " Start with 'gnome-shell --replace' "
 	elog " or add gnome-shell.desktop to ~/.config/autostart/ "
 
-	GSETTINGS_BACKEND=gconf glib-compile-schemas /usr/share/glib-2.0/schemas
-	
 	gnome2_pkg_postinst
 
 }
