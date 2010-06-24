@@ -19,16 +19,16 @@ RDEPEND="
 	>=dev-games/libggz-0.0.14
 	>=dev-games/ggz-client-libs-0.0.14
 	>=dev-libs/dbus-glib-0.75
-	>=dev-libs/glib-2.6.3
+	>=dev-libs/glib-2.25.7
 	>=dev-libs/libxml2-2.4.0
 	>=dev-python/gconf-python-2.17.3
 	>=dev-python/pygobject-2
 	>=dev-python/pygtk-2.14
 	>=dev-python/pycairo-1
-	>=gnome-base/gconf-2
+	>=gnome-base/gconf-2.31.1
 	>=gnome-base/librsvg-2.14
 	>=x11-libs/cairo-1
-	>=x11-libs/gtk+-2.16
+	>=x11-libs/gtk+-2.16:2
 	x11-libs/libSM
 
 	sound? ( media-libs/libcanberra[gtk] )
@@ -40,7 +40,7 @@ RDEPEND="
 	!games-board/glchess"
 
 DEPEND="${RDEPEND}
-	>=sys-devel/autoconf-2.53
+	sys-apps/lsb-release
 	>=dev-util/pkgconfig-0.15
 	>=dev-util/intltool-0.40.4
 	>=sys-devel/gettext-0.10.40
@@ -116,11 +116,11 @@ src_install() {
 pkg_preinst() {
 	gnome2_pkg_preinst
 	local basefile
-	for scorefile in "${D}"/var/lib/games/*.scores; do
+	for scorefile in "${ED}"/var/lib/games/*.scores; do
 		basefile=$(basename $scorefile)
-		if [ -s "${ROOT}/var/lib/games/${basefile}" ]; then
-			cp "${ROOT}/var/lib/games/${basefile}" \
-			"${D}/var/lib/games/${basefile}"
+		if [ -s "${EROOT}/var/lib/games/${basefile}" ]; then
+			cp "${EROOT}/var/lib/games/${basefile}" \
+			"${ED}/var/lib/games/${basefile}"
 		fi
 	done
 }
@@ -130,9 +130,12 @@ pkg_postinst() {
 	games-ggz_update_modules
 	gnome2_pkg_postinst
 	python_need_rebuild
+	python_mod_optimize gnome_sudoku
+	use opengl && python_mod_optimize glchess
 }
 
 pkg_postrm() {
 	games-ggz_update_modules
 	gnome2_pkg_postrm
+	python_mod_cleanup gnome_sudoku glchess
 }
