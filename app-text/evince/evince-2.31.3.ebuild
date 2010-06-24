@@ -16,9 +16,9 @@ IUSE="dbus debug djvu doc dvi gnome gnome-keyring introspection nautilus t1lib t
 
 RDEPEND="
 	>=app-text/libspectre-0.2.0
-	>=dev-libs/glib-2.18.0
+	>=dev-libs/glib-2.25.9
 	>=dev-libs/libxml2-2.5
-	>=x11-libs/gtk+-2.14
+	>=x11-libs/gtk+-2.21.2:2
 	>=x11-libs/libSM-1
 	>=x11-themes/gnome-icon-theme-2.17.1
 	dbus? ( >=dev-libs/dbus-glib-0.71 )
@@ -70,12 +70,12 @@ src_prepare() {
 	gnome2_src_prepare
 
 	epatch "${FILESDIR}"/${PN}-0.7.1-display-menu.patch
-	rm -v m4/lt* m4/libtool.m4 || die "removing libtool macros failed"
-	if ! use gnome; then
-		cp "${FILESDIR}/gconf-2.m4" m4/ || die "Copying gconf-2.m4 failed!"
-	fi
-	
-	intltoolize --force --automake --copy || die "intltoolized failed"
+
+	epatch "${FILESDIR}"/${P}-fix-impress.patch
+	epatch "${FILESDIR}"/${P}-gdk-api-change.patch
+	epatch "${FILESDIR}"/${P}-glib-api-change.patch
+	epatch "${FILESDIR}"/${P}-glib-api-change-2.patch
+
 	eautoreconf
 }
 
