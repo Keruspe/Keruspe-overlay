@@ -100,8 +100,18 @@ sed_libexec_dir() {
 
 src_prepare() {
 	sed -e 's/GROUP="dialout"/GROUP="uucp"/' \
-		-i rules/{rules.d,gentoo}/*.rules \
+		-i rules/{rules.d,arch}/*.rules \
 	|| die "failed to change group dialout to uucp"
+
+	MD5=$(md5sum < "${S}/rules/rules.d/50-udev-default.rules")
+	MD5=${MD5/  -/}
+	if [[ ${MD5} != 61eda71c840620ff70386715d8010438 ]]
+	then
+		echo
+		eerror "50-udev-default.rules has been updated, please validate!"
+		eerror "md5sum: ${MD5}"
+		die "50-udev-default.rules has been updated, please validate!"
+	fi
 
 	sed_libexec_dir \
 		rules/rules.d/50-udev-default.rules \
@@ -131,7 +141,7 @@ src_compile() {
 }
 
 src_install() {
-	local scriptdir="${FILESDIR}/151-r4"
+	local scriptdir="${FILESDIR}/156"
 
 	into /
 	emake DESTDIR="${D}" install || die "make install failed"
@@ -161,12 +171,11 @@ src_install() {
 	cd "${S}"/rules
 	insinto "${udev_libexec_dir}"/rules.d/
 
-	doins gentoo/??-*.rules
-	doins packages/40-isdn.rules
-
-	if [[ -f packages/40-${ARCH}.rules ]]
+	doins "${scriptdir}"/??-*.rules
+	doins misc/30-kernel-compat.rules
+	if [[ -f arch/40-${ARCH}.rules ]]
 	then
-		doins "packages/40-${ARCH}.rules"
+		doins "arch/40-${ARCH}.rules"
 	fi
 	cd "${S}"
 
@@ -406,6 +415,17 @@ pkg_postinst() {
 	ewarn "mount options for directory /dev are no longer"
 	ewarn "set in /etc/udev/udev.conf, but in /etc/fstab"
 	ewarn "as for other directories."
+
+	ewarn
+	ewarn "If you use /dev/md/*, /dev/loop/* or /dev/rd/*,"
+	ewarn "then please migrate over to using the device names"
+	ewarn "/dev/md*, /dev/loop* and /dev/ram*."
+	ewarn "The devfs-compat rules have been removed."
+	ewarn "For reference see Bug #269359."
+
+	ewarn
+	ewarn "Rules for /dev/hd* devices have been removed"
+	ewarn "Please migrate to libata."
 
 	elog
 	elog "For more information on udev on Gentoo, writing udev rules, and"

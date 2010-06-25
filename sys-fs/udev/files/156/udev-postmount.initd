@@ -1,7 +1,7 @@
 #!/sbin/runscript
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/udev/files/151-r4/udev-postmount.initd,v 1.1 2010/05/05 19:35:07 zzam Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/udev/files/156/udev-postmount.initd,v 1.1 2010/06/20 19:27:54 zzam Exp $
 
 depend() {
 	need localmount
@@ -10,12 +10,14 @@ depend() {
 
 dir_writeable()
 {
-        mkdir "$1"/.test.$$ 2>/dev/null && rmdir "$1"/.test.$$
+        printf "" > "$1"/.test.$$ 2>/dev/null && rm "$1"/.test.$$
 }
 
 start() {
 	# check if this system uses udev
 	[ -d /dev/.udev/ ] || return 0
+
+	einfo "Doing udev cleanups"
 
 	# Run the events that failed at first udev trigger
 	udevadm trigger --type=failed -v

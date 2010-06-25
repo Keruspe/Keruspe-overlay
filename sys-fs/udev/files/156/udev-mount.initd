@@ -66,18 +66,6 @@ seed_dev()
 	# so udev can add its start-message to dmesg
 	[ -c /dev/kmsg ] || mknod -m 660 /dev/kmsg c 1 11
 
-	# copy over any persistant things
-	if [ -d /lib/udev/devices ]; then
-		cp -RPp /lib/udev/devices/* /dev 2>/dev/null
-	fi
-
-	# Not provided by sysfs but needed
-	ln -snf /proc/self/fd /dev/fd
-	ln -snf fd/0 /dev/stdin
-	ln -snf fd/1 /dev/stdout
-	ln -snf fd/2 /dev/stderr
-	[ -e /proc/kcore ] && ln -snf /proc/kcore /dev/core
-
 	# Create problematic directories
 	mkdir -p /dev/pts /dev/shm
 	${HAVE_SELINUX} && restorecon -R /dev >/dev/null

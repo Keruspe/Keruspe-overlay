@@ -88,8 +88,7 @@ start_udevd()
 	if [ -e /proc/modules ] ; then
 		modprobe -q unix 2>/dev/null
 	fi
-	local opts=""
-	yesno "${udev_trace:-no}" && opts="${opts} --debug-trace"
+	local opts="${udev_opts}"
 
 	ebegin "Starting udevd"
 	if yesno "${udev_debug:-no}"; then
