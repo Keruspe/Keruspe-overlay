@@ -27,7 +27,7 @@ RDEPEND=">=dev-libs/glib-2.25.9
 	>=dev-libs/gjs-0.7
 	media-libs/clutter:1.0[opengl,introspection]
 
-	>=gnome-base/gconf-2.31.4
+	gnome-base/dconf
 	gnome-base/gnome-menus
 	gnome-base/librsvg
 
