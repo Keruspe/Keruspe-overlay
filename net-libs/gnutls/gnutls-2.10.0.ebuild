@@ -11,7 +11,7 @@ SRC_URI="mirror://gnu/${PN}/${P}.tar.bz2"
 
 LICENSE="LGPL-2.1 GPL-3"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
+KEYWORDS="~amd64 ~x86"
 IUSE="bindist +cxx doc examples guile lzo nls zlib"
 
 RDEPEND="dev-libs/libgpg-error
@@ -30,8 +30,8 @@ S="${WORKDIR}/${P%_pre*}"
 
 pkg_setup() {
 	if use lzo && use bindist; then
-		ewarn "lzo support was disabled for binary distribution of gnutls"
-		ewarn "due to licensing issues. See Bug 202381 for details."
+		ewarn "lzo support was disabled for binary distribution of GnuTLS"
+		ewarn "due to licensing issues. See Bug #202381 for details."
 	fi
 }
 
