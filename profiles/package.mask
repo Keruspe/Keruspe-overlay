@@ -18,3 +18,4 @@
 
 # Work in progress
 =net-im/telepathy-logger-0.1.2
+x11-libs/gtk+:3
