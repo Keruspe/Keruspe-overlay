@@ -34,10 +34,10 @@ src_prepare() {
 		-i INSTALL || die "sed 2 failed"
 
 	sed -e '/$(PYTHON) .* .import compileall;/s/\t/&#/g' \
-		-i GNUmakefile || die "sed 3 failed"
+		-i Makefile || die "sed 3 failed"
 
 	sed -e '/scrollkeeper-update/s/\t/&#/' \
-		-i help/*/GNUmakefile || die "sed 4 failed"
+		-i help/*/Makefile || die "sed 4 failed"
 
 	strip-linguas -i "${S}/po"
 	local mylinguas=""
@@ -47,7 +47,7 @@ src_prepare() {
 
 	if [ -n "${mylinguas}" ]; then
 		sed -e "s/PO:=.*/PO:=${mylinguas}/" \
-			-i po/GNUmakefile || die "sed 5 failed"
+			-i po/Makefile || die "sed 5 failed"
 	fi
 }
 
