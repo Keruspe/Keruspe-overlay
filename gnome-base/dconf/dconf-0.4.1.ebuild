@@ -3,27 +3,26 @@
 # $Header: $
 
 EAPI=3
-inherit eutils gnome2
 
-DESCRIPTION="Gnome Configuration System and Daemon"
-HOMEPAGE="http://www.gnome.org/"
+inherit gnome2
 
-LICENSE="LGPL-2"
-SLOT="2"
-KEYWORDS="~amd64 ~x86"
-IUSE="introspection"
+DESCRIPTION="Simple low-level configuration system"
+HOMEPAGE="http://live.gnome.org/dconf"
 
-RDEPEND=">=dev-libs/glib-2.23.10
-	x11-libs/gtk+:2
-	dev-libs/dbus-glib
-	sys-apps/dbus
-	dev-libs/libgee
-	introspection? ( >=dev-libs/gobject-introspection-0.6.7 )
-	>=dev-libs/libxml2-2"
+LICENSE="LGPL-2.1"
+SLOT="0"
+KEYWORDS="~x86 ~amd64"
+IUSE="doc +introspection"
+
+RDEPEND=">=dev-libs/glib-2.25.10
+	>=dev-libs/libgee-0.5.1
+	>=dev-libs/libxml2-2.7.7
+	introspection? ( >=dev-libs/gobject-introspection-0.6.7 )"
 DEPEND="${RDEPEND}
-	>=dev-util/intltool-0.35
-	>=dev-util/pkgconfig-0.9"
+	>=dev-lang/vala-0.8
+	doc? ( >=dev-util/gtk-doc-1.14 )"
 
-DOCS="AUTHORS ChangeLog NEWS README TODO"
-
-G2CONF="${G2CONF} $(use_enable introspection)"
+pkg_setup() {
+	G2CONF="${G2CONF}
+		$(use_enable introspection)"
+}
