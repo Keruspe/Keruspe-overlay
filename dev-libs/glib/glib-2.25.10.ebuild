@@ -11,7 +11,7 @@ HOMEPAGE="http://www.gtk.org/"
 LICENSE="LGPL-2"
 SLOT="2"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc fam hardened selinux xattr"
+IUSE="debug doc fam hardened selinux static-libs test xattr"
 
 RDEPEND="virtual/libiconv
 	xattr? ( sys-apps/attr )
@@ -22,7 +22,8 @@ DEPEND="${RDEPEND}
 	doc? (
 		>=dev-libs/libxslt-1.0
 		>=dev-util/gtk-doc-1.11
-		~app-text/docbook-xml-dtd-4.1.2 )"
+		~app-text/docbook-xml-dtd-4.1.2 )
+	test? ( >=sys-apps/dbus-1.2.14 )"
 
 src_prepare() {
 	epatch "${FILESDIR}/${PN}-2.18.1-workaround-gio-test-failure-without-userpriv.patch"
@@ -30,8 +31,6 @@ src_prepare() {
 
 src_configure() {
 	local myconf
-
-	epunt_cxx
 
 	use debug && myconf="--enable-debug"
 
@@ -41,7 +40,7 @@ src_configure() {
 		  $(use_enable doc gtk-doc) \
 		  $(use_enable fam)         \
 		  $(use_enable selinux)     \
-		  --enable-static           \
+		  $(use_enable static-libs static) \
 		  --enable-regex            \
 		  --with-pcre=internal      \
 		  --with-threads=posix
@@ -53,6 +52,10 @@ src_install() {
 	rm -f "${D}/usr/lib/charset.alias"
 
 	dodoc AUTHORS ChangeLog* NEWS* README || die "dodoc failed"
+
+	insinto /usr/share/bash-completion
+	newins "${D}/etc/bash_completion.d/gdbus-bash-completion.sh" gdbus || die
+	rm -rf "${D}/etc"
 }
 
 src_test() {
