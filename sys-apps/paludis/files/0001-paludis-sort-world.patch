@@ -1,3 +1,16 @@
+From 2e142d65314876318f8c4b14d58501ee7ae2c14f Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Sun, 27 Jun 2010 16:15:41 +0200
+Subject: [PATCH 1/2] paludis sort world
+
+---
+ paludis/environments/paludis/world.cc            |    2 +
+ paludis/environments/paludis/world_TEST.cc       |    4 +-
+ paludis/environments/paludis/world_TEST_setup.sh |    4 +-
+ paludis/set_file.cc                              |   55 ++++++++++++++++++++++
+ paludis/set_file.hh                              |    5 ++
+ 5 files changed, 66 insertions(+), 4 deletions(-)
+
 diff --git a/paludis/environments/paludis/world.cc b/paludis/environments/paludis/world.cc
 index 02e1841..71ae550 100644
 --- a/paludis/environments/paludis/world.cc
@@ -193,3 +206,6 @@ index 4a2fb84..3be2d43 100644
               * Rewrite our contents.
               */
              void rewrite() const;
+-- 
+1.7.1
+
