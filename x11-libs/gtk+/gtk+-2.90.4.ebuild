@@ -60,6 +60,8 @@ DEPEND="${RDEPEND}
 		media-fonts/font-cursor-misc )"
 PDEPEND="vim-syntax? ( app-vim/gtk-syntax )"
 
+MAKEOPTS="-j1"
+
 src_prepare() {
 	epatch "${FILESDIR}/${PN}-2.90.4-macosx-aqua.patch"
 	replace-flags -O3 -O2
