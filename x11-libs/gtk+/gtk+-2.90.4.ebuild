@@ -9,7 +9,7 @@ DESCRIPTION="Gimp ToolKit +"
 HOMEPAGE="http://www.gtk.org/"
 
 LICENSE="LGPL-2"
-SLOT="2"
+SLOT="3"
 KEYWORDS="~amd64 ~x86"
 IUSE="aqua cups debug doc +introspection jpeg jpeg2k tiff test vim-syntax xinerama"
 
@@ -30,16 +30,13 @@ RDEPEND="!aqua? (
 		>=x11-libs/cairo-1.6[aqua,svg]
 	)
 	xinerama? ( x11-libs/libXinerama )
-	>=dev-libs/glib-2.25.8
+	>=dev-libs/glib-2.25.9
 	>=x11-libs/pango-1.20[introspection?]
 	>=dev-libs/atk-1.29.2[introspection?]
 	media-libs/fontconfig
 	x11-misc/shared-mime-info
-	>=media-libs/libpng-1.2.43-r2:0
+	x11-libs/gdk-pixbuf[introspection?,jpeg?,jpeg2k?,tiff?]
 	cups? ( net-print/cups )
-	jpeg? ( >=media-libs/jpeg-6b-r9:0 )
-	jpeg2k? ( media-libs/jasper )
-	tiff? ( >=media-libs/tiff-3.9.2 )
 	!<gnome-base/gail-1000"
 DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.9
@@ -63,34 +60,27 @@ DEPEND="${RDEPEND}
 		media-fonts/font-cursor-misc )"
 PDEPEND="vim-syntax? ( app-vim/gtk-syntax )"
 
-set_gtk2_confdir() {
-	has_multilib_profile && GTK2_CONFDIR="/etc/gtk-2.0/${CHOST}"
-	GTK2_CONFDIR=${GTK2_CONFDIR:=/etc/gtk-2.0}
-}
-
 src_prepare() {
-	has_multilib_profile && epatch "${FILESDIR}/${PN}-2.8.0-multilib.patch"
-	epatch "${FILESDIR}/${PN}-2.14.3-limit-gtksignal-includes.patch"
-	epatch "${FILESDIR}/${PN}-2.18.5-macosx-aqua.patch"
+	epatch "${FILESDIR}/${P}-macosx-aqua.patch"
 	replace-flags -O3 -O2
 	strip-flags
 	sed 's:\(g_test_add_func ("/ui-tests/keys-events.*\):/*\1*/:g' \
 		-i gtk/tests/testing.c || die "sed 1 failed"
 	sed '\%/recent-manager/add%,/recent_manager_purge/ d' \
 		-i gtk/tests/recentmanager.c || die "sed 2 failed"
+	has_version ">dev-libs/gobject-introspection-0.6.14" && \
+		for i in gdk/*.gir gtk/*.gir; do
+			sed -i '/repository version=/s/1\.0/1.1/' ${i}
+		done
 	elibtoolize
 }
 
 src_configure() {
 	local myconf="$(use_enable doc gtk-doc)
-		$(use_with jpeg libjpeg)
-		$(use_with jpeg2k libjasper)
-		$(use_with tiff libtiff)
 		$(use_enable xinerama)
 		$(use_enable cups cups auto)
 		$(use_enable introspection)
-		--disable-papi
-		--with-libpng"
+		--disable-papi"
 	if use aqua; then
 		myconf="${myconf} --with-gdktarget=quartz"
 	else
@@ -109,44 +99,29 @@ src_test() {
 src_install() {
 	emake DESTDIR="${D}" install || die "Installation failed"
 
-	set_gtk2_confdir
-	dodir ${GTK2_CONFDIR}
-	keepdir ${GTK2_CONFDIR}
-
 	echo 'gtk-fallback-icon-theme = "gnome"' > "${T}/gtkrc"
-	insinto ${GTK2_CONFDIR}
+	insinto /etc/gtk-3.0
 	doins "${T}"/gtkrc
-
-	echo "GDK_USE_XFT=1" > "${T}"/50gtk2
-	doenvd "${T}"/50gtk2
-
+	echo "GDK_USE_XFT=1" > "${T}"/50gtk3
+	doenvd "${T}"/50gtk3
 	dodoc AUTHORS ChangeLog* HACKING NEWS* README* || die "dodoc failed"
 
-	rm "${ED%/}/etc/gtk-2.0/gtk.immodules"
-	use aqua && for i in gtk+-2.0.pc gtk+-quartz-2.0.pc gtk+-unix-print-2.0.pc; do
-		sed -i -e "s:Libs\: :Libs\: -framework Carbon :" "${ED%/}"/usr/lib/pkgconfig/$i || die "sed failed"
+	find "${D}"usr/$(get_libdir)/gtk-3.0 -name "*.la" -delete
+	use aqua && for i in gtk+-3.0.pc gtk+-quartz-3.0.pc gtk+-unix-print-3.0.pc; do
+		sed -i -e "s:Libs\: :Libs\: -framework Carbon :" "${ED}"usr/$(get_libdir)/pkgconfig/$i || die "sed failed"
 	done
 }
 
 pkg_postinst() {
-	set_gtk2_confdir
-
-	if [ -d "${EROOT%/}${GTK2_CONFDIR}" ]; then
-		gtk-query-immodules-2.0  > "${EROOT%/}${GTK2_CONFDIR}/gtk.immodules"
-		gdk-pixbuf-query-loaders > "${EROOT%/}${GTK2_CONFDIR}/gdk-pixbuf.loaders"
+	local GTK3_MODDIR="${EROOT}usr/$(get_libdir)/gtk-3.0/3.0.0"
+	if [[ -d ${GTK3_MODDIR} ]]; then
+		gtk-query-immodules-3.0      > "${GTK3_MODDIR}/immodules.cache"
 	else
-		ewarn "The destination path ${EROOT%/}${GTK2_CONFDIR} doesn't exist;"
+		ewarn "The destination path ${GTK3_MODDIR} doesn't exist;"
 		ewarn "to complete the installation of GTK+, please create the"
 		ewarn "directory and then manually run:"
-		ewarn "  cd ${EROOT%/}${GTK2_CONFDIR}"
-		ewarn "  gtk-query-immodules-2.0  > gtk.immodules"
-		ewarn "  gdk-pixbuf-query-loaders > gdk-pixbuf.loaders"
-	fi
-
-	if [ -e "${EROOT%/}"/usr/lib/gtk-2.0/2.[^1]* ]; then
-		elog "You need to rebuild ebuilds that installed into" "${EROOT%/}"/usr/lib/gtk-2.0/2.[^1]*
-		elog "to do that you can use qfile from portage-utils:"
-		elog "emerge -va1 \$(qfile -qC ${EPREFIX}/usr/lib/gtk-2.0/2.[^1]*)"
+		ewarn "  cd ${GTK3_MODDIR}"
+		ewarn "  gtk-query-immodules-3.0      > immodules.cache"
 	fi
 
 	elog "Please install app-text/evince for print preview functionality."
