@@ -61,7 +61,7 @@ DEPEND="${RDEPEND}
 PDEPEND="vim-syntax? ( app-vim/gtk-syntax )"
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-macosx-aqua.patch"
+	epatch "${FILESDIR}/${PN}-2.90.4-macosx-aqua.patch"
 	replace-flags -O3 -O2
 	strip-flags
 	sed 's:\(g_test_add_func ("/ui-tests/keys-events.*\):/*\1*/:g' \
