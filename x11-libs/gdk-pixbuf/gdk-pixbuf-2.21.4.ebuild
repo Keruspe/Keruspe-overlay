@@ -37,10 +37,6 @@ DEPEND="${RDEPEND}
 src_prepare() {
 	replace-flags -O3 -O2
 	strip-flags
-	has_version ">dev-libs/gobject-introspection-0.6.14" && \
-		for i in gdk-pixbuf/*.gir; do
-			sed -i '/repository version=/s/1\.0/1.1/' ${i}
-	done
 	elibtoolize
 }
 

@@ -68,10 +68,6 @@ src_prepare() {
 		-i gtk/tests/testing.c || die "sed 1 failed"
 	sed '\%/recent-manager/add%,/recent_manager_purge/ d' \
 		-i gtk/tests/recentmanager.c || die "sed 2 failed"
-	has_version ">dev-libs/gobject-introspection-0.6.14" && \
-		for i in gdk/*.gir gtk/*.gir; do
-			sed -i '/repository version=/s/1\.0/1.1/' ${i}
-		done
 	elibtoolize
 }
 
