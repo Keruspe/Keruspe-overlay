@@ -1,7 +1,3 @@
 make introspection for gnome-bluetooth not dummy
 make introspection for gstreamer less dummy
 dev-libs/libgee[introspection]
-
-package which fails w/ javacc-5 :
-freemarker
-lucene
