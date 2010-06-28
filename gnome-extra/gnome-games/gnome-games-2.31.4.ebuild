@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit games games-ggz eutils gnome2 python virtualx
+inherit games games-ggz eutils python virtualx gnome2
 
 WANT_AUTOMAKE="1.11"
 
