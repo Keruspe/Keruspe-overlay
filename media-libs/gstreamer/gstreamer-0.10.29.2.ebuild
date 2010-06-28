@@ -9,7 +9,7 @@ PV_MAJ_MIN=$(get_version_component_range '1-2')
 
 DESCRIPTION="Streaming media framework"
 HOMEPAGE="http://gstreamer.sourceforge.net"
-SRC_URI="http://${PN}.freedesktop.org/src/${PN}/${P}.tar.bz2"
+SRC_URI="http://${PN}.freedesktop.org/src/${PN}/pre/${P}.tar.bz2"
 
 LICENSE="LGPL-2"
 SLOT=${PV_MAJ_MIN}
@@ -23,11 +23,6 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	introspection? ( dev-libs/gobject-introspection )
 	nls? ( sys-devel/gettext )"
-
-src_prepare() {
-	epatch ${FILESDIR}/0001-introspection-Fix-with-recent-gobject-introspection.patch
-	eautoreconf
-}
 
 src_configure() {
 	econf \
