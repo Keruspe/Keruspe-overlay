@@ -20,7 +20,8 @@ IUSE="gtk"
 RDEPEND="
       >=dev-libs/libcgroup-0.36
       >=sys-apps/dbus-1.2.24
-      >=sys-fs/udev-151
+      dev-libs/dbus-glib
+	  >=sys-fs/udev-151
 	  >=sys-kernel/linux-headers-2.6.32
 	  sys-libs/libcap
       gtk? ( >=x11-libs/gtk+-2.20 ) 
@@ -33,7 +34,7 @@ DEPEND="${RDEPEND}
 	dev-libs/libxslt"
 
 CFLAGS+=" -g -O0"
-WANT_AUTOMAKE=2.11
+WANT_AUTOMAKE=1.11
 
 src_prepare() {
 	eautoreconf
@@ -47,7 +48,7 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR=${D} install
 	# make sure all directory are created
 	mkdir -p ${D}/cgroup/{cpu,cpuacct,cpuset,debug,devices,freezer,memory,ns,systemd}
+	emake DESTDIR=${D} install
 }

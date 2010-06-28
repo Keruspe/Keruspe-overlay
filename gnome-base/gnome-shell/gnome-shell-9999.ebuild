@@ -24,6 +24,7 @@ RDEPEND=">=dev-libs/glib-2.25.9
 	>=dev-libs/gobject-introspection-0.6.11
 	
 	dev-libs/dbus-glib
+	dev-python/dbus-python
 	>=dev-libs/gjs-0.7
 	media-libs/clutter:1.0[opengl,introspection]
 
