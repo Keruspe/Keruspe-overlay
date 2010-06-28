@@ -31,7 +31,7 @@ RDEPEND="!aqua? (
 	)
 	xinerama? ( x11-libs/libXinerama )
 	>=dev-libs/glib-2.25.8
-	>=x11-libs/pango-1.20[introspection?]
+	>=x11-libs/pango-1.28[introspection?]
 	>=dev-libs/atk-1.29.2[introspection?]
 	media-libs/fontconfig
 	x11-misc/shared-mime-info

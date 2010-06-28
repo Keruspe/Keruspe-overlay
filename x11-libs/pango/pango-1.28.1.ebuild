@@ -29,8 +29,7 @@ DEPEND="${RDEPEND}
 		~app-text/docbook-xml-dtd-4.1.2
 		x11-libs/libXft )
 	introspection? (
-		>=dev-libs/gobject-introspection-0.6.4
-		!!dev-libs/gir-repository[pango] )
+		>=dev-libs/gobject-introspection-0.6.4 )
 	test? (
 		>=dev-util/gtk-doc-1
 		~app-text/docbook-xml-dtd-4.1.2

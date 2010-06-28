@@ -20,8 +20,7 @@ DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.9
 	dev-util/gtk-doc-am
 	doc? ( >=dev-util/gtk-doc-1 )
-	introspection? ( dev-libs/gobject-introspection
-		!!dev-libs/gir-repository[libsoup] )"
+	introspection? ( dev-libs/gobject-introspection )"
 PDEPEND="gnome? ( ~net-libs/${PN}-gnome-${PV} )"
 
 DOCS="AUTHORS NEWS README"

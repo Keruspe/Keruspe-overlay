@@ -36,8 +36,7 @@ RDEPEND="
 		>=media-libs/gst-plugins-base-0.10.25:0.10 )
 	introspection? (
 		>=dev-libs/gobject-introspection-0.6.2
-		>=net-libs/libsoup-2.31[introspection]
-		!!dev-libs/gir-repository[webkit] )
+		>=net-libs/libsoup-2.31[introspection] )
 "
 
 DEPEND="${RDEPEND}
