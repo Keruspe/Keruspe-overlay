@@ -3,10 +3,10 @@
 # $Header: $
 
 EAPI=3
+inherit gnome.org
 
 DESCRIPTION="Notifications library"
 HOMEPAGE="http://www.galago-project.org/"
-SRC_URI="http://www.galago-project.org/files/releases/source/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
