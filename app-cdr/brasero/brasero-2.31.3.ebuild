@@ -14,7 +14,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="beagle +cdr +css doc introspection +libburn nautilus playlist test"
 
 COMMON_DEPEND=">=dev-libs/glib-2.22
-	>=x11-libs/gtk+-2.19.7
+	>=x11-libs/gtk+-2.19.7:2
 	>=gnome-base/gconf-2
 	>=media-libs/gstreamer-0.10.15
 	>=media-libs/gst-plugins-base-0.10
@@ -22,6 +22,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.22
 	>=dev-libs/libunique-1
 	>=dev-libs/dbus-glib-0.7.2
 	media-libs/libcanberra[gtk]
+	x11-libs/libSM
 	beagle? ( >=dev-libs/libbeagle-0.3 )
 	libburn? (
 		>=dev-libs/libburn-0.4

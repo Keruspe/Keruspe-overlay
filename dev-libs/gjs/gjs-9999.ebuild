@@ -14,11 +14,12 @@ SRC_URI=""
 LICENSE="MIT MPL-1.1 LGPL-2 GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="coverage"
+IUSE="coverage examples"
 
 RDEPEND=">=dev-libs/glib-2.16.0
-	>=dev-libs/gobject-introspection-0.6.3
+	>=dev-libs/gobject-introspection-0.6.10
 	dev-libs/dbus-glib
+	x11-libs/cairo
 	net-libs/xulrunner:1.9"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
@@ -32,6 +33,22 @@ S=${WORKDIR}/trunk
 
 src_unpack() {
 	git_src_unpack
-	cd ${S}
+}
+
+src_prepare() {
 	eautoreconf
+}
+
+pkg_setup() {
+	G2CONF="${G2CONF}
+		$(use_enable coverage)"
+}
+
+src_install() {
+	gnome2_src_install
+
+	if use examples; then
+		insinto /usr/share/doc/${PF}/examples
+		doins ${S}/examples/* || die "doins examples failed!"
+	fi
 }
