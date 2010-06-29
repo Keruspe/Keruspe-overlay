@@ -27,7 +27,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.13.0
 	>=gnome-base/gconf-2.10
 	>=media-libs/libcanberra-0.10[gtk]
 	|| ( sys-power/upower >=sys-apps/devicekit-power-008 )
-	>=dev-libs/libunique-1
+	>=dev-libs/libunique-1.1.0
 	>=x11-apps/xrandr-1.2
 	x11-libs/libX11
 	x11-libs/libXext
@@ -58,17 +58,14 @@ pkg_setup() {
 		$(use_enable doc docbook-docs)
 		$(use_enable policykit gconf-defaults)
 		$(use_enable applets)
-		--enable-compile-warnings=minimum
-		--with-dpms-ext"
+		--enable-compile-warnings=minimum"
 }
 
 src_prepare() {
 	gnome2_src_prepare
 
 	sed 's:-DG.*DISABLE_DEPRECATED::g' -i configure.ac configure \
-		|| die "sed 1a failed"
-	sed 's:-DG.*DISABLE_SINGLE_INCLUDES::g' -i configure.ac configure \
-		|| die "sed 1b failed"
+		|| die "sed 1 failed"
 
 	sed -e 's:^CPPFLAGS="$CPPFLAGS -g"$::g' -i configure.ac \
 		|| die "sed 2 failed"
@@ -77,7 +74,6 @@ src_prepare() {
 		|| die "sed 3 failed"
 
 	rm -v m4/lt* m4/libtool.m4 || die "removing libtool macros failed"
-
 
 	if ! use doc; then
 		sed -e 's:@HAVE_DOCBOOK2MAN_TRUE@.*::' \
