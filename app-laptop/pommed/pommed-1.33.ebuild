@@ -96,7 +96,6 @@ src_install() {
 		doins gpomme/gpomme-c.desktop
 		insinto /usr/share/gpomme/
 		doins -r gpomme/themes
-		doins gpomme/gpomme.glade
 	fi
 
 	if use X ; then
