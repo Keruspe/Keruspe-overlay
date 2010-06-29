@@ -1,4 +1,4 @@
 #!/bin/bash
 #instruo -g -D /var/paludis/repositories/keruspe/ --extra-repository-dir /var/paludis/repositories/gentoo/ -o /var/paludis/repositories/keruspe/metadata/cache/
-appareo -m -D /var/paludis/repositories/keruspe/ --extra-repository-dir /var/paludis/repositories/gentoo/ -d /var/paludis/distfiles/ --override
+appareo -m -D /var/paludis/repositories/keruspe/ --extra-repository-dir /var/paludis/repositories/gentoo/ --extra-repository-dir /var/paludis/repositories/gnome -d /var/paludis/distfiles/ --override
 exit 0
