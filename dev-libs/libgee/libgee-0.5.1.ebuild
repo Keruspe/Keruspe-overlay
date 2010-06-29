@@ -14,7 +14,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="introspection"
 
 RDEPEND=">=dev-libs/glib-2.12
-	introspetion? ( dev-libs/gobject-introspection )"
+	introspection? ( dev-libs/gobject-introspection )"
 DEPEND="${RDEPEND}
 	dev-lang/vala
 	dev-util/pkgconfig"
