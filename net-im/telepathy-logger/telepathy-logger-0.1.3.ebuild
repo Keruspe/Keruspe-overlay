@@ -11,7 +11,7 @@ SRC_URI="http://telepathy.freedesktop.org/releases/${PN}/${P}.tar.bz2"
 LICENSE="GPL-3 LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc test"
+IUSE="doc test"
 
 DEPEND=">=dev-libs/glib-2.22
 	>=sys-apps/dbus-1.1
@@ -25,12 +25,9 @@ DEPEND=">=dev-libs/glib-2.22
 		dev-python/twisted )"
 RDEPEND="${DEPEND}"
 
-MAKEOPTS="${MAKEOPTS} -j1"
-
 src_configure() {
 	econf \
 		$(use_enable doc gtk-doc) \
-		$(use_enable debug debug) \
 		--enable-channeltext \
 		--disable-coding-style-checks \
 		--disable-Werror
