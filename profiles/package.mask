@@ -17,3 +17,4 @@
 =x11-wm/mutter-9999
 
 # Work in progress
+-net-im/telepathy-logger
