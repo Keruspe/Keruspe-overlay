@@ -11,10 +11,10 @@ LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cc-embedding favourite-contacts map nautilus-sendto networkmanager spell test webkit"
+IUSE="cc-embedding map nautilus-sendto networkmanager spell test webkit"
 
 RDEPEND=">=dev-libs/glib-2.16.0
-	>=x11-libs/gtk+-2.21-2
+	>=x11-libs/gtk+-2.21.2
 	>=gnome-base/gconf-2
 	>=dev-libs/dbus-glib-0.51
 	>=gnome-extra/evolution-data-server-1.2
@@ -48,7 +48,7 @@ DEPEND="${RDEPEND}
 	>=app-text/gnome-doc-utils-0.17.3
 	>=dev-util/intltool-0.35.0
 	>=dev-util/pkgconfig-0.16
-	>=net-im/telepathy-logger-1.3
+	>=net-im/telepathy-logger-0.1.3
 	test? (
 		sys-apps/grep
 		>=dev-libs/check-0.9.4 )
@@ -70,8 +70,6 @@ G2CONF="${G2CONF}
 	$(use_enable map location)
 	$(use_enable spell)
 	$(use_enable test coding-style-checks)
-	$(use_enable favourite-contacts)
-	$(use_enable favourite-contacts tpl)
 	$(use_enable webkit)
 	$(use_enable cc-embedding control-center-embedding)
 "
