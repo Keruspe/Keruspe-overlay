@@ -107,7 +107,7 @@ src_install() {
 	doenvd "${T}"/50gtk3
 	dodoc AUTHORS ChangeLog* HACKING NEWS* README* || die "dodoc failed"
 
-	find "${D}"usr/$(get_libdir)/gtk-3.0 -name "*.la" -delete
+	find "${D}" -name "*.la" -delete
 	use aqua && for i in gtk+-3.0.pc gtk+-quartz-3.0.pc gtk+-unix-print-3.0.pc; do
 		sed -i -e "s:Libs\: :Libs\: -framework Carbon :" "${ED}"usr/$(get_libdir)/pkgconfig/$i || die "sed failed"
 	done
