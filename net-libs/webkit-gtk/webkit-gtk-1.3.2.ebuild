@@ -53,15 +53,12 @@ src_prepare() {
 	rm -v autotools/lt* autotools/libtool.m4 \
 		|| die "removing libtool macros failed"
 	sed -i 's/-O2//g' "${S}"/configure.ac || die "sed failed"
-	epatch ${FILESDIR}/webkit-icu-4.4.patch
 	has_version ">dev-libs/gobject-introspection-0.6.14" && \
 		sed -i '/repository version=/s/1\.0/1.1/' WebKit/gtk/JSCore-1.0.gir
 	AT_M4DIR=autotools eautoreconf
 }
 
 src_configure() {
-	use alpha && append-ldflags "-Wl,--no-relax"
-
 	local myconf
 
 	myconf="
