@@ -76,9 +76,9 @@ pkg_setup() {
 		2)	einfo "Your kernel version (${KV_FULL}) is new enough to run ${P} reliably." ;;
 		1)	ewarn "Your kernel version (${KV_FULL}) is new enough to run ${P},"
 			ewarn "but it may be unreliable in some cases."
-			ebeep ;;
+			;;
 		0)	eerror "Your kernel version (${KV_FULL}) is too old to run ${P}"
-			ebeep ;;
+			;;
 	esac
 	echo
 
@@ -306,7 +306,6 @@ restart_udevd() {
 		eerror
 		eerror "Please have a look at this before rebooting."
 		eerror "If in doubt, please downgrade udev back to your old version"
-		ebeep
 	fi
 }
 

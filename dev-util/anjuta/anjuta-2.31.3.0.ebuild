@@ -76,10 +76,8 @@ src_install() {
 pkg_postinst() {
 	gnome2_pkg_postinst
 
-	ebeep 1
 	elog ""
 	elog "Some project templates may require additional development"
 	elog "libraries to function correctly. It goes beyond the scope"
 	elog "of this ebuild to provide them."
-	epause 5
 }
