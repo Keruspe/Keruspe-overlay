@@ -19,7 +19,6 @@ net-misc
 net-voip
 net-wireless
 sys-apps
-sys-auth
 sys-boot
 sys-fs
 x11-apps
