@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit autotools
+inherit autotools flag-o-matic eutils virtualx
 
 MY_P="webkit-${PV}"
 DESCRIPTION="Open source web browser engine"
@@ -13,7 +13,7 @@ SRC_URI="http://www.webkitgtk.org/${MY_P}.tar.gz"
 LICENSE="LGPL-2 LGPL-2.1 BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="coverage debug doc geoclue +gstreamer introspection +websockets"
+IUSE="coverage debug doc geoclue +gstreamer introspection"
 
 RDEPEND="
 	dev-libs/libxml2
@@ -35,7 +35,7 @@ RDEPEND="
 		media-libs/gstreamer:0.10
 		>=media-libs/gst-plugins-base-0.10.25:0.10 )
 	introspection? (
-		>=dev-libs/gobject-introspection-0.6.2
+		>=dev-libs/gobject-introspection-0.6.15
 		>=net-libs/libsoup-2.31[introspection] )
 "
 
@@ -67,7 +67,6 @@ src_configure() {
 		$(use_enable geoclue geolocation)
 		$(use_enable gstreamer video)
 		$(use_enable introspection)
-		$(use_enable websockets web_sockets)
 		"
 
 	econf ${myconf}
