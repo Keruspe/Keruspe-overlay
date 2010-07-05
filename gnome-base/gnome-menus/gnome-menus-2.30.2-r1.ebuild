@@ -36,6 +36,7 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 	epatch "${FILESDIR}/${PN}-2.18.3-ignore_kde_standalone.patch"
+	epatch "${FILESDIR}/${P}-XDG_MENU_PREFIX-fix.patch"
 	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
 		|| die "sed failed"
 	mv py-compile py-compile-disabled
