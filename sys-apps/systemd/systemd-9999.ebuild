@@ -28,7 +28,7 @@ RDEPEND="
 	  >=dev-lang/vala-0.8
 	  >=app-admin/syslog-ng-3"
 DEPEND="${RDEPEND}
-	app-text/docbook-xml-dtd
+	app-text/docbook-xml-dtd:4.2
 	app-text/docbook-xsl-stylesheets
 	app-text/build-docbook-catalog
 	dev-libs/libxslt"
