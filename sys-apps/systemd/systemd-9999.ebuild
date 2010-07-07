@@ -51,4 +51,8 @@ src_install() {
 	# make sure all directory are created
 	mkdir -p ${D}/cgroup/{cpu,cpuacct,cpuset,debug,devices,freezer,memory,ns,systemd}
 	emake DESTDIR=${D} install
+	cd ${D}/usr/share/man/man8/
+	for i in halt poweroff reboot runlevel shutdown telinit; do
+		mv ${i}.8.bz2 systemd-${i}.8.bz2
+	done
 }
