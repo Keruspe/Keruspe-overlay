@@ -53,6 +53,6 @@ src_install() {
 	emake DESTDIR=${D} install
 	cd ${D}/usr/share/man/man8/
 	for i in halt poweroff reboot runlevel shutdown telinit; do
-		mv ${i}.8.bz2 systemd-${i}.8.bz2
+		mv ${i}.8 systemd.${i}.8
 	done
 }
