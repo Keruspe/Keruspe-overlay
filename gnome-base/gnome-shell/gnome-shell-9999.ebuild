@@ -17,16 +17,17 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND=">=dev-libs/glib-2.25.9
-	>=x11-libs/gtk+-2.18[introspection]
+	x11-libs/gtk+:3[introspection]
 	>=media-libs/gstreamer-0.10.16
 	>=media-libs/gst-plugins-base-0.10.16
-	>=gnome-base/gnome-desktop-2.26
+	gnome-base/gnome-desktop:3
 	>=dev-libs/gobject-introspection-0.6.11
 
 	dev-libs/dbus-glib
 	>=dev-libs/gjs-0.7
 	x11-libs/pango[introspection]
 	>=media-libs/clutter-1.2.8[introspection]
+	x11-libs/gdk-pixbuf
 	dev-libs/libcroco:0.6
 
 	>=gnome-base/dconf-0.4.1
@@ -36,7 +37,7 @@ RDEPEND=">=dev-libs/glib-2.25.9
 	x11-libs/startup-notification
 	x11-libs/libXfixes
 	x11-apps/mesa-progs
-	>=x11-wm/mutter-2.31.4[introspection]
+	>=x11-wm/mutter-2.31.5[introspection,gtk3]
 
 	dev-python/dbus-python
 "
