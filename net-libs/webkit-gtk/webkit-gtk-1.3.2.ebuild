@@ -13,7 +13,7 @@ SRC_URI="http://www.webkitgtk.org/${MY_P}.tar.gz"
 LICENSE="LGPL-2 LGPL-2.1 BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="coverage debug doc +geoclue +gstreamer introspection"
+IUSE="coverage debug doc geoclue +gstreamer introspection"
 
 RDEPEND="
 	dev-libs/libxml2
@@ -36,7 +36,7 @@ RDEPEND="
 		>=media-libs/gst-plugins-base-0.10.25:0.10 )
 	introspection? (
 		>=dev-libs/gobject-introspection-0.6.15
-		>=net-libs/libsoup-2.31[introspection]i
+		>=net-libs/libsoup-2.31[introspection]
 		gnome-extra/geoclue )
 "
 
