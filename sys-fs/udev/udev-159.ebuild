@@ -12,7 +12,7 @@ SRC_URI="mirror://kernel/linux/utils/kernel/hotplug/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="selinux introspection extras +static test"
+IUSE="selinux introspection extras test"
 
 COMMON_DEPEND="selinux? ( sys-libs/libselinux )
 	extras? (
@@ -129,10 +129,10 @@ src_configure() {
 		--with-rootlibdir=/$(get_libdir) \
 		--libexecdir="${udev_libexec_dir}" \
 		--enable-logging \
+		--enable-static \
 		$(use_with selinux) \
 		$(use_enable extras) \
-		$(use_enable introspection) \
-		$(use_enable static)
+		$(use_enable introspection)
 }
 
 src_compile() {
