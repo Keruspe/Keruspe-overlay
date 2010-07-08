@@ -68,7 +68,7 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-	sed 's/-Werror//' configure.in
+	sed -i 's/-Werror//' configure.in
 	intltoolize --force --copy --automake || die
 	eautoreconf
 }
