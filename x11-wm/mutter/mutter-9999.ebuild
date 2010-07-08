@@ -33,6 +33,7 @@ RDEPEND="!gtk3? ( >=x11-libs/gtk+-2.18:2[introspection?] )
 	x11-libs/libXfixes
 	x11-libs/libXrandr
 	x11-libs/libXrender
+	>=x11-libs/cairo-1.9.11
 
 	sound? ( media-libs/libcanberra[gtk,gtk3?] )
 	introspection? ( dev-libs/gobject-introspection )
@@ -67,6 +68,7 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
+	sed 's/-Werror//' configure.in
 	intltoolize --force --copy --automake || die
 	eautoreconf
 }
