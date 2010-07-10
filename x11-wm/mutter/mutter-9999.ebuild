@@ -35,7 +35,7 @@ RDEPEND="!gtk3? ( >=x11-libs/gtk+-2.18:2[introspection?] )
 	x11-libs/libXrender
 	>=x11-libs/cairo-1.9.11
 
-	sound? ( media-libs/libcanberra[gtk,gtk3?] )
+	sound? ( >=media-libs/libcanberra-0.25-r1[gtk,gtk3?] )
 	introspection? ( dev-libs/gobject-introspection )
 	xinerama? ( x11-libs/libXinerama )
 	gnome-extra/zenity
