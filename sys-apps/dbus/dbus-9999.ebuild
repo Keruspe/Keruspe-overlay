@@ -40,11 +40,9 @@ src_unpack() {
 }
 
 src_prepare() {
-	sed 's/-Wno-pointer-sign//g' -i configure.in configure || die "sed failed"
+	sed 's/-Wno-pointer-sign//g' -i configure.in || die "sed failed"
 	sed -e 's/.*bus_dispatch_test.*/printf ("Disabled due to excess noise\\n");/' \
 		-e '/"dispatch"/d' -i "${S}/bus/test-main.c"
-	epatch "${FILESDIR}"/${PN}-1.3.0-asneeded.patch
-	epatch "${FILESDIR}"/${PN}-1.3.0-no-cloexec.patch
 	eautoreconf
 }
 
