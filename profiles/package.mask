@@ -11,6 +11,7 @@
 =gnome-base/gnome-shell-9999
 =media-sound/rhythmbox-9999
 =net-misc/pino-9999
+=sys-apps/dbus-9999
 =sys-apps/paludis-9999
 =sys-apps/systemd-9999
 =x11-apps/xcursorgen-9999
