@@ -19,7 +19,7 @@ IUSE="gtk"
 
 RDEPEND="
       >=dev-libs/libcgroup-0.36
-      >=sys-apps/dbus-1.2.24
+      >=sys-apps/dbus-1.3.2
       dev-libs/dbus-glib
 	  >=sys-fs/udev-151
 	  >=sys-kernel/linux-headers-2.6.32
