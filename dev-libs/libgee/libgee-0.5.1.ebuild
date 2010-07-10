@@ -20,3 +20,9 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
 G2CONF="${G2CONF} $(use_enable introspection)"
+
+src_prepare() {
+	has_version ">dev-libs/gobject-introspection-0.6.14" && \
+		sed -i '/repository version=/s/1\.0/1.1/' gee/Gee-1.0.gir
+	gnome2_src_prepare
+}
