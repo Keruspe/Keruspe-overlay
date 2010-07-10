@@ -12,7 +12,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="ask cave cran doc gems inquisitio portage pink python-bindings
+IUSE="ask cran doc gems inquisitio portage pink python-bindings
 ruby-bindings sort-world vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
@@ -74,8 +74,8 @@ src_unpack() {
 
 src_compile() {
 	local repositories=`echo default repository unavailable unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
-	local clients=`echo default accerso appareo adjutrix importare \
-		$(usev inquisitio ) instruo paludis reconcilio $(usev cave) | tr -s \  ,`
+	local clients=`echo default accerso appareo adjutrix cave importare \
+		$(usev inquisitio ) instruo paludis reconcilio | tr -s \  ,`
 	local environments=`echo default $(usev portage ) | tr -s \  ,`
 	econf \
 		$(use_enable doc doxygen ) \
@@ -107,13 +107,10 @@ src_install() {
 	BASHCOMPLETION_NAME="importare" dobashcompletion bash-completion/importare
 	BASHCOMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
 	BASHCOMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
+	BASHCOMPLETION_NAME="cave" dobashcompletion bash-completion/cave
 	use inquisitio && \
 		BASHCOMPLETION_NAME="inquisitio" \
 		dobashcompletion bash-completion/inquisitio
-	use cave && \
-		BASHCOMPLETION_NAME="cave" \
-		dobashcompletion bash-completion/cave
-
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
 		doins zsh-completion/_paludis
@@ -123,7 +120,6 @@ src_install() {
 		doins zsh-completion/_reconcilio
 		use inquisitio && doins zsh-completion/_inquisitio
 		doins zsh-completion/_paludis_packages
-		use cave && doins zsh-completion/_cave
 	fi
 }
 
