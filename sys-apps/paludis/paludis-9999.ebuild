@@ -21,7 +21,7 @@ KEYWORDS="~amd64 ~x86"
 COMMON_DEPEND="
 	>=app-admin/eselect-1.2_rc1
 	>=app-shells/bash-3.2
-	inquisitio? ( dev-libs/libpcre[cxx] )
+	dev-libs/libpcre[cxx]
 	ruby-bindings? ( dev-lang/ruby )
 	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0[python] )
 	gems? ( >=dev-libs/syck-0.55 virtual/rubygems )
@@ -140,13 +140,6 @@ src_test() {
 			eerror "    $a"
 		done
 		die "Make check failed"
-	fi
-}
-
-pkg_postinst() {
-	# Remove the symlink created by app-admin/eselect-news
-	if [[ -L "${ROOT}/var/lib/paludis/news" ]] ; then
-		rm "${ROOT}/var/lib/paludis/news"
 	fi
 }
 
