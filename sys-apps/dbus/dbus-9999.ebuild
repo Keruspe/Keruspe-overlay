@@ -8,7 +8,7 @@ inherit autotools eutils multilib flag-o-matic git
 DESCRIPTION="A message bus system, a simple way for applications to talk to each other"
 HOMEPAGE="http://dbus.freedesktop.org/"
 SRC_URI=""
-EGIT_SRC_URI="git://anongit.freedesktop.org/${PN}/${PN}"
+EGIT_REPO_URI="git://anongit.freedesktop.org/${PN}/${PN}"
 
 LICENSE="|| ( GPL-2 AFL-2.1 )"
 SLOT="0"
