@@ -5,43 +5,40 @@
 EAPI=3
 inherit autotools eutils gnome2
 
-MY_PN=${PN/-gnome}
-MY_P=${MY_PN}-${PV}
-
-DESCRIPTION="GNOME plugin for libsoup"
+DESCRIPTION="An HTTP library implementation in C"
 HOMEPAGE="http://www.gnome.org/"
-SRC_URI="${SRC_URI//-gnome}"
 
 LICENSE="LGPL-2"
 SLOT="2.4"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc introspection"
+IUSE="debug doc gnome introspection ssl"
 
-RDEPEND="~net-libs/libsoup-${PV}
-	gnome-base/gnome-keyring
-	net-libs/libproxy
-	>=gnome-base/gconf-2
-	dev-db/sqlite:3"
+RDEPEND=">=dev-libs/glib-2.21.3
+	>=dev-libs/libxml2-2
+	ssl? ( >=net-libs/gnutls-2.1.7 )"
 DEPEND="${RDEPEND}
-	introspection? ( dev-libs/gobject-introspection )
 	>=dev-util/pkgconfig-0.9
 	dev-util/gtk-doc-am
-	doc? ( >=dev-util/gtk-doc-1 )"
-
-S=${WORKDIR}/${MY_P}
+	doc? ( >=dev-util/gtk-doc-1 )
+	introspection? ( dev-libs/gobject-introspection )"
+PDEPEND="gnome? ( ~net-libs/${PN}-gnome-${PV} )"
 
 DOCS="AUTHORS NEWS README"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
-		$(use_enable introspection)
 		--disable-static
-		--with-libsoup-system
-		--with-gnome"
+		--without-gnome
+		$(use_enable ssl)
+		$(use_enable introspection)"
 }
+
 src_prepare() {
 	gnome2_src_prepare
 	sed -e 's/\(test.*\)==/\1=/g' -i configure.ac configure || die "sed failed"
-	#epatch "${FILESDIR}"/${PN}-system-lib.patch
+	if use doc; then
+		epatch "${FILESDIR}/${PN}-fix-build-without-gnome-with-doc.patch"
+	fi
+	rm -f libsoup/*.gir
 	eautoreconf
 }
