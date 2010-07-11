@@ -15,7 +15,7 @@ SRC_URI="${SRC_URI//-gnome}"
 LICENSE="LGPL-2"
 SLOT="2.4"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc introspection"
+IUSE="debug introspection"
 
 RDEPEND="~net-libs/libsoup-${PV}
 	gnome-base/gnome-keyring
@@ -25,8 +25,7 @@ RDEPEND="~net-libs/libsoup-${PV}
 DEPEND="${RDEPEND}
 	introspection? ( dev-libs/gobject-introspection )
 	>=dev-util/pkgconfig-0.9
-	dev-util/gtk-doc-am
-	doc? ( >=dev-util/gtk-doc-1 )"
+	dev-util/gtk-doc-am"
 
 S=${WORKDIR}/${MY_P}
 
@@ -46,4 +45,10 @@ src_prepare() {
 	rm -f libsoup/*.gir
 	sed -i 's/tests//' Makefile.am
 	eautoreconf
+}
+
+src_install() {
+	gnome2_src_install
+	rm -f ${D}/usr/lib*/pkgconfig/libsoup-2.4.pc
+	rm -rf ${D}/usr/share/gtk-doc
 }
