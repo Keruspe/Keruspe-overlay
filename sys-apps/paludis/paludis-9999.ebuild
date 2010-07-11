@@ -67,8 +67,8 @@ pkg_setup() {
 src_unpack() {
 	scm_src_unpack
 	cd "${S}"
-	use sort-world && epatch ${FILESDIR}/0001-paludis-sort-world.patch
-	use ask && epatch ${FILESDIR}/0002-paludis-ask.patch
+	#use sort-world && epatch ${FILESDIR}/0001-paludis-sort-world.patch
+	#use ask && epatch ${FILESDIR}/0002-paludis-ask.patch
 	./autogen.bash || die "autogen.bash failed"
 }
 
