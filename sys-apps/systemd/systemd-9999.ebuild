@@ -38,6 +38,10 @@ DEPEND="${RDEPEND}
 CFLAGS+=" -g -O0"
 WANT_AUTOMAKE=1.11
 
+src_prepare() {
+	eautoreconf
+}
+
 src_configure() {
 	econf --with-distro=gentoo \
 		$(use_enable gtk) \
