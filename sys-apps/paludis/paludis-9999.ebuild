@@ -77,8 +77,8 @@ src_unpack() {
 }
 
 src_compile() {
-	format_list() { echo default $@ | tr -s \  ,; }
-	local repositories="repository unavailable unpackaged $(usev cran) $(usev gems)"
+	format_list() { echo $@ | tr -s \  ,; }
+	local repositories="default repository unavailable unpackaged $(usev cran) $(usev gems)"
 	local clients="$(usev accerso) $(usev appareo) $(usev adjutrix) \
 		$(usev cave) $(usev importare) $(usev inquisitio) \
 		$(usev instruo) $(usev paludis) $(usev reconcilio)"
