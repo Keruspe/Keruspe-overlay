@@ -12,7 +12,11 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-IUSE="ask cran doc gems inquisitio portage pink python-bindings
+CLIENTS_USE="accerso adjutrix appareo +cave importare inquisitio instruo +paludis reconcilio"
+#use cave || CLIENTS_USE+=" +inquisitio +reconcilio"
+
+IUSE="${CLIENTS_USE}
+ask cran doc gems portage pink python-bindings
 ruby-bindings sort-world vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
@@ -73,10 +77,12 @@ src_unpack() {
 }
 
 src_compile() {
-	local repositories=`echo default repository unavailable unpackaged $(usev cran ) $(usev gems ) | tr -s \  ,`
-	local clients=`echo default accerso appareo adjutrix cave importare \
-		$(usev inquisitio ) instruo paludis reconcilio | tr -s \  ,`
-	local environments=`echo default $(usev portage ) | tr -s \  ,`
+	format_list() { echo default $@ | tr -s \  ,; }
+	local repositories="repository unavailable unpackaged $(usev cran) $(usev gems)"
+	local clients="$(usev accerso) $(usev appareo) $(usev adjutrix) \
+		$(usev cave) $(usev importare) $(usev inquisitio) \
+		$(usev instruo) $(usev paludis) $(usev reconcilio)"
+	local environments="$(usev portage)"
 	econf \
 		$(use_enable doc doxygen ) \
 		$(use_enable pink ) \
@@ -88,9 +94,9 @@ src_compile() {
 		$(use_enable visibility ) \
 		$(use_enable xml ) \
 		--with-vim-install-dir=/usr/share/vim/vimfiles \
-		--with-repositories=${repositories} \
-		--with-clients=${clients} \
-		--with-environments=${environments} \
+		--with-repositories=$(format_list ${repositories}) \
+		--with-clients=$(format_list ${clients}) \
+		--with-environments=$(format_list ${environments}) \
 		--with-git-head="$(git rev-parse HEAD)" \
 		|| die "econf failed"
 
