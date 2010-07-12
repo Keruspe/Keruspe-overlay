@@ -15,16 +15,18 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="gtk"
+IUSE="gtk pam +tcpwrap"
 
 RDEPEND="
       >=dev-libs/libcgroup-0.36
       >=sys-apps/dbus-1.3.2
       dev-libs/dbus-glib
-	  >=sys-fs/udev-151
+	  >=sys-fs/udev-160
 	  >=sys-kernel/linux-headers-2.6.32
 	  sys-libs/libcap
       gtk? ( >=x11-libs/gtk+-2.20 ) 
+	  tcpwrap? ( sys-apps/tcp-wrappers )
+	  pam? ( virtual/pam )
 	  >=dev-lang/vala-0.8
 	  >=app-admin/syslog-ng-3"
 DEPEND="${RDEPEND}
@@ -36,21 +38,21 @@ DEPEND="${RDEPEND}
 CFLAGS+=" -g -O0"
 WANT_AUTOMAKE=1.11
 
-src_prepare() {
-	eautoreconf
-}
-
 src_configure() {
 	econf --with-distro=gentoo \
 		$(use_enable gtk) \
 		--prefix=/usr \
-		--with-rootdir=/
+		--with-rootdir=/ \
+		$(use_enable pam) \
+		$(use_enable tcpwrap)
 }
 
 src_install() {
 	# make sure all directory are created
 	mkdir -p ${D}/cgroup/{cpu,cpuacct,cpuset,debug,devices,freezer,memory,ns,systemd}
 	emake DESTDIR=${D} install
+	dodoc "${D}/usr/share/doc/systemd"/* && \
+	rm -r "${D}/usr/share/doc/systemd/"
 	cd ${D}/usr/share/man/man8/
 	for i in halt poweroff reboot runlevel shutdown telinit; do
 		mv ${i}.8 systemd.${i}.8
