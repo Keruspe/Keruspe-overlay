@@ -12,8 +12,8 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-CLIENTS_USE="accerso adjutrix appareo +cave importare inquisitio instruo +paludis reconcilio"
-#use cave || CLIENTS_USE+=" +inquisitio +reconcilio"
+CLIENTS_USE="accerso adjutrix appareo +cave importare +inquisitio instruo
++paludis +reconcilio"
 
 IUSE="${CLIENTS_USE}
 ask cran doc gems portage pink python-bindings
@@ -72,7 +72,7 @@ src_unpack() {
 	scm_src_unpack
 	cd "${S}"
 	#use sort-world && epatch ${FILESDIR}/0001-paludis-sort-world.patch
-	#use ask && epatch ${FILESDIR}/0002-paludis-ask.patch
+	use ask && epatch ${FILESDIR}/0002-paludis-ask.patch
 	./autogen.bash || die "autogen.bash failed"
 }
 
@@ -82,7 +82,7 @@ src_compile() {
 	local clients="$(usev accerso) $(usev appareo) $(usev adjutrix) \
 		$(usev cave) $(usev importare) $(usev inquisitio) \
 		$(usev instruo) $(usev paludis) $(usev reconcilio)"
-	local environments="$(usev portage)"
+	local environments="default $(usev portage)"
 	econf \
 		$(use_enable doc doxygen ) \
 		$(use_enable pink ) \
@@ -107,23 +107,21 @@ src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	dodoc AUTHORS README NEWS
 
-	BASHCOMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
-	BASHCOMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
-	BASHCOMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
-	BASHCOMPLETION_NAME="importare" dobashcompletion bash-completion/importare
-	BASHCOMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
-	BASHCOMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
-	BASHCOMPLETION_NAME="cave" dobashcompletion bash-completion/cave
-	use inquisitio && \
-		BASHCOMPLETION_NAME="inquisitio" \
-		dobashcompletion bash-completion/inquisitio
+	use adjutrix && BASHCOMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
+	use paludis && BASHCOMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
+	use accerso && BASHCOMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
+	use importare && BASHCOMPLETION_NAME="importare" dobashcompletion bash-completion/importare
+	use instruo && BASHCOMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
+	use reconcilio && BASHCOMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
+	use cave && BASHCOMPLETION_NAME="cave" dobashcompletion bash-completion/cave
+	use inquisitio && BASHCOMPLETION_NAME="inquisitio" dobashcompletion bash-completion/inquisitio
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
-		doins zsh-completion/_paludis
-		doins zsh-completion/_adjutrix
-		doins zsh-completion/_cave
-		doins zsh-completion/_importare
-		doins zsh-completion/_reconcilio
+		use paludis && doins zsh-completion/_paludis
+		use adjutrix && doins zsh-completion/_adjutrix
+		use cave && doins zsh-completion/_cave
+		use importare && doins zsh-completion/_importare
+		use reconcilio && doins zsh-completion/_reconcilio
 		use inquisitio && doins zsh-completion/_inquisitio
 		doins zsh-completion/_paludis_packages
 	fi
