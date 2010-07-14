@@ -11,20 +11,20 @@ LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cc-embedding map nautilus-sendto networkmanager spell test webkit"
+IUSE="nautilus-sendto networkmanager spell test webkit" #cc-embedding map
 
 RDEPEND=">=dev-libs/glib-2.16.0
-	>=x11-libs/gtk+-2.21.2
+	x11-libs/gtk+:3
 	>=gnome-base/gconf-2
 	>=dev-libs/dbus-glib-0.51
 	>=gnome-extra/evolution-data-server-1.2
 	>=net-libs/telepathy-glib-0.11.7
 	>=media-libs/libcanberra-0.4[gtk]
-	>=x11-libs/libnotify-0.4.4
+	>=x11-libs/libnotify-0.5.1
 	>=gnome-base/gnome-keyring-2.22
 
 	nautilus-sendto? ( gnome-extra/nautilus-sendto )
-	>=dev-libs/libunique-0.1.2
+	dev-libs/libunique:3
 	net-libs/farsight2
 	media-libs/gstreamer:0.10
 	media-libs/gst-plugins-base:0.10
@@ -33,17 +33,16 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	x11-libs/libX11
 	net-voip/telepathy-connection-managers
 
-	map? (
-		>=media-libs/libchamplain-0.4
-		>=media-libs/clutter-gtk-0.10:1.0 
-		>=gnome-extra/geoclue-0.11.1 )
 	networkmanager? ( >=net-misc/networkmanager-0.7 )
 	spell? (
 		app-text/enchant
 		app-text/iso-codes )
-	webkit? ( >=net-libs/webkit-gtk-1.1.7 )
-	cc-embedding? ( =gnome-base/gnome-control-center-9999 )
+	webkit? ( >=net-libs/webkit-gtk-1.3.3[gtk3] )
 "
+	#map? (
+#		>=media-libs/libchamplain-0.4
+#		>=media-libs/clutter-gtk-0.10:1.0 
+#		>=gnome-extra/geoclue-0.11.1 )
 DEPEND="${RDEPEND}
 	>=app-text/gnome-doc-utils-0.17.3
 	>=dev-util/intltool-0.35.0
@@ -66,21 +65,17 @@ G2CONF="${G2CONF}
 	--disable-static
 	$(use_enable nautilus-sendto)
 	$(use_with networkmanager connectivity nm)
-	$(use_enable map)
-	$(use_enable map location)
 	$(use_enable spell)
 	$(use_enable test coding-style-checks)
 	$(use_enable webkit)
-	$(use_enable cc-embedding control-center-embedding)
 "
+	#$(use_enable map)
+	#$(use_enable map location)
+	#$(use_enable cc-embedding control-center-embedding)
 
 src_prepare() {
 	sed -i "s:-Werror::g" configure || die "sed 1 failed"
 	gnome2_src_prepare
-	if use map; then
-		epatch ${FILESDIR}/allow-champlain-0.6.patch
-		eautoreconf
-	fi
 }
 
 src_test() {

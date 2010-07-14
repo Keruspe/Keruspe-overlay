@@ -17,7 +17,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.19.1
 	>=x11-libs/libnotify-0.4.3
 	>=gnome-base/gconf-2.6
 	>=dev-libs/dbus-glib-0.74
-	dev-libs/libunique
+	dev-libs/libunique:0
 	nautilus? ( >=gnome-extra/nautilus-sendto-2.28.0.1[-bluetooth] )"
 RDEPEND="${COMMON_DEPEND}
 	>=net-wireless/bluez-4.34

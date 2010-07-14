@@ -20,7 +20,7 @@ RDEPEND=">=dev-libs/glib-2.16
 	>=x11-libs/vte-0.13.1
 	>=dev-libs/libxml2-2.4.23
 	>=dev-libs/gdl-2.27.1
-	>=dev-libs/libunique-1
+	>=dev-libs/libunique-1:0
 
 	dev-libs/libxslt
 	>=dev-lang/perl-5

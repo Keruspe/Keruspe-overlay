@@ -24,7 +24,7 @@ RDEPEND="x11-libs/gtk+:2
 	net-libs/libsoup:2.4
 	dev-libs/libxml2
 	>=net-libs/webkit-gtk-1.0
-	>=dev-libs/libunique-1.0
+	>=dev-libs/libunique-1.0:0
 	app-text/gtkspell
 	indicate? ( dev-libs/libindicate )"
 DEPEND="${RDEPEND}

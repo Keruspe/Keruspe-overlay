@@ -18,7 +18,7 @@ RDEPEND="
 	>=dev-libs/glib-2.16
 	>=dev-libs/libxml2-2
 	dev-libs/libxslt
-	dev-libs/libunique
+	dev-libs/libunique:0
 	sys-libs/readline
 	sys-libs/ncurses
 	>=net-libs/libsoup-2.24:2.4

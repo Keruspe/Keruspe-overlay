@@ -13,7 +13,7 @@ SRC_URI="http://www.webkitgtk.org/${MY_P}.tar.gz"
 LICENSE="LGPL-2 LGPL-2.1 BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="coverage debug doc geoclue +gstreamer introspection"
+IUSE="coverage debug doc geoclue +gstreamer +gtk3 introspection"
 
 RDEPEND="
 	dev-libs/libxml2
@@ -22,6 +22,7 @@ RDEPEND="
 	media-libs/libpng
 	x11-libs/cairo
 	>=x11-libs/gtk+-2.13
+	gtk3? ( x11-libs/gtk+:3 )
 	>=dev-libs/glib-2.21.3
 	>=dev-libs/icu-3.8.1-r1
 	>=net-libs/libsoup-2.29.90
@@ -69,6 +70,7 @@ src_configure() {
 		$(use_enable gstreamer video)
 		$(use_enable introspection)
 		"
+	use gtk3 && myconf+=" --with-gtk=3.0"
 	use introspection && myconf+=" --enable-geolocation"
 
 	econf ${myconf}

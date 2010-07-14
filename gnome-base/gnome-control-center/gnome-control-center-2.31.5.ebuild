@@ -15,7 +15,7 @@ IUSE="policykit"
 
 RDEPEND="x11-libs/libXft
 	>=x11-libs/libXi-1.2
-	>=x11-libs/gtk+-2.18.0
+	x11-libs/gtk+:3
 	>=dev-libs/glib-2.17.4
 	>=gnome-base/gconf-2.0
 	>=gnome-base/librsvg-2.0
@@ -28,7 +28,7 @@ RDEPEND="x11-libs/libXft
 	>=gnome-base/gnome-menus-2.11.1
 	gnome-base/gnome-settings-daemon
 
-	dev-libs/libunique
+	dev-libs/libunique:0
 	x11-libs/pango
 	dev-libs/libxml2
 	media-libs/freetype
