@@ -12,7 +12,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-CLIENTS_USE="accerso adjutrix appareo +cave importare +inquisitio instruo
+CLIENTS_USE="accerso adjutrix appareo +cave importare inquisitio instruo
 +paludis +reconcilio"
 
 IUSE="${CLIENTS_USE}
