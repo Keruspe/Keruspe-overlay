@@ -14,7 +14,7 @@ LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="python"
+IUSE="doc python"
 
 RDEPEND=">=dev-libs/glib-2.23.6:2
 	>=dev-libs/gobject-introspection-0.6.7
