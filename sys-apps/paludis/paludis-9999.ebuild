@@ -12,8 +12,8 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-CLIENTS_USE="accerso adjutrix appareo +cave importare inquisitio instruo
-+paludis +reconcilio"
+CLIENTS_USE="accerso adjutrix appareo +cave importare inquisitio instruo +reconcilio"
+#paludis necessary for now
 
 IUSE="${CLIENTS_USE}
 ask cran doc gems portage pink python-bindings
@@ -81,7 +81,7 @@ src_compile() {
 	local repositories="default repository unavailable unpackaged $(usev cran) $(usev gems)"
 	local clients="$(usev accerso) $(usev appareo) $(usev adjutrix) \
 		$(usev cave) $(usev importare) $(usev inquisitio) \
-		$(usev instruo) $(usev paludis) $(usev reconcilio)"
+		$(usev instruo) paludis $(usev reconcilio)"
 	local environments="default $(usev portage)"
 	econf \
 		$(use_enable doc doxygen ) \
@@ -108,7 +108,7 @@ src_install() {
 	dodoc AUTHORS README NEWS
 
 	use adjutrix && BASHCOMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
-	use paludis && BASHCOMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
+	BASHCOMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
 	use accerso && BASHCOMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
 	use importare && BASHCOMPLETION_NAME="importare" dobashcompletion bash-completion/importare
 	use instruo && BASHCOMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
@@ -117,7 +117,7 @@ src_install() {
 	use inquisitio && BASHCOMPLETION_NAME="inquisitio" dobashcompletion bash-completion/inquisitio
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
-		use paludis && doins zsh-completion/_paludis
+		doins zsh-completion/_paludis
 		use adjutrix && doins zsh-completion/_adjutrix
 		use cave && doins zsh-completion/_cave
 		use importare && doins zsh-completion/_importare
