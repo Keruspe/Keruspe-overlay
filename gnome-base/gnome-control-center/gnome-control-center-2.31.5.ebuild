@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit eutils gnome2
+inherit gnome2
 
 DESCRIPTION="The gnome2 Desktop configuration tool"
 HOMEPAGE="http://www.gnome.org/"
@@ -11,11 +11,11 @@ HOMEPAGE="http://www.gnome.org/"
 LICENSE="GPL-2"
 SLOT="2"
 KEYWORDS="~amd64 ~x86"
-IUSE="policykit"
+IUSE=""
 
 RDEPEND="x11-libs/libXft
 	>=x11-libs/libXi-1.2
-	x11-libs/gtk+:3
+	>=x11-libs/gtk+-2.90.0:3
 	>=dev-libs/glib-2.17.4
 	>=gnome-base/gconf-2.0
 	>=gnome-base/librsvg-2.0
@@ -23,8 +23,8 @@ RDEPEND="x11-libs/libXft
 	>=media-libs/fontconfig-1
 	>=dev-libs/dbus-glib-0.73
 	>=x11-libs/libxklavier-4.0
-	>=gnome-base/libgnomekbd-2.27.4
-	>=gnome-base/gnome-desktop-2.29.4
+	>=gnome-base/libgnomekbd-2.31.2
+	>=gnome-base/gnome-desktop-2.29.4:3
 	>=gnome-base/gnome-menus-2.11.1
 	gnome-base/gnome-settings-daemon
 
@@ -32,9 +32,7 @@ RDEPEND="x11-libs/libXft
 	x11-libs/pango
 	dev-libs/libxml2
 	media-libs/freetype
-	>=media-libs/libcanberra-0.4[gtk]
-
-	policykit? ( >=gnome-base/gconf-2.28[policykit] )
+	>=media-libs/libcanberra-0.4[gtk3]
 
 	x11-apps/xmodmap
 	x11-libs/libXScrnSaver
@@ -67,11 +65,6 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		--disable-update-mimedb
 		--disable-static"
-}
-
-src_prepare() {
-	gnome2_src_prepare
-	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in || die "sed failed"
 }
 
 src_install() {
