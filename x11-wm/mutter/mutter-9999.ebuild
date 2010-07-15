@@ -13,10 +13,9 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug +gtk3 introspection +sound test xinerama"
+IUSE="debug introspection +sound test xinerama"
 
-RDEPEND="!gtk3? ( >=x11-libs/gtk+-2.18:2[introspection?] )
-	gtk3? ( x11-libs/gtk+:3[introspection?] )
+RDEPEND=">=x11-libs/gtk+-2.90:3[introspection?]
 	>=x11-libs/pango-1.28[X,introspection?]
 	>=gnome-base/gconf-2
 	>=dev-libs/glib-2.14
@@ -33,9 +32,9 @@ RDEPEND="!gtk3? ( >=x11-libs/gtk+-2.18:2[introspection?] )
 	x11-libs/libXfixes
 	x11-libs/libXrandr
 	x11-libs/libXrender
-	>=x11-libs/cairo-1.9.11
+	>=x11-libs/cairo-1.9.12
 
-	sound? ( >=media-libs/libcanberra-0.25-r1[gtk,gtk3?] )
+	sound? ( >=media-libs/libcanberra-0.25-r1[gtk3] )
 	introspection? ( dev-libs/gobject-introspection )
 	xinerama? ( x11-libs/libXinerama )
 	gnome-extra/zenity
@@ -60,15 +59,15 @@ pkg_setup() {
 		--enable-startup-notification
 		--enable-xsync
 		--enable-verbose-mode
+		--enable-compile-warnings
+		--with-gtk=3.0
 		$(use_with sound libcanberra)
 		$(use_with introspection)
 		$(use_enable xinerama)"
-		use gtk3 && G2CONF+=" --with-gtk=3.0"
 }
 
 src_prepare() {
 	gnome2_src_prepare
-	sed -i 's/-Werror//' configure.in
 	intltoolize --force --copy --automake || die
 	eautoreconf
 }
