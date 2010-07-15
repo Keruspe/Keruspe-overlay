@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-PYTHON_DEPEND=2:2.6
+PYTHON_DEPEND=2:2.5
 inherit autotools gnome2 git python
 
 DESCRIPTION="Introspection infrastructure for gobject library bindings"
@@ -17,12 +17,12 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 RDEPEND=">=dev-libs/glib-2.19.0
-	>=dev-lang/python-2.5
 	virtual/libffi"
 DEPEND="${RDEPEND}
 	>=dev-util/gtk-doc-1.12
 	dev-util/pkgconfig
-	sys-devel/flex"
+	sys-devel/flex
+	test? ( x11-libs/cairo )"
 
 src_prepare() {
 	G2CONF="${G2CONF} --disable-static"
@@ -38,7 +38,7 @@ src_unpack() {
 }
 
 src_configure() {
-	econf $(use_enable test tests)
+	econf $(use_enable test tests) || die "econf failed"
 }
 
 pkg_postinst() {
