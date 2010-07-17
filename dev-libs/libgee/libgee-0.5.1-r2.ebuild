@@ -26,3 +26,9 @@ src_prepare() {
 		sed -i '/repository version=/s/1\.0/1.1/' gee/Gee-1.0.gir
 	gnome2_src_prepare
 }
+
+src_install() {
+	DOCS="AUTHORS ChangeLog* MAINTAINERS NEWS README"
+	gnome2_src_install
+	rm "${D}"/usr/lib*/*.la
+}
