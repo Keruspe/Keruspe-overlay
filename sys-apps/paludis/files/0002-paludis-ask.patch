@@ -1,32 +1,32 @@
-From b1e1757c72b4c1bf04c637909edf47c348e01951 Mon Sep 17 00:00:00 2001
+From c9b9a5ef893b5030886cabbb48c10d65d75b2397 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
-Date: Sun, 27 Jun 2010 16:18:02 +0200
-Subject: [PATCH 2/2] paludis ask
+Date: Mon, 26 Jul 2010 18:38:14 +0200
+Subject: [PATCH 2/3] paludis ask
 
 ---
  bash-completion/paludis            |    2 ++
- doc/faq/misfunctionality.html.part |    8 --------
- paludis/args/install_args_group.cc |    2 ++
+ doc/faq/misfunctionality.html.part |    9 ---------
+ paludis/args/install_args_group.cc |    1 +
  paludis/args/install_args_group.hh |    3 +++
  paludis/install_task.cc            |   22 ++++++++++++++++++++++
  paludis/install_task.hh            |    3 +++
- paludis/uninstall_task.cc          |   11 +++++++++++
+ paludis/uninstall_task.cc          |   12 ++++++++++++
  paludis/uninstall_task.hh          |    3 +++
  src/clients/paludis/uninstall.cc   |   20 ++++++++++++++++++++
  src/output/console_install_task.cc |   22 ++++++++++++++++++++++
  src/output/console_install_task.hh |    2 ++
  zsh-completion/_paludis            |    1 +
- 12 files changed, 91 insertions(+), 8 deletions(-)
+ 12 files changed, 91 insertions(+), 9 deletions(-)
 
 diff --git a/bash-completion/paludis b/bash-completion/paludis
-index 832bac7..09cc5e8 100644
+index 832bac7..770f78c 100644
 --- a/bash-completion/paludis
 +++ b/bash-completion/paludis
 @@ -98,6 +98,7 @@ _paludis() {
          --compact \
          --no-compact"
      install_opts="--pretend -p \
-+        --ask -a \
++        --ask -? \
          --destinations -d \
          --preserve-world -1 \
          --add-to-world-spec \
@@ -34,15 +34,23 @@ index 832bac7..09cc5e8 100644
          --compact \
          ${deplist_opts}"
      uninstall_opts="--pretend -p \
-+        --ask -a \
++        --ask -? \
          --destinations -d \
          --preserve-world -1 \
          --show-reasons \
 diff --git a/doc/faq/misfunctionality.html.part b/doc/faq/misfunctionality.html.part
-index a43287f..6416974 100644
+index a43287f..ef6ba64 100644
 --- a/doc/faq/misfunctionality.html.part
 +++ b/doc/faq/misfunctionality.html.part
-@@ -63,14 +63,6 @@ elegant.</p>
+@@ -6,7 +6,6 @@
+     <li><a href="misfunctionality.html#wgetresume">wget Resume Support</a></li>
+     <li><a href="misfunctionality.html#skipfirst">Build Resume / Skip First Support</a></li>
+     <li><a href="misfunctionality.html#nice">No Automatic Niceness Support</a></li>
+-    <li><a href="misfunctionality.html#ask">No Ask Support</a></li>
+     <li><a href="misfunctionality.html#xtermtitles">Restoring XTerm Titles</a></li>
+     <li><a href="misfunctionality.html#ecompress">No Automatic Manpage / Documentation Compression</a></li>
+ </ul>
+@@ -63,14 +62,6 @@ elegant.</p>
  <p>Rationale: Learn how to use <code>nice</code>. There's no
  <code>GCC_NICENESS</code> or <code>VIM_NICENESS</code> either.</p>
  
@@ -58,27 +66,19 @@ index a43287f..6416974 100644
  
  <p>Non-Problem: Paludis doesn't restore the xterm title on exit.</p>
 diff --git a/paludis/args/install_args_group.cc b/paludis/args/install_args_group.cc
-index afb8533..e135c4a 100644
+index efbb948..c9306cd 100644
 --- a/paludis/args/install_args_group.cc
 +++ b/paludis/args/install_args_group.cc
 @@ -33,6 +33,7 @@ InstallArgsGroup::InstallArgsGroup(ArgsSection * h, const std::string & our_name
      ArgsGroup(h, our_name, our_description),
  
      a_pretend(this, "pretend", 'p', "Pretend only", false),
-+    a_ask(this, "ask", 'a', "Ask before executing", false),
++    a_ask(this, "ask", '?', "Ask before executing", false),
      a_destinations(this, "destinations", 'd', "Use specified destinations instead of defaults"),
      a_preserve_world(this, "preserve-world", '1', "Don't modify the world file", true),
      a_add_to_world_spec(this, "add-to-world-spec", '\0',
-@@ -121,6 +122,7 @@ InstallArgsGroup::populate_install_task(const Environment *, InstallTask & task)
- {
-     task.set_fetch_only(a_fetch.specified());
-     task.set_pretend(a_pretend.specified());
-+    task.set_ask(a_ask.specified());
-     task.set_preserve_world(a_preserve_world.specified());
-     task.set_safe_resume(! a_no_safe_resume.specified());
- 
 diff --git a/paludis/args/install_args_group.hh b/paludis/args/install_args_group.hh
-index 4f392f8..9ce79ba 100644
+index 2220467..4811634 100644
 --- a/paludis/args/install_args_group.hh
 +++ b/paludis/args/install_args_group.hh
 @@ -64,6 +64,9 @@ namespace paludis
@@ -92,26 +92,26 @@ index 4f392f8..9ce79ba 100644
                  paludis::args::StringSetArg a_destinations;
  
 diff --git a/paludis/install_task.cc b/paludis/install_task.cc
-index c1938bb..588b467 100644
+index 5957fa9..2b9c392 100644
 --- a/paludis/install_task.cc
 +++ b/paludis/install_task.cc
-@@ -131,6 +131,7 @@ namespace paludis
-         std::tr1::shared_ptr<const DestinationsSet> destinations;
+@@ -128,6 +128,7 @@ namespace paludis
+         std::shared_ptr<const DestinationsSet> destinations;
  
          bool pretend;
 +        bool ask;
          bool fetch_only;
          bool preserve_world;
          bool safe_resume;
-@@ -158,6 +159,7 @@ namespace paludis
-             targets(new SetSpecTree(make_shared_ptr(new AllDepSpec))),
+@@ -155,6 +156,7 @@ namespace paludis
+             targets(std::make_shared<SetSpecTree>(std::make_shared<AllDepSpec>())),
              destinations(d),
              pretend(false),
 +            ask(false),
              fetch_only(false),
              preserve_world(false),
              safe_resume(false),
-@@ -802,6 +804,9 @@ InstallTask::_pretend()
+@@ -799,6 +801,9 @@ InstallTask::_pretend()
  
      on_pretend_all_post();
  
@@ -121,7 +121,7 @@ index c1938bb..588b467 100644
      if (_imp->pretend)
      {
          if (0 != perform_hook(Hook("install_pretend_post")
-@@ -1315,6 +1320,17 @@ InstallTask::execute()
+@@ -1312,6 +1317,17 @@ InstallTask::execute()
                  ("DEPLIST_HAS_ERRORS", stringify(_imp->dep_list.has_errors()))
                  ).max_exit_status())
          throw ActionAbortedError("Install task execute aborted by hook");
@@ -139,7 +139,7 @@ index c1938bb..588b467 100644
  }
  
  const DepList &
-@@ -1336,6 +1352,12 @@ InstallTask::set_pretend(const bool value)
+@@ -1333,6 +1349,12 @@ InstallTask::set_pretend(const bool value)
  }
  
  void
@@ -153,10 +153,10 @@ index c1938bb..588b467 100644
  {
      _imp->preserve_world = value;
 diff --git a/paludis/install_task.hh b/paludis/install_task.hh
-index f0d0287..68eda56 100644
+index c1b077c..7808a03 100644
 --- a/paludis/install_task.hh
 +++ b/paludis/install_task.hh
-@@ -110,6 +110,7 @@ namespace paludis
+@@ -111,6 +111,7 @@ namespace paludis
  
              void set_fetch_only(const bool value);
              void set_pretend(const bool value);
@@ -164,7 +164,7 @@ index f0d0287..68eda56 100644
              void set_preserve_world(const bool value);
              void set_add_to_world_spec(const std::string &);
              void set_safe_resume(const bool);
-@@ -165,6 +166,8 @@ namespace paludis
+@@ -166,6 +167,8 @@ namespace paludis
              virtual void on_pretend_post(const DepListEntry &) = 0;
              virtual void on_pretend_all_post() = 0;
  
@@ -174,11 +174,11 @@ index f0d0287..68eda56 100644
              virtual void on_fetch_pre(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
              virtual void on_fetch_post(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
 diff --git a/paludis/uninstall_task.cc b/paludis/uninstall_task.cc
-index 70ea16e..a44269c 100644
+index 7dcd3ca..7ae69b4 100644
 --- a/paludis/uninstall_task.cc
 +++ b/paludis/uninstall_task.cc
 @@ -92,6 +92,7 @@ namespace paludis
-         std::list<std::tr1::shared_ptr<const PackageDepSpec> > targets;
+         std::list<std::shared_ptr<const PackageDepSpec> > targets;
  
          bool pretend;
 +        bool ask;
@@ -186,10 +186,10 @@ index 70ea16e..a44269c 100644
          bool all_versions;
          bool with_unused_dependencies;
 @@ -105,6 +106,7 @@ namespace paludis
-         Implementation<UninstallTask>(Environment * const e) :
+         Imp<UninstallTask>(Environment * const e) :
              env(e),
              pretend(false),
-+            ask(false),    
++            ask(false),
              preserve_world(false),
              all_versions(false),
              with_unused_dependencies(false),
@@ -206,21 +206,22 @@ index 70ea16e..a44269c 100644
  UninstallTask::set_preserve_world(const bool v)
  {
      _imp->preserve_world = v;
-@@ -310,6 +318,9 @@ UninstallTask::execute()
+@@ -310,6 +318,10 @@ UninstallTask::execute()
          return;
      }
  
 +    if (_imp->ask && ! on_ask())
 +        return;
 +
++
      if (_imp->preserve_world)
          on_preserve_world();
      else
 diff --git a/paludis/uninstall_task.hh b/paludis/uninstall_task.hh
-index b2af2f9..6ec2576 100644
+index e646557..b4db4f1 100644
 --- a/paludis/uninstall_task.hh
 +++ b/paludis/uninstall_task.hh
-@@ -112,6 +112,7 @@ namespace paludis
+@@ -113,6 +113,7 @@ namespace paludis
              ///\{
  
              void set_pretend(const bool value);
@@ -228,7 +229,7 @@ index b2af2f9..6ec2576 100644
              void set_preserve_world(const bool value);
              void set_all_versions(const bool value);
              void set_with_unused_dependencies(const bool value);
-@@ -138,6 +139,8 @@ namespace paludis
+@@ -139,6 +140,8 @@ namespace paludis
              virtual void on_display_unmerge_list_post() = 0;
              virtual void on_display_unmerge_list_entry(const UninstallListEntry &) = 0;
  
@@ -238,7 +239,7 @@ index b2af2f9..6ec2576 100644
              virtual void on_uninstall_pre(const UninstallListEntry &) = 0;
              virtual void on_uninstall_post(const UninstallListEntry &) = 0;
 diff --git a/src/clients/paludis/uninstall.cc b/src/clients/paludis/uninstall.cc
-index 60f9ff3..2ce3105 100644
+index 0298340..a7c5b51 100644
 --- a/src/clients/paludis/uninstall.cc
 +++ b/src/clients/paludis/uninstall.cc
 @@ -163,6 +163,25 @@ namespace
@@ -276,10 +277,10 @@ index 60f9ff3..2ce3105 100644
          task.set_with_unused_dependencies(CommandLine::get_instance()->a_with_unused_dependencies.specified());
          task.set_with_dependencies(CommandLine::get_instance()->a_with_dependencies.specified());
 diff --git a/src/output/console_install_task.cc b/src/output/console_install_task.cc
-index e9dacaa..f92e66e 100644
+index feb9b49..49b5569 100644
 --- a/src/output/console_install_task.cc
 +++ b/src/output/console_install_task.cc
-@@ -574,6 +574,28 @@ ConsoleInstallTask::on_pretend_all_post()
+@@ -572,6 +572,28 @@ ConsoleInstallTask::on_pretend_all_post()
  {
  }
  
@@ -309,7 +310,7 @@ index e9dacaa..f92e66e 100644
  ConsoleInstallTask::on_fetch_all_pre()
  {
 diff --git a/src/output/console_install_task.hh b/src/output/console_install_task.hh
-index 422ab5f..9d4d2f3 100644
+index ca4392e..fe09087 100644
 --- a/src/output/console_install_task.hh
 +++ b/src/output/console_install_task.hh
 @@ -145,6 +145,8 @@ namespace paludis
@@ -322,17 +323,17 @@ index 422ab5f..9d4d2f3 100644
              virtual void on_fetch_pre(const DepListEntry &, const int x, const int y, const int s, const int f);
              virtual void on_fetch_post(const DepListEntry &, const int x, const int y, const int s, const int f);
 diff --git a/zsh-completion/_paludis b/zsh-completion/_paludis
-index f3fb939..8049d1f 100644
+index f3fb939..e32cad4 100644
 --- a/zsh-completion/_paludis
 +++ b/zsh-completion/_paludis
 @@ -19,6 +19,7 @@ _paludis() {
  
      install_uninstall_args=(
          "(--pretend -p)"{--pretend,-p}"[Pretend only]"
-+        "(--ask -a)"{--ask,-a}"[Ask before executing]"
++        "(--ask -?)"{--ask,-?}"[Ask before executing]"
          "(--destinations -d)"{--destinations,-d}"[Use specified destinations instead of defaults]:Destinations:_paludis_packages repositories"
          "(--preserve-world -1)"{--preserve-world,-1}"[Don't modify the world file]"
          "--add-to-world-spec[Use this atom, rather than all targets, for updating world (for resume commands)]"
 -- 
-1.7.1
+1.7.2
 

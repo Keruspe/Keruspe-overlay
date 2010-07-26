@@ -1,0 +1,146 @@
+From 5d0dfacd47250fb282087d070d5d1d5b8b34499d Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Mon, 26 Jul 2010 18:47:59 +0200
+Subject: [PATCH 3/3] cave resolve ask
+
+---
+ src/clients/cave/cmd_execute_resolution.cc |   31 ++++++++++++++++++++++++++++
+ src/clients/cave/cmd_resolve.cc            |    6 ++--
+ src/clients/cave/cmd_resolve_cmdline.cc    |    1 +
+ src/clients/cave/cmd_resolve_cmdline.hh    |    1 +
+ src/clients/cave/resolve_common.cc         |    2 +
+ zsh-completion/_cave                       |    1 +
+ 6 files changed, 39 insertions(+), 3 deletions(-)
+
+diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
+index 7fcdf92..7af0dd9 100644
+--- a/src/clients/cave/cmd_execute_resolution.cc
++++ b/src/clients/cave/cmd_execute_resolution.cc
+@@ -100,6 +100,7 @@ namespace
+     {
+         args::ArgsGroup g_general_options;
+         args::SwitchArg a_pretend;
++        args::SwitchArg a_ask;
+         args::SwitchArg a_set;
+         args::StringSetArg a_world_specs;
+ 
+@@ -110,6 +111,7 @@ namespace
+         ExecuteResolutionCommandLine() :
+             g_general_options(main_options_section(), "General Options", "General options."),
+             a_pretend(&g_general_options, "pretend", '\0', "Only carry out the pretend action", false),
++            a_ask(&g_general_options, "ask", '\0', "Ask before executing", false),
+             a_set(&g_general_options, "set", '\0', "Our target is a set rather than package specs", false),
+             a_world_specs(&g_general_options, "world-specs", '\0', "Use the specified spec or set name for updating world"),
+             execution_options(this),
+@@ -207,6 +209,29 @@ namespace
+         return 0 == retcode;
+     }
+ 
++    bool do_ask()
++    {
++        Context context("When asking to execute :");
++
++        //if (count<max_count>() == 0)
++            //return true;
++        std::string answer;
++        cout << std::endl;
++        cout << "Do you really want to do this ? [Y/n] ... ";
++        while (true)
++        {
++            getline(std::cin, answer);
++            for (unsigned i(0) ; i < answer.length() ; ++i)
++                answer[i] = tolower(answer[i]);
++            if (answer == "no" || answer == "n")
++                return false;
++            else if (answer == "yes" || answer == "ye" || answer == "y" || answer == "")
++                return true;
++            cout << endl;
++            cout << "Unknown answer : " + answer + " [Y/n] ... ";
++        }
++    }
++
+     std::string maybe_replacing(
+             const std::shared_ptr<Environment> & env,
+             const std::shared_ptr<const PackageIDSequence> & ids,
+@@ -1388,6 +1413,12 @@ namespace
+         int retcode(0);
+ 
+         retcode |= execute_pretends(env, lists, cmdline);
++
++        if (! cmdline.a_pretend.specified() && cmdline.a_ask.specified())
++            if(! do_ask())
++               return retcode;
++               //set pretend
++
+         if (0 != retcode || cmdline.a_pretend.specified())
+             return retcode;
+ 
+diff --git a/src/clients/cave/cmd_resolve.cc b/src/clients/cave/cmd_resolve.cc
+index b3dab40..38f07d2 100644
+--- a/src/clients/cave/cmd_resolve.cc
++++ b/src/clients/cave/cmd_resolve.cc
+@@ -47,9 +47,9 @@ namespace
+             display_options(this),
+             program_options(this)
+         {
+-            add_usage_line("[ -x|--execute ] [ -z|--lazy or -c|--complete or -e|--everything ] spec ...");
+-            add_usage_line("[ -x|--execute ] [ -z|--lazy or -c|--complete or -e|--everything ] set");
+-            add_usage_line("[ -x|--execute ] !spec ...");
++            add_usage_line("[ -x|--execute ] [ -?|--ask ] [ -z|--lazy or -c|--complete or -e|--everything ] spec ...");
++            add_usage_line("[ -x|--execute ] [ -?|--ask ] [ -z|--lazy or -c|--complete or -e|--everything ] set");
++            add_usage_line("[ -x|--execute ] [ -?|--ask ] !spec ...");
+         }
+ 
+         std::string app_name() const
+diff --git a/src/clients/cave/cmd_resolve_cmdline.cc b/src/clients/cave/cmd_resolve_cmdline.cc
+index 16b8da4..e9283bf 100644
+--- a/src/clients/cave/cmd_resolve_cmdline.cc
++++ b/src/clients/cave/cmd_resolve_cmdline.cc
+@@ -46,6 +46,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
+     ArgsSection(h, "Resolution Options"),
+     g_execution_options(this, "Execution Options", "Control execution."),
+     a_execute(&g_execution_options, "execute", 'x', "Execute the suggested actions", true),
++    a_execute(&g_execution_options, "ask", '?', "Ask before executing", true),
+ 
+     g_convenience_options(this, "Convenience Options", "Broad behaviour options."),
+     a_lazy(&g_convenience_options, "lazy", 'z', "Do as little work as possible.", true),
+diff --git a/src/clients/cave/cmd_resolve_cmdline.hh b/src/clients/cave/cmd_resolve_cmdline.hh
+index e23b337..a30a696 100644
+--- a/src/clients/cave/cmd_resolve_cmdline.hh
++++ b/src/clients/cave/cmd_resolve_cmdline.hh
+@@ -36,6 +36,7 @@ namespace paludis
+ 
+             args::ArgsGroup g_execution_options;
+             args::SwitchArg a_execute;
++            args::SwitchArg a_ask;
+ 
+             args::ArgsGroup g_convenience_options;
+             args::SwitchArg a_lazy;
+diff --git a/src/clients/cave/resolve_common.cc b/src/clients/cave/resolve_common.cc
+index 06a0c39..b5f34f1 100644
+--- a/src/clients/cave/resolve_common.cc
++++ b/src/clients/cave/resolve_common.cc
+@@ -1470,6 +1470,8 @@ namespace
+ 
+         if (! resolution_options.a_execute.specified())
+             args->push_back("--pretend");
++        else if (resolution_options.a_ask.specified())
++            args->push_back("--ask");
+ 
+         for (Sequence<std::string>::ConstIterator p(world_specs->begin()), p_end(world_specs->end()) ;
+                 p != p_end ; ++p)
+diff --git a/zsh-completion/_cave b/zsh-completion/_cave
+index c11bc85..db8f600 100644
+--- a/zsh-completion/_cave
++++ b/zsh-completion/_cave
+@@ -285,6 +285,7 @@ _cave_cmd_resolve()
+   _arguments -s : \
+     '(--help -h)'{--help,-h}'[Display help messsage]' \
+     '(--execute -x)'{--execute,-x}'[Execute resolution]' \
++    '(--ask -?)'{--ask,-?}'[Ask before executing]' \
+     '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--lazy,-z,--no-lazy}'[Do as little work as possible]' \
+     '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--complete,-c,--no-complete}'[Do all optional work]' \
+     '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--everything,-e,--no-everything}'[Do all optional work, and also reinstall]' \
+-- 
+1.7.2
+
