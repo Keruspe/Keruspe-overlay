@@ -100,7 +100,7 @@ index 16b8da4..e9283bf 100644
      ArgsSection(h, "Resolution Options"),
      g_execution_options(this, "Execution Options", "Control execution."),
      a_execute(&g_execution_options, "execute", 'x', "Execute the suggested actions", true),
-+    a_execute(&g_execution_options, "ask", '?', "Ask before executing", true),
++    a_ask(&g_execution_options, "ask", '?', "Ask before executing", true),
  
      g_convenience_options(this, "Convenience Options", "Broad behaviour options."),
      a_lazy(&g_convenience_options, "lazy", 'z', "Do as little work as possible.", true),
