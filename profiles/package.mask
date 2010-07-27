@@ -14,5 +14,8 @@
 =sys-apps/systemd-9999
 =x11-wm/mutter-9999
 
+# Mask Gnome 2.31
+=net-im/emapthy-2.31*
+
 # Work in progress
 -net-im/telepathy-logger
