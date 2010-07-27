@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=3
 
 DESCRIPTION="GLib bindings for the Telepathy D-Bus protocol."
 HOMEPAGE="http://telepathy.freedesktop.org"
@@ -10,7 +10,7 @@ SRC_URI="http://telepathy.freedesktop.org/releases/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~amd64 ~x86"
 IUSE="debug introspection +vala"
 
 RDEPEND=">=dev-libs/glib-2.24
@@ -30,7 +30,7 @@ src_configure() {
 		$(use_enable debug backtrace) \
 		$(use_enable debug handle-leak-debug) \
 		$(use_enable introspection) \
-		$(use_enable vala)
+		$(use_enable vala vala-bindings)
 }
 
 src_test() {
