@@ -3,18 +3,19 @@
 # $Header: $
 
 EAPI=3
-inherit gnome.org eutils
+inherit gnome.org eutils autotools
 
 MY_PN=${PN/networkmanager/NetworkManager}
 MY_P=${MY_PN}-${PV}
 
 DESCRIPTION="Network configuration and management in an easy way. Desktop environment independent."
 HOMEPAGE="http://www.gnome.org/projects/NetworkManager/"
-SRC_URI="${SRC_URI//${PN}/${MY_PN}}"
+SRC_URI="${SRC_URI//${PN}/${MY_PN}}
+	http://dev.gentoo.org/~dagger/files/${PN}-ifnet.patch"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="avahi bluetooth doc modem nss gnutls dhclient dhcpcd resolvconf connection-sharing"
 
 RDEPEND=">=sys-apps/dbus-1.2
@@ -52,9 +53,9 @@ DEPEND="${RDEPEND}
 S=${WORKDIR}/${MY_P}
 
 src_prepare() {
-	epatch "${FILESDIR}/${PN}-0.8-confchanges.patch"
-	epatch "${FILESDIR}/${P}-read-hostname.patch"
-	epatch "${FILESDIR}/${P}-nscd-clear-cache.patch"
+	epatch "${FILESDIR}/${P}-confchanges.patch"
+	epatch "${DISTDIR}/${PN}-ifnet.patch"
+	eautoreconf
 }
 
 src_configure() {
@@ -103,7 +104,7 @@ src_install() {
 }
 
 pkg_postinst() {
-	elog "You will need to restart DBUS if this is your first time"
-	elog "installing NetworkManager."
+	elog "You will need to reload DBus if this is your first time installing"
+	elog "NetworkManager, or if you're upgrading from 0.7 or older."
 	elog ""
 }
