@@ -1,6 +1,6 @@
-From 5d0dfacd47250fb282087d070d5d1d5b8b34499d Mon Sep 17 00:00:00 2001
+From cdf2a2554a9cb34a7a1e0d83baa3bc46cb395213 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
-Date: Mon, 26 Jul 2010 18:47:59 +0200
+Date: Fri, 30 Jul 2010 14:44:51 +0200
 Subject: [PATCH 3/3] cave resolve ask
 
 ---
@@ -13,7 +13,7 @@ Subject: [PATCH 3/3] cave resolve ask
  6 files changed, 39 insertions(+), 3 deletions(-)
 
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index 7fcdf92..7af0dd9 100644
+index 531f519..f5d87b1 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
 @@ -100,6 +100,7 @@ namespace
@@ -62,7 +62,7 @@ index 7fcdf92..7af0dd9 100644
      std::string maybe_replacing(
              const std::shared_ptr<Environment> & env,
              const std::shared_ptr<const PackageIDSequence> & ids,
-@@ -1388,6 +1413,12 @@ namespace
+@@ -1396,6 +1421,12 @@ namespace
          int retcode(0);
  
          retcode |= execute_pretends(env, lists, cmdline);
@@ -93,7 +93,7 @@ index b3dab40..38f07d2 100644
  
          std::string app_name() const
 diff --git a/src/clients/cave/cmd_resolve_cmdline.cc b/src/clients/cave/cmd_resolve_cmdline.cc
-index 16b8da4..e9283bf 100644
+index 5307962..357f10f 100644
 --- a/src/clients/cave/cmd_resolve_cmdline.cc
 +++ b/src/clients/cave/cmd_resolve_cmdline.cc
 @@ -46,6 +46,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
@@ -105,7 +105,7 @@ index 16b8da4..e9283bf 100644
      g_convenience_options(this, "Convenience Options", "Broad behaviour options."),
      a_lazy(&g_convenience_options, "lazy", 'z', "Do as little work as possible.", true),
 diff --git a/src/clients/cave/cmd_resolve_cmdline.hh b/src/clients/cave/cmd_resolve_cmdline.hh
-index e23b337..a30a696 100644
+index a2adadb..3e9f129 100644
 --- a/src/clients/cave/cmd_resolve_cmdline.hh
 +++ b/src/clients/cave/cmd_resolve_cmdline.hh
 @@ -36,6 +36,7 @@ namespace paludis
@@ -117,10 +117,10 @@ index e23b337..a30a696 100644
              args::ArgsGroup g_convenience_options;
              args::SwitchArg a_lazy;
 diff --git a/src/clients/cave/resolve_common.cc b/src/clients/cave/resolve_common.cc
-index 06a0c39..b5f34f1 100644
+index 96dd5f1..bd3ebfa 100644
 --- a/src/clients/cave/resolve_common.cc
 +++ b/src/clients/cave/resolve_common.cc
-@@ -1470,6 +1470,8 @@ namespace
+@@ -1471,6 +1471,8 @@ namespace
  
          if (! resolution_options.a_execute.specified())
              args->push_back("--pretend");
