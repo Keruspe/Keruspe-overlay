@@ -32,6 +32,7 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	dev-libs/libxml2
 	x11-libs/libX11
 	net-voip/telepathy-connection-managers
+	>=net-libs/folks-0.1.12
 
 	networkmanager? ( >=net-misc/networkmanager-0.7 )
 	spell? (
