@@ -15,7 +15,5 @@
 =x11-wm/mutter-9999
 
 # Mask Gnome 2.31
+=gnome-base/gdm/gdm-2.31*
 =net-im/empathy-2.31*
-
-# Work in progress
--net-im/telepathy-logger
