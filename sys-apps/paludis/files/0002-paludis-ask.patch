@@ -1,4 +1,4 @@
-From 758a72608143b3bd2a2ccd8e456dbccafd537724 Mon Sep 17 00:00:00 2001
+From 409672c27d86b78e6bea6750c4f723b1d851fcb8 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:38:14 +0200
 Subject: [PATCH 2/3] paludis ask
@@ -92,10 +92,10 @@ index 2220467..4811634 100644
                  paludis::args::StringSetArg a_destinations;
  
 diff --git a/paludis/install_task.cc b/paludis/install_task.cc
-index 5957fa9..2b9c392 100644
+index 35d40ef..758e7b5 100644
 --- a/paludis/install_task.cc
 +++ b/paludis/install_task.cc
-@@ -128,6 +128,7 @@ namespace paludis
+@@ -129,6 +129,7 @@ namespace paludis
          std::shared_ptr<const DestinationsSet> destinations;
  
          bool pretend;
@@ -103,7 +103,7 @@ index 5957fa9..2b9c392 100644
          bool fetch_only;
          bool preserve_world;
          bool safe_resume;
-@@ -155,6 +156,7 @@ namespace paludis
+@@ -156,6 +157,7 @@ namespace paludis
              targets(std::make_shared<SetSpecTree>(std::make_shared<AllDepSpec>())),
              destinations(d),
              pretend(false),
@@ -111,7 +111,7 @@ index 5957fa9..2b9c392 100644
              fetch_only(false),
              preserve_world(false),
              safe_resume(false),
-@@ -799,6 +801,9 @@ InstallTask::_pretend()
+@@ -800,6 +802,9 @@ InstallTask::_pretend()
  
      on_pretend_all_post();
  
@@ -121,7 +121,7 @@ index 5957fa9..2b9c392 100644
      if (_imp->pretend)
      {
          if (0 != perform_hook(Hook("install_pretend_post")
-@@ -1312,6 +1317,17 @@ InstallTask::execute()
+@@ -1313,6 +1318,17 @@ InstallTask::execute()
                  ("DEPLIST_HAS_ERRORS", stringify(_imp->dep_list.has_errors()))
                  ).max_exit_status())
          throw ActionAbortedError("Install task execute aborted by hook");
@@ -139,7 +139,7 @@ index 5957fa9..2b9c392 100644
  }
  
  const DepList &
-@@ -1333,6 +1349,12 @@ InstallTask::set_pretend(const bool value)
+@@ -1334,6 +1350,12 @@ InstallTask::set_pretend(const bool value)
  }
  
  void
@@ -174,10 +174,10 @@ index c1b077c..7808a03 100644
              virtual void on_fetch_pre(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
              virtual void on_fetch_post(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
 diff --git a/paludis/uninstall_task.cc b/paludis/uninstall_task.cc
-index 7dcd3ca..7ae69b4 100644
+index 73edda5..6e5e914 100644
 --- a/paludis/uninstall_task.cc
 +++ b/paludis/uninstall_task.cc
-@@ -92,6 +92,7 @@ namespace paludis
+@@ -94,6 +94,7 @@ namespace paludis
          std::list<std::shared_ptr<const PackageDepSpec> > targets;
  
          bool pretend;
@@ -185,7 +185,7 @@ index 7dcd3ca..7ae69b4 100644
          bool preserve_world;
          bool all_versions;
          bool with_unused_dependencies;
-@@ -105,6 +106,7 @@ namespace paludis
+@@ -107,6 +108,7 @@ namespace paludis
          Imp<UninstallTask>(Environment * const e) :
              env(e),
              pretend(false),
@@ -193,7 +193,7 @@ index 7dcd3ca..7ae69b4 100644
              preserve_world(false),
              all_versions(false),
              with_unused_dependencies(false),
-@@ -140,6 +142,12 @@ UninstallTask::set_pretend(const bool v)
+@@ -142,6 +144,12 @@ UninstallTask::set_pretend(const bool v)
  }
  
  void
@@ -206,7 +206,7 @@ index 7dcd3ca..7ae69b4 100644
  UninstallTask::set_preserve_world(const bool v)
  {
      _imp->preserve_world = v;
-@@ -310,6 +318,10 @@ UninstallTask::execute()
+@@ -312,6 +320,10 @@ UninstallTask::execute()
          return;
      }
  
@@ -277,10 +277,10 @@ index 0298340..a7c5b51 100644
          task.set_with_unused_dependencies(CommandLine::get_instance()->a_with_unused_dependencies.specified());
          task.set_with_dependencies(CommandLine::get_instance()->a_with_dependencies.specified());
 diff --git a/src/output/console_install_task.cc b/src/output/console_install_task.cc
-index feb9b49..49b5569 100644
+index cd895df..638dacb 100644
 --- a/src/output/console_install_task.cc
 +++ b/src/output/console_install_task.cc
-@@ -572,6 +572,28 @@ ConsoleInstallTask::on_pretend_all_post()
+@@ -573,6 +573,28 @@ ConsoleInstallTask::on_pretend_all_post()
  {
  }
  

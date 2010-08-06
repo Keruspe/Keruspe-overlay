@@ -1,19 +1,19 @@
-From cdf2a2554a9cb34a7a1e0d83baa3bc46cb395213 Mon Sep 17 00:00:00 2001
+From 8ecb83b5d19257c14c4dacc24b1064082fa0c8b1 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Fri, 30 Jul 2010 14:44:51 +0200
 Subject: [PATCH 3/3] cave resolve ask
 
 ---
- src/clients/cave/cmd_execute_resolution.cc |   31 ++++++++++++++++++++++++++++
+ src/clients/cave/cmd_execute_resolution.cc |   31 +++++++++++++++++++++++++++
  src/clients/cave/cmd_resolve.cc            |    6 ++--
  src/clients/cave/cmd_resolve_cmdline.cc    |    1 +
  src/clients/cave/cmd_resolve_cmdline.hh    |    1 +
  src/clients/cave/resolve_common.cc         |    2 +
- zsh-completion/_cave                       |    1 +
- 6 files changed, 39 insertions(+), 3 deletions(-)
+ zsh-completion/_cave                       |   32 ++++++---------------------
+ 6 files changed, 45 insertions(+), 28 deletions(-)
 
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index 531f519..f5d87b1 100644
+index 6bb5888..e9082b6 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
 @@ -100,6 +100,7 @@ namespace
@@ -32,7 +32,7 @@ index 531f519..f5d87b1 100644
              a_set(&g_general_options, "set", '\0', "Our target is a set rather than package specs", false),
              a_world_specs(&g_general_options, "world-specs", '\0', "Use the specified spec or set name for updating world"),
              execution_options(this),
-@@ -207,6 +209,29 @@ namespace
+@@ -258,6 +260,29 @@ namespace
          return 0 == retcode;
      }
  
@@ -62,7 +62,7 @@ index 531f519..f5d87b1 100644
      std::string maybe_replacing(
              const std::shared_ptr<Environment> & env,
              const std::shared_ptr<const PackageIDSequence> & ids,
-@@ -1396,6 +1421,12 @@ namespace
+@@ -1466,6 +1491,12 @@ namespace
          int retcode(0);
  
          retcode |= execute_pretends(env, lists, cmdline);
@@ -93,7 +93,7 @@ index b3dab40..38f07d2 100644
  
          std::string app_name() const
 diff --git a/src/clients/cave/cmd_resolve_cmdline.cc b/src/clients/cave/cmd_resolve_cmdline.cc
-index 5307962..357f10f 100644
+index 6811ff2..a00d601 100644
 --- a/src/clients/cave/cmd_resolve_cmdline.cc
 +++ b/src/clients/cave/cmd_resolve_cmdline.cc
 @@ -46,6 +46,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
@@ -105,7 +105,7 @@ index 5307962..357f10f 100644
      g_convenience_options(this, "Convenience Options", "Broad behaviour options."),
      a_lazy(&g_convenience_options, "lazy", 'z', "Do as little work as possible.", true),
 diff --git a/src/clients/cave/cmd_resolve_cmdline.hh b/src/clients/cave/cmd_resolve_cmdline.hh
-index a2adadb..3e9f129 100644
+index bda9eab..3af2027 100644
 --- a/src/clients/cave/cmd_resolve_cmdline.hh
 +++ b/src/clients/cave/cmd_resolve_cmdline.hh
 @@ -36,6 +36,7 @@ namespace paludis
@@ -117,10 +117,10 @@ index a2adadb..3e9f129 100644
              args::ArgsGroup g_convenience_options;
              args::SwitchArg a_lazy;
 diff --git a/src/clients/cave/resolve_common.cc b/src/clients/cave/resolve_common.cc
-index 96dd5f1..bd3ebfa 100644
+index d551062..eb5119c 100644
 --- a/src/clients/cave/resolve_common.cc
 +++ b/src/clients/cave/resolve_common.cc
-@@ -1471,6 +1471,8 @@ namespace
+@@ -1598,6 +1598,8 @@ namespace
  
          if (! resolution_options.a_execute.specified())
              args->push_back("--pretend");
@@ -130,14 +130,88 @@ index 96dd5f1..bd3ebfa 100644
          for (Sequence<std::string>::ConstIterator p(world_specs->begin()), p_end(world_specs->end()) ;
                  p != p_end ; ++p)
 diff --git a/zsh-completion/_cave b/zsh-completion/_cave
-index c11bc85..db8f600 100644
+index 1a0cef2..e3077a1 100644
 --- a/zsh-completion/_cave
 +++ b/zsh-completion/_cave
-@@ -285,6 +285,7 @@ _cave_cmd_resolve()
+@@ -3,7 +3,6 @@
+ # vim: set et sw=2 sts=2 ts=2 ft=zsh :
+ # ZSH completion for `cave`
+ # Written by Ingmar Vanhassel <ingmar@exherbo.org>
+-# Updated by Bo Ørsted Andresen <zlin@exherbo.org>
+ 
+ _cave()
+ {
+@@ -16,51 +15,32 @@ _cave()
+                                                     qa\:"Show QA messages and warnings only (default)"
+                                                     warning\:"Show warnings only"
+                                                     silent\:"Suppress all log messages (UNSAFE)"))'
+-    '(--help -h)'{--help,-h}'[Display help messsage]'
+-    '(-v --version)'{-v,--version}'[Display version information]'
+   )
+ 
+   _cave_commands=(
+     'config:Perform post-install configuration on a package'
+-    'contents:Display the contents of a package ID'
+-    "display-resolution:Displays a dependency resolution created using \'cave resolve\'"
+-    'executables:Display executables belonging to an ID'
+-    "execute-resolution:Executes a dependency resolution created using \'cave resolve\'"
+-    'find-candidates:Find a list of candidate packages for a search'
+     'fix-cache:Fix on-disk caches'
+     'fix-linkage:Identify packages with broken linkage that can be fixed by rebuilds'
+-    'help:Display help information'
+-    'import:Import a package from a directory containing its image'
++    'help:Display help information for a particular command'
+     'info:Display a summary of configuration and package information'
+-    'match:Determine whether a particular package version has certain properties'
+-    'owner:Shows package IDs owning a given file'
+     'perform:Perform an action upon a package'
+     'print-categories:Prints a list of known categories'
+     'print-commands:Prints a list of known cave commands'
+     'print-environment-metadata:Prints environment metadata'
+-    'print-id-actions:Prints ID actions'
+     'print-id-contents:Prints the contents of a package ID'
+     'print-id-executables:Prints a list of executables belonging to an ID'
+-    'print-id-masks:Prints ID masks'
+     'print-id-metadata:Prints ID metadata'
+     'print-ids:Prints a list of known IDs'
+     'print-owners:Prints a list of package IDs owning a given file'
+     'print-packages:Prints a list of package names'
+     'print-repositories:Prints a list of repositories'
+-    'print-repository-formats:Prints a list of available repository formats'
+-    'print-repository-metadata:Prints repository metadata'
+-    'print-set:Prints a list of known sets'
+     'print-sets:Prints a list of sets'
+     'print-sync-protocols:Prints a list of sync protocols'
+-    'purge:Uninstall unused packages'
+-    'resolve:Display how to resolve one or more targets, and possibly then perform that resolution'
+-    "resume:Resume a failed resolution from \'cave resolve\'"
++    'resolve:Display how to resolve targets and optionally perform that resolution'
+     'search:Search for packages with particular characteristics'
+-    'show:Display a summary of a given object'
++    'show:Displays a formatted summary of a given object'
+     'sync:Sync all or specified repositories'
+-    'uninstall:Uninstall one or more packages'
+-    'update-world:Updates the world set'
+-    "verify:Verify that an installed package\'s files haven\'t changed"
++    'update-world:Update the world set'
+   )
+ 
+   for (( i=1; i <= ${CURRENT}; i++ )); do
+@@ -386,7 +366,8 @@ _cave_cmd_print-id-metadata()
+ {
    _arguments -s : \
      '(--help -h)'{--help,-h}'[Display help messsage]' \
-     '(--execute -x)'{--execute,-x}'[Execute resolution]' \
-+    '(--ask -?)'{--ask,-?}'[Ask before executing]' \
+-    '(--best --no-best)'{--best,--no-best}'[If the spec matches multiple IDs, select the best ID rather than giving an error]' \
++    '--best[If the spec matches multiple IDs, select the best ID rather than giving an error]' \
++    '--nobest[If the spec matches multiple IDs, give an error]' \
+     '*--raw-name[Show only keys with this raw name]:raw name: ' \
+     '*--human-name[Show only keys with this human name]:human name: ' \
+     '--format[Select the output format]:output format: ' \
+@@ -474,6 +455,7 @@ _cave_cmd_print-sync-protocols()
+ _cave_resolve_arguments=(
+     '(--help -h)'{--help,-h}'[Display help messsage]' \
+     '(--execute -x --no-execute)'{--execute,-x,--no-execute}'[Execute the suggested actions]' \
++    '(--ask -? --no-ask)'{--ask,-?,--no-ask}'[Ask before executing]' \
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--lazy,-z,--no-lazy}'[Do as little work as possible]' \
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--complete,-c,--no-complete}'[Do all optional work]' \
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--everything,-e,--no-everything}'[Do all optional work, and also reinstall]' \
