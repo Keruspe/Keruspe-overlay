@@ -21,6 +21,7 @@ COMMON_DEPEND="selinux? ( sys-libs/libselinux )
 		virtual/libusb:0
 		sys-apps/pciutils
 		dev-libs/glib:2
+		dev-util/pkgconfig
 	)
 	>=sys-apps/util-linux-2.16
 	>=sys-libs/glibc-2.9"
