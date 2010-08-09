@@ -10,22 +10,18 @@ HOMEPAGE="http://www.galago-project.org/"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 ppc ppc64 sh sparc x86 ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~x86-solaris"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND=">=x11-libs/gtk+-2.6:2
-	>=dev-libs/glib-2.6:2
+RDEPEND=">=dev-libs/glib-2.6:2
 	>=dev-libs/dbus-glib-0.76"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	dev-util/pkgconfig
+	>=x11-libs/gtk+-2.6:2
+	x11-libs/gtk+:3"
 PDEPEND="|| ( =gnome-base/gnome-shell-9999
 	x11-misc/notification-daemon
-	x11-misc/xfce4-notifyd )"
-
-src_configure() {
-	econf \
-		--disable-dependency-tracking
-}
+	xfce-extra/xfce4-notifyd )"
 
 src_install() {
 	emake install DESTDIR="${D}" || die "emake install failed"
