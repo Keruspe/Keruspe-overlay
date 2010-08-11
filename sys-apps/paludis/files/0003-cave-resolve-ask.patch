@@ -1,4 +1,4 @@
-From 6504595460759ccef060755e3b51619029836d20 Mon Sep 17 00:00:00 2001
+From 46d43a69ad0a9e00eb9f5f2b3697186d5d3d396b Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Sat, 7 Aug 2010 11:00:13 +0200
 Subject: [PATCH 3/3] cave resolve ask
@@ -13,7 +13,7 @@ Subject: [PATCH 3/3] cave resolve ask
  6 files changed, 39 insertions(+), 3 deletions(-)
 
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index 6bb5888..e9082b6 100644
+index 7ca0a27..0f4d50b 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
 @@ -100,6 +100,7 @@ namespace
@@ -62,7 +62,7 @@ index 6bb5888..e9082b6 100644
      std::string maybe_replacing(
              const std::shared_ptr<Environment> & env,
              const std::shared_ptr<const PackageIDSequence> & ids,
-@@ -1466,6 +1491,12 @@ namespace
+@@ -1480,6 +1505,12 @@ namespace
          int retcode(0);
  
          retcode |= execute_pretends(env, lists, cmdline);
@@ -117,10 +117,10 @@ index bda9eab..3af2027 100644
              args::ArgsGroup g_convenience_options;
              args::SwitchArg a_lazy;
 diff --git a/src/clients/cave/resolve_common.cc b/src/clients/cave/resolve_common.cc
-index d551062..eb5119c 100644
+index 6dda1f6..81afdf6 100644
 --- a/src/clients/cave/resolve_common.cc
 +++ b/src/clients/cave/resolve_common.cc
-@@ -1598,6 +1598,8 @@ namespace
+@@ -301,6 +301,8 @@ namespace
  
          if (! resolution_options.a_execute.specified())
              args->push_back("--pretend");

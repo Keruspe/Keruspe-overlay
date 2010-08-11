@@ -1,21 +1,21 @@
-From 40afc84638882db866a7260c4638e2bed947ac13 Mon Sep 17 00:00:00 2001
+From 611848f1685379561e1d8cc2123e5d814f782c33 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:38:14 +0200
 Subject: [PATCH 2/3] paludis ask
 
 ---
- bash-completion/paludis            |    2 ++
- doc/faq/misfunctionality.html.part |    9 ---------
- paludis/args/install_args_group.cc |    1 +
- paludis/args/install_args_group.hh |    3 +++
- paludis/install_task.cc            |   22 ++++++++++++++++++++++
- paludis/install_task.hh            |    3 +++
- paludis/uninstall_task.cc          |   12 ++++++++++++
- paludis/uninstall_task.hh          |    3 +++
- src/clients/paludis/uninstall.cc   |   20 ++++++++++++++++++++
- src/output/console_install_task.cc |   22 ++++++++++++++++++++++
- src/output/console_install_task.hh |    2 ++
- zsh-completion/_paludis            |    1 +
+ bash-completion/paludis                   |    2 ++
+ doc/faq/misfunctionality.html.part        |    9 ---------
+ paludis/args/legacy/install_args_group.cc |    1 +
+ paludis/args/legacy/install_args_group.hh |    3 +++
+ paludis/legacy/install_task.cc            |   22 ++++++++++++++++++++++
+ paludis/legacy/install_task.hh            |    3 +++
+ paludis/legacy/uninstall_task.cc          |   12 ++++++++++++
+ paludis/legacy/uninstall_task.hh          |    3 +++
+ src/clients/paludis/uninstall.cc          |   20 ++++++++++++++++++++
+ src/output/console_install_task.cc        |   22 ++++++++++++++++++++++
+ src/output/console_install_task.hh        |    2 ++
+ zsh-completion/_paludis                   |    1 +
  12 files changed, 91 insertions(+), 9 deletions(-)
 
 diff --git a/bash-completion/paludis b/bash-completion/paludis
@@ -65,10 +65,10 @@ index a43287f..ef6ba64 100644
  <h2 id="xtermtitles">Restoring XTerm Titles</h2>
  
  <p>Non-Problem: Paludis doesn't restore the xterm title on exit.</p>
-diff --git a/paludis/args/install_args_group.cc b/paludis/args/install_args_group.cc
+diff --git a/paludis/args/legacy/install_args_group.cc b/paludis/args/legacy/install_args_group.cc
 index efbb948..c9306cd 100644
---- a/paludis/args/install_args_group.cc
-+++ b/paludis/args/install_args_group.cc
+--- a/paludis/args/legacy/install_args_group.cc
++++ b/paludis/args/legacy/install_args_group.cc
 @@ -33,6 +33,7 @@ InstallArgsGroup::InstallArgsGroup(ArgsSection * h, const std::string & our_name
      ArgsGroup(h, our_name, our_description),
  
@@ -77,10 +77,10 @@ index efbb948..c9306cd 100644
      a_destinations(this, "destinations", 'd', "Use specified destinations instead of defaults"),
      a_preserve_world(this, "preserve-world", '1', "Don't modify the world file", true),
      a_add_to_world_spec(this, "add-to-world-spec", '\0',
-diff --git a/paludis/args/install_args_group.hh b/paludis/args/install_args_group.hh
-index 2220467..4811634 100644
---- a/paludis/args/install_args_group.hh
-+++ b/paludis/args/install_args_group.hh
+diff --git a/paludis/args/legacy/install_args_group.hh b/paludis/args/legacy/install_args_group.hh
+index acada1e..b343234 100644
+--- a/paludis/args/legacy/install_args_group.hh
++++ b/paludis/args/legacy/install_args_group.hh
 @@ -64,6 +64,9 @@ namespace paludis
                  /// --pretend
                  paludis::args::SwitchArg a_pretend;
@@ -91,10 +91,10 @@ index 2220467..4811634 100644
                  /// --destinations
                  paludis::args::StringSetArg a_destinations;
  
-diff --git a/paludis/install_task.cc b/paludis/install_task.cc
-index 35d40ef..758e7b5 100644
---- a/paludis/install_task.cc
-+++ b/paludis/install_task.cc
+diff --git a/paludis/legacy/install_task.cc b/paludis/legacy/install_task.cc
+index ea78a63..37beda1 100644
+--- a/paludis/legacy/install_task.cc
++++ b/paludis/legacy/install_task.cc
 @@ -129,6 +129,7 @@ namespace paludis
          std::shared_ptr<const DestinationsSet> destinations;
  
@@ -152,10 +152,10 @@ index 35d40ef..758e7b5 100644
  InstallTask::set_preserve_world(const bool value)
  {
      _imp->preserve_world = value;
-diff --git a/paludis/install_task.hh b/paludis/install_task.hh
-index c1b077c..7808a03 100644
---- a/paludis/install_task.hh
-+++ b/paludis/install_task.hh
+diff --git a/paludis/legacy/install_task.hh b/paludis/legacy/install_task.hh
+index 98378f1..3411cdf 100644
+--- a/paludis/legacy/install_task.hh
++++ b/paludis/legacy/install_task.hh
 @@ -111,6 +111,7 @@ namespace paludis
  
              void set_fetch_only(const bool value);
@@ -173,10 +173,10 @@ index c1b077c..7808a03 100644
              virtual void on_fetch_all_pre() = 0;
              virtual void on_fetch_pre(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
              virtual void on_fetch_post(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
-diff --git a/paludis/uninstall_task.cc b/paludis/uninstall_task.cc
-index 73edda5..6e5e914 100644
---- a/paludis/uninstall_task.cc
-+++ b/paludis/uninstall_task.cc
+diff --git a/paludis/legacy/uninstall_task.cc b/paludis/legacy/uninstall_task.cc
+index 57c16a0..972aec3 100644
+--- a/paludis/legacy/uninstall_task.cc
++++ b/paludis/legacy/uninstall_task.cc
 @@ -94,6 +94,7 @@ namespace paludis
          std::list<std::shared_ptr<const PackageDepSpec> > targets;
  
@@ -217,10 +217,10 @@ index 73edda5..6e5e914 100644
      if (_imp->preserve_world)
          on_preserve_world();
      else
-diff --git a/paludis/uninstall_task.hh b/paludis/uninstall_task.hh
+diff --git a/paludis/legacy/uninstall_task.hh b/paludis/legacy/uninstall_task.hh
 index e646557..b4db4f1 100644
---- a/paludis/uninstall_task.hh
-+++ b/paludis/uninstall_task.hh
+--- a/paludis/legacy/uninstall_task.hh
++++ b/paludis/legacy/uninstall_task.hh
 @@ -113,6 +113,7 @@ namespace paludis
              ///\{
  
@@ -239,7 +239,7 @@ index e646557..b4db4f1 100644
              virtual void on_uninstall_pre(const UninstallListEntry &) = 0;
              virtual void on_uninstall_post(const UninstallListEntry &) = 0;
 diff --git a/src/clients/paludis/uninstall.cc b/src/clients/paludis/uninstall.cc
-index 0298340..a7c5b51 100644
+index ae63b93..6c5f73d 100644
 --- a/src/clients/paludis/uninstall.cc
 +++ b/src/clients/paludis/uninstall.cc
 @@ -163,6 +163,25 @@ namespace
@@ -277,7 +277,7 @@ index 0298340..a7c5b51 100644
          task.set_with_unused_dependencies(CommandLine::get_instance()->a_with_unused_dependencies.specified());
          task.set_with_dependencies(CommandLine::get_instance()->a_with_dependencies.specified());
 diff --git a/src/output/console_install_task.cc b/src/output/console_install_task.cc
-index cd895df..638dacb 100644
+index dc860cc..331e427 100644
 --- a/src/output/console_install_task.cc
 +++ b/src/output/console_install_task.cc
 @@ -573,6 +573,28 @@ ConsoleInstallTask::on_pretend_all_post()
@@ -310,7 +310,7 @@ index cd895df..638dacb 100644
  ConsoleInstallTask::on_fetch_all_pre()
  {
 diff --git a/src/output/console_install_task.hh b/src/output/console_install_task.hh
-index ca4392e..fe09087 100644
+index 09591e6..aafe3bf 100644
 --- a/src/output/console_install_task.hh
 +++ b/src/output/console_install_task.hh
 @@ -145,6 +145,8 @@ namespace paludis
