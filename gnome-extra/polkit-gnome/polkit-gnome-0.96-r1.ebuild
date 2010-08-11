@@ -11,7 +11,7 @@ SRC_URI="http://hal.freedesktop.org/releases/${P}.tar.bz2"
 
 LICENSE="LGPL-2 GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~sparc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc examples introspection"
 
 RDEPEND=">=x11-libs/gtk+-2.17.1
@@ -37,6 +37,9 @@ pkg_setup() {
 }
 
 src_prepare() {
+	sed -i \
+		-e 's:OnlyShowIn=GNOME:NotShowIn=KDE:' \
+		src/polkit-gnome-authentication-agent-1.desktop.in.in || die
 	epatch "${FILESDIR}/${PN}-0.95-fix-make-check.patch"
 
 	if use doc; then
