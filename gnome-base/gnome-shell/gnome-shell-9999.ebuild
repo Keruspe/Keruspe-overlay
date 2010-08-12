@@ -26,7 +26,7 @@ RDEPEND=">=dev-libs/glib-2.25.9
 	dev-libs/dbus-glib
 	>=dev-libs/gjs-0.7
 	x11-libs/pango[introspection]
-	>=media-libs/clutter-1.2.8[introspection]
+	>=media-libs/clutter-1.3.8[introspection]
 	x11-libs/gdk-pixbuf
 	dev-libs/libcroco:0.6
 
