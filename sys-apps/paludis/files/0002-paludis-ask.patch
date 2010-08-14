@@ -1,4 +1,4 @@
-From 611848f1685379561e1d8cc2123e5d814f782c33 Mon Sep 17 00:00:00 2001
+From 486efbba3f323496153be900be93a18a9ca151b7 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:38:14 +0200
 Subject: [PATCH 2/3] paludis ask
@@ -92,10 +92,10 @@ index acada1e..b343234 100644
                  paludis::args::StringSetArg a_destinations;
  
 diff --git a/paludis/legacy/install_task.cc b/paludis/legacy/install_task.cc
-index ea78a63..37beda1 100644
+index f6bc660..2135fdf 100644
 --- a/paludis/legacy/install_task.cc
 +++ b/paludis/legacy/install_task.cc
-@@ -129,6 +129,7 @@ namespace paludis
+@@ -130,6 +130,7 @@ namespace paludis
          std::shared_ptr<const DestinationsSet> destinations;
  
          bool pretend;
@@ -103,7 +103,7 @@ index ea78a63..37beda1 100644
          bool fetch_only;
          bool preserve_world;
          bool safe_resume;
-@@ -156,6 +157,7 @@ namespace paludis
+@@ -157,6 +158,7 @@ namespace paludis
              targets(std::make_shared<SetSpecTree>(std::make_shared<AllDepSpec>())),
              destinations(d),
              pretend(false),
@@ -111,7 +111,7 @@ index ea78a63..37beda1 100644
              fetch_only(false),
              preserve_world(false),
              safe_resume(false),
-@@ -800,6 +802,9 @@ InstallTask::_pretend()
+@@ -803,6 +805,9 @@ InstallTask::_pretend()
  
      on_pretend_all_post();
  
@@ -121,9 +121,9 @@ index ea78a63..37beda1 100644
      if (_imp->pretend)
      {
          if (0 != perform_hook(Hook("install_pretend_post")
-@@ -1313,6 +1318,17 @@ InstallTask::execute()
-                 ("DEPLIST_HAS_ERRORS", stringify(_imp->dep_list.has_errors()))
-                 ).max_exit_status())
+@@ -1329,6 +1334,17 @@ InstallTask::execute()
+                 ,
+                 make_null_shared_ptr()).max_exit_status())
          throw ActionAbortedError("Install task execute aborted by hook");
 +    if (_imp->fetch_only && _imp->ask)
 +    {
@@ -139,7 +139,7 @@ index ea78a63..37beda1 100644
  }
  
  const DepList &
-@@ -1334,6 +1350,12 @@ InstallTask::set_pretend(const bool value)
+@@ -1350,6 +1366,12 @@ InstallTask::set_pretend(const bool value)
  }
  
  void
@@ -153,7 +153,7 @@ index ea78a63..37beda1 100644
  {
      _imp->preserve_world = value;
 diff --git a/paludis/legacy/install_task.hh b/paludis/legacy/install_task.hh
-index 98378f1..3411cdf 100644
+index fc488ba..8186cdf 100644
 --- a/paludis/legacy/install_task.hh
 +++ b/paludis/legacy/install_task.hh
 @@ -111,6 +111,7 @@ namespace paludis
@@ -174,10 +174,10 @@ index 98378f1..3411cdf 100644
              virtual void on_fetch_pre(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
              virtual void on_fetch_post(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
 diff --git a/paludis/legacy/uninstall_task.cc b/paludis/legacy/uninstall_task.cc
-index 57c16a0..972aec3 100644
+index 6523716..9f5687f 100644
 --- a/paludis/legacy/uninstall_task.cc
 +++ b/paludis/legacy/uninstall_task.cc
-@@ -94,6 +94,7 @@ namespace paludis
+@@ -95,6 +95,7 @@ namespace paludis
          std::list<std::shared_ptr<const PackageDepSpec> > targets;
  
          bool pretend;
@@ -185,7 +185,7 @@ index 57c16a0..972aec3 100644
          bool preserve_world;
          bool all_versions;
          bool with_unused_dependencies;
-@@ -107,6 +108,7 @@ namespace paludis
+@@ -108,6 +109,7 @@ namespace paludis
          Imp<UninstallTask>(Environment * const e) :
              env(e),
              pretend(false),
@@ -193,7 +193,7 @@ index 57c16a0..972aec3 100644
              preserve_world(false),
              all_versions(false),
              with_unused_dependencies(false),
-@@ -142,6 +144,12 @@ UninstallTask::set_pretend(const bool v)
+@@ -143,6 +145,12 @@ UninstallTask::set_pretend(const bool v)
  }
  
  void
@@ -206,7 +206,7 @@ index 57c16a0..972aec3 100644
  UninstallTask::set_preserve_world(const bool v)
  {
      _imp->preserve_world = v;
-@@ -312,6 +320,10 @@ UninstallTask::execute()
+@@ -313,6 +321,10 @@ UninstallTask::execute()
          return;
      }
  
@@ -239,10 +239,10 @@ index e646557..b4db4f1 100644
              virtual void on_uninstall_pre(const UninstallListEntry &) = 0;
              virtual void on_uninstall_post(const UninstallListEntry &) = 0;
 diff --git a/src/clients/paludis/uninstall.cc b/src/clients/paludis/uninstall.cc
-index ae63b93..6c5f73d 100644
+index cbade32..d1a5b0a 100644
 --- a/src/clients/paludis/uninstall.cc
 +++ b/src/clients/paludis/uninstall.cc
-@@ -163,6 +163,25 @@ namespace
+@@ -164,6 +164,25 @@ namespace
                  cout << endl;
              }
  
@@ -268,7 +268,7 @@ index ae63b93..6c5f73d 100644
              virtual void on_uninstall_all_pre()
              {
              }
-@@ -230,6 +249,7 @@ namespace
+@@ -231,6 +250,7 @@ namespace
          OurUninstallTask task(env);
  
          task.set_pretend(CommandLine::get_instance()->install_args.a_pretend.specified());
@@ -277,7 +277,7 @@ index ae63b93..6c5f73d 100644
          task.set_with_unused_dependencies(CommandLine::get_instance()->a_with_unused_dependencies.specified());
          task.set_with_dependencies(CommandLine::get_instance()->a_with_dependencies.specified());
 diff --git a/src/output/console_install_task.cc b/src/output/console_install_task.cc
-index dc860cc..331e427 100644
+index b08399b..a25e92a 100644
 --- a/src/output/console_install_task.cc
 +++ b/src/output/console_install_task.cc
 @@ -573,6 +573,28 @@ ConsoleInstallTask::on_pretend_all_post()
@@ -310,7 +310,7 @@ index dc860cc..331e427 100644
  ConsoleInstallTask::on_fetch_all_pre()
  {
 diff --git a/src/output/console_install_task.hh b/src/output/console_install_task.hh
-index 09591e6..aafe3bf 100644
+index 81ba943..013a99a 100644
 --- a/src/output/console_install_task.hh
 +++ b/src/output/console_install_task.hh
 @@ -145,6 +145,8 @@ namespace paludis

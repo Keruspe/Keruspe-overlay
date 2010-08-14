@@ -1,4 +1,4 @@
-From 46d43a69ad0a9e00eb9f5f2b3697186d5d3d396b Mon Sep 17 00:00:00 2001
+From 84df9c6b9f69aa17a7a7e6b88a248aaf25f35a0c Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Sat, 7 Aug 2010 11:00:13 +0200
 Subject: [PATCH 3/3] cave resolve ask
@@ -13,7 +13,7 @@ Subject: [PATCH 3/3] cave resolve ask
  6 files changed, 39 insertions(+), 3 deletions(-)
 
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index 7ca0a27..0f4d50b 100644
+index d519529..7a751cf 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
 @@ -100,6 +100,7 @@ namespace
@@ -32,7 +32,7 @@ index 7ca0a27..0f4d50b 100644
              a_set(&g_general_options, "set", '\0', "Our target is a set rather than package specs", false),
              a_world_specs(&g_general_options, "world-specs", '\0', "Use the specified spec or set name for updating world"),
              execution_options(this),
-@@ -258,6 +260,29 @@ namespace
+@@ -261,6 +263,29 @@ namespace
          return 0 == retcode;
      }
  
@@ -62,7 +62,7 @@ index 7ca0a27..0f4d50b 100644
      std::string maybe_replacing(
              const std::shared_ptr<Environment> & env,
              const std::shared_ptr<const PackageIDSequence> & ids,
-@@ -1480,6 +1505,12 @@ namespace
+@@ -1484,6 +1509,12 @@ namespace
          int retcode(0);
  
          retcode |= execute_pretends(env, lists, cmdline);
@@ -93,7 +93,7 @@ index b3dab40..38f07d2 100644
  
          std::string app_name() const
 diff --git a/src/clients/cave/cmd_resolve_cmdline.cc b/src/clients/cave/cmd_resolve_cmdline.cc
-index 6811ff2..a00d601 100644
+index c58f318..0d25c13 100644
 --- a/src/clients/cave/cmd_resolve_cmdline.cc
 +++ b/src/clients/cave/cmd_resolve_cmdline.cc
 @@ -46,6 +46,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
@@ -117,10 +117,10 @@ index bda9eab..3af2027 100644
              args::ArgsGroup g_convenience_options;
              args::SwitchArg a_lazy;
 diff --git a/src/clients/cave/resolve_common.cc b/src/clients/cave/resolve_common.cc
-index 6dda1f6..81afdf6 100644
+index 551ef0b..740c5d9 100644
 --- a/src/clients/cave/resolve_common.cc
 +++ b/src/clients/cave/resolve_common.cc
-@@ -301,6 +301,8 @@ namespace
+@@ -302,6 +302,8 @@ namespace
  
          if (! resolution_options.a_execute.specified())
              args->push_back("--pretend");
@@ -130,10 +130,10 @@ index 6dda1f6..81afdf6 100644
          for (Sequence<std::string>::ConstIterator p(world_specs->begin()), p_end(world_specs->end()) ;
                  p != p_end ; ++p)
 diff --git a/zsh-completion/_cave b/zsh-completion/_cave
-index 1a0cef2..4771d11 100644
+index 735e75a..899c918 100644
 --- a/zsh-completion/_cave
 +++ b/zsh-completion/_cave
-@@ -474,6 +474,7 @@ _cave_cmd_print-sync-protocols()
+@@ -514,6 +514,7 @@ _cave_cmd_report()
  _cave_resolve_arguments=(
      '(--help -h)'{--help,-h}'[Display help messsage]' \
      '(--execute -x --no-execute)'{--execute,-x,--no-execute}'[Execute the suggested actions]' \
