@@ -13,11 +13,9 @@ HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
 CLIENTS_USE="accerso adjutrix appareo importare inquisitio instruo +paludis +reconcilio"
-#paludis necessary for now
 
 IUSE="${CLIENTS_USE}
-ask cran doc gems portage pink python-bindings
-ruby-bindings sort-world vim-syntax visibility xml zsh-completion"
+ask cran doc gems portage pink python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -29,7 +27,8 @@ COMMON_DEPEND="
 	ruby-bindings? ( dev-lang/ruby )
 	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0[python] )
 	gems? ( >=dev-libs/syck-0.55 virtual/rubygems )
-	xml? ( >=dev-libs/libxml2-2.6 )"
+	xml? ( >=dev-libs/libxml2-2.6 )
+	search-index? ( dev-db/sqlite:3 )"
 
 DEPEND="${COMMON_DEPEND}
 	sys-devel/autoconf:2.5
@@ -49,6 +48,7 @@ RDEPEND="${COMMON_DEPEND}
 # default virtual/portage provider.
 PDEPEND="
 	vim-syntax? ( >=app-editors/vim-core-7 )
+	app-admin/eselect-package-manager
 	suggested:
 		dev-vcs/git
 		dev-vcs/subversion
@@ -93,6 +93,7 @@ src_compile() {
 		$(useq ruby-bindings && useq doc && echo --enable-ruby-doc ) \
 		$(use_enable python-bindings python ) \
 		$(useq python-bindings && useq doc && echo --enable-python-doc ) \
+		$(use_enable search-index) \
 		$(use_enable vim-syntax vim ) \
 		$(use_enable visibility ) \
 		$(use_enable xml ) \
