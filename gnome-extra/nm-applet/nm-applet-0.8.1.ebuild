@@ -19,7 +19,7 @@ IUSE="bluetooth"
 RDEPEND=">=dev-libs/glib-2.16
 	>=dev-libs/dbus-glib-0.74
 	>=sys-apps/dbus-1.2
-	>=x11-libs/gtk+-2.14
+	>=x11-libs/gtk+-2.18
 	>=gnome-base/gconf-2.20
 	>=gnome-extra/polkit-gnome-0.92
 	>=x11-libs/libnotify-0.4.3
@@ -39,6 +39,10 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35"
 
 DOCS="AUTHORS ChangeLog NEWS README"
+
+src_prepare() {
+	epatch "${FILESDIR}/${P}-fix-compilation-with-DGSEAL_ENABLE.patch"
+}
 
 S="${WORKDIR}/${MY_PN}-${PV}"
 
