@@ -18,7 +18,7 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	>=gnome-base/gconf-2
 	>=dev-libs/dbus-glib-0.51
 	>=gnome-extra/evolution-data-server-1.2
-	>=net-libs/telepathy-glib-0.11.7
+	>=net-libs/telepathy-glib-0.11.13
 	>=media-libs/libcanberra-0.4[gtk]
 	>=x11-libs/libnotify-0.5.1
 	>=gnome-base/gnome-keyring-2.22
@@ -48,12 +48,13 @@ DEPEND="${RDEPEND}
 	>=app-text/gnome-doc-utils-0.17.3
 	>=dev-util/intltool-0.35.0
 	>=dev-util/pkgconfig-0.16
-	>=net-im/telepathy-logger-0.1.3
+	>=net-im/telepathy-logger-0.1.5
 	test? (
 		sys-apps/grep
 		>=dev-libs/check-0.9.4 )
 	dev-libs/libxslt
 	virtual/python
+	>=net-libs/folks-0.1.13
 "
 PDEPEND=">=net-im/telepathy-mission-control-5"
 
