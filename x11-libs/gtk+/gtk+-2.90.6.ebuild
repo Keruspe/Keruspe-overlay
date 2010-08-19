@@ -64,9 +64,6 @@ DEPEND="${RDEPEND}
 PDEPEND="vim-syntax? ( app-vim/gtk-syntax )"
 
 src_prepare() {
-	# add correct framework linking options, for aqua
-	epatch "${FILESDIR}/${PN}-2.90.4-macosx-aqua.patch"
-
 	# -O3 and company cause random crashes in applications. Bug #133469
 	replace-flags -O3 -O2
 	strip-flags
