@@ -8,11 +8,12 @@
  LIBXKLAVIER_REQUIRED_VERSION=4.0
  LIBCANBERRA_GTK_REQUIRED_VERSION=0.4
  #FONTCONFIG_REQUIRED_VERSION=2.6.0
-@@ -154,12 +153,6 @@
+@@ -149,13 +148,6 @@
  AC_SUBST(SIMPLE_CHOOSER_CFLAGS)
  AC_SUBST(SIMPLE_CHOOSER_LIBS)
  
 -PKG_CHECK_MODULES(APPLET,
+-        dbus-glib-1 >= $DBUS_GLIB_REQUIRED_VERSION
 -        gtk+-2.0 >= $GTK_REQUIRED_VERSION
 -        libpanelapplet-2.0 >= $GNOME_PANEL_REQUIRED_VERSION)
 -AC_SUBST(APPLET_CFLAGS)
@@ -21,7 +22,7 @@
  PLUGIN_LIBTOOL_FLAGS="-export_dynamic -module -avoid-version"
  AC_SUBST(PLUGIN_LIBTOOL_FLAGS)
  
-@@ -1400,7 +1393,6 @@
+@@ -1402,7 +1395,6 @@
  gui/simple-greeter/Makefile
  gui/simple-greeter/libnotificationarea/Makefile
  gui/simple-chooser/Makefile
@@ -30,19 +31,18 @@
  data/gdm.conf
  data/Makefile
 
---- gui/Makefile.in.old	2010-02-05 15:29:44.469856641 +0100
-+++ gui/Makefile.in	2010-02-05 15:30:08.285856652 +0100
-@@ -300,5 +300,4 @@
+--- gui/Makefile.am.old	2010-08-19 14:25:40.204000018 +0200
++++ gui/Makefile.am	2010-08-19 14:25:52.676000013 +0200
+@@ -2,7 +2,6 @@
+ 
  SUBDIRS =			\
- 	simple-chooser		\
  	simple-greeter		\
 -	user-switch-applet	\
  	$(NULL)
-
---- gui/Makefile.am.old	2010-02-05 15:29:33.557798598 +0100
-+++ gui/Makefile.am	2010-02-05 15:29:53.677857091 +0100
-@@ -3,5 +3,4 @@
- SUBDIRS =			\
+ 
+ if XDMCP_SUPPORT
+@@ -12,5 +11,4 @@
+ DIST_SUBDIRS =			\
  	simple-chooser		\
  	simple-greeter		\
 -	user-switch-applet	\
