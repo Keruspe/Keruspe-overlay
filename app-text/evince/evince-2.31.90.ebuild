@@ -13,7 +13,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~x86-linux ~x64-solaris"
 
-IUSE="dbus debug djvu doc dvi gnome gnome-keyring +introspection nautilus t1lib tiff"
+IUSE="dbus debug djvu doc dvi gnome gnome-keyring images +introspection nautilus t1lib tiff"
 
 # Since 2.26.2, can handle poppler without cairo support. Make it optional ?
 # not mature enough
@@ -57,6 +57,7 @@ pkg_setup() {
 		--disable-static
 		--disable-tests
 		--enable-pdf
+		--enable-ps
 		--enable-comics
 		--enable-impress
 		--enable-thumbnailer
@@ -70,6 +71,7 @@ pkg_setup() {
 		$(use_enable t1lib)
 		$(use_enable tiff)
 		$(use_enable nautilus)
+		$(use_enable images pixbuf)
 		$(use_enable introspection)"
 }
 

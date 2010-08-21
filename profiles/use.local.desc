@@ -4,6 +4,7 @@
 
 app-admin/gnome-system-tools:nautilus - Enable nautilus plugin
 app-misc/kupfer:keybinder - Use python keybinder
+app-text/evince:images - Enable images support via pixbuf
 dev-util/anjuta-extras:scintilla - Enable scintilla plugin
 dev-util/anjuta-extras:valgrind - Enable valgrind plugin
 gnome-base/gdm:applet - Build fast-user-switch-applet
