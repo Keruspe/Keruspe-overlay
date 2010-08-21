@@ -15,7 +15,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND=">=dev-python/telepathy-python-0.15.17
-	>=dev-python/papyon-0.4.2"
+	>=dev-python/papyon-0.5.0"
 
 DOCS="AUTHORS NEWS"
 
