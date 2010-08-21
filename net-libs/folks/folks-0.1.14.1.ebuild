@@ -6,7 +6,7 @@ EAPI=3
 inherit gnome2
 
 DESCRIPTION="Library for managing folks"
-HOMEPAGE="Rhttp://telepathy.freedesktop.org/wiki/Folks"
+HOMEPAGE="http://telepathy.freedesktop.org/wiki/Folks"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
