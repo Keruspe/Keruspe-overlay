@@ -8,7 +8,7 @@ inherit autotools games
 
 DESCRIPTION="A bomberman clone, student project for SUPINFO, France"
 HOMEPAGE="http://github.com/Keruspe/Bomb-her-man"
-SRC_URI="http://github.com/Keruspe/Bomb-her-man/tarball/v0.2 -> ${P}.tar.gz"
+SRC_URI="http://github.com/Keruspe/Bomb-her-man/tarball/v${PV} -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -23,7 +23,7 @@ DEPEND="media-libs/sdl-ttf
 RDEPEND="${DEPEND}
 	media-fonts/libertine-ttf"
 
-COMMIT=85dac44
+COMMIT=f2a448e
 S=${WORKDIR}/Keruspe-${PN/b/B}-${COMMIT}
 
 WANT_AUTOMAKE="1.11"
