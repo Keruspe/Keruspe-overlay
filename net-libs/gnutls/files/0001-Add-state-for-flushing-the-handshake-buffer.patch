@@ -1,0 +1,60 @@
+From 98e0e3c400366ad8b4ba835b48f89e4e45c06acd Mon Sep 17 00:00:00 2001
+From: Sjoerd Simons <sjoerd.simons@collabora.co.uk>
+Date: Wed, 11 Aug 2010 11:06:43 +0100
+Subject: [PATCH 01/11] Add state for flushing the handshake buffer
+
+A seperate state is needed between flushing the handshake buffers and sending
+the chipher spec change otherwise it's impossible to determine whether
+_gnutls_send_change_cipher_spec is called for the first time or again.
+
+Signed-off-by: Nikos Mavrogiannopoulos <nmav@gnutls.org>
+---
+ lib/gnutls_handshake.c |   10 ++++++----
+ lib/gnutls_int.h       |    2 +-
+ 2 files changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/lib/gnutls_handshake.c b/lib/gnutls_handshake.c
+index 780d573..8d51ac4 100644
+--- a/lib/gnutls_handshake.c
++++ b/lib/gnutls_handshake.c
+@@ -2785,7 +2785,9 @@ _gnutls_send_handshake_final (gnutls_session_t session, int init)
+           return ret;
+         }
+ 
+-      ret = _gnutls_send_change_cipher_spec (session, AGAIN2 (oldstate, STATE20));
++    case STATE21:
++      ret = _gnutls_send_change_cipher_spec (session, AGAIN (STATE21));
++      STATE = STATE21;
+ 
+       if (ret < 0)
+ 	{
+@@ -2812,10 +2814,10 @@ _gnutls_send_handshake_final (gnutls_session_t session, int init)
+ 	  return ret;
+ 	}
+ 
+-    case STATE21:
++    case STATE22:
+       /* send the finished message */
+-      ret = _gnutls_send_finished (session, AGAIN (STATE21));
+-      STATE = STATE21;
++      ret = _gnutls_send_finished (session, AGAIN (STATE22));
++      STATE = STATE22;
+       if (ret < 0)
+ 	{
+ 	  ERR ("send Finished", ret);
+diff --git a/lib/gnutls_int.h b/lib/gnutls_int.h
+index a7e3287..ef38fb7 100644
+--- a/lib/gnutls_int.h
++++ b/lib/gnutls_int.h
+@@ -153,7 +153,7 @@ typedef enum change_cipher_spec_t
+ typedef enum handshake_state_t
+ { STATE0 = 0, STATE1, STATE2,
+   STATE3, STATE4, STATE5,
+-  STATE6, STATE7, STATE8, STATE9, STATE20 = 20, STATE21,
++  STATE6, STATE7, STATE8, STATE9, STATE20 = 20, STATE21, STATE22,
+   STATE30 = 30, STATE31, STATE40 = 40, STATE41, STATE50 = 50,
+   STATE60 = 60, STATE61, STATE62, STATE70, STATE71
+ } handshake_state_t;
+-- 
+1.7.2
+

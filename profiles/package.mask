@@ -22,6 +22,3 @@
 =net-im/empathy-2.31*
 =net-libs/libsoup-2.31*
 =net-libs/libsoup-gnome-2.31*
-
-# Mask 'til it works with gnutls 2.10
-=net-voip/telepathy-gabble-0.9*

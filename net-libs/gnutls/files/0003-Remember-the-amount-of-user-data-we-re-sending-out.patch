@@ -1,0 +1,64 @@
+From 18cff36027f8fc0f71a31b3b12dc989e0674a744 Mon Sep 17 00:00:00 2001
+From: Sjoerd Simons <sjoerd.simons@collabora.co.uk>
+Date: Wed, 11 Aug 2010 13:49:46 +0100
+Subject: [PATCH 03/11] Remember the amount of user data we're sending out
+
+Partially reverts 3ef62950845f551ebc629e50d5ddf75f71b84294. gnutls_record_send
+needs to return the amount of user-data we sent, so we need to keep this
+information somewhere to return it when we succeed in sending that data.
+
+Signed-off-by: Nikos Mavrogiannopoulos <nmav@gnutls.org>
+---
+ lib/gnutls_int.h    |    5 +++++
+ lib/gnutls_record.c |    5 ++++-
+ 2 files changed, 9 insertions(+), 1 deletions(-)
+
+diff --git a/lib/gnutls_int.h b/lib/gnutls_int.h
+index ef38fb7..1475951 100644
+--- a/lib/gnutls_int.h
++++ b/lib/gnutls_int.h
+@@ -548,6 +548,11 @@ typedef struct
+ 					 * for the gnutls_io_write_buffered()
+ 					 * function.
+ 					 */
++  size_t record_send_buffer_user_size;	/* holds the
++					 * size of the user specified data to
++					 * send.
++					 */
++
+ 
+   /* 0 if no peeked data was kept, 1 otherwise.
+    */
+diff --git a/lib/gnutls_record.c b/lib/gnutls_record.c
+index a10a6fd..ba5564a 100644
+--- a/lib/gnutls_record.c
++++ b/lib/gnutls_record.c
+@@ -392,7 +392,7 @@ _gnutls_send_int (gnutls_session_t session, content_type_t type,
+       else
+ 	cipher_size = 0;
+ 
+-      retval = session->internals.record_send_buffer.byte_length;
++      retval = session->internals.record_send_buffer_user_size;
+     }
+   else
+     {
+@@ -422,6 +422,7 @@ _gnutls_send_int (gnutls_session_t session, content_type_t type,
+ 	}
+ 
+       retval = data2send_size;
++      session->internals.record_send_buffer_user_size = data2send_size;
+ 
+       /* increase sequence number
+        */
+@@ -460,6 +461,8 @@ _gnutls_send_int (gnutls_session_t session, content_type_t type,
+       return ret;
+     }
+ 
++  session->internals.record_send_buffer_user_size = 0;
++
+   _gnutls_record_log ("REC[%p]: Sent Packet[%d] %s(%d) with length: %d\n",
+ 		      session,
+ 		      (int)
+-- 
+1.7.2
+
