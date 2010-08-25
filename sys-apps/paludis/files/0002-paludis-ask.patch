@@ -1,4 +1,4 @@
-From 486efbba3f323496153be900be93a18a9ca151b7 Mon Sep 17 00:00:00 2001
+From 42aeda677e475bcc63d36fff82ad71bb46effb6d Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:38:14 +0200
 Subject: [PATCH 2/3] paludis ask
@@ -174,7 +174,7 @@ index fc488ba..8186cdf 100644
              virtual void on_fetch_pre(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
              virtual void on_fetch_post(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
 diff --git a/paludis/legacy/uninstall_task.cc b/paludis/legacy/uninstall_task.cc
-index 6523716..9f5687f 100644
+index e02f4b8..475c0c2 100644
 --- a/paludis/legacy/uninstall_task.cc
 +++ b/paludis/legacy/uninstall_task.cc
 @@ -95,6 +95,7 @@ namespace paludis
@@ -277,7 +277,7 @@ index cbade32..d1a5b0a 100644
          task.set_with_unused_dependencies(CommandLine::get_instance()->a_with_unused_dependencies.specified());
          task.set_with_dependencies(CommandLine::get_instance()->a_with_dependencies.specified());
 diff --git a/src/output/console_install_task.cc b/src/output/console_install_task.cc
-index b08399b..a25e92a 100644
+index 6110e38..0193002 100644
 --- a/src/output/console_install_task.cc
 +++ b/src/output/console_install_task.cc
 @@ -573,6 +573,28 @@ ConsoleInstallTask::on_pretend_all_post()
@@ -310,7 +310,7 @@ index b08399b..a25e92a 100644
  ConsoleInstallTask::on_fetch_all_pre()
  {
 diff --git a/src/output/console_install_task.hh b/src/output/console_install_task.hh
-index 81ba943..013a99a 100644
+index 85ae9b1..c510cbe 100644
 --- a/src/output/console_install_task.hh
 +++ b/src/output/console_install_task.hh
 @@ -145,6 +145,8 @@ namespace paludis
@@ -335,5 +335,5 @@ index f3fb939..e32cad4 100644
          "(--preserve-world -1)"{--preserve-world,-1}"[Don't modify the world file]"
          "--add-to-world-spec[Use this atom, rather than all targets, for updating world (for resume commands)]"
 -- 
-1.7.2
+1.7.2.2
 

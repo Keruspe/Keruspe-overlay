@@ -1,4 +1,4 @@
-From 84df9c6b9f69aa17a7a7e6b88a248aaf25f35a0c Mon Sep 17 00:00:00 2001
+From ab7c11e9daccaedcafbf0ca7a7393b79bb57de74 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Sat, 7 Aug 2010 11:00:13 +0200
 Subject: [PATCH 3/3] cave resolve ask
@@ -13,26 +13,26 @@ Subject: [PATCH 3/3] cave resolve ask
  6 files changed, 39 insertions(+), 3 deletions(-)
 
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index d519529..7a751cf 100644
+index 362a287..c3b4ed7 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
-@@ -100,6 +100,7 @@ namespace
+@@ -104,6 +104,7 @@ namespace
      {
          args::ArgsGroup g_general_options;
          args::SwitchArg a_pretend;
 +        args::SwitchArg a_ask;
          args::SwitchArg a_set;
          args::StringSetArg a_world_specs;
- 
-@@ -110,6 +111,7 @@ namespace
+         args::StringSetArg a_removed_if_dependent_names;
+@@ -115,6 +116,7 @@ namespace
          ExecuteResolutionCommandLine() :
              g_general_options(main_options_section(), "General Options", "General options."),
              a_pretend(&g_general_options, "pretend", '\0', "Only carry out the pretend action", false),
 +            a_ask(&g_general_options, "ask", '\0', "Ask before executing", false),
              a_set(&g_general_options, "set", '\0', "Our target is a set rather than package specs", false),
              a_world_specs(&g_general_options, "world-specs", '\0', "Use the specified spec or set name for updating world"),
-             execution_options(this),
-@@ -261,6 +263,29 @@ namespace
+             a_removed_if_dependent_names(&g_general_options, "removed-if-dependent-names", '\0',
+@@ -271,6 +273,29 @@ namespace
          return 0 == retcode;
      }
  
@@ -62,7 +62,7 @@ index d519529..7a751cf 100644
      std::string maybe_replacing(
              const std::shared_ptr<Environment> & env,
              const std::shared_ptr<const PackageIDSequence> & ids,
-@@ -1484,6 +1509,12 @@ namespace
+@@ -1503,6 +1528,12 @@ namespace
          int retcode(0);
  
          retcode |= execute_pretends(env, lists, cmdline);
@@ -117,10 +117,10 @@ index bda9eab..3af2027 100644
              args::ArgsGroup g_convenience_options;
              args::SwitchArg a_lazy;
 diff --git a/src/clients/cave/resolve_common.cc b/src/clients/cave/resolve_common.cc
-index 551ef0b..740c5d9 100644
+index 169d61f..6d265f7 100644
 --- a/src/clients/cave/resolve_common.cc
 +++ b/src/clients/cave/resolve_common.cc
-@@ -302,6 +302,8 @@ namespace
+@@ -306,6 +306,8 @@ namespace
  
          if (! resolution_options.a_execute.specified())
              args->push_back("--pretend");
@@ -130,10 +130,10 @@ index 551ef0b..740c5d9 100644
          for (Sequence<std::string>::ConstIterator p(world_specs->begin()), p_end(world_specs->end()) ;
                  p != p_end ; ++p)
 diff --git a/zsh-completion/_cave b/zsh-completion/_cave
-index 735e75a..899c918 100644
+index 5fe9cf9..a46bcf2 100644
 --- a/zsh-completion/_cave
 +++ b/zsh-completion/_cave
-@@ -514,6 +514,7 @@ _cave_cmd_report()
+@@ -540,6 +540,7 @@ _cave_cmd_report()
  _cave_resolve_arguments=(
      '(--help -h)'{--help,-h}'[Display help messsage]' \
      '(--execute -x --no-execute)'{--execute,-x,--no-execute}'[Execute the suggested actions]' \
@@ -142,5 +142,5 @@ index 735e75a..899c918 100644
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--complete,-c,--no-complete}'[Do all optional work]' \
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--everything,-e,--no-everything}'[Do all optional work, and also reinstall]' \
 -- 
-1.7.2
+1.7.2.2
 
