@@ -5,6 +5,7 @@
 EAPI=3
 inherit eutils flag-o-matic multilib toolchain-funcs linux-info
 
+scriptversion=161
 DESCRIPTION="Linux dynamic and persistent device naming support (aka userspace devfs)"
 HOMEPAGE="http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev.html"
 SRC_URI="mirror://kernel/linux/utils/kernel/hotplug/${P}.tar.bz2"
@@ -21,15 +22,18 @@ COMMON_DEPEND="selinux? ( sys-libs/libselinux )
 		virtual/libusb:0
 		sys-apps/pciutils
 		dev-libs/glib:2
-		dev-util/pkgconfig
 	)
 	>=sys-apps/util-linux-2.16
 	>=sys-libs/glibc-2.9"
 
 DEPEND="${COMMON_DEPEND}
-	extras? ( dev-util/gperf )
+	extras? (
+		dev-util/gperf
+		dev-util/pkgconfig
+	)
+	virtual/os-headers
 	introspection? ( dev-libs/gobject-introspection )
-	>=sys-kernel/linux-headers-2.6.29
+	!<sys-kernel/linux-headers-2.6.29
 	test? ( app-text/tree )"
 
 RDEPEND="${COMMON_DEPEND}
@@ -100,13 +104,14 @@ sed_libexec_dir() {
 }
 
 src_prepare() {
+	epatch "${FILESDIR}/udev-161-cdrom_id_Drop_MEDIA_SESSION_NEXT_for_DVD-RW-RO.patch"
 	sed -e 's/GROUP="dialout"/GROUP="uucp"/' \
 		-i rules/{rules.d,arch}/*.rules \
 	|| die "failed to change group dialout to uucp"
 
 	MD5=$(md5sum < "${S}/rules/rules.d/50-udev-default.rules")
 	MD5=${MD5/  -/}
-	if [[ ${MD5} != 61eda71c840620ff70386715d8010438 ]]
+	if [[ ${MD5} != 4c325a57c0624e240c2180744385fa3a ]]
 	then
 		echo
 		eerror "50-udev-default.rules has been updated, please validate!"
@@ -142,7 +147,7 @@ src_compile() {
 }
 
 src_install() {
-	local scriptdir="${FILESDIR}/156"
+	local scriptdir="${FILESDIR}/${scriptversion}"
 
 	into /
 	emake DESTDIR="${D}" install || die "make install failed"
