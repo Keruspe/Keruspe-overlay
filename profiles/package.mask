@@ -8,6 +8,7 @@
 =games-action/bomb-her-man-9999
 =gnome-base/gnome-shell-9999
 =media-sound/rhythmbox-9999
+=net-misc/gwibber-9999
 =net-misc/pino-9999
 =sys-apps/dbus-9999
 =sys-apps/paludis-9999
