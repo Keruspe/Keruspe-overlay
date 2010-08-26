@@ -15,7 +15,7 @@ SRC_URI=""
 CLIENTS_USE="accerso adjutrix appareo importare inquisitio instruo +paludis +reconcilio"
 
 IUSE="${CLIENTS_USE}
-ask cran doc gems portage pink python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
+ask cran doc gemcutter portage pink python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -26,7 +26,7 @@ COMMON_DEPEND="
 	dev-libs/libpcre[cxx]
 	ruby-bindings? ( dev-lang/ruby )
 	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0[python] )
-	gems? ( >=dev-libs/syck-0.55 virtual/rubygems )
+	gemcutter? ( >=dev-libs/jansson-1.3 )
 	xml? ( >=dev-libs/libxml2-2.6 )
 	search-index? ( dev-db/sqlite:3 )"
 
@@ -81,7 +81,7 @@ src_unpack() {
 
 src_compile() {
 	format_list() { echo $@ | tr -s \  ,; }
-	local repositories="default repository unavailable unpackaged $(usev cran) $(usev gems)"
+	local repositories="default repository unavailable unpackaged $(usev cran) $(usev gemcutter)"
 	local clients="$(usev accerso) $(usev appareo) $(usev adjutrix) \
 		cave $(usev importare) $(usev inquisitio) \
 		$(usev instruo) $(usev paludis) $(usev reconcilio)"
