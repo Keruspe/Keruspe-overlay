@@ -64,7 +64,6 @@ MAKEOPTS="-j1"
 G2CONF="${G2CONF}
 	--disable-maintainer-mode
 	--disable-static
-	$(use_enable map)
 	$(use_enable map location)
 	$(use_enable nautilus-sendto)
 	$(use_with networkmanager connectivity nm)
@@ -72,6 +71,7 @@ G2CONF="${G2CONF}
 	$(use_enable test coding-style-checks)
 	$(use_enable webkit)
 "
+	#$(use_enable map)
 
 src_prepare() {
 	sed -i "s:-Werror::g" configure || die "sed 1 failed"
