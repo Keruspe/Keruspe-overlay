@@ -18,4 +18,5 @@ IUSE=""
 DEPEND="dev-libs/libxslt"
 RDEPEND=">=dev-lang/python-2.5
 	>=dev-python/pygobject-2.10
-	>=dev-python/pyopenssl-0.6"
+	>=dev-python/pyopenssl-0.6
+	dev-python/pycrypto"
