@@ -64,6 +64,8 @@ MAKEOPTS="-j1"
 G2CONF="${G2CONF}
 	--disable-maintainer-mode
 	--disable-static
+	--disable-map
+	--disable-location
 	$(use_enable nautilus-sendto)
 	$(use_with networkmanager connectivity nm)
 	$(use_enable spell)
