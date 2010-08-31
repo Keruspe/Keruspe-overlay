@@ -14,7 +14,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="map nautilus-sendto networkmanager spell test webkit"
 
 RDEPEND=">=dev-libs/glib-2.16.0
-	x11-libs/gtk+:3
+	>=x11-libs/gtk+-2.21.6:2
 	>=gnome-base/gconf-2
 	>=dev-libs/dbus-glib-0.51
 	>=gnome-extra/evolution-data-server-1.2
@@ -64,16 +64,15 @@ MAKEOPTS="-j1"
 G2CONF="${G2CONF}
 	--disable-maintainer-mode
 	--disable-static
-	--disable-map
-	--disable-location
+	$(use_enable map)
+	$(use_enable map location)
 	$(use_enable nautilus-sendto)
 	$(use_with networkmanager connectivity nm)
 	$(use_enable spell)
 	$(use_enable test coding-style-checks)
 	$(use_enable webkit)
+	--disable-gtk3
 "
-	#$(use_enable map)
-	#$(use_enable map location)
 
 src_prepare() {
 	sed -i "s:-Werror::g" configure || die "sed 1 failed"
