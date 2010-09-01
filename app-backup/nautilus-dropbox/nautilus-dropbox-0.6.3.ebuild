@@ -7,7 +7,7 @@ inherit gnome2 eutils
 
 DESCRIPTION="Store, Sync and Share Files Online"
 HOMEPAGE="http://www.getdropbox.com/"
-SRC_URI="https://www.dropbox.com/download?dl=packages/${P}.tar.bz2"
+SRC_URI="http://www.dropbox.com/download?dl=packages/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
