@@ -14,7 +14,7 @@ SRC_URI=""
 LICENSE="LGPL-2 GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc test"
+IUSE="doc"
 
 RDEPEND=">=dev-libs/glib-2.19.0
 	virtual/libffi"
