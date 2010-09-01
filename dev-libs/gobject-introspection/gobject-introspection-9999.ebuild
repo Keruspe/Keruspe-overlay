@@ -24,21 +24,19 @@ DEPEND="${RDEPEND}
 	sys-devel/flex
 	test? ( x11-libs/cairo )"
 
-src_prepare() {
-	G2CONF="${G2CONF} --disable-static"
-	use doc && MAKEOPTS="-j1"
-	ln -sf $(type -P true) py-compile
-}
+G2CONF="${G2CONF} --disable-static"
 
 src_unpack() {
 	git_src_unpack	
-	cd ${S}
-	gtkdocize
-	eautoreconf
 }
 
-src_configure() {
-	econf $(use_enable test tests) || die "econf failed"
+src_prepare() {
+	gnome2_src_prepare
+	use doc && MAKEOPTS="-j1"
+	ln -sf $(type -P true) py-compile
+	sed -i 's/tests//' Makefile.am #sandbox violation
+	gtkdocize
+	eautoreconf
 }
 
 pkg_postinst() {
