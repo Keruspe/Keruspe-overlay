@@ -20,6 +20,8 @@
 =gnome-extra/gnome-power-manager-2.31*
 =gnome-extra/gnome-utils-2.31*
 =gnome-extra/gucharmap-2.31*
+>=gnome-extra/polkit-gnome-0.97
 =net-im/empathy-2.31*
 =net-libs/libsoup-2.31*
 =net-libs/libsoup-gnome-2.31*
+>=sys-auth/pokit-0.97
