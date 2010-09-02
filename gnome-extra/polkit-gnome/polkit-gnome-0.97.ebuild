@@ -17,7 +17,7 @@ IUSE="doc examples introspection"
 RDEPEND=">=x11-libs/gtk+-2.17.1
 	>=gnome-base/gconf-2.8
 	>=dev-libs/dbus-glib-0.71
-	>=sys-auth/polkit-0.95
+	>=sys-auth/polkit-0.97
 	introspection? ( >=dev-libs/gobject-introspection-0.6.2 )"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
