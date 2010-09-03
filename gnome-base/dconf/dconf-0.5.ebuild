@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc +introspection"
 
-RDEPEND=">=dev-libs/glib-2.25.10
+RDEPEND=">=dev-libs/glib-2.25.12
 	>=dev-libs/libgee-0.5.1
 	>=dev-libs/libxml2-2.7.7
 	x11-libs/gtk+:2
