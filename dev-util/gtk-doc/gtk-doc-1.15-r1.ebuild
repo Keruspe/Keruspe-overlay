@@ -39,7 +39,7 @@ DOCS="AUTHORS ChangeLog MAINTAINERS NEWS README TODO"
 src_prepare() {
 	gnome2_src_prepare
 	epatch "${FILESDIR}/${PN}-1.8-emacs-keybindings.patch"
-	epatch "${FILESDIR}/${PN}-1.13-fixxref-vim-u-NONE.patch"
+	epatch "${FILESDIR}/${P}-fixxref-vim-fixes.patch"
 }
 
 src_compile() {
