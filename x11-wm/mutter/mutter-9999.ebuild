@@ -4,7 +4,7 @@
 
 EAPI=3
 inherit autotools gnome2 git
-
+EGIT_COMMIT=2521e810
 DESCRIPTION="Upcoming GNOME 3 window manager (derived from metacity)"
 HOMEPAGE="http://blogs.gnome.org/metacity/"
 EGIT_REPO_URI="git://git.gnome.org/mutter"
