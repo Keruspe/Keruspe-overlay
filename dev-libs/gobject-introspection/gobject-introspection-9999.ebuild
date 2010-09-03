@@ -5,7 +5,7 @@
 EAPI=3
 PYTHON_DEPEND=2:2.5
 inherit autotools gnome2 git python
-
+EGIT_COMMIT=abc4e5 
 DESCRIPTION="Introspection infrastructure for gobject library bindings"
 HOMEPAGE="http://live.gnome.org/GObjectIntrospection/"
 EGIT_REPO_URI="git://git.gnome.org/gobject-introspection"
