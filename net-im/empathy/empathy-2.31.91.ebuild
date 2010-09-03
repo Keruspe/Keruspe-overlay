@@ -11,13 +11,13 @@ LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="map nautilus-sendto networkmanager spell test webkit"
+IUSE="eds map nautilus-sendto networkmanager spell test webkit"
 
 RDEPEND=">=dev-libs/glib-2.16.0
 	>=x11-libs/gtk+-2.21.6:2
 	>=gnome-base/gconf-2
 	>=dev-libs/dbus-glib-0.51
-	>=gnome-extra/evolution-data-server-1.2
+	eds? ( >=gnome-extra/evolution-data-server-1.2 )
 	>=net-libs/telepathy-glib-0.11.13
 	>=media-libs/libcanberra-0.4[gtk]
 	>=x11-libs/libnotify-0.5.1
@@ -64,6 +64,7 @@ MAKEOPTS="-j1"
 G2CONF="${G2CONF}
 	--disable-maintainer-mode
 	--disable-static
+	$(use_with eds)
 	$(use_enable map)
 	$(use_enable map location)
 	$(use_enable nautilus-sendto)
