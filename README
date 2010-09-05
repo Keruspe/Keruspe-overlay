@@ -1,3 +1,6 @@
+NEW : If you are experiencing problems with glib and gnome stuff like gdm not displaying users list or gobject-introspection, dconf failing, etc :
+=> recompile dconf without introspection use flag, recompile gobject-introspection, recompile dconf with introspection use flag, and upgrade gconf, you can also recompile everything depending upon gobjet-introspection and everything should then be fine.
+
 Use this overlay at your own risks, I assume you know what you're doing and how to repair a broken system.
 Some are ebuilds from tree with modified deps to allow using for example gnome-shell...
 Some are new ebuilds.
