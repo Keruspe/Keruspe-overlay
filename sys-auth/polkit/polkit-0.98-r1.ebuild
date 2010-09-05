@@ -1,9 +1,8 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-auth/polkit/polkit-0.96-r2.ebuild,v 1.6 2010/08/14 17:08:08 armin76 Exp $
+# $Header: $
 
-EAPI="2"
-
+EAPI=3
 inherit autotools eutils multilib pam
 
 DESCRIPTION="Policy framework for controlling privileges for system-wide services"
@@ -12,10 +11,9 @@ SRC_URI="http://hal.freedesktop.org/releases/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~amd64 ~x86"
 IUSE="debug doc examples +introspection nls"
 
-# not mature enough
 RDEPEND=">=dev-libs/glib-2.25.12
 	>=dev-libs/eggdbus-0.6
 	dev-libs/expat
@@ -34,6 +32,7 @@ PDEPEND=">=sys-auth/consolekit-0.4[policykit]"
 src_prepare() {
 	epatch "${FILESDIR}/${PN}-0.96-getcwd.patch"
 	epatch "${FILESDIR}/${PN}-backport.patch"
+	eautoreconf
 }
 
 src_configure() {
@@ -42,8 +41,6 @@ src_configure() {
 		conf="${conf} --with-authfw=pam
 			--with-pam-module-dir=$(getpam_mod_dir)"
 
-	# We define libexecdir due to fdo bug #22951
-	# easier to maintain than patching everything
 	econf ${conf} \
 		--disable-ansi \
 		--disable-examples \
