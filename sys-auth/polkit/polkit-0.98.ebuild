@@ -30,10 +30,10 @@ DEPEND="${RDEPEND}
 	>=dev-util/gtk-doc-am-1.13
 	doc? ( >=dev-util/gtk-doc-1.13 )"
 PDEPEND=">=sys-auth/consolekit-0.4[policykit]"
-# gtk-doc-am-1.13 needed for eautoreconf
 
 src_prepare() {
 	epatch "${FILESDIR}/${PN}-0.96-getcwd.patch"
+	epatch "${FILESDIR}/${PN}-backport.patch"
 }
 
 src_configure() {
