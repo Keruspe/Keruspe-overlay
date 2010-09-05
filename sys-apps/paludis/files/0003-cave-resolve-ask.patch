@@ -1,4 +1,4 @@
-From ab7c11e9daccaedcafbf0ca7a7393b79bb57de74 Mon Sep 17 00:00:00 2001
+From d9a0a79173401c6a2ab3d90a1fbed78d8305057b Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Sat, 7 Aug 2010 11:00:13 +0200
 Subject: [PATCH 3/3] cave resolve ask
@@ -13,7 +13,7 @@ Subject: [PATCH 3/3] cave resolve ask
  6 files changed, 39 insertions(+), 3 deletions(-)
 
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index 362a287..c3b4ed7 100644
+index dab4d3b..6c99c7b 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
 @@ -104,6 +104,7 @@ namespace
@@ -62,7 +62,7 @@ index 362a287..c3b4ed7 100644
      std::string maybe_replacing(
              const std::shared_ptr<Environment> & env,
              const std::shared_ptr<const PackageIDSequence> & ids,
-@@ -1503,6 +1528,12 @@ namespace
+@@ -1509,6 +1534,12 @@ namespace
          int retcode(0);
  
          retcode |= execute_pretends(env, lists, cmdline);
@@ -76,11 +76,11 @@ index 362a287..c3b4ed7 100644
              return retcode;
  
 diff --git a/src/clients/cave/cmd_resolve.cc b/src/clients/cave/cmd_resolve.cc
-index b3dab40..38f07d2 100644
+index 7d01f1d..8fd9228 100644
 --- a/src/clients/cave/cmd_resolve.cc
 +++ b/src/clients/cave/cmd_resolve.cc
-@@ -47,9 +47,9 @@ namespace
-             display_options(this),
+@@ -49,9 +49,9 @@ namespace
+             graph_jobs_options(this),
              program_options(this)
          {
 -            add_usage_line("[ -x|--execute ] [ -z|--lazy or -c|--complete or -e|--everything ] spec ...");
@@ -93,7 +93,7 @@ index b3dab40..38f07d2 100644
  
          std::string app_name() const
 diff --git a/src/clients/cave/cmd_resolve_cmdline.cc b/src/clients/cave/cmd_resolve_cmdline.cc
-index c58f318..0d25c13 100644
+index a0abbc3..05efe40 100644
 --- a/src/clients/cave/cmd_resolve_cmdline.cc
 +++ b/src/clients/cave/cmd_resolve_cmdline.cc
 @@ -46,6 +46,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
@@ -105,7 +105,7 @@ index c58f318..0d25c13 100644
      g_convenience_options(this, "Convenience Options", "Broad behaviour options."),
      a_lazy(&g_convenience_options, "lazy", 'z', "Do as little work as possible.", true),
 diff --git a/src/clients/cave/cmd_resolve_cmdline.hh b/src/clients/cave/cmd_resolve_cmdline.hh
-index bda9eab..3af2027 100644
+index 01a22e0..0628685 100644
 --- a/src/clients/cave/cmd_resolve_cmdline.hh
 +++ b/src/clients/cave/cmd_resolve_cmdline.hh
 @@ -36,6 +36,7 @@ namespace paludis
@@ -117,10 +117,10 @@ index bda9eab..3af2027 100644
              args::ArgsGroup g_convenience_options;
              args::SwitchArg a_lazy;
 diff --git a/src/clients/cave/resolve_common.cc b/src/clients/cave/resolve_common.cc
-index 169d61f..6d265f7 100644
+index 8cf9f53..86f6b5c 100644
 --- a/src/clients/cave/resolve_common.cc
 +++ b/src/clients/cave/resolve_common.cc
-@@ -306,6 +306,8 @@ namespace
+@@ -384,6 +384,8 @@ namespace
  
          if (! resolution_options.a_execute.specified())
              args->push_back("--pretend");
