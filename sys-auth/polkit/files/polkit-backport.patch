@@ -1,46 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
-<head>
-<title>PolicyKit - Toolkit for controlling privileges for system-wide services</title>
-<meta name='generator' content='cgit v0.8.3.1'/>
-<meta name='robots' content='index, nofollow'/>
-<link rel='stylesheet' type='text/css' href='http://cgit.freedesktop.org/cgit.css'/>
-<link rel='alternate' title='Atom feed' href='http://cgit.freedesktop.org/PolicyKit/atom/?h=master' type='application/atom+xml'/>
-</head>
-<body>
-<div id='cgit'><table id='header'>
-<tr>
-<td class='logo' rowspan='2'><a href='/'><img src='http://cgit.freedesktop.org/logo.png' alt='cgit logo'/></a></td>
-<td class='main'><a href='/'>index</a> : <a title='PolicyKit' href='/PolicyKit/'>PolicyKit</a></td><td class='form'><form method='get' action=''>
-<input type='hidden' name='id' value='01e9a56df9abbd9dacccb215969e2dc1d46366d7'/><select name='h' onchange='this.form.submit();'>
-<option value='gdbus'>gdbus</option>
-<option value='master' selected='selected'>master</option>
-</select> <input type='submit' name='' value='switch'/></form></td></tr>
-<tr><td class='sub'>Toolkit for controlling privileges for system-wide services</td><td class='sub right'>david</td></tr></table>
-<table class='tabs'><tr><td>
-<a href='/PolicyKit/'>summary</a><a href='/PolicyKit/refs/?id=01e9a56df9abbd9dacccb215969e2dc1d46366d7'>refs</a><a href='/PolicyKit/log/'>log</a><a href='/PolicyKit/tree/?id=01e9a56df9abbd9dacccb215969e2dc1d46366d7'>tree</a><a class='active' href='/PolicyKit/commit/?id=01e9a56df9abbd9dacccb215969e2dc1d46366d7'>commit</a><a href='/PolicyKit/diff/?id=01e9a56df9abbd9dacccb215969e2dc1d46366d7'>diff</a></td><td class='form'><form class='right' method='get' action='/PolicyKit/log/'>
-<input type='hidden' name='id' value='01e9a56df9abbd9dacccb215969e2dc1d46366d7'/><select name='qt'>
-<option value='grep'>log msg</option>
-<option value='author'>author</option>
-<option value='committer'>committer</option>
-</select>
-<input class='txt' type='text' size='10' name='q' value=''/>
-<input type='submit' value='search'/>
-</form>
-</td></tr></table>
-<div class='content'><table summary='commit info' class='commit-info'>
-<tr><th>author</th><td>Vincent Untz &lt;vuntz@gnome.org&gt;</td><td class='right'>2010-08-26 14:08:26 (GMT)</td></tr>
-<tr><th>committer</th><td> David Zeuthen &lt;davidz@redhat.com&gt;</td><td class='right'>2010-08-26 14:08:26 (GMT)</td></tr>
-<tr><th>commit</th><td colspan='2' class='sha1'><a href='/PolicyKit/commit/?id=01e9a56df9abbd9dacccb215969e2dc1d46366d7'>01e9a56df9abbd9dacccb215969e2dc1d46366d7</a> (<a href='/PolicyKit/patch/?id=01e9a56df9abbd9dacccb215969e2dc1d46366d7'>patch</a>)</td></tr>
-<tr><th>tree</th><td colspan='2' class='sha1'><a href='/PolicyKit/tree/?id=01e9a56df9abbd9dacccb215969e2dc1d46366d7'>9ea132d395f292185f0e808faef5e975cd590d2c</a></td></tr>
-<tr><th>parent</th><td colspan='2' class='sha1'><a href='/PolicyKit/commit/?id=cf56d76ac83eb4a5a08e8ec4ca7a7f376a1996dc'>cf56d76ac83eb4a5a08e8ec4ca7a7f376a1996dc</a> (<a href='/PolicyKit/diff/?id=01e9a56df9abbd9dacccb215969e2dc1d46366d7&amp;id2=cf56d76ac83eb4a5a08e8ec4ca7a7f376a1996dc'>diff</a>)</td></tr><tr><th>download</th><td colspan='2' class='sha1'><a href='/PolicyKit/snapshot/PolicyKit-01e9a56df9abbd9dacccb215969e2dc1d46366d7.zip'>PolicyKit-01e9a56df9abbd9dacccb215969e2dc1d46366d7.zip</a><br/><a href='/PolicyKit/snapshot/PolicyKit-01e9a56df9abbd9dacccb215969e2dc1d46366d7.tar.gz'>PolicyKit-01e9a56df9abbd9dacccb215969e2dc1d46366d7.tar.gz</a><br/><a href='/PolicyKit/snapshot/PolicyKit-01e9a56df9abbd9dacccb215969e2dc1d46366d7.tar.bz2'>PolicyKit-01e9a56df9abbd9dacccb215969e2dc1d46366d7.tar.bz2</a><br/></td></tr></table>
-<div class='commit-subject'>Bug 29816 – Install polkitagentenumtypes.h<a class='branch-deco' href='/PolicyKit/log/'>master</a></div><div class='commit-msg'>https://bugs.freedesktop.org/show_bug.cgi?id=29816
+From 01e9a56df9abbd9dacccb215969e2dc1d46366d7 Mon Sep 17 00:00:00 2001
+From: Vincent Untz <vuntz@gnome.org>
+Date: Thu, 26 Aug 2010 14:08:26 +0000
+Subject: Bug 29816 – Install polkitagentenumtypes.h
 
-Signed-off-by: David Zeuthen &lt;davidz@redhat.com&gt;
-</div><div class='diffstat-header'><a href='/PolicyKit/diff/?id=01e9a56df9abbd9dacccb215969e2dc1d46366d7'>Diffstat</a></div><table summary='diffstat' class='diffstat'><tr><td class='mode'>-rw-r--r--</td><td class='upd'><a href='/PolicyKit/diff/src/polkitagent/Makefile.am?id=01e9a56df9abbd9dacccb215969e2dc1d46366d7'>src/polkitagent/Makefile.am</a></td><td class='right'>1</td><td class='graph'><table summary='file diffstat' width='1%'><tr><td class='add' style='width: 100.0%;'/><td class='rem' style='width: 0.0%;'/><td class='none' style='width: 0.0%;'/></tr></table></td></tr>
-</table><div class='diffstat-summary'>1 files changed, 1 insertions, 0 deletions</div><table summary='diff' class='diff'><tr><td><div class='head'>diff --git a/src/polkitagent/Makefile.am b/src/polkitagent/Makefile.am<br/>index d2fc9c8..96ffd7c 100644<br/>--- a/<a href='/PolicyKit/tree/src/polkitagent/Makefile.am?id=cf56d76ac83eb4a5a08e8ec4ca7a7f376a1996dc'>src/polkitagent/Makefile.am</a><br/>+++ b/<a href='/PolicyKit/tree/src/polkitagent/Makefile.am?id=01e9a56df9abbd9dacccb215969e2dc1d46366d7'>src/polkitagent/Makefile.am</a></div><div class='hunk'>@@ -46,6 +46,7 @@ libpolkit_agent_1includedir=$(includedir)/polkit-1/polkitagent</div><div class='ctx'> </div><div class='ctx'> libpolkit_agent_1include_HEADERS =                        				\</div><div class='ctx'> 	polkitagent.h									\</div><div class='add'>+	polkitagentenumtypes.h								\</div><div class='ctx'> 	polkitagenttypes.h								\</div><div class='ctx'> 	polkitagentsession.h								\</div><div class='ctx'> 	polkitagentlistener.h								\</div></td></tr></table></div> <!-- class=content -->
-<div class='footer'>generated  by cgit v0.8.3.1 at 2010-09-05 16:41:38 (GMT)</div>
-</div> <!-- id=cgit -->
-</body>
-</html>
+https://bugs.freedesktop.org/show_bug.cgi?id=29816
+
+Signed-off-by: David Zeuthen <davidz@redhat.com>
+---
+diff --git a/src/polkitagent/Makefile.am b/src/polkitagent/Makefile.am
+index d2fc9c8..96ffd7c 100644
+--- a/src/polkitagent/Makefile.am
++++ b/src/polkitagent/Makefile.am
+@@ -46,6 +46,7 @@ libpolkit_agent_1includedir=$(includedir)/polkit-1/polkitagent
+ 
+ libpolkit_agent_1include_HEADERS =                        				\
+ 	polkitagent.h									\
++	polkitagentenumtypes.h								\
+ 	polkitagenttypes.h								\
+ 	polkitagentsession.h								\
+ 	polkitagentlistener.h								\
+--
+cgit v0.8.3-6-g21f6
