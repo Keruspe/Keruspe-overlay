@@ -45,8 +45,8 @@ src_prepare() {
 	sed 's:CFLAGS="$CFLAGS -Werror:CFLAGS="$CFLAGS:' \
 		-i configure.in configure || die "sed failed"
 	
-	epatch 0001-Revert-pam-Fix-build-on-Snow-Leopard.patch
-	epatch 0002-pam-Fix-PAM-header-test.patch
+	epatch ${FILESDIR}/0001-Revert-pam-Fix-build-on-Snow-Leopard.patch
+	epatch ${FILESDIR}/0002-pam-Fix-PAM-header-test.patch
 	eautoreconf
 }
 
