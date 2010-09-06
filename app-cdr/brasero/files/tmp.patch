@@ -1,5 +1,5 @@
---- brasero-jacket-buffer.c.old	2010-09-06 14:48:42.260779817 +0200
-+++ brasero-jacket-buffer.c	2010-09-06 14:58:11.959598434 +0200
+--- a/libbrasero-utils/brasero-jacket-buffer.c	2010-09-06 14:48:42.260779817 +0200
++++ b/libbrasero-utils/brasero-jacket-buffer.c	2010-09-06 14:58:11.959598434 +0200
 @@ -76,7 +76,7 @@
  	guint left_margin_accumulative = 0;
  	guint right_margin_accumulative = 0;

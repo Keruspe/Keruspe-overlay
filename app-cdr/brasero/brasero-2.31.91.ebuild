@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit gnome2 multilib
+inherit eutils gnome2 multilib
 
 DESCRIPTION="Brasero (aka Bonfire) is yet another application to burn CD/DVD for the gnome desktop."
 HOMEPAGE="http://www.gnome.org/projects/brasero"
