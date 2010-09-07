@@ -16,6 +16,7 @@
 =x11-wm/mutter-9999
 
 # Mask Gnome 2.31
+=app-crypt/seahorse-2.31*
 =gnome-base/gdm-2.31*
 =gnome-extra/gnome-power-manager-2.31*
 =gnome-extra/gnome-utils-2.31*
