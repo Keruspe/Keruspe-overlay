@@ -13,9 +13,6 @@ SLOT="3"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-SRC_URI="http://www.imagination-land.com/${P}.tar.bz2"
-RESTRICT="nomirror"
-
 RDEPEND=">=x11-libs/gtk+-2.90.2:3
 	>=dev-libs/glib-2.19.1
 	>=x11-libs/libXrandr-1.2
