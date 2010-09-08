@@ -7,11 +7,11 @@ EAPI=3
 DESCRIPTION="kupfer, a convenient command and access tool"
 HOMEPAGE="http://kaizer.se/wiki/kupfer/"
 
-MY_P="${PN}-pandoras-box-${PV}"
+MY_P="${PN}-v${PV}"
 
 SRC_URI="http://kaizer.se/publicfiles/${PN}/${MY_P}.tar.gz"
 
-LICENSE="LGPL"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="+keybinder"
