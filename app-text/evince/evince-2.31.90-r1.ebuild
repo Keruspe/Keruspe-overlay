@@ -2,8 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
-
+EAPI=3
 inherit eutils gnome2
 
 DESCRIPTION="Simple document viewer for GNOME"
@@ -11,12 +10,10 @@ HOMEPAGE="http://www.gnome.org/projects/evince/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~x86-linux ~x64-solaris"
+KEYWORDS="~amd64 ~x86"
 
 IUSE="dbus debug djvu doc dvi gnome gnome-keyring gtk3 images +introspection nautilus t1lib tiff"
 
-# Since 2.26.2, can handle poppler without cairo support. Make it optional ?
-# not mature enough
 RDEPEND="
 	>=app-text/libspectre-0.2.0
 	>=dev-libs/glib-2.25.11
@@ -48,8 +45,6 @@ DEPEND="${RDEPEND}
 DOCS="AUTHORS ChangeLog NEWS README TODO"
 ELTCONF="--portage"
 
-# Needs dogtail and pyspi from http://fedorahosted.org/dogtail/
-# Releases: http://people.redhat.com/zcerza/dogtail/releases/
 RESTRICT="test"
 
 pkg_setup() {
@@ -84,8 +79,6 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-
-	# Fix .desktop file so menu item shows up
 	epatch "${FILESDIR}"/${PN}-0.7.1-display-menu.patch
 }
 
