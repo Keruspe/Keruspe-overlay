@@ -55,7 +55,7 @@ pkg_setup() {
 		--enable-pdf
 		--enable-ps
 		--enable-comics
-		--enable-impress
+		--disable-impress
 		--enable-thumbnailer
 		--with-smclient=xsmp
 		--with-platform=gnome
