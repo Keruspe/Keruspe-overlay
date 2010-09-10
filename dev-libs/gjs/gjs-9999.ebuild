@@ -4,7 +4,7 @@
 
 EAPI=3
 inherit autotools gnome2 git
-EGIT_COMMIT=7d96519
+
 DESCRIPTION="Javascript bindings for GNOME"
 HOMEPAGE="http://live.gnome.org/Gjs"
 EGIT_REPO_URI="git://git.gnome.org/gjs"
