@@ -35,7 +35,7 @@ RDEPEND=">=x11-libs/gtk+-2.90.5:3[introspection?]
 	>=x11-libs/cairo-1.9.12
 
 	sound? ( >=media-libs/libcanberra-0.25-r1[gtk3] )
-	introspection? ( dev-libs/gobject-introspection )
+	introspection? ( >=dev-libs/gobject-introspection-0.9.5 )
 	xinerama? ( x11-libs/libXinerama )
 	gnome-extra/zenity
 	!x11-misc/expocity"

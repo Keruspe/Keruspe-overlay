@@ -17,7 +17,7 @@ IUSE="+X debug doc +introspection jpeg jpeg2k tiff test"
 RDEPEND="
 	>=dev-libs/glib-2.25.9
 	>=media-libs/libpng-1.2.43-r2:0
-	introspection? ( >=dev-libs/gobject-introspection-0.9.0 )
+	introspection? ( >=dev-libs/gobject-introspection-0.9.5 )
 	jpeg? ( >=media-libs/jpeg-6b-r9:0 )
 	jpeg2k? ( media-libs/jasper )
 	tiff? ( >=media-libs/tiff-3.9.2 )
