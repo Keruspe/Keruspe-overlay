@@ -3,16 +3,22 @@
 # $Header: $
 
 # Mask Scm packages
+=dev-libs/atk-9999
 =dev-libs/gjs-9999
+=dev-libs/glib-9999
 =dev-libs/gobject-introspection-9999
 =games-action/bomb-her-man-9999
+=gnome-base/dconf-9999
+=gnome-base/gconf-9999
 =gnome-base/gnome-shell-9999
+=media-libs/clutter-9999
 =media-sound/rhythmbox-9999
 =net-misc/gwibber-9999
 =net-misc/pino-9999
 =sys-apps/dbus-9999
 =sys-apps/paludis-9999
 =sys-apps/systemd-9999
+=x11-libs/pango-9999
 =x11-wm/mutter-9999
 
 # Mask Gnome 2.31
