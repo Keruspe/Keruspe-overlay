@@ -51,6 +51,7 @@ src_unpack() {
 src_prepare() {
 	eautopoint
 	gtkdocize
+	touch ChangeLog
 	eautoreconf
 }
 
