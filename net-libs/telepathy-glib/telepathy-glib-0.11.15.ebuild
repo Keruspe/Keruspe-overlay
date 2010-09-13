@@ -26,8 +26,8 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	rm telepathy-glib/TelepathyGLib-0.12.gir -f
-	touch vala/telepathy-glib.deps
 }
+
 
 src_configure() {
 	econf \
