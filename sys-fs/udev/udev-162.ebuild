@@ -104,7 +104,6 @@ sed_libexec_dir() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/udev-161-cdrom_id_Drop_MEDIA_SESSION_NEXT_for_DVD-RW-RO.patch"
 	sed -e 's/GROUP="dialout"/GROUP="uucp"/' \
 		-i rules/{rules.d,arch}/*.rules \
 	|| die "failed to change group dialout to uucp"
