@@ -11,10 +11,11 @@ HOMEPAGE="http://www.gnome.org/"
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~x86"
-IUSE="debug doc pam test"
+IUSE="debug doc gtk3 pam test"
 
 RDEPEND=">=dev-libs/glib-2.16
-	>=x11-libs/gtk+-2.20:2
+	gtk3? ( x11-libs/gtk+:3 )
+	!gtk3? ( >=x11-libs/gtk+-2.20:2 )
 	gnome-base/gconf
 	>=sys-apps/dbus-1.0
 	pam? ( virtual/pam )
@@ -38,6 +39,7 @@ pkg_setup() {
 		--with-root-certs=/usr/share/ca-certificates/
 		--enable-acl-prompts
 		--enable-ssh-agent"
+	use gtk3 && G2CONF+=" --with-gtk=3.0" || G2CONF+=" --with-gtk=2.0"
 }
 
 src_prepare() {
