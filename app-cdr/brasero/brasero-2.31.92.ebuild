@@ -67,11 +67,6 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog MAINTAINERS NEWS README"
 }
 
-src_prepare() {
-	gnome2_src_prepare
-	epatch ${FILESDIR}/tmp.patch
-}
-
 src_install() {
 	gnome2_src_install
 	rm -f "${D}"/usr/$(get_libdir)/brasero/plugins/*.la

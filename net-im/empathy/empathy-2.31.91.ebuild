@@ -11,14 +11,15 @@ LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="eds map nautilus-sendto networkmanager spell test webkit"
+IUSE="eds gtk3 map nautilus-sendto networkmanager spell test webkit"
 
 RDEPEND=">=dev-libs/glib-2.16.0
-	>=x11-libs/gtk+-2.21.6:2
+	!gtk3? ( >=x11-libs/gtk+-2.21.6:2 )
+	gtk3? ( >=x11-libs/gtk+-2.90.7:3 )
 	>=gnome-base/gconf-2
 	>=dev-libs/dbus-glib-0.51
 	eds? ( >=gnome-extra/evolution-data-server-1.2 )
-	>=net-libs/telepathy-glib-0.11.13
+	>=net-libs/telepathy-glib-0.11.15
 	>=media-libs/libcanberra-0.4[gtk]
 	>=x11-libs/libnotify-0.5.1
 	>=gnome-base/gnome-keyring-2.22
@@ -61,19 +62,24 @@ DOCS="CONTRIBUTORS AUTHORS ChangeLog NEWS README"
 
 MAKEOPTS="-j1"
 
-G2CONF="${G2CONF}
-	--disable-maintainer-mode
-	--disable-static
-	$(use_with eds)
-	$(use_enable map)
-	$(use_enable map location)
-	$(use_enable nautilus-sendto)
-	$(use_with networkmanager connectivity nm)
-	$(use_enable spell)
-	$(use_enable test coding-style-checks)
-	$(use_enable webkit)
-	--disable-gtk3
-"
+pkg_setup() {
+	G2CONF="${G2CONF}
+		--disable-maintainer-mode
+		--disable-static
+		$(use_with eds)
+		$(use_enable map)
+		$(use_enable map location)
+		$(use_enable nautilus-sendto)
+		$(use_with networkmanager connectivity nm)
+		$(use_enable spell)
+		$(use_enable test coding-style-checks)
+		$(use_enable webkit)
+		$(use_enable gtk3)
+	"
+	if use gtk3; then
+		G2GONF+="--disable-map"
+	fi
+}
 
 src_prepare() {
 	sed -i "s:-Werror::g" configure || die "sed 1 failed"

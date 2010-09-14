@@ -20,15 +20,16 @@ DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.9
 	dev-util/gtk-doc-am
 	doc? ( >=dev-util/gtk-doc-1 )
-	introspection? ( dev-libs/gobject-introspection )"
-PDEPEND="gnome? ( ~net-libs/${PN}-gnome-${PV} )"
+	introspection? ( dev-libs/gobject-introspection )
+	gnome? ( !<net-libs/libsoup-gnome-1000
+		net-libs/libproxy )"
 
 DOCS="AUTHORS NEWS README"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
 		--disable-static
-		--without-gnome
+		$(use_with gnome)
 		$(use_enable ssl)
 		$(use_enable introspection)"
 }
@@ -36,9 +37,6 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 	sed -e 's/\(test.*\)==/\1=/g' -i configure.ac configure || die "sed failed"
-	if use doc; then
-		epatch "${FILESDIR}/${PN}-fix-build-without-gnome-with-doc.patch"
-	fi
 	rm -f libsoup/*.gir
 	eautoreconf
 }
