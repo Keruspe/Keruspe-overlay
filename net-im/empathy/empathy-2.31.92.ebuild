@@ -76,9 +76,7 @@ pkg_setup() {
 		$(use_enable webkit)
 		$(use_enable gtk3)
 	"
-	if use gtk3; then
-		G2GONF+="--disable-map"
-	fi
+	use gtk3 && G2CONF+=" --disable-map"
 }
 
 src_prepare() {
