@@ -8,10 +8,8 @@
 =dev-libs/glib-9999
 =dev-libs/gobject-introspection-9999
 =games-action/bomb-her-man-9999
-=gnome-base/dconf-9999
 =gnome-base/gconf-9999
 =gnome-base/gnome-shell-9999
-=media-libs/clutter-9999
 =media-sound/rhythmbox-9999
 =net-misc/gwibber-9999
 =net-misc/pino-9999

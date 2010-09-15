@@ -3,13 +3,10 @@
 # $Header: $
 
 EAPI=3
-inherit autotools git gnome2
+inherit gnome2
 
 DESCRIPTION="Simple low-level configuration system"
 HOMEPAGE="http://live.gnome.org/dconf"
-
-EGIT_REPO_URI="git://git.gnome.org/${PN}"
-SRC_URI=""
 
 LICENSE="LGPL-2.1"
 SLOT="0"
@@ -28,15 +25,4 @@ DEPEND="${RDEPEND}
 pkg_setup() {
 	G2CONF="${G2CONF}
 		$(use_enable introspection)"
-}
-
-src_unpack() {
-	git_src_unpack
-}
-
-src_prepare() {
-	gnome2_src_prepare
-	mkdir m4 aux
-	gtkdocize --docdir docs
-	eautoreconf
 }
