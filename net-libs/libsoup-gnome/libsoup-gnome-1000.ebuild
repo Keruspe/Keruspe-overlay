@@ -11,8 +11,9 @@ SRC_URI=""
 LICENSE=""
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="introspection"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
+PDEPEND=">=net-libs/libsoup-gnome-2.31.92[introspection]"
 
