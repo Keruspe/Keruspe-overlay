@@ -42,6 +42,7 @@ DOCS="AUTHORS ChangeLog NEWS README"
 
 src_prepare() {
 	epatch "${FILESDIR}/${P}-fix-compilation-with-DGSEAL_ENABLE.patch"
+	epatch "${FILESDIR}/${P}-fix-bluetooth-dep.patch"
 }
 
 S="${WORKDIR}/${MY_PN}-${PV}"
