@@ -21,7 +21,7 @@ RDEPEND=">=dev-libs/glib-2.25.9
 	>=media-libs/gst-plugins-base-0.10.16
 	gnome-base/gnome-desktop:3
 	>=dev-libs/gobject-introspection-0.6.11
-
+	gnome-base/gsettings-desktop-schemas
 	dev-libs/dbus-glib
 	>=dev-libs/gjs-0.7
 	x11-libs/pango[introspection]
