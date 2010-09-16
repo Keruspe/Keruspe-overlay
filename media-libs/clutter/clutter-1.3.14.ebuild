@@ -45,6 +45,11 @@ pkg_setup() {
 	use introspection && MAKEOPTS=-j1
 }
 
+src_prepare() {
+	epatch ${FILESDIR}/fix-introspection.patch
+	eautoreconf
+}
+
 src_configure() {
 	local myconf=""
 
