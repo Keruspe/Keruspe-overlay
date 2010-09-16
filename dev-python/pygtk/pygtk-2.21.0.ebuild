@@ -24,7 +24,7 @@ RDEPEND=">=dev-libs/glib-2.8
 	>=x11-libs/gtk+-2.18
 	>=gnome-base/libglade-2.5
 	>=dev-python/pycairo-1.0.2
-	>=dev-python/pygobject-2.16.1
+	>=dev-python/pygobject-2.21.3
 	dev-python/numpy"
 
 DEPEND="${RDEPEND}

@@ -21,12 +21,11 @@
 
 # Mask Gnome 2.31
 =app-crypt/seahorse-2.31*
+=dev-python/pygtk-2.21*
 =gnome-base/gdm-2.31*
 =gnome-extra/gnome-power-manager-2.31*
 =gnome-extra/gnome-utils-2.31*
 =gnome-extra/gucharmap-2.31*
->=gnome-extra/polkit-gnome-0.97
 =net-im/empathy-2.31*
 =net-libs/libsoup-2.31*
 =net-libs/libsoup-gnome-1000
->=sys-auth/pokit-0.97
