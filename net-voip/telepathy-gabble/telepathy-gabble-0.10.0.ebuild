@@ -13,12 +13,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
-RDEPEND=">=dev-libs/glib-2.16
+RDEPEND=">=dev-libs/glib-2.24
 	>=sys-apps/dbus-1.1.0
 	>=dev-libs/dbus-glib-0.78
-	>=net-libs/telepathy-glib-0.7.37
+	>=net-libs/telepathy-glib-0.11.16
 	>=net-libs/loudmouth-1.3.2[ssl]
-	net-libs/libsoup:2.4[ssl]"
+	net-libs/libsoup:2.4[ssl]
+	>=net-im/telepathy-mission-control-5.5.0"
 
 DEPEND="${RDEPEND}
 	>=net-libs/libnice-0.0.11
