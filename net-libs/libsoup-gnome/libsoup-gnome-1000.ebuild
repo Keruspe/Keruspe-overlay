@@ -9,7 +9,7 @@ HOMEPAGE=""
 SRC_URI=""
 
 LICENSE=""
-SLOT="0"
+SLOT="2.4"
 KEYWORDS="~amd64 ~x86"
 IUSE="introspection"
 
