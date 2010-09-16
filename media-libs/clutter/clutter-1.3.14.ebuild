@@ -41,6 +41,10 @@ DEPEND="${RDEPEND}
 		>=dev-libs/gobject-introspection-0.6.4
 		>=x11-libs/pango-1.28.0[introspection] )"
 
+pkg_setup() {
+	use introspection && MAKEOPTS=-j1
+}
+
 src_configure() {
 	local myconf=""
 
