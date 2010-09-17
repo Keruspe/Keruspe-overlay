@@ -9,6 +9,7 @@ DESCRIPTION="The GLib library of C routines"
 HOMEPAGE="http://www.gtk.org/"
 
 EGIT_REPO_URI="git://git.gnome.org/${PN}"
+EGIT_BRANCH="glib-2.26"
 SRC_URI=""
 
 LICENSE="LGPL-2"
