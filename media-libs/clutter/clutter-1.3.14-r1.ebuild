@@ -16,6 +16,7 @@ WANT_AUTOMAKE=1.11
 RDEPEND=">=dev-libs/glib-2.16
 	>=x11-libs/cairo-1.4
 	>=x11-libs/pango-1.20
+	>=dev-libs/json-glib-0.11.2
 
 	gtk? ( >=x11-libs/gtk+-2.0 )
 	opengl? (
@@ -40,15 +41,6 @@ DEPEND="${RDEPEND}
 	introspection? (
 		>=dev-libs/gobject-introspection-0.6.4
 		>=x11-libs/pango-1.28.0[introspection] )"
-
-pkg_setup() {
-	use introspection && MAKEOPTS=-j1
-}
-
-src_prepare() {
-	epatch ${FILESDIR}/fix-introspection.patch
-	eautoreconf
-}
 
 src_configure() {
 	local myconf=""
@@ -78,7 +70,7 @@ src_configure() {
 	myconf="${myconf}
 		--enable-maintainer-flags=no
 		--enable-xinput
-		--with-json=internal
+		--with-json=system
 		$(use_enable introspection)"
 	econf ${myconf}
 }

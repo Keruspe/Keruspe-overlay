@@ -20,6 +20,7 @@
 
 # Mask Gnome 2.31
 =app-crypt/seahorse-2.31*
+=dev-libs/json-glib-0.11*
 =dev-python/pygtk-2.21*
 =gnome-base/gdm-2.31*
 =gnome-extra/gnome-power-manager-2.31*
