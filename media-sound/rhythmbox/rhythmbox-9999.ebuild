@@ -34,7 +34,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.18
 		brasero? ( >=app-cdr/brasero-0.9.1 )
 		!brasero? ( >=gnome-extra/nautilus-cd-burner-2.21.6 ) )
 	daap? ( >=net-dns/avahi-0.6 
-		media-libs/libdmapsharing )
+		>=media-libs/libdmapsharing-2.0.3 )
 	gnome-keyring? ( >=gnome-base/gnome-keyring-0.4.9 )
 	udev? (
 		ipod? ( >=media-libs/libgpod-0.6 )
