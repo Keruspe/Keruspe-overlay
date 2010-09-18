@@ -3,13 +3,10 @@
 # $Header: $
 
 EAPI=3
-inherit autotools git gnome.org libtool eutils flag-o-matic
+inherit autotools gnome.org libtool eutils flag-o-matic
 
 DESCRIPTION="The GLib library of C routines"
 HOMEPAGE="http://www.gtk.org/"
-
-EGIT_REPO_URI="git://git.gnome.org/${PN}"
-SRC_URI=""
 
 LICENSE="LGPL-2"
 SLOT="2"
@@ -29,10 +26,6 @@ DEPEND="${RDEPEND}
 	test? ( >=sys-apps/dbus-1.2.14 )"
 PDEPEND="introspection? ( dev-libs/gobject-introspection )"
 # XXX: Consider adding test? ( sys-devel/gdb ); assert-msg-test tries to use it
-
-src_unpack() {
-	git_src_unpack
-}
 
 src_prepare() {
 	if use ppc64 && use hardened ; then
