@@ -9,8 +9,8 @@ inherit cmake-utils mercurial
 DESCRIPTION="Twitter and Identi.ca client"
 HOMEPAGE="http://pino-app.appspot.com/"
 SRC_URI=""
-EHG_REPO_URI="https://pino-twitter.googlecode.com/hg/"
-S="${WORKDIR}/hg"
+EHG_REPO_URI="http://bitbucket.org/troorl/pino3"
+S="${WORKDIR}/pino3"
 
 LICENSE="LGPL-3"
 SLOT="0"
@@ -20,6 +20,7 @@ IUSE="debug indicate"
 RDEPEND="x11-libs/gtk+:2
 	>=sys-devel/gcc-4.2
 	>=dev-libs/libgee-0.5.0
+	net-libs/librest
 	x11-libs/libnotify
 	net-libs/libsoup:2.4
 	dev-libs/libxml2
@@ -32,6 +33,10 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	dev-util/intltool
 	dev-lang/python"
+
+src_prepare() {
+	sed -i '/Proxy\ proxy/s/Proxy/Rest.Proxy/g' src/identica_create_dialog.vala 
+}
 
 src_configure() {
 	mycmakeargs=(
