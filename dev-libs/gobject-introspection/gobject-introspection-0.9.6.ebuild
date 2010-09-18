@@ -4,12 +4,10 @@
 
 EAPI=3
 PYTHON_DEPEND=2:2.5
-inherit autotools gnome2 git python
+inherit autotools gnome2 python
 
 DESCRIPTION="Introspection infrastructure for gobject library bindings"
 HOMEPAGE="http://live.gnome.org/GObjectIntrospection/"
-EGIT_REPO_URI="git://git.gnome.org/gobject-introspection"
-SRC_URI=""
 
 LICENSE="LGPL-2 GPL-2"
 SLOT="0"
@@ -25,10 +23,6 @@ DEPEND="${RDEPEND}
 	test? ( x11-libs/cairo )"
 
 G2CONF="${G2CONF} --disable-static"
-
-src_unpack() {
-	git_src_unpack	
-}
 
 src_prepare() {
 	gnome2_src_prepare
