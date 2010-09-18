@@ -20,7 +20,8 @@ DEPEND="${RDEPEND}
 	>=dev-util/gtk-doc-1.12
 	dev-util/pkgconfig
 	sys-devel/flex
-	test? ( x11-libs/cairo )"
+	test? ( x11-libs/cairo )
+	!<dev-lang/vala-0.10.0"
 
 G2CONF="${G2CONF} --disable-static"
 
