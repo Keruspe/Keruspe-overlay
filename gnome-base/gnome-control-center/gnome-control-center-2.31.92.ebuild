@@ -11,11 +11,11 @@ HOMEPAGE="http://www.gnome.org/"
 LICENSE="GPL-2"
 SLOT="2"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="eds"
 
 RDEPEND="x11-libs/libXft
 	>=x11-libs/libXi-1.2
-	>=x11-libs/gtk+-2.90.0:3
+	>=x11-libs/gtk+-2.20.0:2
 	>=dev-libs/glib-2.17.4
 	>=gnome-base/gconf-2.0
 	>=gnome-base/librsvg-2.0
@@ -24,7 +24,7 @@ RDEPEND="x11-libs/libXft
 	>=dev-libs/dbus-glib-0.73
 	>=x11-libs/libxklavier-4.0
 	>=gnome-base/libgnomekbd-2.31.2
-	>=gnome-base/gnome-desktop-2.29.4:3
+	>=gnome-base/gnome-desktop-2.29.4
 	>=gnome-base/gnome-menus-2.11.1
 	gnome-base/gnome-settings-daemon
 
@@ -32,7 +32,9 @@ RDEPEND="x11-libs/libXft
 	x11-libs/pango
 	dev-libs/libxml2
 	media-libs/freetype
-	>=media-libs/libcanberra-0.4[gtk3]
+	media-libs/libcanberra
+
+	eds? ( >=gnome-extra/evolution-data-server-1.7.90 )
 
 	x11-apps/xmodmap
 	x11-libs/libXScrnSaver
@@ -64,7 +66,8 @@ DOCS="AUTHORS ChangeLog NEWS README TODO"
 pkg_setup() {
 	G2CONF="${G2CONF}
 		--disable-update-mimedb
-		--disable-static"
+		--disable-static
+		$(use_enable eds aboutme)"
 }
 
 src_install() {
