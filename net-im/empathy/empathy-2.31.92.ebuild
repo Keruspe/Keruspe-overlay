@@ -14,8 +14,10 @@ KEYWORDS="~amd64 ~x86"
 IUSE="eds gtk3 map nautilus-sendto networkmanager spell test webkit"
 
 RDEPEND=">=dev-libs/glib-2.16.0
-	!gtk3? ( >=x11-libs/gtk+-2.21.6:2 )
-	gtk3? ( >=x11-libs/gtk+-2.90.7:3 )
+	!gtk3? ( >=x11-libs/gtk+-2.21.6:2 
+		dev-libs/libunique:0 )
+	gtk3? ( >=x11-libs/gtk+-2.90.7:3 
+		dev-libs/libunique:3 )
 	>=gnome-base/gconf-2
 	>=dev-libs/dbus-glib-0.51
 	eds? ( >=gnome-extra/evolution-data-server-1.2 )
@@ -25,7 +27,6 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	>=gnome-base/gnome-keyring-2.22[gtk3=]
 
 	nautilus-sendto? ( gnome-extra/nautilus-sendto )
-	dev-libs/libunique:3
 	net-libs/farsight2
 	media-libs/gstreamer:0.10
 	media-libs/gst-plugins-base:0.10
