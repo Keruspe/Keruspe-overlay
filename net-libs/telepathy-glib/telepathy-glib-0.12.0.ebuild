@@ -21,13 +21,13 @@ DEPEND="${RDEPEND}
 	dev-libs/libxslt
 	>=dev-util/gtk-doc-1.15
 	>=dev-util/pkgconfig-0.21
-	introspection? ( >=dev-libs/gobject-introspection-0.6.14 )
-	vala? ( >=dev-lang/vala-0.9.4 )"
+	introspection? ( >=dev-libs/gobject-introspection-0.9.6 )
+	vala? ( >=dev-lang/vala-0.10.0 )"
 
 src_prepare() {
-	rm telepathy-glib/TelepathyGLib-0.12.gir -f
+	sed -e 's/vapigen/vapigen-0.10/g' \
+		-i configure
 }
-
 
 src_configure() {
 	econf \
