@@ -34,10 +34,6 @@ DEPEND="${RDEPEND}
 	dev-util/intltool
 	dev-lang/python"
 
-src_prepare() {
-	sed -i '/Proxy\ proxy/s/Proxy/Rest.Proxy/g' src/identica_create_dialog.vala 
-}
-
 src_configure() {
 	mycmakeargs=(
 		-DUBUNTU_ICONS=OFF
