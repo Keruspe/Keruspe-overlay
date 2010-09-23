@@ -13,15 +13,18 @@
 =net-misc/pino-9999
 =sys-apps/paludis-9999
 =sys-apps/systemd-9999
+=x11-libs/gtk+-9999
 =x11-libs/pango-9999
 =x11-wm/mutter-9999
 
-# Mask Gnome 2.31
+# Mask Gnome 2.31 - 2.32
 =app-crypt/seahorse-2.31*
 =dev-libs/glib-2.27*
 =dev-libs/json-glib-0.11*
 =dev-python/pygtk-2.21*
 =gnome-base/gdm-2.31*
+=gnome-base/gnome-control-center-2.90*
+=gnome-base/gnome-settings-daemon-2.90*
 =gnome-extra/gnome-power-manager-2.31*
 =gnome-extra/gnome-utils-2.31*
 =gnome-extra/gucharmap-2.31*
@@ -29,3 +32,4 @@
 =net-im/empathy-2.31*
 =net-libs/libsoup-2.31*
 =net-libs/libsoup-gnome-1000
+=x11-libs/gtk+-2.22*

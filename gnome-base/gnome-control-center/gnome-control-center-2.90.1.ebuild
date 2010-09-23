@@ -9,13 +9,13 @@ DESCRIPTION="The gnome2 Desktop configuration tool"
 HOMEPAGE="http://www.gnome.org/"
 
 LICENSE="GPL-2"
-SLOT="2"
+SLOT="3"
 KEYWORDS="~amd64 ~x86"
 IUSE="eds"
 
 RDEPEND="x11-libs/libXft
 	>=x11-libs/libXi-1.2
-	>=x11-libs/gtk+-2.20.0:2
+	>=x11-libs/gtk+-2.90.6:3
 	>=dev-libs/glib-2.17.4
 	>=gnome-base/gconf-2.0
 	>=gnome-base/librsvg-2.0
@@ -43,7 +43,8 @@ RDEPEND="x11-libs/libXft
 	x11-libs/libXxf86misc
 	x11-libs/libXrandr
 	x11-libs/libXrender
-	x11-libs/libXcursor"
+	x11-libs/libXcursor
+	!gnome-base/gnome-control-center:2"
 DEPEND="${RDEPEND}
 	x11-proto/scrnsaverproto
 	x11-proto/xextproto
