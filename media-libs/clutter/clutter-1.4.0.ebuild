@@ -16,7 +16,7 @@ WANT_AUTOMAKE=1.11
 RDEPEND=">=dev-libs/glib-2.16
 	>=x11-libs/cairo-1.4
 	>=x11-libs/pango-1.20
-	>=dev-libs/json-glib-0.11.2
+	>=dev-libs/json-glib-0.12.0
 
 	gtk? ( >=x11-libs/gtk+-2.0 )
 	opengl? (
