@@ -28,3 +28,7 @@
 =gnome-extra/gnome-utils-2.31*
 =gnome-extra/gucharmap-2.31*
 =net-im/empathy-2.31*
+
+# Need masked introspection
+=dev-libs/json-glib-0.12*
+=media-libs/clutter-1.4*
