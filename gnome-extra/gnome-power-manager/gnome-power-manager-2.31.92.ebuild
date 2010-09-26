@@ -11,7 +11,7 @@ HOMEPAGE="http://www.gnome.org/projects/gnome-power-manager/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc policykit test"
+IUSE="applets doc policykit test"
 
 RESTRICT="test"
 
@@ -23,6 +23,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.13.0
 	>=x11-libs/libnotify-0.4.3
 	>=x11-libs/libwnck-2.10.0
 	>=x11-libs/cairo-1.0.0
+	applets? ( >=gnome-base/gnome-panel-2 )
 	>=gnome-base/gconf-2.10
 	>=media-libs/libcanberra-0.10[gtk]
 	>=sys-power/upower-0.9.1
@@ -57,8 +58,8 @@ pkg_setup() {
 		$(use_enable test tests)
 		$(use_enable doc docbook-docs)
 		$(use_enable policykit gconf-defaults)
-		--enable-compile-warnings=minimum
-		--enable-applets"
+		$(use_enable applets)
+		--enable-compile-warnings=minimum"
 }
 
 src_prepare() {
@@ -83,3 +84,4 @@ src_test() {
 	unset DBUS_SESSION_BUS_ADDRESS
 	Xemake check || die "Test phase failed"
 }
+
