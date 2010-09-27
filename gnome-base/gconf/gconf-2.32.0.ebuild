@@ -2,13 +2,16 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
-inherit autotools eutils git gnome2
+EAPI=3
+inherit eutils gnome2
+
+MY_PN=GConf
+MY_P=${MY_PN}-${PV}
+PVP=(${PV//[-\._]/ })
 
 DESCRIPTION="Gnome Configuration System and Daemon"
 HOMEPAGE="http://www.gnome.org/"
-SRC_URI=""
-EGIT_REPO_URI="git://git.gnome.org/${PN}"
+SRC_URI="mirror://gnome/sources/${MY_PN}/${PVP[0]}.${PVP[1]}/${MY_P}.tar.bz2"
 
 LICENSE="LGPL-2"
 SLOT="2"
@@ -48,10 +51,6 @@ pkg_setup() {
 	export EXTRA_EMAKE="${EXTRA_EMAKE} ORBIT_IDL=/usr/bin/orbit-idl-2"
 }
 
-src_unpack() {
-	git_src_unpack
-}
-
 src_prepare() {
 	# Do not start gconfd when installing schemas, fix bug #238276, upstream ?
 	epatch "${FILESDIR}/${PN}-2.24.0-no-gconfd.patch"
@@ -60,9 +59,6 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-2.28.0-entry-set-value-sigsegv.patch"
 
 	gnome2_src_prepare
-	gtkdocize
-	intltoolize
-	eautoreconf
 }
 
 src_install() {

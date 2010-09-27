@@ -45,13 +45,3 @@ pkg_setup() {
 		--disable-scrollkeeper
 		--disable-static"
 }
-
-pkg_preinst() {
-	gnome2_pkg_preinst
-	preserve_old_lib /usr/$(get_libdir)/libgnome-desktop-2.so.11
-}
-
-pkg_postinst() {
-	gnome2_pkg_postinst
-	preserve_old_lib_notify /usr/$(get_libdir)/libgnome-desktop-2.so.11
-}

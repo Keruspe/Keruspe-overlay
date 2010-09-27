@@ -2,14 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit autotools git gnome2
+inherit gnome2
 EAPI=3
 
 DESCRIPTION="GTK+ & GNOME Accessibility Toolkit"
 HOMEPAGE="http://live.gnome.org/GAP/"
-
-EGIT_REPO_URI="git://git.gnome.org/${PN}"
-SRC_URI=""
 
 LICENSE="LGPL-2"
 SLOT="0"
@@ -29,15 +26,4 @@ DOCS="AUTHORS ChangeLog NEWS README"
 
 pkg_setup() {
 	G2CONF="${G2CONF} $(use_enable introspection)"
-}
-
-src_unpack() {
-	git_src_unpack
-}
-
-src_prepare() {
-	gnome2_src_prepare
-	gtkdocize
-	glib-gettextize
-	eautoreconf
 }

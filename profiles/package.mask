@@ -3,7 +3,6 @@
 # $Header: $
 
 # Mask Scm packages
-=dev-libs/atk-9999
 =dev-libs/gjs-9999
 =games-action/bomb-her-man-9999
 =gnome-base/gconf-9999
@@ -17,7 +16,7 @@
 =x11-libs/pango-9999
 =x11-wm/mutter-9999
 
-# Mask Gnome 2.31 - 2.32
+# Mask Gnome 2.31 - 2.90
 =app-crypt/seahorse-2.31*
 =dev-libs/glib-2.27*
 =dev-python/pygtk-2.21*
@@ -28,7 +27,3 @@
 =gnome-extra/gnome-utils-2.31*
 =gnome-extra/gucharmap-2.31*
 =net-im/empathy-2.31*
-
-# Need masked introspection
-=dev-libs/json-glib-0.12*
-=media-libs/clutter-1.4*
