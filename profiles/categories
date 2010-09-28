@@ -22,5 +22,6 @@ net-voip
 sys-apps
 sys-boot
 sys-fs
+sys-kernel
 x11-libs
 x11-wm
