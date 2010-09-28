@@ -22,7 +22,8 @@ RDEPEND=">=sys-libs/ncurses-5.2-r5
 	dev-libs/lzo
 	truetype? ( media-libs/freetype:2 media-fonts/unifont )"
 DEPEND="${RDEPEND}
-	dev-lang/ruby"
+	dev-lang/ruby
+	sys-devel/autogen"
 PROVIDE="virtual/bootloader"
 
 src_configure() {
