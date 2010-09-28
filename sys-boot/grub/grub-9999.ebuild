@@ -2,16 +2,17 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
-inherit mount-boot eutils flag-o-matic toolchain-funcs
+EBZR_REPO_URI="http://bzr.savannah.gnu.org/r/grub/trunk/grub"
+EBZR_BOOTSTRAP="autogen.sh"
+inherit bzr mount-boot eutils flag-o-matic toolchain-funcs
 
-SRC_URI="ftp://alpha.gnu.org/gnu/${PN}/${P}.tar.gz
-	mirror://gentoo/${P}.tar.gz"
+# Grub will do its own stripping (broken binaries otherwise)
 RESTRICT="strip"
 
 DESCRIPTION="GNU GRUB 2 boot loader"
 HOMEPAGE="http://www.gnu.org/software/grub/"
 
+EAPI=3
 LICENSE="GPL-3"
 use multislot && SLOT="2" || SLOT="0"
 KEYWORDS="~amd64"
