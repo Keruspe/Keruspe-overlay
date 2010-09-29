@@ -24,4 +24,5 @@ sys-boot
 sys-fs
 sys-kernel
 x11-libs
+x11-terms
 x11-wm
