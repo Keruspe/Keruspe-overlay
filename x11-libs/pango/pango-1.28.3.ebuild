@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit autotools eutils git gnome2 multilib toolchain-funcs
+inherit eutils gnome2 multilib toolchain-funcs
 
 DESCRIPTION="Internationalized text layout and rendering library"
 HOMEPAGE="http://www.pango.org/"
@@ -28,7 +28,7 @@ DEPEND="${RDEPEND}
 	doc? (
 		~app-text/docbook-xml-dtd-4.1.2
 		x11-libs/libXft )
-	introspection? ( >=dev-libs/gobject-introspection-0.6.7 )
+	introspection? ( >=dev-libs/gobject-introspection-0.9.5 )
 	test? (
 		>=dev-util/gtk-doc-1.13
 		~app-text/docbook-xml-dtd-4.1.2
