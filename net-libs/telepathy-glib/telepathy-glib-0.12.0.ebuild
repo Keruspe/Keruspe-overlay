@@ -24,11 +24,6 @@ DEPEND="${RDEPEND}
 	introspection? ( >=dev-libs/gobject-introspection-0.9.6 )
 	vala? ( >=dev-lang/vala-0.10.0 )"
 
-src_prepare() {
-	sed -e 's/vapigen/vapigen-0.10/g' \
-		-i configure
-}
-
 src_configure() {
 	econf \
 		$(use_enable debug) \
