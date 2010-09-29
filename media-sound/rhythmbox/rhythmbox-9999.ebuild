@@ -144,6 +144,7 @@ src_unpack() {
 }
 
 src_prepare() {
+	sed -i 's/libdmapsharing-2.0/libdmapsharing-2.2/' configure.ac
 	gnome2_src_prepare
 	gtkdocize
 	gnome-doc-prepare --automake
