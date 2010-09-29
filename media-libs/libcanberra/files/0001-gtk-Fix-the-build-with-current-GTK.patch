@@ -17,7 +17,7 @@ index fffcfef..34446f5 100644
                  goto fail;
  
          if (e->any.window)
-+#if GTK_CHECK_VERSION (2, 90, 7)
++#if GTK_CHECK_VERSION (2, 90, 8)
 +                s = gdk_window_get_screen(e->any.window);
 +#else
                  s = gdk_drawable_get_screen(GDK_DRAWABLE(e->any.window));
