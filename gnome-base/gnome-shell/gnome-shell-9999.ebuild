@@ -50,8 +50,6 @@ DEPEND="${RDEPEND}
 "
 DOCS="AUTHORS README"
 
-G2CONF="--disable-Werror"
-
 src_unpack() {
 	git_src_unpack
 }
