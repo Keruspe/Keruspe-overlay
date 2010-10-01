@@ -22,8 +22,12 @@ DEPEND="${RDEPEND}
 
 MAKEOPTS=-j1
 
-src_configure() {
-	econf \
-		--disable-maintainer-mode \
-		--disable-static
+src_prepare() {
+	sed -i s/tests//g Makefile
+	gnome2_src_prepare
+}
+
+pkg_setup() {
+	G2CONF="--disable-maintainer-mode
+			--disable-static"
 }
