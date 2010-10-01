@@ -23,8 +23,8 @@ DEPEND="${RDEPEND}
 MAKEOPTS=-j1
 
 src_prepare() {
-	sed -i s/tests//g Makefile
 	gnome2_src_prepare
+	sed -i 's/tests//g' Makefile.in
 }
 
 pkg_setup() {
