@@ -19,6 +19,7 @@
 =dev-libs/glib-2.27*
 =gnome-base/gnome-control-center-2.90*
 =gnome-base/gnome-settings-daemon-2.90*
+=net-libs/folks-0.3.0
 
 # Dummy Kernel
 sys-kernel/dummy-sources
