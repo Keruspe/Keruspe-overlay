@@ -3,8 +3,7 @@
 # $Header: $
 
 EAPI=3
-EGIT_REPO_URI="git://git.gnome.org/gtk+"
-inherit autotools git flag-o-matic eutils libtool virtualx
+inherit gnome.org flag-o-matic eutils libtool virtualx
 
 DESCRIPTION="Gimp ToolKit +"
 HOMEPAGE="http://www.gtk.org/"
@@ -62,10 +61,6 @@ DEPEND="${RDEPEND}
 		media-fonts/font-cursor-misc )"
 PDEPEND="vim-syntax? ( app-vim/gtk-syntax )"
 
-src_unpack() {
-	git_src_unpack
-}
-
 src_prepare() {
 	replace-flags -O3 -O2
 	strip-flags
@@ -74,9 +69,6 @@ src_prepare() {
 		-i gtk/tests/testing.c || die "sed 1 failed"
 	sed '\%/recent-manager/add%,/recent_manager_purge/ d' \
 		-i gtk/tests/recentmanager.c || die "sed 2 failed"
-
-	gtkdocize
-	eautoreconf
 }
 
 src_configure() {
