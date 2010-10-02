@@ -34,7 +34,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.18
 		brasero? ( >=app-cdr/brasero-0.9.1 )
 		!brasero? ( >=gnome-extra/nautilus-cd-burner-2.21.6 ) )
 	daap? ( >=net-dns/avahi-0.6 
-		>=media-libs/libdmapsharing-2.0.3 )
+		>=media-libs/libdmapsharing-2.1.3 )
 	gnome-keyring? ( >=gnome-base/gnome-keyring-0.4.9 )
 	udev? (
 		ipod? ( >=media-libs/libgpod-0.6 )
@@ -144,7 +144,6 @@ src_unpack() {
 }
 
 src_prepare() {
-	sed -i 's/libdmapsharing-2.0/libdmapsharing-2.2/' configure.ac
 	gnome2_src_prepare
 	gtkdocize
 	gnome-doc-prepare --automake
