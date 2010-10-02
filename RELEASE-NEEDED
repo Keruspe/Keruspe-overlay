@@ -1,2 +1,6 @@
 gnome-desktop:3
-gtk+:3
+gedit
+gnome-control-center
+gnome-settings-daemon
+gtksourceview
+gtk-engines
