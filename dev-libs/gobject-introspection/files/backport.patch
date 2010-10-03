@@ -1,0 +1,27 @@
+diff --git a/girepository/gdump.c b/girepository/gdump.c
+index 166a9e7..cdede61 100644
+--- a/girepository/gdump.c
++++ b/girepository/gdump.c
+@@ -380,6 +380,9 @@ dump_type (GType type, const char *symbol, GOutputStream *out)
+  *
+  * Returns: %TRUE on success, %FALSE on error
+  */
++#ifndef G_IREPOSITORY_COMPILATION
++static
++#endif
+ gboolean
+ g_irepository_dump (const char *arg, GError **error)
+ {
+diff --git a/giscanner/dumper.py b/giscanner/dumper.py
+index 26ddd7b..2da95ac 100644
+--- a/giscanner/dumper.py
++++ b/giscanner/dumper.py
+@@ -192,6 +192,8 @@ class DumpCompiler(object):
+             args.append('--silent')
+ 
+         args.extend([self._linker_cmd, '-o', output])
++        if libtool:
++            args.append('-export-dynamic')
+ 
+         cflags = os.environ.get('CFLAGS')
+         if (cflags):

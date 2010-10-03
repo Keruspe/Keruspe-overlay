@@ -6,7 +6,7 @@ EAPI="3"
 
 PYTHON_DEPEND="2:2.5"
 
-inherit python gnome2
+inherit eutils python gnome2
 
 DESCRIPTION="Introspection infrastructure for gobject library bindings"
 HOMEPAGE="http://live.gnome.org/GObjectIntrospection/"
@@ -30,7 +30,7 @@ pkg_setup() {
 
 src_prepare() {
 	G2CONF="${G2CONF} --disable-static"
-
+	epatch ${FILESDIR}/backport.patch
 	# FIXME: Parallel compilation failure with USE=doc
 	use doc && MAKEOPTS="-j1"
 

@@ -1,6 +1,8 @@
-gnome-desktop:3
+gnome-desktop
 gedit
 gnome-control-center
 gnome-settings-daemon
 gtksourceview
 gtk-engines
+libpeas
+libgnomekbd
