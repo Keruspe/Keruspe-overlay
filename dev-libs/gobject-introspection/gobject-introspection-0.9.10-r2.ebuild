@@ -42,6 +42,12 @@ src_configure() {
 	econf $(use_enable test tests) || die "econf failed"
 }
 
+src_install() {
+	gnome2_src_install
+	exeinto ${ED}/usr/sbin
+	doexe ${FILESDIR}/gir-rebuilder
+}
+
 pkg_postinst() {
 	python_mod_optimize /usr/$(get_libdir)/${PN}/giscanner
 	python_need_rebuild
