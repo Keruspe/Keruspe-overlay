@@ -6,3 +6,5 @@ gtksourceview
 gtk-engines
 libpeas
 libgnomekbd
+clutter-gtk
+upower
