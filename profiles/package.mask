@@ -25,5 +25,5 @@
 sys-kernel/dummy-sources
 
 # Unmask gnome 2.32
-=dev-libs/glib-2.26*
-=dev-libs/gobject-introspection-0.9*
+-=dev-libs/glib-2.26*
+-=dev-libs/gobject-introspection-0.9*
