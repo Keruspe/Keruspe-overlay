@@ -16,7 +16,7 @@ while (( $# != 0 )); do
 			PM_CMD="emerge"
 			;;
 		paludis)
-			which cave &>/dev/null && PM_CMD="cave resolve -x" || PM_CMD="paludis -i"
+			which cave &>/dev/null && PM_CMD="cave resolve -xz" || PM_CMD="paludis -i"
 			;;
 		*)
 			echo "Did not understand package manager: $1"
@@ -39,4 +39,4 @@ while (( $# != 0 )); do
 	shift
 done
 
-exec ${PM_CMD} ${EXTRA_ARGS} $(grep -r gobject-introspection /var/db/pkg | cut -d ':' -f1 | cut -d '/' -f 5-6 | sed 's/^/=/' | sort -u | grep -v gobject-introspection)
+exec ${PM_CMD} ${EXTRA_ARGS} $(grep -r gobject-introspection /var/db/pkg | cut -d ':' -f1 | cut -d '/' -f 5-6 | sed 's/^/=/' | sort -u | grep -Ev '(gobject-introspection|glib)')
