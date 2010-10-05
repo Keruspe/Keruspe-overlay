@@ -23,7 +23,7 @@ RDEPEND="x11-libs/libXft
 	>=media-libs/fontconfig-1
 	>=dev-libs/dbus-glib-0.73
 	>=x11-libs/libxklavier-4.0
-	>=gnome-base/libgnomekbd-2.31.2
+	>=gnome-base/libgnomekbd-2.91.0
 	>=gnome-base/gnome-desktop-2.29.4
 	>=gnome-base/gnome-menus-2.11.1
 	gnome-base/gnome-settings-daemon

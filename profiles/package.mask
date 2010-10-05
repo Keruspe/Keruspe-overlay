@@ -7,6 +7,7 @@
 =games-action/bomb-her-man-9999
 =gnome-base/gconf-9999
 =gnome-base/gnome-shell-9999
+=gnome-base/libgnomekbd-9999
 =media-sound/rhythmbox-9999
 =net-misc/pino-9999
 =sys-apps/paludis-9999
@@ -19,7 +20,7 @@
 =app-editors/gedit-2.91*
 =dev-libs/gjs-0.7*
 =dev-libs/glib-2.27*
-=gnome-base/gnome-control-center-2.90*
+=gnome-base/gnome-control-center-2.91*
 =gnome-base/gnome-desktop-2.91*
 =gnome-base/gnome-settings-daemon-2.91*
 =gnome-base/gnome-shell-2.91*
