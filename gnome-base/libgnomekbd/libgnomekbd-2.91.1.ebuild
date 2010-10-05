@@ -7,8 +7,6 @@ inherit autotools eutils git gnome2 multilib
 
 DESCRIPTION="Gnome keyboard configuration library"
 HOMEPAGE="http://www.gnome.org"
-SRC_URI=""
-EGIT_REPO_URI="git://git.gnome.org/libgnomekbd"
 
 LICENSE="LGPL-2"
 SLOT="0"
@@ -29,15 +27,4 @@ DOCS="AUTHORS ChangeLog NEWS README"
 
 pkg_setup() {
 	G2CONF="${G2CONF} --disable-tests --disable-static"
-}
-
-src_unpack() {
-	git_src_unpack
-}
-
-src_prepare() {
-	gnome2_src_prepare
-	mkdir m4
-	intltoolize
-	eautoreconf
 }
