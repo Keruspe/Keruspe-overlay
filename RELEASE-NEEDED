@@ -1,5 +1,3 @@
-gtk-engines
 libgnomekbd
 clutter-gtk
 upower
-glib
