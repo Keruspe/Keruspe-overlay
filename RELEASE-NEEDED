@@ -1,2 +1,4 @@
 libgnomekbd
+#temp patches
 clutter-gtk
+upower

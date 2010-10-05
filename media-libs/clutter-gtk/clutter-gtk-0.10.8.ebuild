@@ -30,7 +30,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	ls
 	epatch ${FILESDIR}/fix-introspection.patch
 	gnome2_src_prepare
 }
