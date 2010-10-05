@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit eutils gnome2 multilib
+inherit autotools eutils git gnome2 multilib
 
 DESCRIPTION="Gnome keyboard configuration library"
 HOMEPAGE="http://www.gnome.org"
@@ -29,4 +29,13 @@ DOCS="AUTHORS ChangeLog NEWS README"
 
 pkg_setup() {
 	G2CONF="${G2CONF} --disable-tests --disable-static"
+}
+
+src_unpack() {
+	git_src_unpack
+}
+
+src_prepare() {
+	gnome2_src_prepare
+	eautoreconf
 }
