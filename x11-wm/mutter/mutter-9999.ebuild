@@ -60,7 +60,6 @@ pkg_setup() {
 		--enable-xsync
 		--enable-verbose-mode
 		--enable-compile-warnings
-		--with-gtk=3.0
 		$(use_with sound libcanberra)
 		$(use_with introspection)
 		$(use_enable xinerama)"
