@@ -43,7 +43,7 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	spell? (
 		app-text/enchant
 		app-text/iso-codes )
-	webkit? ( >=net-libs/webkit-gtk-1.3.3:3.0 )
+	webkit? ( >=net-libs/webkit-gtk-1.1.15 )
 "
 DEPEND="${RDEPEND}
 	>=app-text/gnome-doc-utils-0.17.3
