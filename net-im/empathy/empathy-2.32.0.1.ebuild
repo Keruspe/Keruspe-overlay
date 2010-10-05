@@ -23,7 +23,8 @@ RDEPEND=">=dev-libs/glib-2.16.0
 	eds? ( >=gnome-extra/evolution-data-server-1.2 )
 	>=net-libs/telepathy-glib-0.11.15
 	>=media-libs/libcanberra-0.4[gtk]
-	>=x11-libs/libnotify-0.5.1
+	>=x11-libs/libnotify-0.4.4
+	gtk3? ( >=x11-libs/libnotify-0.5.1 )
 	>=gnome-base/gnome-keyring-2.22[gtk3=]
 
 	nautilus-sendto? ( gnome-extra/nautilus-sendto )
