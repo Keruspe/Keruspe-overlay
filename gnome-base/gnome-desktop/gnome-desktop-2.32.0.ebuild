@@ -2,23 +2,23 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
-inherit gnome2 autotools eutils
+EAPI="2"
+
+inherit gnome2 eutils
 
 DESCRIPTION="Libraries for the gnome desktop that are not part of the UI"
 HOMEPAGE="http://www.gnome.org/"
 
 LICENSE="GPL-2 FDL-1.1 LGPL-2"
-SLOT="3"
+SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd ~x86-interix ~amd64-linux ~x86-linux ~x86-solaris"
 IUSE="doc"
 
 # TODO: Add RDEPEND on pciutils (requires support for reading gzipped pnp.ids)
-RDEPEND=">=x11-libs/gtk+-2.91.0:3
+RDEPEND=">=x11-libs/gtk+-2.18.0:2
 	>=dev-libs/glib-2.19.1
 	>=x11-libs/libXrandr-1.2
 	>=gnome-base/gconf-2
-	>=x11-libs/gdk-pixbuf-2.21.3
 	>=x11-libs/startup-notification-0.5
 	x11-libs/libX11"
 DEPEND="${RDEPEND}
@@ -30,7 +30,8 @@ DEPEND="${RDEPEND}
 	~app-text/docbook-xml-dtd-4.1.2
 	x11-proto/xproto
 	>=x11-proto/randrproto-1.2"
-PDEPEND=">=gnome-base/gnome-desktop-2.31:0"
+PDEPEND=">=dev-python/pygtk-2.8
+	>=dev-python/pygobject-2.14"
 
 # Includes X11/Xatom.h in libgnome-desktop/gnome-bg.c which comes from xproto
 # Includes X11/extensions/Xrandr.h that includes randr.h from randrproto (and
@@ -42,8 +43,5 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		--with-gnome-distributor=Gentoo
 		--disable-scrollkeeper
-		--disable-static
-		--disable-gnome-about
-		--disable-desktop-docs
-		--with-pnp-ids-path=/usr/share/libgnome-desktop/pnp.ids"
+		--disable-static"
 }
