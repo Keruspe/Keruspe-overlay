@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI=3
+inherit eutils
 
 DESCRIPTION="Gtk+ Widgets for live display of large amounts of fluctuating numerical data"
 HOMEPAGE="http://sourceforge.net/projects/gtkdatabox/"
@@ -23,11 +24,10 @@ RDEPEND=">=x11-libs/gtk+-2.18
 DEPEND=${RDEPEND}
 
 src_prepare() {
-	sed -e 's:GTK_WIDGET_REALIZED:gtk_widget_get_realized:g' \
-		-e 's:GTK_WIDGET_STATE:gtk_widget_get_state:g'       \
-		-e 's:GTK_WIDGET_VISIBLE:gtk_widget_get_visible:g'   \
-		-e 's:GTK_WIDGET_DRAWABLE:gtk_widget_is_drawable:g'  \
-		-i gtk/gtkdatabox_ruler.c gtk/gtkdatabox.c
+	if has_version ">=x11-libs/gtk+-2.20"; then
+		epatch ${FILESDIR}/${P}-gtk-2.20.patch
+		has_version ">=x11-libs/gtk+-2.22" && epatch ${FILESDIR}/${P}-gtk-2.22.patch
+	fi
 }
 
 src_configure() {
