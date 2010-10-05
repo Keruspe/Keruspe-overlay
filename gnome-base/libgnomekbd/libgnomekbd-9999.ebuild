@@ -37,5 +37,7 @@ src_unpack() {
 
 src_prepare() {
 	gnome2_src_prepare
+	mkdir m4
+	intltoolize
 	eautoreconf
 }
