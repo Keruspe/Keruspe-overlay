@@ -2,4 +2,4 @@ gtk-engines
 libgnomekbd
 clutter-gtk
 upower
-gnome-screensaver
+glib
