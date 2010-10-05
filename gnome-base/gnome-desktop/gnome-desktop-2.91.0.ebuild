@@ -15,7 +15,7 @@ KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd ~
 IUSE="doc"
 
 # TODO: Add RDEPEND on pciutils (requires support for reading gzipped pnp.ids)
-RDEPEND=">=x11-libs/gtk+-2.18.0:2
+RDEPEND=">=x11-libs/gtk+-2.91.0:3
 	>=dev-libs/glib-2.19.1
 	>=x11-libs/libXrandr-1.2
 	>=gnome-base/gconf-2
