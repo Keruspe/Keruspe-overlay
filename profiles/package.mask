@@ -35,3 +35,4 @@ sys-kernel/dummy-sources
 -=dev-libs/glib-2.26*
 -=dev-libs/gobject-introspection-0.9*
 -net-im/telepathy-logger
+-=x11-libs/gtk+-2.22*
