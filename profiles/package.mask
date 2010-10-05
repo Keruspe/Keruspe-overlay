@@ -15,11 +15,15 @@
 =x11-libs/gtk+-9999
 =x11-wm/mutter-9999
 
-# Mask Gnome 2.90
+# Mask Gnome 2.9x
 =dev-libs/glib-2.27*
 =gnome-base/gnome-control-center-2.90*
-=gnome-base/gnome-settings-daemon-2.90*
+=gnome-base/gnome-settings-daemon-2.91*
 =net-libs/folks-0.3.0
+=gnome-base/gnome-desktop-2.91*
+=app-editors/gedit-2.91*
+=x11-libs/gtksourceview-2.91*
+
 
 # Dummy Kernel
 sys-kernel/dummy-sources
