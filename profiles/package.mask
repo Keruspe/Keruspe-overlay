@@ -35,5 +35,7 @@ sys-kernel/dummy-sources
 # Unmask gnome 2.32
 -=dev-libs/glib-2.26*
 -=dev-libs/gobject-introspection-0.9*
+-=gnome-base/librsvg-2.32*
 -net-im/telepathy-logger
 -=x11-libs/gtk+-2.22*
+-=x11-libs/gdk-pixbuf-2.22*
