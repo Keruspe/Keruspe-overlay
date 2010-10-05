@@ -23,6 +23,7 @@ sys-apps
 sys-boot
 sys-fs
 sys-kernel
+sys-power
 x11-libs
 x11-terms
 x11-themes
