@@ -14,7 +14,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="eds gtk3 map nautilus-sendto networkmanager spell test webkit"
 
 RDEPEND=">=dev-libs/glib-2.16.0
-	!gtk3? ( >=x11-libs/gtk+-2.21.6:2 
+	!gtk3? ( >=x11-libs/gtk+-2.22.0:2 
 		dev-libs/libunique:0 )
 	gtk3? ( >=x11-libs/gtk+-2.90.7:3 
 		dev-libs/libunique:3 )
