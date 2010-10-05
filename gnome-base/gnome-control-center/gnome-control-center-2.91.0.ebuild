@@ -15,7 +15,7 @@ IUSE="eds"
 
 RDEPEND="x11-libs/libXft
 	>=x11-libs/libXi-1.2
-	>=x11-libs/gtk+-2.90.6:3
+	>=x11-libs/gtk+-2.91.0:3
 	>=dev-libs/glib-2.17.4
 	>=gnome-base/gconf-2.0
 	>=gnome-base/librsvg-2.0
