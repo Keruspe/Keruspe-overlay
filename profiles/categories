@@ -25,4 +25,5 @@ sys-fs
 sys-kernel
 x11-libs
 x11-terms
+x11-themes
 x11-wm

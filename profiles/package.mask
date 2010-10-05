@@ -26,6 +26,7 @@
 =gnome-base/gnome-shell-2.91*
 =net-libs/folks-0.3.0
 =x11-libs/gtksourceview-2.91*
+=x11-themes/gtk-engines-2.91*
 =x11-wm/mutter-2.91*
 
 # Dummy Kernel
