@@ -1,7 +1,4 @@
-gnome-desktop
-gnome-control-center
-gnome-settings-daemon
-gtksourceview
+gnome-cotnrol-center
 gtk-engines
 libgnomekbd
 clutter-gtk
