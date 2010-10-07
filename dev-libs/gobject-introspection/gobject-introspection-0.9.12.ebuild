@@ -30,11 +30,7 @@ pkg_setup() {
 
 src_prepare() {
 	G2CONF="${G2CONF} --disable-static"
-	epatch ${FILESDIR}/backport.patch
-	# FIXME: Parallel compilation failure with USE=doc
 	use doc && MAKEOPTS="-j1"
-
-	# Don't pre-compile .py
 	ln -sf $(type -P true) py-compile
 }
 
