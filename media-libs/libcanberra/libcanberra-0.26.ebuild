@@ -27,11 +27,6 @@ RDEPEND="media-libs/libvorbis
 DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.17"
 
-src_prepare() {
-	elibtoolize
-	epatch ${FILESDIR}/0001-gtk-Fix-the-build-with-current-GTK.patch
-}
-
 src_configure() {
 	econf \
 		--docdir=/usr/share/doc/${PF} \
