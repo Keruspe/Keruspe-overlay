@@ -34,6 +34,7 @@
 sys-kernel/dummy-sources
 
 # Unmask gnome 2.32
+-=dev-libs/atk-1.32*
 -=dev-libs/glib-2.26*
 -=dev-libs/gobject-introspection-0.9*
 -=gnome-base/librsvg-2.32*
