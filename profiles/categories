@@ -19,6 +19,7 @@ media-sound
 net-im
 net-libs
 net-misc
+net-voip
 sys-apps
 sys-boot
 sys-fs
