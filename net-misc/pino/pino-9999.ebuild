@@ -31,8 +31,7 @@ RDEPEND="x11-libs/gtk+:2
 DEPEND="${RDEPEND}
 	>=dev-lang/vala-0.7.10
 	sys-devel/gettext
-	dev-util/intltool
-	dev-lang/python"
+	dev-util/intltool"
 
 src_configure() {
 	mycmakeargs=(
