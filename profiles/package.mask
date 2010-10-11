@@ -33,11 +33,23 @@
 # Dummy Kernel
 sys-kernel/dummy-sources
 
-# Unmask gnome 2.32
--=dev-libs/atk-1.32*
--=dev-libs/glib-2.26*
--=dev-libs/gobject-introspection-0.9*
--=gnome-base/librsvg-2.32*
+# Mask gnome 2.32
+=app-crypt/seahorse-2.32*
+=app-text/evince-2.32*
+=gnome-base/gdm-2.32*
+=gnome-base/gnome-control-center-2.32*
+=gnome-base/gnome-session-2.32*
+=gnome-base/libgnomekbd-2.32*
+=gnome-base/librsvg-2.32*
+=gnome-extra/evolution-data-server-2.32*
+=gnome-extra/gnome-media-2.32*
+=gnome-extra/gnome-power-manager-2.32*
+=gnome-extra/gnome-utils-2.32*
+=gnome-extra/gucharmap-2.32*
+=media-sound/sound-juicer-2.32*
+=net-im/empathy-2.32*
+=x11-terms/gnome-terminal-2.32*
+
+# Unmask logger
 -net-im/telepathy-logger
--=x11-libs/gtk+-2.22*
--=x11-libs/gdk-pixbuf-2.22*
+
