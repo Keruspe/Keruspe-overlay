@@ -110,7 +110,7 @@ src_prepare() {
 
 	MD5=$(md5sum < "${S}/rules/rules.d/50-udev-default.rules")
 	MD5=${MD5/  -/}
-	if [[ ${MD5} != 4c325a57c0624e240c2180744385fa3a ]]
+	if [[ ${MD5} != f3c9ade42f70cec0459f9e58a99c632a ]]
 	then
 		echo
 		eerror "50-udev-default.rules has been updated, please validate!"
