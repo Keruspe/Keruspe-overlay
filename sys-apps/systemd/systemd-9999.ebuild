@@ -42,7 +42,10 @@ src_prepare() {
 }
 
 src_configure() {
-	econf --with-distro=gentoo \
+	econf \ 
+		VALAC=$(type -p valac-0.10) \
+		VAPIGEN=$(type -p vapigen-0.10) \
+		--with-distro=gentoo \
 		$(use_enable gtk) \
 		--prefix=/usr \
 		--with-rootdir=/ \

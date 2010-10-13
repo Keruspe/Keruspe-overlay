@@ -21,10 +21,12 @@ RDEPEND=">=dev-libs/glib-2.24
 DEPEND="${RDEPEND}
 	dev-libs/libxslt
 	>=dev-util/pkgconfig-0.21
-	vala? ( >=dev-lang/vala-0.10.0 )"
+	vala? ( >=dev-lang/vala-0.10.0:0.10 )"
 
 src_configure() {
 	econf \
+		VALAC=$(type -p valac-0.10) \
+		VAPIGEN=$(type -p vapigen-0.10) \
 		$(use_enable debug) \
 		$(use_enable debug backtrace) \
 		$(use_enable debug handle-leak-debug) \

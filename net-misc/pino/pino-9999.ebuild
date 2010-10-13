@@ -29,7 +29,7 @@ RDEPEND="x11-libs/gtk+:2
 	app-text/gtkspell
 	indicate? ( dev-libs/libindicate )"
 DEPEND="${RDEPEND}
-	>=dev-lang/vala-0.7.10
+	>=dev-lang/vala-0.10:0.10
 	sys-devel/gettext
 	dev-util/intltool"
 
@@ -37,6 +37,8 @@ src_configure() {
 	mycmakeargs=(
 		-DUBUNTU_ICONS=OFF
 		$(cmake-utils_use debug ENABLE_DEBUG)
+		-DVALAC=$(type -p valac-0.10)
+		-DVAPIGEN=$(type -p vapigen-0.10)
 	)
 	cmake-utils_src_configure
 }
