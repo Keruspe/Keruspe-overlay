@@ -2,7 +2,7 @@
 # $Header: $
 
 EAPI=3
-
+WANT_AUTOMAKE=1.11
 inherit autotools git
 
 EGIT_BRANCH="master"
@@ -35,17 +35,14 @@ DEPEND="${RDEPEND}
 	dev-libs/libxslt"
 
 CFLAGS+=" -g -O0"
-WANT_AUTOMAKE=1.11
 
 src_prepare() {
 	eautoreconf
 }
 
 src_configure() {
-	econf \ 
-		VALAC=$(type -p valac-0.10) \
-		VAPIGEN=$(type -p vapigen-0.10) \
-		--with-distro=gentoo \
+	VALAC="$(type -p valac-0.10)" \
+	econf --with-distro=gentoo \
 		$(use_enable gtk) \
 		--prefix=/usr \
 		--with-rootdir=/ \
@@ -54,8 +51,6 @@ src_configure() {
 }
 
 src_install() {
-	# make sure all directory are created
-	mkdir -p ${D}/cgroup/{cpu,cpuacct,cpuset,debug,devices,freezer,memory,ns,systemd}
 	emake DESTDIR=${D} install
 	dodoc "${D}/usr/share/doc/systemd"/* && \
 	rm -r "${D}/usr/share/doc/systemd/"

@@ -34,11 +34,10 @@ DEPEND="${RDEPEND}
 	dev-util/intltool"
 
 src_configure() {
+	sed -i 's/valac/valac-0.10/g' cmake/FindVala.cmake
 	mycmakeargs=(
 		-DUBUNTU_ICONS=OFF
 		$(cmake-utils_use debug ENABLE_DEBUG)
-		-DVALAC=$(type -p valac-0.10)
-		-DVAPIGEN=$(type -p vapigen-0.10)
 	)
 	cmake-utils_src_configure
 }
