@@ -11,79 +11,69 @@ LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="eds gtk3 map nautilus-sendto networkmanager spell test webkit"
+IUSE="eds map nautilus networkmanager spell test webkit"
 
-RDEPEND=">=dev-libs/glib-2.16.0
-	!gtk3? ( >=x11-libs/gtk+-2.22.0:2 
-		dev-libs/libunique:0 )
-	gtk3? ( >=x11-libs/gtk+-2.90.7:3 
-		dev-libs/libunique:3 )
-	>=gnome-base/gconf-2
+RDEPEND=">=dev-libs/glib-2.25.9:2
+	>=x11-libs/gtk+-2.22:2
 	>=dev-libs/dbus-glib-0.51
 	eds? ( >=gnome-extra/evolution-data-server-1.2 )
 	>=net-libs/telepathy-glib-0.11.15
 	>=media-libs/libcanberra-0.4[gtk]
 	>=x11-libs/libnotify-0.4.4
-	gtk3? ( >=x11-libs/libnotify-0.5.1 )
-	>=gnome-base/gnome-keyring-2.22[gtk3=]
+	>=gnome-base/gnome-keyring-2.26
+	>=net-libs/gnutls-2.8.5
+	>=dev-libs/folks-0.1.15
 
-	nautilus-sendto? ( gnome-extra/nautilus-sendto )
+	>=dev-libs/libunique-1.1.6:0
 	net-libs/farsight2
 	media-libs/gstreamer:0.10
 	media-libs/gst-plugins-base:0.10
-	net-libs/telepathy-farsight
+	>=net-libs/telepathy-farsight-0.0.14
 	dev-libs/libxml2
 	x11-libs/libX11
 	net-voip/telepathy-connection-managers
+	>=net-im/telepathy-logger-0.1.5
 
 	map? (
-		>=media-libs/libchamplain-0.7.1
+		>=media-libs/libchamplain-0.7.1[gtk]
 		>=media-libs/clutter-gtk-0.10:1.0 
 		>=gnome-extra/geoclue-0.11.1 )
+	nautilus? ( >=gnome-extra/nautilus-sendto-2.31.7 )
 	networkmanager? ( >=net-misc/networkmanager-0.7 )
 	spell? (
-		app-text/enchant
-		app-text/iso-codes )
-	webkit? ( >=net-libs/webkit-gtk-1.1.15 )
-"
+		>=app-text/enchant-1.2
+		>=app-text/iso-codes-0.35 )
+	webkit? ( >=net-libs/webkit-gtk-1.1.15 )"
+
 DEPEND="${RDEPEND}
+	app-text/scrollkeeper
 	>=app-text/gnome-doc-utils-0.17.3
 	>=dev-util/intltool-0.35.0
 	>=dev-util/pkgconfig-0.16
-	>=net-im/telepathy-logger-0.1.5
 	test? (
 		sys-apps/grep
 		>=dev-libs/check-0.9.4 )
 	dev-libs/libxslt
-	virtual/python
-	>=net-libs/folks-0.1.15
 "
 PDEPEND=">=net-im/telepathy-mission-control-5"
 
 DOCS="CONTRIBUTORS AUTHORS ChangeLog NEWS README"
 
-MAKEOPTS="-j1"
-
 pkg_setup() {
 	G2CONF="${G2CONF}
 		--disable-maintainer-mode
 		--disable-static
+		--disable-Werror
+		--disable-gtk3
+		$(use_enable debug)
 		$(use_with eds)
 		$(use_enable map)
 		$(use_enable map location)
-		$(use_enable nautilus-sendto)
+		$(use_enable nautilus nautilus-sendto)
 		$(use_with networkmanager connectivity nm)
 		$(use_enable spell)
 		$(use_enable test coding-style-checks)
-		$(use_enable webkit)
-		$(use_enable gtk3)
-	"
-	use gtk3 && G2CONF+=" --disable-map"
-}
-
-src_prepare() {
-	sed -i "s:-Werror::g" configure || die "sed 1 failed"
-	gnome2_src_prepare
+		$(use_enable webkit)"
 }
 
 src_test() {

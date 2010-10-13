@@ -33,6 +33,3 @@
 # Dummy Kernel
 sys-kernel/dummy-sources
 
-# Unmask logger
--net-im/telepathy-logger
-
