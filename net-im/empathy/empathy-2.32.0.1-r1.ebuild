@@ -3,7 +3,8 @@
 # $Header: $
 
 EAPI=3
-inherit autotools gnome2
+PYTHON_DEPEND="2:2.4"
+inherit gnome2 multilib python
 
 DESCRIPTION="Telepathy client and library using GTK+"
 HOMEPAGE="http://live.gnome.org/Empathy"
