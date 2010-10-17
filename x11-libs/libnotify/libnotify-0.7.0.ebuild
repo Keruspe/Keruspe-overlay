@@ -13,12 +13,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND=">=dev-libs/glib-2.6:2
-	>=dev-libs/dbus-glib-0.76"
+RDEPEND=">=dev-libs/glib-2.26:2"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
-	>=x11-libs/gtk+-2.6:2
-	x11-libs/gtk+:3"
+	test? ( x11-libs/gtk+:3 )"
 PDEPEND="|| ( =gnome-base/gnome-shell-9999
 	x11-misc/notification-daemon
 	xfce-extra/xfce4-notifyd )"
