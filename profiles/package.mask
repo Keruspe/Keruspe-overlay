@@ -18,14 +18,17 @@
 
 # Mask Gnome 2.9x
 =app-editors/gedit-2.91*
+=dev-libs/folks-0.3*
 =dev-libs/gjs-0.7*
 =dev-libs/glib-2.27*
 =gnome-base/gnome-control-center-2.91*
 =gnome-base/gnome-desktop-2.91*
+=gnome-base/gnome-keyring-2.91*
 =gnome-base/gnome-settings-daemon-2.91*
 =gnome-base/gnome-shell-2.91*
 =gnome-base/libgnomekbd-2.91*
-=net-libs/folks-0.3.0
+=media-libs/clutter-gtk-0.91*
+=net-im/emapthy-2.91*
 =x11-libs/gtksourceview-2.91*
 =x11-libs/libnotify-0.7*
 =x11-themes/gtk-engines-2.91*
