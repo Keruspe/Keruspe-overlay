@@ -7,8 +7,8 @@ inherit eutils elisp-common gnome2
 
 DESCRIPTION="GTK+ Documentation Generator"
 HOMEPAGE="http://www.gtk.org/gtk-doc/"
-LICENSE="GPL-2 FDL-1.1"
 
+LICENSE="GPL-2 FDL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug doc emacs test"

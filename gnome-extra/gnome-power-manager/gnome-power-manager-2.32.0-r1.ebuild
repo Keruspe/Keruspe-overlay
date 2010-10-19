@@ -31,12 +31,10 @@ COMMON_DEPEND=">=dev-libs/glib-2.13.0
 	>=x11-apps/xrandr-1.3
 	>=x11-proto/xproto-7.0.15
 	x11-libs/libX11
-	x11-libs/libXext
-"
+	x11-libs/libXext"
 RDEPEND="${COMMON_DEPEND}
 	>=sys-auth/consolekit-0.4[policykit?]
-	policykit? ( gnome-extra/polkit-gnome )
-"
+	policykit? ( gnome-extra/polkit-gnome )"
 DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 	app-text/scrollkeeper
@@ -58,18 +56,19 @@ pkg_setup() {
 		$(use_enable test tests)
 		$(use_enable doc docbook-docs)
 		$(use_enable policykit gconf-defaults)
-		$(use_enable applets)
-		--enable-compile-warnings=minimum"
+		--enable-compile-warnings=minimum
+		$(use_enable applets)"
+	DOCS="AUTHORS ChangeLog NEWS README TODO"
 }
 
 src_prepare() {
 	gnome2_src_prepare
 
+	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
+		|| die "sed libtoolize failed"
+
 	sed -e 's:^CPPFLAGS="$CPPFLAGS -g"$::g' -i configure.ac -i configure \
 		|| die "debugger sed failed"
-
-	sed 's:^\(.*gpm_inhibit_test (test);\)://\1:' -i src/gpm-self-test.c \
-		|| die "gpm test sed failed"
 
 	if ! use doc; then
 		sed -e 's:@HAVE_DOCBOOK2MAN_TRUE@.*::' \
@@ -78,10 +77,13 @@ src_prepare() {
 
 	use elibc_glibc || { sed -e 's/-lresolv//' -i configure \
 		|| die "resolv sed failed"; }
+
+	intltoolize --force --copy --automake || die "intltoolize failed"
+	eautoreconf
 }
 
 src_test() {
 	unset DBUS_SESSION_BUS_ADDRESS
-	Xemake check || die "Test phase failed"
+	dbus-launch Xemake check || die "Test phase failed"
 }
 

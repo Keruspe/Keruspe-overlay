@@ -24,6 +24,7 @@ RDEPEND="
 	|| (
 		>=x11-themes/gnome-icon-theme-2.17.1
 		>=x11-themes/hicolor-icon-theme-0.10 )
+	>=x11-libs/cairo-1.9.10
 	>=app-text/poppler-0.14[cairo]
 	djvu? ( >=app-text/djvu-3.5.17 )
 	dvi? (
@@ -45,7 +46,6 @@ DEPEND="${RDEPEND}
 	>=dev-util/gtk-doc-am-1.13
 	doc? ( >=dev-util/gtk-doc-1.13 )"
 
-DOCS="AUTHORS ChangeLog NEWS README TODO"
 ELTCONF="--portage"
 
 RESTRICT="test"
@@ -62,6 +62,9 @@ pkg_setup() {
 		--enable-thumbnailer
 		--with-smclient=xsmp
 		--with-platform=gnome
+		--with-gtk=2.0
+		--enable-help
+		--disable-maintainer-mode
 		$(use_enable dbus)
 		$(use_enable djvu)
 		$(use_enable dvi)
@@ -78,14 +81,21 @@ pkg_setup() {
 		else
 			G2CONF="${G2CONF} --with-gtk=2.0"
 		fi
+	DOCS="AUTHORS ChangeLog NEWS README TODO"
 }
 
 src_prepare() {
 	gnome2_src_prepare
+
+	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
+		|| die "intltoolize sed failed"
+
+	sed 's/gnome-icon-theme//' -i configure.ac configure || die "sed failed"
+
 	epatch "${FILESDIR}"/${PN}-0.7.1-display-menu.patch
 }
 
 src_install() {
 	gnome2_src_install
-	find "${ED}" -name "*.la" -delete || die "remove of la files failed"
+	find "${ED}" -name "*.la" -delete || die "remove of lafiles failed"
 }

@@ -9,7 +9,7 @@ find_duplicates() {
   pushd ${first_path} &>/dev/null
   echo "Duplicate packages between ${1} and ${2}:"
   echo
-  for i in $(find . -name '*.ebuild'); do 
+  for i in $(find . -name '*.ebuild' | sort -u); do 
     ls ${second_path}/${i} &>/dev/null && echo ${i} | cut -d/ -f2,4 | sed 's/\.ebuild//g';
   done
   echo
@@ -21,7 +21,7 @@ find_unused() {
   pushd ${repo_path} &>/dev/null
   echo "Unused packages in ${1}:"
   echo
-  for i in $(find . -name '*.ebuild' | cut -d/ -f2,4 | sed 's/\.ebuild//g'); do 
+  for i in $(find . -name '*.ebuild' | cut -d/ -f2,4 | sed 's/\.ebuild//g' | sort -u); do 
     ls ${VDB_PATH}/${i} &>/dev/null || echo ${i}
   done
   echo

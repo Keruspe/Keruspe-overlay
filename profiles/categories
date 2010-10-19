@@ -5,7 +5,6 @@ app-misc
 app-paludis
 app-text
 dev-java
-dev-lang
 dev-libs
 dev-python
 dev-util
@@ -22,7 +21,6 @@ sys-apps
 sys-boot
 sys-fs
 sys-kernel
-sys-power
 x11-libs
 x11-terms
 x11-themes
