@@ -7,7 +7,6 @@
 =games-action/bomb-her-man-9999
 =gnome-base/gconf-9999
 =gnome-base/gnome-shell-9999
-=gnome-extra/gnome-screensaver-9999
 =media-sound/rhythmbox-9999
 =net-misc/pino-9999
 =sys-apps/paludis-9999
@@ -27,6 +26,7 @@
 =gnome-base/gnome-settings-daemon-2.91*
 =gnome-base/gnome-shell-2.91*
 =gnome-base/libgnomekbd-2.91*
+=gnome-extra/gnome-screensaver-2.91*
 =media-libs/clutter-gtk-0.91*
 =net-im/emapthy-2.91*
 =x11-libs/gtksourceview-2.91*

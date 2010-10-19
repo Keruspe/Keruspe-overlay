@@ -3,22 +3,21 @@
 # $Header: $
 
 EAPI=3
-inherit autotools eutils git gnome2 multilib
+inherit gnome2 multilib
 
 DESCRIPTION="Replaces xscreensaver, integrating with the desktop."
 HOMEPAGE="http://live.gnome.org/GnomeScreensaver"
-SRC_URI="branding? ( http://www.gentoo.org/images/gentoo-logo.svg )"
-EGIT_REPO_URI="git://git.gnome.org/gnome-screensaver"
+SRC_URI="${SRC_URI} branding? ( http://www.gentoo.org/images/gentoo-logo.svg )"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 KERNEL_IUSE="kernel_linux"
-IUSE="branding debug doc libnotify opengl pam $KERNEL_IUSE"
+IUSE="branding debug doc libnotify opengl pam ${KERNEL_IUSE}"
 
 RDEPEND=">=gnome-base/gconf-2.6.1
-	>=x11-libs/gtk+-2.14.0
-	>=gnome-base/gnome-desktop-2.29.0
+	>=x11-libs/gtk+-2.91.1:3
+	>=gnome-base/gnome-desktop-2.91.0
 	>=gnome-base/gnome-menus-2.12
 	>=dev-libs/glib-2.15
 	>=gnome-base/libgnomekbd-0.1
@@ -61,13 +60,7 @@ pkg_setup() {
 		--with-xscreensaverhackdir=/usr/$(get_libdir)/misc/xscreensaver"
 }
 
-src_unpack() {
-	git_src_unpack
-}
-
 src_prepare() {
-	intltoolize
-	eautoreconf
 	gnome2_src_prepare
 	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
 		|| die "sed failed"
