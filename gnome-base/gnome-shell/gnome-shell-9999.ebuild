@@ -28,6 +28,7 @@ RDEPEND=">=dev-libs/glib-2.25.9
 	>=media-libs/clutter-1.3.14[introspection]
 	x11-libs/gdk-pixbuf
 	dev-libs/libcroco:0.6
+	>=dev-libs/libical-0.43
 
 	>=gnome-base/dconf-0.4.1
 	gnome-base/gnome-menus
