@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit gnome.org
+inherit autotools gnome.org
 
 DESCRIPTION="Notifications library"
 HOMEPAGE="http://www.galago-project.org/"
@@ -21,6 +21,11 @@ DEPEND="${RDEPEND}
 PDEPEND="|| ( =gnome-base/gnome-shell-9999
 	x11-misc/notification-daemon
 	xfce-extra/xfce4-notifyd )"
+
+src_prepare() {
+	sed -i /GTK3/d configure.ac
+	eautoreconf
+}
 
 src_install() {
 	emake install DESTDIR="${D}" || die "emake install failed"
