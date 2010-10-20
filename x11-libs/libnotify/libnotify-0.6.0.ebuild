@@ -23,7 +23,8 @@ PDEPEND="|| ( =gnome-base/gnome-shell-9999
 	xfce-extra/xfce4-notifyd )"
 
 src_prepare() {
-	sed -i /GTK3/d configure.ac
+	sed -i '/GTK3/d;/tests/d' configure.ac
+	sed -i 's/tests//' Makefile.am
 	eautoreconf
 }
 
