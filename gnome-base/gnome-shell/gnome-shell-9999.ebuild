@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit autotools eutils gnome2 git
+inherit autotools eutils gnome2 git python
 
 EGIT_REPO_URI="git://git.gnome.org/gnome-shell"
 DESCRIPTION="Provides core UI functions for the GNOME 3 desktop"
@@ -61,11 +61,14 @@ src_prepare() {
 	eautoreconf
 }
 
-pkg_postinst() {
+src_install() {
+	gnome2_src_install
+	python_convert_shebangs 2 "${ED}"usr/bin/gnome-shell
+	find "${ED}" -name "*.la" -delete || die "la files removal failed"
+}
 
+pkg_postinst() {
 	elog " Start with 'gnome-shell --replace' "
 	elog " or add gnome-shell.desktop to ~/.config/autostart/ "
-
 	gnome2_pkg_postinst
-
 }
