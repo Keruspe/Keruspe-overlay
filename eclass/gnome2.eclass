@@ -18,9 +18,10 @@ case "${EAPI:-0}" in
 	0|1)
 		EXPORT_FUNCTIONS src_unpack src_compile src_install pkg_preinst pkg_postinst pkg_postrm
 		;;
-	*)
+	2|3)
 		EXPORT_FUNCTIONS src_unpack src_prepare src_configure src_compile src_install pkg_preinst pkg_postinst pkg_postrm
 		;;
+	*) die "EAPI=${EAPI} is not supported" ;;
 esac
 
 # Extra configure opts passed to econf
@@ -79,6 +80,15 @@ gnome2_src_configure() {
 
 gnome2_src_compile() {
 	has ${EAPI:-0} 0 1 && gnome2_src_configure "$@"
+
+	# Whenever new API is added to glib/cairo/libxml2 etc, gobject-introspection
+	# needs to be rebuilt so that the typelibs/girs contain the new API data
+	if has introspection ${IUSE} && use introspection; then
+		ewarn "If you get a compilation failure related to introspection, try"
+		ewarn "rebuilding dev-libs/gobject-introspection so that it's updated"
+		ewarn "for any new glib, cairo, etc APIs"
+	fi
+
 	emake || die "compile failure"
 }
 
@@ -87,7 +97,7 @@ gnome2_src_install() {
 	# if this is not present, scrollkeeper-update may segfault and
 	# create bogus directories in /var/lib/
 	local sk_tmp_dir="/var/lib/scrollkeeper"
-	dodir "${sk_tmp_dir}"
+	dodir "${sk_tmp_dir}" || die "dodir failed"
 
 	# we must delay gconf schema installation due to sandbox
 	export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL="1"
@@ -103,7 +113,9 @@ gnome2_src_install() {
 	unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
 	# Manual document installation
-	[[ -n "${DOCS}" ]] && dodoc ${DOCS}
+	if [[ -n "${DOCS}" ]]; then
+		dodoc ${DOCS} || die "dodoc failed"
+	fi
 
 	# Do not keep /var/lib/scrollkeeper because:
 	# 1. The scrollkeeper database is regenerated at pkg_postinst()
