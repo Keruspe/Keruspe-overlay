@@ -13,13 +13,14 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="applet doc ipv6 test"
 
-RDEPEND=">=dev-libs/glib-2.20.0
-	>=x11-libs/gtk+-2.18.0
+RDEPEND=">=dev-libs/glib-2.20:2
+	>=x11-libs/gtk+-2.20:2
 	applet? ( >=gnome-base/gnome-panel-2.28 )
 	>=gnome-base/libgtop-2.12
 	>=gnome-base/gconf-2
 	>=media-libs/libcanberra-0.4[gtk]
-	x11-libs/libXext"
+	x11-libs/libXext
+	x11-libs/libX11"
 
 DEPEND="${RDEPEND}
 	x11-proto/xextproto
@@ -34,7 +35,7 @@ DOCS="AUTHORS ChangeLog NEWS README THANKS"
 G2CONF="${G2CONF}
 	$(use_enable ipv6)
 	$(use_enable applet gdict-applet)
-	--enable-maintainer-flags=no
+	--disable-maintainer-flags
 	--enable-zlib
 	--disable-static
 	--disable-schemas-install
@@ -46,15 +47,16 @@ fi
 
 src_prepare() {
 	gnome2_src_prepare
-
-	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in || die "sed failed"
-
+	find . -iname 'Makefile.am' -exec \
+		sed -e '/-D[A-Z_]*DISABLE_DEPRECATED/d' -i {} + || die "sed 1 failed"
+	find . -iname 'Makefile.in' -exec \
+		sed -e '/-D[A-Z_]*DISABLE_DEPRECATED/d' -i {} + || die "sed 1 failed"
 	if ! use test ; then
-		sed -e 's/ tests//' -i logview/Makefile.{am,in} || die "sed failed";
+		sed -e 's/ tests//' -i logview/Makefile.{am,in} || die "sed 2 failed"
 	fi
 }
 
 src_install() {
 	gnome2_src_install
-	find "${D}" -name "*.la" -delete || die "remove of la files failed"
+	find "${ED}" -name "*.la" -delete || die "remove of la files failed"
 }
