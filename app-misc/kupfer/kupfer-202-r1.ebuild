@@ -25,7 +25,7 @@ DEPEND=">=dev-lang/python-2.5
 	dev-python/pygobject
 	dev-python/libgnome-python
 	dev-python/gnome-keyring-python
-	keybinder? ( dev-python/keybinder )"
+	keybinder? ( dev-libs/keybinder )"
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${MY_P}
