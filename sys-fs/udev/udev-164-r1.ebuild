@@ -5,7 +5,7 @@
 EAPI=3
 inherit eutils flag-o-matic multilib toolchain-funcs linux-info
 
-scriptversion=161
+scriptversion=164
 DESCRIPTION="Linux dynamic and persistent device naming support (aka userspace devfs)"
 HOMEPAGE="http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev.html"
 SRC_URI="mirror://kernel/linux/utils/kernel/hotplug/${P}.tar.bz2"
