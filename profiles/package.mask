@@ -17,6 +17,7 @@
 
 # Mask Gnome 2.9x
 =app-editors/gedit-2.91*
+=dev-libs/glib-2.27*
 =gnome-base/gnome-control-center-2.91*
 =gnome-base/gnome-desktop-2.91*
 =gnome-base/gnome-keyring-2.91*
