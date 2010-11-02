@@ -83,9 +83,6 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 
-	# sftp: fix poll() timeout, bug #339695
-	epatch "${FILESDIR}/${P}-sftp-timeout.patch"
-
 	# Conditional patching purely to avoid eautoreconf
 	use gphoto2 && epatch "${FILESDIR}/${PN}-1.2.2-gphoto2-stricter-checks.patch"
 

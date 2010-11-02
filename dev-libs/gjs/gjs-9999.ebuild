@@ -28,7 +28,6 @@ DEPEND="${RDEPEND}
 		sys-devel/gcc
 		dev-util/lcov )"
 
-S=${WORKDIR}/trunk
 RESTRICT="test"
 
 pkg_setup() {

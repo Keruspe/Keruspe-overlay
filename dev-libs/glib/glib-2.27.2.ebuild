@@ -31,7 +31,7 @@ DEPEND="${RDEPEND}
 		~app-text/docbook-xml-dtd-4.1.2 )
 	test? ( >=sys-apps/dbus-1.2.14 )"
 PDEPEND="introspection? ( dev-libs/gobject-introspection )
-	!<gnome-base/gvfs-1.6.4-r990" # Earlier versions do not work with glib
+	!<gnome-base/gvfs-1.6.5" #
 # XXX: Consider adding test? ( sys-devel/gdb ); assert-msg-test tries to use it
 
 src_prepare() {

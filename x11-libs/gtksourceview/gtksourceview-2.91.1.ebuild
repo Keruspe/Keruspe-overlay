@@ -34,6 +34,7 @@ pkg_config() {
 
 src_prepare() {
 	sed -i -e 's:--warn-all::' gtksourceview/Makefile.in
+	sed -i 's:2.91.4:2.91.3:' configure
 	gnome2_src_prepare
 }
 
