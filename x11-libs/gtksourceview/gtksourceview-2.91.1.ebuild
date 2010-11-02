@@ -13,7 +13,7 @@ SLOT="3.0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc glade +introspection"
 
-RDEPEND=">=x11-libs/gtk+-2.91:3[introspection?]
+RDEPEND=">=x11-libs/gtk+-2.91.3:3[introspection?]
 	>=dev-libs/libxml2-2.6
 	>=dev-libs/glib-2.14
 	glade? ( >=dev-util/glade-3.2 )
