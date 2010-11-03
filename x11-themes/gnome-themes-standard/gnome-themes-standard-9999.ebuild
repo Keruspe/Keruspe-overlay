@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=""
+DEPEND="dev-util/intltool"
 RDEPEND="${DEPEND}"
 
 src_unpack() {
@@ -24,5 +24,6 @@ src_unpack() {
 
 src_prepare() {
 	gnome2_src_prepare
+	intltoolize
 	eautoreconf
 }
