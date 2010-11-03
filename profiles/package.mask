@@ -13,6 +13,7 @@
 =sys-apps/systemd-9999
 =sys-boot/grub-9999
 =x11-libs/gtk+-9999
+=x11-themes/gnome-themes-standard-9999
 =x11-wm/mutter-9999
 
 # Mask Gnome 2.9x

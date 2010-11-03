@@ -31,6 +31,7 @@ RDEPEND=">=dev-libs/glib-2.25.9
 	>=dev-libs/libical-0.43
 
 	x11-themes/gnome-icon-theme-symbolic
+	x11-themes/gnome-themes-standard
 	>=gnome-base/dconf-0.4.1
 	gnome-base/gnome-menus
 	gnome-base/librsvg
