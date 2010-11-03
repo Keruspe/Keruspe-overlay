@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit eutils git gnome2
+inherit autotools git gnome2
 
 DESCRIPTION="Standard Themes for GNOME Applications"
 HOMEPAGE="http://git.gnome.org/browse/gnome-themes-standard/"
