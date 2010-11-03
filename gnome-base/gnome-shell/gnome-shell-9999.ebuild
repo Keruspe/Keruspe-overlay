@@ -32,6 +32,8 @@ RDEPEND=">=dev-libs/glib-2.25.9
 
 	x11-themes/gnome-icon-theme-symbolic
 	x11-themes/gnome-themes-standard
+	x11-themes/gtk-theme-engine-clearlooks
+
 	>=gnome-base/dconf-0.4.1
 	gnome-base/gnome-menus
 	gnome-base/librsvg
