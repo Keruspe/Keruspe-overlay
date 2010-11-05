@@ -13,35 +13,35 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 IUSE_LIBC="elibc_glibc"
-IUSE="accessibility applet +consolekit debug ipv6 gnome-keyring selinux tcpd test xinerama +xklavier $IUSE_LIBC"
+IUSE="accessibility applet +consolekit ipv6 gnome-keyring selinux tcpd test xinerama +xklavier $IUSE_LIBC"
 
 GDM_EXTRA="${PN}-2.20.9-gentoo-files-r1"
 
 SRC_URI="${SRC_URI}
-	mirror://gentoo/${PN}-2.26-gentoo-patches.tar.bz2
 	mirror://gentoo/${GDM_EXTRA}.tar.bz2"
 
-RDEPEND=">=sys-power/upower-0.9.5
+RDEPEND="
 	>=dev-libs/dbus-glib-0.74
-	>=dev-libs/glib-2.15.4
-	>=x11-libs/gtk+-2.10.0
+	>=dev-libs/glib-2.22:2
+	>=x11-libs/gtk+-2.20.2:2
 	>=x11-libs/pango-1.3
 	>=media-libs/libcanberra-0.4[gtk]
-	>=gnome-base/libglade-2
 	>=gnome-base/gconf-2.31.3
-	applet? ( >=gnome-base/gnome-panel-2
-		!gnome-extra/fast-user-switch-applet )
-	xklavier? ( >=x11-libs/libxklavier-4 )
-	x11-libs/libXft
+	applet? ( >=gnome-base/gnome-panel-2 )
+	>=gnome-base/gnome-session-2.28
+	>=x11-misc/xdg-utils-1.0.2-r3
+	>=sys-power/upower-0.9
 	app-text/iso-codes
 
 	x11-base/xorg-server
 	x11-libs/libXi
 	x11-libs/libXau
 	x11-libs/libX11
-	x11-libs/libXext
-	x11-apps/sessreg
 	x11-libs/libXdmcp
+	x11-libs/libXext
+	x11-libs/libXft
+	x11-apps/sessreg
+
 	virtual/pam
 	consolekit? ( sys-auth/consolekit )
 
@@ -49,8 +49,10 @@ RDEPEND=">=sys-power/upower-0.9.5
 	gnome-keyring? ( >=gnome-base/gnome-keyring-2.22[pam] )
 	selinux? ( sys-libs/libselinux )
 	tcpd? ( >=sys-apps/tcp-wrappers-7.6 )
-	xinerama? ( x11-libs/libXinerama )"
+	xinerama? ( x11-libs/libXinerama )
+	xklavier? ( >=x11-libs/libxklavier-4 )
 
+	!gnome-extra/fast-user-switch-applet"
 DEPEND="${RDEPEND}
 	test? ( >=dev-libs/check-0.9.4 )
 	xinerama? ( x11-proto/xineramaproto )
@@ -59,13 +61,10 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.40
 	>=dev-util/pkgconfig-0.19
 	>=app-text/gnome-doc-utils-0.3.2"
-PDEPEND=">=sys-auth/pambase-20090430[consolekit=,gnome-keyring=]
-	>=gnome-base/gnome-session-2.29.92
-	>=gnome-base/gnome-settings-daemon-2.29.92"
-
-DOCS="AUTHORS ChangeLog NEWS README TODO"
+PDEPEND=">=sys-auth/pambase-20090430[consolekit=,gnome-keyring=]"
 
 pkg_setup() {
+	DOCS="AUTHORS ChangeLog NEWS README TODO"
 	G2CONF="${G2CONF}
 		--disable-schemas-install
 		--localstatedir=/var
@@ -74,7 +73,6 @@ pkg_setup() {
 		--with-pam-prefix=/etc
 		SOUND_PROGRAM=/usr/bin/gdmplay
 		$(use_with accessibility xevie)
-		$(use_enable debug)
 		$(use_enable ipv6)
 		$(use_enable xklavier libxklavier)
 		$(use_with consolekit console-kit)
@@ -90,15 +88,14 @@ src_prepare() {
 	gnome2_src_prepare
 
 	use applet || epatch ${FILESDIR}/${PN}-2.31.90-remove-fusa.patch
+	epatch "${FILESDIR}/${PN}-2.32.0-selinux-remove-attr.patch"
+	epatch "${FILESDIR}/${PN}-2.32.0-fix-daemonize-regression.patch"
+	epatch "${FILESDIR}/${PN}-2.32.0-broken-VT-detection.patch"
+	epatch "${FILESDIR}/${PN}-2.32.0-custom-session.patch"
+	epatch "${FILESDIR}/${PN}-2.32.0-xinitrc-ssh-agent.patch"
+	epatch "${FILESDIR}/${PN}-2.32.0-automagic-libxklavier-support.patch"
 
-	epatch "${WORKDIR}/${PN}-2.26.1-selinux-remove-attr.patch"
-	epatch "${FILESDIR}/${PN}-2.31.0-fix-daemonize-regression.patch"
-	epatch "${WORKDIR}/${PN}-2.26.1-broken-VT-detection.patch"
-	epatch "${FILESDIR}/${PN}-2.29.6-custom-session.patch"
-	epatch "${WORKDIR}/${PN}-2.26.1-xinitrc-ssh-agent.patch"
-	
-	mkdir m4
-
+	mkdir "${S}"/m4
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 }
@@ -167,7 +164,7 @@ pkg_postinst() {
 pkg_postrm() {
 	gnome2_pkg_postrm
 
-	if [[ "$(rc-config list default | grep xdm)" != "" ]] ; then
+	if rc-config list default | grep -q xdm; then
 		elog "To remove GDM from startup please execute"
 		elog "'rc-update del xdm default'"
 	fi

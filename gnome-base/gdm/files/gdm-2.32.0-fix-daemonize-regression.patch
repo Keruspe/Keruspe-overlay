@@ -1,20 +1,27 @@
-From b9f261de75356be6e4ee94c0cc53f2edbd8fe4d2 Mon Sep 17 00:00:00 2001
-From: Dan Nicholson <dbn.lists@gmail.com>
-Date: Tue, 14 Oct 2008 07:06:21 -0700
-Subject: [PATCH] Fork gdm-binary, except when -nodaemon is used
+From 7f5104b242e6b36e6143183b14582d362763ff2a Mon Sep 17 00:00:00 2001
+From: Gilles Dartiguelongue <eva@gentoo.org>
+Date: Tue, 2 Nov 2010 23:16:51 +0100
+Subject: [PATCH 2/6] daemonize so that the boot process can continue
 
+Gentoo bug: #236701
+
+Originally from: Dan Nicholson <dbn.lists@gmail.com>
+
+Fork gdm-binary, except when -nodaemon is used
+ 
 gdm-binary now forks and the parent terminates, except when the
 -nodaemon or --nodaemon options are used. This provides compatibility
 with xdm. Fixes bug #550170.
+
 ---
  daemon/main.c |   64 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 71 insertions(+), 0 deletions(-)
+ 1 files changed, 64 insertions(+), 0 deletions(-)
 
 diff --git a/daemon/main.c b/daemon/main.c
-index 9d7ab5e..4a2f2a5 100644
+index 5b8d66b..191b6e3 100644
 --- a/daemon/main.c
 +++ b/daemon/main.c
-@@ -513,6 +513,56 @@ signal_cb (int      signo,
+@@ -513,6 +513,56 @@ is_debug_set (void)
          return debug;
  }
  
@@ -71,7 +78,7 @@ index 9d7ab5e..4a2f2a5 100644
  int
  main (int    argc,
        char **argv)
-@@ -523,6 +573,7 @@ main (int    argc,
+@@ -523,14 +573,17 @@ main (int    argc,
          DBusGConnection    *connection;
          GError             *error;
          int                 ret;
@@ -79,7 +86,6 @@ index 9d7ab5e..4a2f2a5 100644
          gboolean            res;
          gboolean            xdmcp_enabled;
          GdmSignalHandler   *signal_handler;
-@@ -529,8 +580,10 @@ main (int    argc,
          static gboolean     do_timed_exit    = FALSE;
          static gboolean     print_version    = FALSE;
          static gboolean     fatal_warnings   = FALSE;
@@ -105,7 +111,7 @@ index 9d7ab5e..4a2f2a5 100644
          context = g_option_context_new (_("GNOME Display Manager"));
          g_option_context_add_main_entries (context, entries, NULL);
          g_option_context_set_ignore_unknown_options (context, TRUE);
-@@ -612,6 +673,9 @@ main (int    argc,
+@@ -617,6 +678,9 @@ main (int    argc,
                  exit (-1);
          }
  
@@ -116,5 +122,5 @@ index 9d7ab5e..4a2f2a5 100644
          delete_pid ();
          write_pid ();
 -- 
-1.5.6.5
+1.7.3.1
 
