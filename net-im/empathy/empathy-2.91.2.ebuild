@@ -12,20 +12,18 @@ LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="eds map nautilus networkmanager spell test webkit"
+IUSE="eds map nautilus networkmanager spell test webkit" #webkit needs webkit-gtk3
 
-RDEPEND=">=dev-libs/glib-2.25.9:2
-	>=x11-libs/gtk+-2.22:2
-	>=dev-libs/dbus-glib-0.51
+RDEPEND=">=dev-libs/glib-2.27.2:2
+	>=x11-libs/gtk+-2.91.3:3
 	eds? ( >=gnome-extra/evolution-data-server-1.2 )
-	>=net-libs/telepathy-glib-0.11.15
+	>=net-libs/telepathy-glib-0.13.2
 	>=media-libs/libcanberra-0.4[gtk]
-	>=x11-libs/libnotify-0.4.4
-	>=gnome-base/gnome-keyring-2.26
+	>=x11-libs/libnotify-0.7.0
+	>=gnome-base/gnome-keyring-2.91.1
 	>=net-libs/gnutls-2.8.5
-	>=dev-libs/folks-0.1.15
+	>=dev-libs/folks-0.3.1
 
-	>=dev-libs/libunique-1.1.6:0
 	net-libs/farsight2
 	media-libs/gstreamer:0.10
 	media-libs/gst-plugins-base:0.10
@@ -36,15 +34,15 @@ RDEPEND=">=dev-libs/glib-2.25.9:2
 	>=net-im/telepathy-logger-0.1.5
 
 	map? (
-		>=media-libs/libchamplain-0.7.1[gtk]
 		>=media-libs/clutter-gtk-0.10:1.0 
 		>=gnome-extra/geoclue-0.11.1 )
 	nautilus? ( >=gnome-extra/nautilus-sendto-2.31.7 )
 	networkmanager? ( >=net-misc/networkmanager-0.7 )
 	spell? (
 		>=app-text/enchant-1.2
-		>=app-text/iso-codes-0.35 )
-	webkit? ( >=net-libs/webkit-gtk-1.1.15 )"
+		>=app-text/iso-codes-0.35 )"
+#	>=media-libs/libchamplain-0.7.1[gtk] need gtk3
+#	webkit? ( >=net-libs/webkit-gtk-1.1.15 )"
 
 DEPEND="${RDEPEND}
 	app-text/scrollkeeper
@@ -68,13 +66,13 @@ pkg_setup() {
 		--disable-gtk3
 		$(use_enable debug)
 		$(use_with eds)
-		$(use_enable map)
 		$(use_enable map location)
 		$(use_enable nautilus nautilus-sendto)
 		$(use_with networkmanager connectivity nm)
 		$(use_enable spell)
 		$(use_enable test coding-style-checks)
 		$(use_enable webkit)"
+		#$(use_enable map) needs champlain-gtk3
 }
 
 src_test() {
