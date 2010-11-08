@@ -32,6 +32,7 @@
 =gnome-extra/gnome-power-manager-2.91*
 =gnome-extra/gnome-screensaver-2.91*
 =gnome-extra/evolution-data-server-2.91*
+=media-gfx/eog-2.91*
 =media-libs/clutter-gtk-0.91*
 =net-im/empathy-2.91*
 =x11-libs/gtk+-2.91*
