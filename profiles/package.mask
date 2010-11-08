@@ -18,7 +18,9 @@
 =x11-wm/mutter-9999
 
 # Mask Gnome 2.9x
+=app-cdr/brasero-2.91*
 =app-editors/gedit-2.91*
+=app-text/evince-2.91*
 =dev-libs/glib-2.27*
 =dev-libs/libgweather-2.91*
 =gnome-base/gnome-control-center-2.91*

@@ -12,14 +12,13 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="dbus debug djvu doc dvi gnome gnome-keyring gtk3 images +introspection nautilus t1lib tiff"
+IUSE="dbus debug djvu doc dvi gnome gnome-keyring images +introspection nautilus t1lib tiff"
 
 RDEPEND="
 	>=app-text/libspectre-0.2.0
 	>=dev-libs/glib-2.25.11:2
 	>=dev-libs/libxml2-2.5
-	gtk3? (	>=x11-libs/gtk+-2.90.5:3[introspection?] )
-	!gtk3? ( >=x11-libs/gtk+-2.21.5:2[introspection?] )
+	>=x11-libs/gtk+-2.91.3:3[introspection?]
 	>=x11-libs/libSM-1
 	|| (
 		>=x11-themes/gnome-icon-theme-2.17.1
@@ -62,7 +61,6 @@ pkg_setup() {
 		--enable-thumbnailer
 		--with-smclient=xsmp
 		--with-platform=gnome
-		--with-gtk=2.0
 		--enable-help
 		--disable-maintainer-mode
 		$(use_enable dbus)
@@ -76,11 +74,6 @@ pkg_setup() {
 		$(use_enable images pixbuf)
 		$(use_enable tiff)"
 
-		if use gtk3; then
-			G2CONF="${G2CONF} --with-gtk=3.0"
-		else
-			G2CONF="${G2CONF} --with-gtk=2.0"
-		fi
 	DOCS="AUTHORS ChangeLog NEWS README TODO"
 }
 
