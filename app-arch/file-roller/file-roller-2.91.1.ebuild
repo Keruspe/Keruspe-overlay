@@ -40,6 +40,7 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 	epatch "${FILESDIR}"/${PN}-2.10.3-use_bin_tar.patch
+	epatch "${FILESDIR}"/0001-Fix.patch
 }
 
 src_install() {

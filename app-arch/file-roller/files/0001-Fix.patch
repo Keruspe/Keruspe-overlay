@@ -1,0 +1,25 @@
+From 7a77b534ad864671ad9e9eadf6adcffe54d69ac7 Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Mon, 8 Nov 2010 23:27:27 +0100
+Subject: [PATCH] Fix
+
+---
+ src/dlg-package-installer.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/dlg-package-installer.c b/src/dlg-package-installer.c
+index e427a50..58b8dd1 100644
+--- a/src/dlg-package-installer.c
++++ b/src/dlg-package-installer.c
+@@ -300,7 +300,7 @@ dlg_package_installer (FrWindow  *window,
+ 
+ #else /* ! ENABLE_PACKAGEKIT */
+ 
+-	package_installer_terminated (idata, _("Archive type not supported."));
++	package_installer_terminated (idata, FR_PROC_ERROR_GENERIC, _("Archive type not supported."));
+ 
+ #endif /* ENABLE_PACKAGEKIT */
+ }
+-- 
+1.7.3.2.161.g3089c.dirty
+
