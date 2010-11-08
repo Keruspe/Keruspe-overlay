@@ -20,11 +20,13 @@
 # Mask Gnome 2.9x
 =app-editors/gedit-2.91*
 =dev-libs/glib-2.27*
+=dev-libs/libgweather-2.91*
 =gnome-base/gnome-control-center-2.91*
 =gnome-base/gnome-desktop-2.91*
 =gnome-base/gnome-keyring-2.91*
 =gnome-base/gnome-settings-daemon-2.91*
 =gnome-base/libgnomekbd-2.91*
+=gnome-extra/gnome-power-manager-2.91*
 =gnome-extra/gnome-screensaver-2.91*
 =gnome-extra/evolution-data-server-2.91*
 =media-libs/clutter-gtk-0.91*
