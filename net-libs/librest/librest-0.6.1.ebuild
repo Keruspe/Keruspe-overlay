@@ -7,7 +7,7 @@ inherit autotools gnome2
 
 DESCRIPTION="Library to access RESTful web-services"
 HOMEPAGE="http://moblin.org/projects/librest"
-SRC_URI="http://download.gnome.org/sources/${PN/lib}/0.7/${P/lib}.tar.bz2"
+SRC_URI="http://ftp.de.debian.org/debian/pool/main/libr/librest/${PN}_${PV}.orig.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
@@ -25,13 +25,13 @@ DEPEND="${RDEPEND}
 
 DOCS="AUTHORS NEWS README"
 
-S="${WORKDIR}/${P/lib}"
-
-src_prepare() {
-	:
-}
-
 pkg_setup() {
 	G2CONF="${G2CONF}
 		$(use_with gnome)"
+}
+
+src_prepare() {
+	gnome2_src_prepare
+	gtkdocize
+	eautoreconf
 }
