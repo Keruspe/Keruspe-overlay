@@ -15,8 +15,9 @@ IUSE="eds"
 
 RDEPEND="x11-libs/libXft
 	>=x11-libs/libXi-1.2
-	>=x11-libs/gtk+-2.91.0:3
-	>=dev-libs/glib-2.17.4
+	>=x11-libs/gtk+-2.91.3:3
+	>=gnome-base/gsettings-desktop-schemas-0.0.2
+	>=dev-libs/glib-2.25.11
 	>=gnome-base/gconf-2.0
 	>=gnome-base/librsvg-2.0
 	>=gnome-base/nautilus-2.6
