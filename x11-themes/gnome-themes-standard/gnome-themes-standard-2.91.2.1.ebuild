@@ -3,12 +3,10 @@
 # $Header: $
 
 EAPI=3
-inherit autotools git gnome2
+inherit gnome2
 
 DESCRIPTION="Standard Themes for GNOME Applications"
 HOMEPAGE="http://git.gnome.org/browse/gnome-themes-standard/"
-SRC_URI=""
-EGIT_REPO_URI="git://git.gnome.org/gnome-themes-standard"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
@@ -17,13 +15,3 @@ IUSE=""
 
 DEPEND="dev-util/intltool"
 RDEPEND="${DEPEND}"
-
-src_unpack() {
-	git_src_unpack
-}
-
-src_prepare() {
-	gnome2_src_prepare
-	intltoolize
-	eautoreconf
-}
