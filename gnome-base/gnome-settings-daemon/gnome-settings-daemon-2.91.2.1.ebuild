@@ -19,8 +19,8 @@ RDEPEND=">=dev-libs/dbus-glib-0.74
 	>=x11-libs/gtk+-2.91.0:3
 	>=gnome-base/gconf-2.6.1
 	>=gnome-base/libgnomekbd-2.91
-	>=gnome-base/gnome-desktop-2.91.0:3
-
+	>=gnome-base/gnome-desktop-2.91.1:3
+	gnome-base/gsettings-desktop-schemas
 	x11-libs/libX11
 	x11-libs/libXi
 	x11-libs/libXrandr
