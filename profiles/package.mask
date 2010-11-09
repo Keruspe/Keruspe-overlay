@@ -20,6 +20,7 @@
 # Mask Gnome 2.9x
 =app-arch/file-roller-2.91*
 =app-cdr/brasero-2.91*
+=app-crypt/seahorse-2.91*
 =app-editors/gedit-2.91*
 =app-text/evince-2.91*
 =dev-libs/glib-2.27*
