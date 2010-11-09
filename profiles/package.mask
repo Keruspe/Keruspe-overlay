@@ -14,7 +14,6 @@
 =sys-boot/grub-9999
 =x11-libs/gtk+-9999
 =x11-themes/gnome-themes-standard-9999
-=x11-themes/gtk-theme-engine-clearlooks-9999
 =x11-wm/mutter-9999
 
 # Mask Gnome 2.9x
@@ -41,6 +40,7 @@
 =x11-libs/libnotify-0.7*
 =x11-themes/gnome-themes-2.91*
 =x11-themes/gtk-engines-2.91*
+=x11-themes/gtk-theme-engine-clearlooks-2.91*
 
 # Dummy Kernel
 sys-kernel/dummy-sources
