@@ -29,9 +29,12 @@
 =gnome-base/gnome-keyring-2.91*
 =gnome-base/gnome-settings-daemon-2.91*
 =gnome-base/libgnomekbd-2.91*
+=gnome-base/nautilus-2.91*
+=gnome-extra/evolution-data-server-2.91*
+=gnome-extra/gnome-media-2.91*
 =gnome-extra/gnome-power-manager-2.91*
 =gnome-extra/gnome-screensaver-2.91*
-=gnome-extra/evolution-data-server-2.91*
+=gnome-extra/libgnome-media-profiles-2.91*
 =media-gfx/eog-2.91*
 =media-libs/clutter-gtk-0.91*
 =net-im/empathy-2.91*
