@@ -17,7 +17,7 @@ SRC_URI="mirror://gnome/sources/${MY_PN}/${PVP[0]}.${PVP[1]}/${MY_P}.tar.bz2"
 LICENSE="LGPL-2"
 SLOT="2"
 KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
-IUSE="debug doc gtk3 +introspection ldap policykit"
+IUSE="debug doc +gtk3 +introspection ldap policykit"
 
 RDEPEND=">=dev-libs/glib-2.25.9:2
 	!gtk3? ( >=x11-libs/gtk+-2.14:2 )
