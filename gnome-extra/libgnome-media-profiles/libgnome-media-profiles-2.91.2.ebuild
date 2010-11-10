@@ -14,7 +14,7 @@ SLOT="3"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=">=x11-libs/gtk+-2.91:2
+DEPEND=">=x11-libs/gtk+-2.91:3
 	dev-libs/glib:2
 	>=gnome-base/gconf-2.0
 	>=media-libs/gstreamer-0.10"

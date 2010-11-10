@@ -21,7 +21,7 @@ RDEPEND=">=dev-libs/glib-2.18.2:2
 	>=media-libs/gst-plugins-good-0.10
 	>=dev-libs/libunique-1
 	>=gnome-extra/libgnome-media-profiles-2.91
-	pulseaudio? ( >=media-sound/pulseaudio-0.9.16[glib] )
+	>=media-sound/pulseaudio-0.9.16[glib]
 	>=media-libs/libcanberra-0.13[gtk]
 	dev-libs/libxml2
 	>=media-libs/gst-plugins-base-0.10.23:0.10
@@ -40,10 +40,7 @@ pkg_setup() {
 		--disable-scrollkeeper
 		--disable-schemas-install
 		--enable-gstprops
-		--enable-grecord
-		--enable-profiles
-		$(use_enable pulseaudio)
-		$(use_enable !pulseaudio gstmix)"
+		--enable-grecord"
 	DOCS="AUTHORS ChangeLog* NEWS MAINTAINERS README"
 }
 
