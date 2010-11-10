@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI="3"
-
 inherit gnome.org flag-o-matic eutils libtool virtualx
 
 DESCRIPTION="Gimp ToolKit +"
@@ -11,12 +10,9 @@ HOMEPAGE="http://www.gtk.org/"
 
 LICENSE="LGPL-2"
 SLOT="3"
-#KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="aqua cups debug doc +introspection jpeg jpeg2k tiff test vim-syntax xinerama"
 
-# NOTE: cairo[svg] dep is due to bug 291283 (not patched to avoid eautoreconf)
-# glib-2.27.0 is required for GApplication
 RDEPEND="!aqua? (
 		x11-libs/libX11
 		x11-libs/libXi

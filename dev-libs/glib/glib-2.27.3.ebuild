@@ -11,8 +11,7 @@ HOMEPAGE="http://www.gtk.org/"
 
 LICENSE="LGPL-2"
 SLOT="2"
-# Remove keywords so that it's not pulled in unless the user wants gtk+:3
-#KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
+KEYWORDS="~amd64 ~x86"
 IUSE="debug doc fam hardened +introspection selinux static-libs test xattr"
 
 # Due to removal of gio API, gnome bug 631398, tests will fail with:
