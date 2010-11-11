@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit gnome2 eutils
+inherit autotools gnome2 eutils
 
 MY_PN="${PN/nm-applet/network-manager-applet}"
 
@@ -38,12 +38,19 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	>=dev-util/intltool-0.35"
 
-DOCS="AUTHORS ChangeLog NEWS README"
+DOCS="AUTHORS ChangeLog README"
 
 S="${WORKDIR}/${MY_PN}-${PV}"
 
 pkg_setup () {
 	G2CONF="${G2CONF}
 		--disable-more-warnings
-		--localstatedir=/var"
+		--localstatedir=/var
+		--with-gtk2=yes"
+}
+
+src_prepare() {
+	gnome2_src_prepare
+	epatch ${FILESDIR}/backport-libnotify.patch
+	eautoreconf
 }
