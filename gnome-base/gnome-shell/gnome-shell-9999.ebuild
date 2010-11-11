@@ -61,7 +61,7 @@ src_unpack() {
 
 src_prepare() {
 	sed -i \
-	's:libgnome-desktop/gnome-desktop-thumbnail.h:libgnomeui/gnome-desktop-thumbnail.h' \
+	's:libgnome-desktop/gnome-desktop-thumbnail.h:libgnomeui/gnome-desktop-thumbnail.h:' \
 	src/st/st-texture-cache.c
 	mkdir m4
 	intltoolize --force --copy --automake || die
