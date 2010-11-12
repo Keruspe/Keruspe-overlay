@@ -36,7 +36,7 @@ RDEPEND=">=dev-libs/glib-2.27.2:2
 	map? (
 		>=media-libs/clutter-gtk-0.10:1.0 
 		>=gnome-extra/geoclue-0.11.1 )
-	nautilus? ( >=gnome-extra/nautilus-sendto-2.31.7 )
+	nautilus? ( >=gnome-extra/nautilus-sendto-2.90.0 )
 	networkmanager? ( >=net-misc/networkmanager-0.7 )
 	spell? (
 		>=app-text/enchant-1.2
