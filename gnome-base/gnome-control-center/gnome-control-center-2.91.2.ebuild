@@ -27,7 +27,7 @@ RDEPEND="x11-libs/libXft
 	>=gnome-base/libgnomekbd-2.91.0
 	>=gnome-base/gnome-desktop-2.29.4
 	>=gnome-base/gnome-menus-2.11.1
-	gnome-base/gnome-settings-daemon
+	>=gnome-base/gnome-settings-daemon-2.91
 
 	dev-libs/libunique:0
 	x11-libs/pango
