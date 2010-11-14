@@ -3,7 +3,9 @@
 # $Header: $
 
 EAPI=3
-inherit eutils elisp-common gnome2
+PYTHON_DEPEND=2
+
+inherit autotools eutils elisp-common gnome2 python
 
 DESCRIPTION="GTK+ Documentation Generator"
 HOMEPAGE="http://www.gtk.org/gtk-doc/"
@@ -11,7 +13,7 @@ HOMEPAGE="http://www.gtk.org/gtk-doc/"
 LICENSE="GPL-2 FDL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc emacs test"
+IUSE="debug doc emacs highlight vim test"
 
 RDEPEND=">=dev-libs/glib-2.6
 	>=dev-lang/perl-5.6
@@ -23,6 +25,10 @@ RDEPEND=">=dev-libs/glib-2.6
 	app-text/docbook-sgml-dtd
 	>=app-text/docbook-dsssl-stylesheets-1.40
 	emacs? ( virtual/emacs )
+	highlight? (
+		vim? ( app-editors/vim )
+		!vim? ( dev-util/source-highlight )
+	)
 	!!<dev-tex/tex4ht-20090611_p1038-r1"
 
 DEPEND="${RDEPEND}
@@ -34,12 +40,22 @@ DEPEND="${RDEPEND}
 
 SITEFILE=61${PN}-gentoo.el
 
-DOCS="AUTHORS ChangeLog MAINTAINERS NEWS README TODO"
+pkg_setup() {
+	DOCS="AUTHORS ChangeLog MAINTAINERS NEWS README TODO"
+	if use vim; then
+		G2CONF="${G2CONF} $(use_with highlight highlight vim)"
+	else
+		G2CONF="${G2CONF} $(use_with highlight highlight source-highlight)"
+	fi
+	python_set_active_version 2
+}
 
 src_prepare() {
 	gnome2_src_prepare
 	epatch "${FILESDIR}/${PN}-1.8-emacs-keybindings.patch"
-	epatch "${FILESDIR}/${P}-fixxref-vim-fixes.patch"
+	epatch "${FILESDIR}/${PN}-1.15-fixxref-vim-fixes.patch"
+	epatch "${FILESDIR}/${PN}-1.15-allow-selection-highlighter.patch"
+	eautoreconf
 }
 
 src_compile() {
@@ -50,8 +66,9 @@ src_compile() {
 src_install() {
 	gnome2_src_install
 
-	rm "${D}"/usr/share/aclocal/gtk-doc.m4 || die "failed to remove gtk-doc.m4"
-	rm "${D}"/usr/bin/gtkdoc-rebase || die "failed to remove gtkdoc-rebase"
+	python_convert_shebangs 2 "${D}"/usr/bin/gtkdoc-depscan
+	rm "${ED}"/usr/share/aclocal/gtk-doc.m4 || die "failed to remove gtk-doc.m4"
+	rm "${ED}"/usr/bin/gtkdoc-rebase || die "failed to remove gtkdoc-rebase"
 
 	if use doc; then
 		docinto doc
