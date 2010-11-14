@@ -1,4 +1,4 @@
-From 1b301c973249857fe262dacbcbeb6f978298a701 Mon Sep 17 00:00:00 2001
+From 579f2664230e7ce51cba3661e3f49a95f146f316 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:38:14 +0200
 Subject: [PATCH 2/3] paludis ask
@@ -335,5 +335,5 @@ index f3fb939..e32cad4 100644
          "(--preserve-world -1)"{--preserve-world,-1}"[Don't modify the world file]"
          "--add-to-world-spec[Use this atom, rather than all targets, for updating world (for resume commands)]"
 -- 
-1.7.2.2
+1.7.3.2.164.g6f10c.dirty
 

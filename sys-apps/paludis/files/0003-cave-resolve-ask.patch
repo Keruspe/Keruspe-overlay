@@ -1,19 +1,19 @@
-From d9a0a79173401c6a2ab3d90a1fbed78d8305057b Mon Sep 17 00:00:00 2001
+From 4f531ab760e5c48a68dc04dd6e5bd57da0616c5e Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Sat, 7 Aug 2010 11:00:13 +0200
 Subject: [PATCH 3/3] cave resolve ask
 
 ---
- src/clients/cave/cmd_execute_resolution.cc |   31 ++++++++++++++++++++++++++++
- src/clients/cave/cmd_resolve.cc            |    6 ++--
+ src/clients/cave/cmd_execute_resolution.cc |   28 ++++++++++++++++++++++++++++
+ src/clients/cave/cmd_resolve.cc            |    6 +++---
  src/clients/cave/cmd_resolve_cmdline.cc    |    1 +
  src/clients/cave/cmd_resolve_cmdline.hh    |    1 +
- src/clients/cave/resolve_common.cc         |    2 +
+ src/clients/cave/resolve_common.cc         |    2 ++
  zsh-completion/_cave                       |    1 +
- 6 files changed, 39 insertions(+), 3 deletions(-)
+ 6 files changed, 36 insertions(+), 3 deletions(-)
 
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index dab4d3b..6c99c7b 100644
+index dab4d3b..0cafc33 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
 @@ -104,6 +104,7 @@ namespace
@@ -32,16 +32,13 @@ index dab4d3b..6c99c7b 100644
              a_set(&g_general_options, "set", '\0', "Our target is a set rather than package specs", false),
              a_world_specs(&g_general_options, "world-specs", '\0', "Use the specified spec or set name for updating world"),
              a_removed_if_dependent_names(&g_general_options, "removed-if-dependent-names", '\0',
-@@ -271,6 +273,29 @@ namespace
+@@ -271,6 +273,26 @@ namespace
          return 0 == retcode;
      }
  
 +    bool do_ask()
 +    {
 +        Context context("When asking to execute :");
-+
-+        //if (count<max_count>() == 0)
-+            //return true;
 +        std::string answer;
 +        cout << std::endl;
 +        cout << "Do you really want to do this ? [Y/n] ... ";
@@ -62,12 +59,12 @@ index dab4d3b..6c99c7b 100644
      std::string maybe_replacing(
              const std::shared_ptr<Environment> & env,
              const std::shared_ptr<const PackageIDSequence> & ids,
-@@ -1509,6 +1534,12 @@ namespace
+@@ -1509,6 +1531,12 @@ namespace
          int retcode(0);
  
          retcode |= execute_pretends(env, lists, cmdline);
 +
-+        if (! cmdline.a_pretend.specified() && cmdline.a_ask.specified())
++        if (! cmdline.a_pretend.specified() && cmdline.a_ask.specified() && lists->execute_job_list()->length() != 0)
 +            if(! do_ask())
 +               return retcode;
 +               //set pretend
@@ -93,7 +90,7 @@ index 7d01f1d..8fd9228 100644
  
          std::string app_name() const
 diff --git a/src/clients/cave/cmd_resolve_cmdline.cc b/src/clients/cave/cmd_resolve_cmdline.cc
-index a0abbc3..05efe40 100644
+index d73161f..7e29e2b 100644
 --- a/src/clients/cave/cmd_resolve_cmdline.cc
 +++ b/src/clients/cave/cmd_resolve_cmdline.cc
 @@ -46,6 +46,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
@@ -105,7 +102,7 @@ index a0abbc3..05efe40 100644
      g_convenience_options(this, "Convenience Options", "Broad behaviour options."),
      a_lazy(&g_convenience_options, "lazy", 'z', "Do as little work as possible.", true),
 diff --git a/src/clients/cave/cmd_resolve_cmdline.hh b/src/clients/cave/cmd_resolve_cmdline.hh
-index 01a22e0..0628685 100644
+index 67d0663..dc916b3 100644
 --- a/src/clients/cave/cmd_resolve_cmdline.hh
 +++ b/src/clients/cave/cmd_resolve_cmdline.hh
 @@ -36,6 +36,7 @@ namespace paludis
@@ -117,10 +114,10 @@ index 01a22e0..0628685 100644
              args::ArgsGroup g_convenience_options;
              args::SwitchArg a_lazy;
 diff --git a/src/clients/cave/resolve_common.cc b/src/clients/cave/resolve_common.cc
-index 8cf9f53..86f6b5c 100644
+index 2eb7c64..5176e4c 100644
 --- a/src/clients/cave/resolve_common.cc
 +++ b/src/clients/cave/resolve_common.cc
-@@ -384,6 +384,8 @@ namespace
+@@ -392,6 +392,8 @@ namespace
  
          if (! resolution_options.a_execute.specified())
              args->push_back("--pretend");
@@ -142,5 +139,5 @@ index 5fe9cf9..a46bcf2 100644
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--complete,-c,--no-complete}'[Do all optional work]' \
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--everything,-e,--no-everything}'[Do all optional work, and also reinstall]' \
 -- 
-1.7.2.2
+1.7.3.2.164.g6f10c.dirty
 
