@@ -1,19 +1,19 @@
-From 373f47f8827e078310391acc39a03ce7ae0d4ded Mon Sep 17 00:00:00 2001
+From 37ac77c387f866f4ad230ded8149a8c3cbd86b33 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Sat, 7 Aug 2010 11:00:13 +0200
 Subject: [PATCH 3/3] cave resolve ask
 
 ---
- src/clients/cave/cmd_execute_resolution.cc |   29 +++++++++++++++++++++++++++-
+ src/clients/cave/cmd_execute_resolution.cc |   46 ++++++++++++++++++++++-----
  src/clients/cave/cmd_resolve.cc            |    6 ++--
  src/clients/cave/cmd_resolve_cmdline.cc    |    1 +
  src/clients/cave/cmd_resolve_cmdline.hh    |    1 +
  src/clients/cave/resolve_common.cc         |    2 +
  zsh-completion/_cave                       |    1 +
- 6 files changed, 36 insertions(+), 4 deletions(-)
+ 6 files changed, 45 insertions(+), 12 deletions(-)
 
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index dab4d3b..347c91f 100644
+index dab4d3b..2bb546c 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
 @@ -104,6 +104,7 @@ namespace
@@ -59,20 +59,74 @@ index dab4d3b..347c91f 100644
      std::string maybe_replacing(
              const std::shared_ptr<Environment> & env,
              const std::shared_ptr<const PackageIDSequence> & ids,
-@@ -1509,7 +1531,12 @@ namespace
+@@ -1498,7 +1520,8 @@ namespace
+             const std::shared_ptr<Environment> & env,
+             const std::shared_ptr<JobLists> & lists,
+             const ExecuteResolutionCommandLine & cmdline,
+-            const int n_fetch_jobs)
++            const int n_fetch_jobs,
++            bool * pretend)
+     {
+         for (JobList<ExecuteJob>::ConstIterator c(lists->execute_job_list()->begin()),
+                 c_end(lists->execute_job_list()->end()) ;
+@@ -1509,7 +1532,11 @@ namespace
          int retcode(0);
  
          retcode |= execute_pretends(env, lists, cmdline);
 -        if (0 != retcode || cmdline.a_pretend.specified())
 +
-+        bool pretend = cmdline.a_pretend.specified();
 +        if ((! cmdline.a_pretend.specified()) && cmdline.a_ask.specified() && lists->execute_job_list()->length() != 0 && (! do_ask()))
-+               pretend = true;
++               *pretend = true;
 +
-+        if (0 != retcode || pretend)
++        if (0 != retcode || *pretend)
              return retcode;
  
          retcode |= execute_executions(env, lists, cmdline, n_fetch_jobs);
+@@ -1668,36 +1695,37 @@ namespace
+                     make_null_shared_ptr()).max_exit_status())
+             throw ActionAbortedError("Aborted by hook");
+ 
++        bool pretend = cmdline.a_pretend.specified();
+         try
+         {
+-            retcode = execute_resolution_main(env, lists, cmdline, n_fetch_jobs);
++            retcode = execute_resolution_main(env, lists, cmdline, n_fetch_jobs, &pretend);
+         }
+         catch (...)
+         {
+-            if ((! cmdline.a_pretend.specified()) || (0 == retcode))
++            if ((! pretend) || (0 == retcode))
+                 write_resume_file(env, lists, cmdline, true);
+ 
+-            if (! cmdline.a_pretend.specified())
++            if (! pretend)
+                 display_summary(env, lists, 0 != retcode);
+ 
+             if (0 != env->perform_hook(Hook("install_task_execute_post")
+                         ("TARGETS", join(cmdline.begin_parameters(), cmdline.end_parameters(), " "))
+-                        ("PRETEND", stringify(cmdline.a_pretend.specified()))
++                        ("PRETEND", stringify(pretend))
+                         ("SUCCESS", stringify(false)),
+                         make_null_shared_ptr()).max_exit_status())
+                 throw ActionAbortedError("Aborted by hook");
+             throw;
+         }
+ 
+-        if ((! cmdline.a_pretend.specified()) || (0 == retcode))
++        if ((! pretend) || (0 == retcode))
+             write_resume_file(env, lists, cmdline, true);
+ 
+-        if (! cmdline.a_pretend.specified())
++        if (! pretend)
+             display_summary(env, lists, 0 != retcode);
+ 
+         if (0 != env->perform_hook(Hook("install_task_execute_post")
+                     ("TARGETS", join(cmdline.begin_parameters(), cmdline.end_parameters(), " "))
+-                    ("PRETEND", stringify(cmdline.a_pretend.specified()))
++                    ("PRETEND", stringify(pretend))
+                     ("SUCCESS", stringify(true)),
+                     make_null_shared_ptr()).max_exit_status())
+             throw ActionAbortedError("Aborted by hook");
 diff --git a/src/clients/cave/cmd_resolve.cc b/src/clients/cave/cmd_resolve.cc
 index 7d01f1d..8fd9228 100644
 --- a/src/clients/cave/cmd_resolve.cc
