@@ -26,7 +26,7 @@ RDEPEND="
       gtk? ( >=x11-libs/gtk+-2.20 ) 
 	  tcpwrap? ( sys-apps/tcp-wrappers )
 	  pam? ( virtual/pam )
-	  >=dev-lang/vala-0.8
+	  dev-lang/vala:0.12
 	  >=app-admin/syslog-ng-3"
 DEPEND="${RDEPEND}
 	app-text/docbook-xml-dtd:4.2
@@ -41,7 +41,7 @@ src_prepare() {
 }
 
 src_configure() {
-	VALAC="$(type -p valac-0.10)" \
+	VALAC="$(type -p valac-0.12)" \
 	econf --with-distro=gentoo \
 		$(use_enable gtk) \
 		--prefix=/usr \
