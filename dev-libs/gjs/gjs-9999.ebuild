@@ -31,7 +31,7 @@ DEPEND="${RDEPEND}
 RESTRICT="test"
 
 pkg_setup() {
-	MAKEOPTS="-j1"
+	MAKEOPTS+=" -j1"
 	DOCS="NEWS README"
 	G2CONF="${G2CONF}
 		$(use_enable coverage)"
