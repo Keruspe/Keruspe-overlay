@@ -19,7 +19,7 @@ RDEPEND=">=dev-libs/glib-2.25.9
 	>=x11-libs/gtk+-2.91.0:3[introspection]
 	>=media-libs/gstreamer-0.10.16
 	>=media-libs/gst-plugins-base-0.10.16
-	gnome-base/gnome-desktop:3
+	>=gnome-base/gnome-desktop-2.91.2:3
 	>=dev-libs/gobject-introspection-0.6.11
 	gnome-base/gsettings-desktop-schemas
 	dev-libs/dbus-glib
@@ -60,9 +60,6 @@ src_unpack() {
 }
 
 src_prepare() {
-	sed -i \
-	's:libgnome-desktop/gnome-desktop-thumbnail.h:libgnomeui/gnome-desktop-thumbnail.h:' \
-	src/st/st-texture-cache.c
 	mkdir m4
 	intltoolize --force --copy --automake || die
 	eautoreconf

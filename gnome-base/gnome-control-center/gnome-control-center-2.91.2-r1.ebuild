@@ -1,6 +1,7 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
 LDFLAGS+=" -lglib-2.0"
 EAPI=3
 inherit gnome2
@@ -25,7 +26,7 @@ RDEPEND="x11-libs/libXft
 	>=dev-libs/dbus-glib-0.73
 	>=x11-libs/libxklavier-4.0
 	>=gnome-base/libgnomekbd-2.91.0
-	>=gnome-base/gnome-desktop-2.29.4
+	>=gnome-base/gnome-desktop-2.91.2:3
 	>=gnome-base/gnome-menus-2.11.1
 	>=gnome-base/gnome-settings-daemon-2.91
 
@@ -70,6 +71,18 @@ pkg_setup() {
 		--disable-update-mimedb
 		--disable-static
 		$(use_enable eds aboutme)"
+}
+
+src_prepare() {
+	gnome2_src_prepare
+	sed -i 's:libgnomeui:libgnome-desktop:' \
+		panels/background/bg-pictures-source.c \
+		panels/background/bg-wallpapers-source.c \
+		panels/background/gnome-wp-info.h \
+		panels/background/gnome-wp-item.h \
+		panels/background/gnome-wp-xml.h \
+		panels/display/xrandr-capplet.c \
+		panels/user-accounts/um-photo-dialog.c
 }
 
 src_install() {

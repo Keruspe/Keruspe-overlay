@@ -64,6 +64,7 @@ src_prepare() {
 	gnome2_src_prepare
 	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
 		|| die "sed failed"
+	#sed -i 's:libgnomeui:libgnome-desktop:' src/gs-manager.c
 }
 
 src_install() {

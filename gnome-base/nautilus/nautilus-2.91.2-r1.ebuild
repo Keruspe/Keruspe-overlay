@@ -2,9 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
-GCONF_DEBUG="no"
-
+EAPI=3
 inherit eutils gnome2 virtualx
 
 DESCRIPTION="A file manager for the GNOME desktop"
@@ -17,7 +15,7 @@ IUSE="doc gnome introspection xmp"
 
 RDEPEND=">=dev-libs/glib-2.27.2
 	!gnome-base/nautilus:0
-	>=gnome-base/gnome-desktop-2.91.1:3
+	>=gnome-base/gnome-desktop-2.91.2:3
 	>=x11-libs/pango-1.1.2
 	>=x11-libs/gtk+-2.91.4:3[introspection?]
 	>=dev-libs/libxml2-2.4.7
@@ -35,9 +33,6 @@ DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.9
 	>=dev-util/intltool-0.40.1
 	doc? ( >=dev-util/gtk-doc-1.4 )"
-# For eautoreconf
-#	gnome-base/gnome-common
-#	dev-util/gtk-doc-am"
 
 PDEPEND="gnome? ( >=x11-themes/gnome-icon-theme-1.1.91 )
 	>=gnome-base/gvfs-0.1.2"
@@ -55,7 +50,6 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 
-	# FIXME: tarball generated with broken gtk-doc, revisit me.
 	if use doc; then
 		sed "/^TARGET_DIR/i \GTKDOC_REBASE=/usr/bin/gtkdoc-rebase" \
 			-i gtk-doc.make || die "sed 1 failed"
@@ -64,12 +58,14 @@ src_prepare() {
 			-i gtk-doc.make || die "sed 2 failed"
 	fi
 
-	# Remove crazy CFLAGS
 	sed 's:-DG.*DISABLE_DEPRECATED::g' -i configure.in configure \
 		|| die "sed 4 failed"
 
-	# Fix nautilus flipping-out with --no-desktop -- bug 266398
-	#epatch "${FILESDIR}/${PN}-2.27.4-change-reg-desktop-file-with-no-desktop.patch"
+	sed -i 's:libgnomeui:libgnome-desktop:' \
+			libnautilus-private/nautilus-thumbnails.c \
+			src/file-manager/fm-properties-window.c \
+			libnautilus-private/nautilus-desktop-background.c
+	sed -i 's:libgnome:libgnome-desktop:' eel/eel-gnome-extensions.c
 }
 
 src_test() {

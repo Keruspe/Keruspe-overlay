@@ -2,18 +2,17 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
-inherit gnome2 autotools eutils
+EAPI=3
+inherit gnome2
 
 DESCRIPTION="Libraries for the gnome desktop that are not part of the UI"
 HOMEPAGE="http://www.gnome.org/"
 
 LICENSE="GPL-2 FDL-1.1 LGPL-2"
 SLOT="3"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd ~x86-interix ~amd64-linux ~x86-linux ~x86-solaris"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-# TODO: Add RDEPEND on pciutils (requires support for reading gzipped pnp.ids)
 RDEPEND=">=x11-libs/gtk+-2.90.2:3
 	>=dev-libs/glib-2.19.1
 	>=x11-libs/libXrandr-1.2
@@ -34,10 +33,6 @@ DEPEND="${RDEPEND}
 # etc. are installed.  Switch to doing things the other way around once
 # gnome-about no longer uses pygtk 2
 PDEPEND=">=gnome-base/gnome-desktop-2.31:2"
-
-# Includes X11/Xatom.h in libgnome-desktop/gnome-bg.c which comes from xproto
-# Includes X11/extensions/Xrandr.h that includes randr.h from randrproto (and
-# eventually libXrandr shouldn't RDEPEND on randrproto)
 
 DOCS="AUTHORS ChangeLog HACKING NEWS README"
 
