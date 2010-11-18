@@ -59,7 +59,7 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-	sed -i 's:libgnomeui:libgnome-desktop;' \
+	sed -i 's:libgnomeui:libgnome-desktop:' \
 		src/eog-file-chooser.c	\
 		src/eog-thumbnail.c
 }
