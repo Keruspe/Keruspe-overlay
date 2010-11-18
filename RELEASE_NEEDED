@@ -1,6 +1,8 @@
-seahorse-plugins
-control-center
-screensaver
-nautilus
-gdm
+cheese
 clutter
+control-center
+eog
+gdm
+nautilus
+screensaver
+seahorse-plugins
