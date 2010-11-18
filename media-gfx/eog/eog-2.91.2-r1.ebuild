@@ -18,7 +18,7 @@ RDEPEND=">=x11-libs/gtk+-2.91.1:3[jpeg?,tiff?]
 	>=dev-libs/glib-2.25.9
 	>=dev-libs/libxml2-2
 	>=gnome-base/gconf-2.31.1
-	>=gnome-base/gnome-desktop-2.25.1:2
+	>=gnome-base/gnome-desktop-2.91.2:3
 	>=x11-themes/gnome-icon-theme-2.19.1
 	>=x11-misc/shared-mime-info-0.20
 	x11-libs/libX11
@@ -55,6 +55,13 @@ pkg_setup() {
 		--disable-schemas-install"
 	DOCS="AUTHORS ChangeLog HACKING MAINTAINERS NEWS README THANKS TODO"
 	python_set_active_version 2
+}
+
+src_prepare() {
+	gnome2_src_prepare
+	sed -i 's:libgnomeui:libgnome-desktop;' \
+		src/eog-file-chooser.c	\
+		src/eog-thumbnail.c
 }
 
 src_install() {
