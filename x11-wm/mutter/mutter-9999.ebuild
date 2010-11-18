@@ -22,7 +22,7 @@ RDEPEND=">=x11-libs/gtk+-2.91.0:3[introspection?]
 	>=x11-libs/startup-notification-0.7
 	>=x11-libs/libXcomposite-0.2
 
-	>=media-libs/clutter-1.2
+	>=media-libs/clutter-1.5.5[introspection?]
 	x11-libs/libICE
 	x11-libs/libSM
 	x11-libs/libX11

@@ -25,7 +25,7 @@ RDEPEND=">=dev-libs/glib-2.25.9
 	dev-libs/dbus-glib
 	>=dev-libs/gjs-0.7
 	x11-libs/pango[introspection]
-	>=media-libs/clutter-1.3.14[introspection]
+	>=media-libs/clutter-1.5.5[introspection]
 	x11-libs/gdk-pixbuf
 	dev-libs/libcroco:0.6
 	>=dev-libs/libical-0.43
@@ -41,7 +41,7 @@ RDEPEND=">=dev-libs/glib-2.25.9
 	x11-libs/startup-notification
 	x11-libs/libXfixes
 	x11-apps/mesa-progs
-	>=x11-wm/mutter-2.91.0[introspection]
+	>=x11-wm/mutter-2.91.3[introspection]
 
 	dev-python/dbus-python
 "
