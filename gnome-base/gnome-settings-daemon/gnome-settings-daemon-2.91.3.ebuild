@@ -20,7 +20,6 @@ RDEPEND=">=dev-libs/dbus-glib-0.74
 	>=gnome-base/gconf-2.6.1
 	>=gnome-base/libgnomekbd-2.91
 	>=gnome-base/gnome-desktop-2.91.2:3
-	gnome-base/gsettings-desktop-schemas
 	x11-libs/libX11
 	x11-libs/libXi
 	x11-libs/libXrandr
@@ -28,7 +27,7 @@ RDEPEND=">=dev-libs/dbus-glib-0.74
 	x11-libs/libXxf86misc
 	>=x11-libs/libxklavier-5.0
 	media-libs/fontconfig
-	>=gnome-base/gsettings-desktop-schemas-0.0.2
+	>=gnome-base/gsettings-desktop-schemas-0.1.1
 	libnotify? ( >=x11-libs/libnotify-0.6.1 )
 	policykit? (
 		>=sys-auth/polkit-0.91
