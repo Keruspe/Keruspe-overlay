@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit gnome2 multilib
+inherit gnome2 multilib eutils
 
 DESCRIPTION="Replaces xscreensaver, integrating with the desktop."
 HOMEPAGE="http://live.gnome.org/GnomeScreensaver"
@@ -64,7 +64,8 @@ src_prepare() {
 	gnome2_src_prepare
 	sed "s:'\^\$\$lang\$\$':\^\$\$lang\$\$:g" -i po/Makefile.in.in \
 		|| die "sed failed"
-	#sed -i 's:libgnomeui:libgnome-desktop:' src/gs-manager.c
+	epatch ${FILESDIR}/fix-gd.patch
+	sed -i 's:libgnomeui:libgnome-desktop:' src/gs-fade.c
 }
 
 src_install() {
