@@ -7,7 +7,6 @@
 =games-action/bomb-her-man-9999
 =gnome-base/gconf-9999
 =gnome-base/gnome-shell-9999
-=media-libs/clutter-9999
 =media-sound/rhythmbox-9999
 =net-misc/pino-9999
 =sys-apps/paludis-9999
@@ -38,6 +37,7 @@
 =gnome-extra/libgnome-media-profiles-2.91*
 =gnome-extra/nautilus-sendto-2.90*
 =media-gfx/eog-2.91*
+=media-libs/clutter-1.5*
 =media-libs/clutter-gtk-0.91*
 =net-analyzer/gnome-nettool-2.91*
 =net-im/empathy-2.91*

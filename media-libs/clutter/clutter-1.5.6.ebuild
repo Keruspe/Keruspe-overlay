@@ -3,22 +3,18 @@
 # $Header: $
 
 EAPI=3
-inherit autotools clutter git
+inherit clutter
 
 DESCRIPTION="Clutter is a library for creating graphical user interfaces"
 
 SLOT="1.0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug doc +gtk +introspection"
-SRC_URI=""
-EGIT_REPO_URI="git://git.clutter-project.org/clutter.git"
-WANT_AUTOMAKE=1.11
-WANT_AUTOCONF=2.5
 
-RDEPEND=">=dev-libs/glib-2.18
-	>=x11-libs/cairo-1.4
+RDEPEND=">=dev-libs/glib-2.26
+	>=x11-libs/cairo-1.10
 	>=x11-libs/pango-1.20[introspection?]
-	>=dev-libs/json-glib-0.10[introspection?]
+	>=dev-libs/json-glib-0.12[introspection?]
 	>=dev-libs/atk-1.7
 
 	virtual/opengl
@@ -47,16 +43,6 @@ DEPEND="${RDEPEND}
 "
 
 DOCS="AUTHORS NEWS README"
-
-src_unpack() {
-	git_src_unpack
-}
-
-src_prepare() {
-	gtkdocize
-	eautopoint
-	eautoreconf
-}
 
 src_configure() {
 	local myconf="
