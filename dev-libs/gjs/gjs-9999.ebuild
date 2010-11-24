@@ -17,7 +17,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="coverage examples"
 
 RDEPEND=">=dev-libs/glib-2.16:2
-	>=dev-libs/gobject-introspection-0.9.5
+	>=dev-libs/gobject-introspection-0.9.13
 	dev-libs/dbus-glib
 	x11-libs/cairo
 	net-libs/xulrunner:1.9"
