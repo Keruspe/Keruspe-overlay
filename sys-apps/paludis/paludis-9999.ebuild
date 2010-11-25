@@ -15,7 +15,7 @@ SRC_URI=""
 CLIENTS_USE="accerso adjutrix appareo importare inquisitio instruo +paludis +reconcilio"
 
 IUSE="${CLIENTS_USE}
-ask cran doc gemcutter portage pink python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
+ask cran doc gemcutter pbins pink portage python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -24,6 +24,7 @@ COMMON_DEPEND="
 	>=app-admin/eselect-1.2_rc1
 	>=app-shells/bash-3.2
 	dev-libs/libpcre[cxx]
+	pbins? ( >=app-arch/libarchive-2.8.4 )
 	ruby-bindings? ( dev-lang/ruby )
 	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0[python] )
 	gemcutter? ( >=dev-libs/jansson-1.3 )
@@ -65,6 +66,12 @@ create-paludis-user() {
 }
 
 pkg_setup() {
+	if use pbins && \
+		built_with_use app-arch/libarchive xattr; then
+		eerror "With USE pbins you need libarchive build without the xattr"
+		eerror "use flag."
+		die "Rebuild app-arch/libarchive without USE xattr"
+	fi
 	create-paludis-user
 }
 
@@ -89,6 +96,7 @@ src_compile() {
 	econf \
 		$(use_enable doc doxygen ) \
 		$(use_enable pink ) \
+		$(use_enable pbins ) \
 		$(use_enable ruby-bindings ruby ) \
 		$(useq ruby-bindings && useq doc && echo --enable-ruby-doc ) \
 		$(use_enable python-bindings python ) \
