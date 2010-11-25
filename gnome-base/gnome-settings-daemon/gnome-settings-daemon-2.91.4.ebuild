@@ -19,7 +19,7 @@ RDEPEND=">=dev-libs/dbus-glib-0.74
 	>=x11-libs/gtk+-2.91.0:3
 	>=gnome-base/gconf-2.6.1
 	>=gnome-base/libgnomekbd-2.91
-	>=gnome-base/gnome-desktop-2.91.2:3
+	>=gnome-base/gnome-desktop-2.91.3:3
 	x11-libs/libX11
 	x11-libs/libXi
 	x11-libs/libXrandr
@@ -67,17 +67,13 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-
-	# Restore gstreamer volume control support, upstream bug #571145
 	epatch "${FILESDIR}/${PN}-2.30.0-gst-vol-control-support.patch"
-
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 }
 
 pkg_postinst() {
 	gnome2_pkg_postinst
-
 	if ! use pulseaudio; then
 		elog "GStreamer volume control support is a feature powered by Gentoo GNOME Team"
 		elog "PLEASE DO NOT report bugs upstream, report on https://bugs.gentoo.org instead"
