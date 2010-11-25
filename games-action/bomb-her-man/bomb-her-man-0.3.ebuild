@@ -13,13 +13,12 @@ SRC_URI="http://github.com/Keruspe/Bomb-her-man/tarball/v${PV} -> ${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc nls"
+IUSE="debug nls"
 
 DEPEND="media-libs/sdl-ttf
 	x11-libs/cairo
 	nls? ( sys-devel/gettext )
 	gnome-base/librsvg"
-	#doc? ( app-doc/doxygen )"
 RDEPEND="${DEPEND}
 	media-fonts/libertine-ttf"
 
