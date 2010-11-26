@@ -1,4 +1,4 @@
-From 37ac77c387f866f4ad230ded8149a8c3cbd86b33 Mon Sep 17 00:00:00 2001
+From a4ed01fa399c48ac511ec24b6fdf46d4303ee834 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Sat, 7 Aug 2010 11:00:13 +0200
 Subject: [PATCH 3/3] cave resolve ask
@@ -6,14 +6,14 @@ Subject: [PATCH 3/3] cave resolve ask
 ---
  src/clients/cave/cmd_execute_resolution.cc |   46 ++++++++++++++++++++++-----
  src/clients/cave/cmd_resolve.cc            |    6 ++--
- src/clients/cave/cmd_resolve_cmdline.cc    |    1 +
- src/clients/cave/cmd_resolve_cmdline.hh    |    1 +
+ src/clients/cave/resolve_cmdline.cc        |    1 +
+ src/clients/cave/resolve_cmdline.hh        |    1 +
  src/clients/cave/resolve_common.cc         |    2 +
  zsh-completion/_cave                       |    1 +
  6 files changed, 45 insertions(+), 12 deletions(-)
 
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index dab4d3b..2bb546c 100644
+index a775bf5..4f1f749 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
 @@ -104,6 +104,7 @@ namespace
@@ -128,7 +128,7 @@ index dab4d3b..2bb546c 100644
                      make_null_shared_ptr()).max_exit_status())
              throw ActionAbortedError("Aborted by hook");
 diff --git a/src/clients/cave/cmd_resolve.cc b/src/clients/cave/cmd_resolve.cc
-index 7d01f1d..8fd9228 100644
+index 7845acb..af3f01a 100644
 --- a/src/clients/cave/cmd_resolve.cc
 +++ b/src/clients/cave/cmd_resolve.cc
 @@ -49,9 +49,9 @@ namespace
@@ -144,22 +144,22 @@ index 7d01f1d..8fd9228 100644
          }
  
          std::string app_name() const
-diff --git a/src/clients/cave/cmd_resolve_cmdline.cc b/src/clients/cave/cmd_resolve_cmdline.cc
-index d73161f..7e29e2b 100644
---- a/src/clients/cave/cmd_resolve_cmdline.cc
-+++ b/src/clients/cave/cmd_resolve_cmdline.cc
+diff --git a/src/clients/cave/resolve_cmdline.cc b/src/clients/cave/resolve_cmdline.cc
+index 29531a5..902191e 100644
+--- a/src/clients/cave/resolve_cmdline.cc
++++ b/src/clients/cave/resolve_cmdline.cc
 @@ -46,6 +46,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
      ArgsSection(h, "Resolution Options"),
      g_execution_options(this, "Execution Options", "Control execution."),
      a_execute(&g_execution_options, "execute", 'x', "Execute the suggested actions", true),
 +    a_ask(&g_execution_options, "ask", '?', "Ask before executing", true),
  
-     g_convenience_options(this, "Convenience Options", "Broad behaviour options."),
-     a_lazy(&g_convenience_options, "lazy", 'z', "Do as little work as possible.", true),
-diff --git a/src/clients/cave/cmd_resolve_cmdline.hh b/src/clients/cave/cmd_resolve_cmdline.hh
-index 67d0663..dc916b3 100644
---- a/src/clients/cave/cmd_resolve_cmdline.hh
-+++ b/src/clients/cave/cmd_resolve_cmdline.hh
+     g_convenience_options(this, "Convenience Options", "Broad behaviour options. These options are simply "
+             "a convenient way of selecting common groups of other options; see individual option descriptions "
+diff --git a/src/clients/cave/resolve_cmdline.hh b/src/clients/cave/resolve_cmdline.hh
+index 41f441f..8f98b97 100644
+--- a/src/clients/cave/resolve_cmdline.hh
++++ b/src/clients/cave/resolve_cmdline.hh
 @@ -36,6 +36,7 @@ namespace paludis
  
              args::ArgsGroup g_execution_options;
@@ -182,10 +182,10 @@ index 2eb7c64..5176e4c 100644
          for (Sequence<std::string>::ConstIterator p(world_specs->begin()), p_end(world_specs->end()) ;
                  p != p_end ; ++p)
 diff --git a/zsh-completion/_cave b/zsh-completion/_cave
-index 5fe9cf9..a46bcf2 100644
+index 0bc9660..79d7097 100644
 --- a/zsh-completion/_cave
 +++ b/zsh-completion/_cave
-@@ -540,6 +540,7 @@ _cave_cmd_report()
+@@ -570,6 +570,7 @@ _cave_cmd_report()
  _cave_resolve_arguments=(
      '(--help -h)'{--help,-h}'[Display help messsage]' \
      '(--execute -x --no-execute)'{--execute,-x,--no-execute}'[Execute the suggested actions]' \
@@ -194,5 +194,5 @@ index 5fe9cf9..a46bcf2 100644
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--complete,-c,--no-complete}'[Do all optional work]' \
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--everything,-e,--no-everything}'[Do all optional work, and also reinstall]' \
 -- 
-1.7.3.2.164.g6f10c.dirty
+1.7.3.2.245.g03276.dirty
 
