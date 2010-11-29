@@ -60,12 +60,6 @@ src_prepare() {
 
 	sed 's:-DG.*DISABLE_DEPRECATED::g' -i configure.in configure \
 		|| die "sed 4 failed"
-
-	sed -i 's:libgnomeui:libgnome-desktop:' \
-			libnautilus-private/nautilus-thumbnails.c \
-			src/file-manager/fm-properties-window.c \
-			libnautilus-private/nautilus-desktop-background.c
-	sed -i 's:libgnome:libgnome-desktop:' eel/eel-gnome-extensions.c
 }
 
 src_test() {

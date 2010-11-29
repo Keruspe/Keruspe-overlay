@@ -1,10 +1,8 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-cdr/brasero/brasero-2.32.0.ebuild,v 1.3 2010/10/20 20:25:40 eva Exp $
+# $Header: $
 
 EAPI="3"
-GCONF_DEBUG="no"
-
 inherit autotools eutils gnome2 multilib
 
 DESCRIPTION="Brasero (aka Bonfire) is yet another application to burn CD/DVD for the gnome desktop."
@@ -48,9 +46,6 @@ DEPEND="${COMMON_DEPEND}
 	>=dev-util/gtk-doc-am-1.12
 	doc? ( >=dev-util/gtk-doc-1.12 )
 	test? ( app-text/docbook-xml-dtd:4.3 )"
-# eautoreconf deps
-#	gnome-base/gnome-common
-#	dev-util/gtk-doc-am
 PDEPEND="gnome-base/gvfs"
 
 pkg_setup() {
@@ -58,7 +53,7 @@ pkg_setup() {
 		--disable-scrollkeeper
 		--disable-caches
 		--disable-dependency-tracking
-		--with-gtk=2.0
+		--with-gtk=3.0
 		$(use_enable beagle search beagle)
 		$(use_enable cdr cdrtools)
 		$(use_enable cdr cdrkit)
@@ -76,38 +71,13 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-
-	# Fix link against installed libraries, bug #340767
 	epatch "${FILESDIR}/${PN}-2.32.0-build-plugins-against-local-library.patch"
-
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 }
 
 src_install() {
 	gnome2_src_install
-
-	# Remove useless .la files
 	rm -f "${ED}"/usr/$(get_libdir)/brasero/plugins/*.la
 	rm -f "${ED}"/usr/$(get_libdir)/nautilus/extensions-2.0/*.la
-}
-
-pkg_preinst() {
-	gnome2_pkg_preinst
-
-	preserve_old_lib /usr/$(get_libdir)/libbrasero-burn.so.0
-	preserve_old_lib /usr/$(get_libdir)/libbrasero-media.so.0
-	preserve_old_lib /usr/$(get_libdir)/libbrasero-utils.so.0
-}
-
-pkg_postinst() {
-	gnome2_pkg_postinst
-
-	preserve_old_lib_notify /usr/$(get_libdir)/libbrasero-burn.so.0
-	preserve_old_lib_notify /usr/$(get_libdir)/libbrasero-media.so.0
-	preserve_old_lib_notify /usr/$(get_libdir)/libbrasero-utils.so.0
-
-	echo
-	elog "If ${PN} doesn't handle some music or video format, please check"
-	elog "your USE flags on media-plugins/gst-plugins-meta"
 }
