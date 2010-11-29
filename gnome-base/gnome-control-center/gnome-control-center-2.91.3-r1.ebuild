@@ -29,6 +29,7 @@ RDEPEND="x11-libs/libXft
 	>=gnome-base/gnome-desktop-2.91.2:3
 	>=gnome-base/gnome-menus-2.11.1
 	>=gnome-base/gnome-settings-daemon-2.91
+	gnome-base/accountsservice
 
 	app-admin/apg
 	dev-libs/libunique:0
