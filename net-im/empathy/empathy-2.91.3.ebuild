@@ -22,7 +22,7 @@ RDEPEND=">=dev-libs/glib-2.27.2:2
 	>=x11-libs/libnotify-0.7.0
 	>=gnome-base/gnome-keyring-2.91.1
 	>=net-libs/gnutls-2.8.5
-	>=dev-libs/folks-0.3.1
+	>=dev-libs/folks-0.3.2
 
 	net-libs/farsight2
 	media-libs/gstreamer:0.10

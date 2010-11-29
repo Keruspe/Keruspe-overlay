@@ -27,6 +27,7 @@ src_unpack() {
 src_prepare() {
 	mkdir m4
 	gnome2_src_prepare
+	intltoolize --automake --force
 	eautoreconf
 }
 
