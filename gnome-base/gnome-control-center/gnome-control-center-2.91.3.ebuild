@@ -30,6 +30,7 @@ RDEPEND="x11-libs/libXft
 	>=gnome-base/gnome-menus-2.11.1
 	>=gnome-base/gnome-settings-daemon-2.91
 
+	app-admin/apg
 	dev-libs/libunique:0
 	x11-libs/pango
 	dev-libs/libxml2
@@ -71,18 +72,6 @@ pkg_setup() {
 		--disable-update-mimedb
 		--disable-static
 		$(use_enable eds aboutme)"
-}
-
-src_prepare() {
-	gnome2_src_prepare
-	sed -i 's:libgnomeui:libgnome-desktop:' \
-		panels/background/bg-pictures-source.c \
-		panels/background/bg-wallpapers-source.c \
-		panels/background/gnome-wp-info.h \
-		panels/background/gnome-wp-item.h \
-		panels/background/gnome-wp-xml.h \
-		panels/display/xrandr-capplet.c \
-		panels/user-accounts/um-photo-dialog.c
 }
 
 src_install() {
