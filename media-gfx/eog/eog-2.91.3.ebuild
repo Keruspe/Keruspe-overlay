@@ -57,13 +57,6 @@ pkg_setup() {
 	python_set_active_version 2
 }
 
-src_prepare() {
-	gnome2_src_prepare
-	sed -i 's:libgnomeui:libgnome-desktop:' \
-		src/eog-file-chooser.c	\
-		src/eog-thumbnail.c
-}
-
 src_install() {
 	gnome2_src_install
 	find "${ED}" -name "*.la" -delete || die "la files removal failed"
