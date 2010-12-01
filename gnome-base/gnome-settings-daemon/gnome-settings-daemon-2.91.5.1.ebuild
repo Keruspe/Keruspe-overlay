@@ -27,7 +27,7 @@ RDEPEND=">=dev-libs/dbus-glib-0.74
 	x11-libs/libXxf86misc
 	>=x11-libs/libxklavier-5.0
 	media-libs/fontconfig
-	>=gnome-base/gsettings-desktop-schemas-0.1.1
+	>=gnome-base/gsettings-desktop-schemas-0.1.2
 	libnotify? ( >=x11-libs/libnotify-0.6.1 )
 	policykit? (
 		>=sys-auth/polkit-0.91
