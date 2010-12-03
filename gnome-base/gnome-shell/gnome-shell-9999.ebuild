@@ -61,6 +61,7 @@ src_unpack() {
 
 src_prepare() {
 	mkdir m4
+	epatch ${FILESDIR}/tmp.patch
 	intltoolize --force --copy --automake || die
 	eautoreconf
 }
