@@ -17,7 +17,7 @@ RDEPEND=">=dev-libs/glib-2.26:2"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	test? ( x11-libs/gtk+:3 )"
-PDEPEND="|| ( =gnome-base/gnome-shell-9999
+PDEPEND="|| ( gnome-base/gnome-shell
 	x11-misc/notification-daemon
 	xfce-extra/xfce4-notifyd )"
 
