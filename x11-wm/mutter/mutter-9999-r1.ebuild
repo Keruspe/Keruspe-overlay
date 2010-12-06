@@ -32,7 +32,7 @@ RDEPEND=">=x11-libs/gtk+-2.91.0:3[introspection?]
 	x11-libs/libXfixes
 	x11-libs/libXrandr
 	x11-libs/libXrender
-	>=x11-libs/cairo-1.9.12
+	>=x11-libs/cairo-1.9.12[X]
 
 	sound? ( >=media-libs/libcanberra-0.25-r1[gtk3] )
 	introspection? ( >=dev-libs/gobject-introspection-0.9.5 )
