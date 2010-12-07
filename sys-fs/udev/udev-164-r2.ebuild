@@ -13,7 +13,7 @@ SRC_URI="mirror://kernel/linux/utils/kernel/hotplug/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="selinux introspection extras test"
+IUSE="selinux introspection extras test systemd"
 
 COMMON_DEPEND="selinux? ( sys-libs/libselinux )
 	extras? (
@@ -137,7 +137,8 @@ src_configure() {
 		--enable-static \
 		$(use_with selinux) \
 		$(use_enable extras) \
-		$(use_enable introspection)
+		$(use_enable introspection) \
+		$(use_with systemd systemdsystemunitdir "/$(get_libdir)/systemd/system")
 }
 
 src_compile() {
