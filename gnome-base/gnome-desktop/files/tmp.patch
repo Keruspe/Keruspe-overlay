@@ -1,0 +1,48 @@
+diff --git a/libgnome-desktop/gnome-bg.c b/libgnome-desktop/gnome-bg.c
+index 27aea30..76c61a8 100644
+--- a/libgnome-desktop/gnome-bg.c
++++ b/libgnome-desktop/gnome-bg.c
+@@ -1094,7 +1094,7 @@ gnome_bg_create_surface (GnomeBG	    *bg,
+ 		
+ 		pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8,
+ 					 width, height);
+-		gnome_bg_draw (bg, pixbuf, gdk_window_get_screen (GDK_DRAWABLE (window)), is_root);
++		gnome_bg_draw (bg, pixbuf, gdk_window_get_screen (window), is_root);
+ 		gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
+ 		g_object_unref (pixbuf);
+ 	}
+diff --git a/libgnome-desktop/gnome-bg-crossfade.c b/libgnome-desktop/gnome-bg-crossfade.c
+index df6a285..02a120e 100644
+--- a/libgnome-desktop/gnome-bg-crossfade.c
++++ b/libgnome-desktop/gnome-bg-crossfade.c
+@@ -373,7 +373,7 @@ animations_are_disabled (GnomeBGCrossfade *fade)
+ static void
+ draw_background (GnomeBGCrossfade *fade)
+ {
+-	if (GDK_WINDOW_TYPE (fade->priv->window) == GDK_WINDOW_ROOT) {
++	if (gdk_window_get_window_type (fade->priv->window) == GDK_WINDOW_ROOT) {
+                 XClearArea (GDK_WINDOW_XDISPLAY (fade->priv->window),
+                             GDK_WINDOW_XID (fade->priv->window),
+                             0, 0,
+@@ -494,7 +494,7 @@ gnome_bg_crossfade_start (GnomeBGCrossfade *fade,
+ 	g_return_if_fail (fade->priv->fading_surface != NULL);
+ 	g_return_if_fail (fade->priv->end_surface != NULL);
+ 	g_return_if_fail (!gnome_bg_crossfade_is_started (fade));
+-	g_return_if_fail (GDK_WINDOW_TYPE (window) != GDK_WINDOW_FOREIGN);
++	g_return_if_fail (gdk_window_get_window_type (window) != GDK_WINDOW_FOREIGN);
+ 
+ 	source = g_timeout_source_new (1000 / 60.0);
+ 	g_source_set_callback (source,
+diff --git a/libgnome-desktop/gnome-rr.c b/libgnome-desktop/gnome-rr.c
+index 7e8bc22..6b8379b 100644
+--- a/libgnome-desktop/gnome-rr.c
++++ b/libgnome-desktop/gnome-rr.c
+@@ -668,7 +668,7 @@ gnome_rr_screen_new (GdkScreen *gdk_screen,
+ 	
+ 	screen->gdk_screen = gdk_screen;
+ 	screen->gdk_root = gdk_screen_get_root_window (gdk_screen);
+-	screen->xroot = gdk_x11_drawable_get_xid (screen->gdk_root);
++	screen->xroot = gdk_x11_window_get_xid (screen->gdk_root);
+ 	screen->xdisplay = dpy;
+ 	screen->xscreen = gdk_x11_screen_get_xscreen (screen->gdk_screen);
+ 	screen->connector_type_atom = XInternAtom (dpy, "ConnectorType", FALSE);
