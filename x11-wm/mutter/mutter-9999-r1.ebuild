@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug introspection +sound test xinerama"
 
-RDEPEND=">=x11-libs/gtk+-2.91.0:3[introspection?]
+RDEPEND=">=x11-libs/gtk+-2.91.6:3[introspection?]
 	>=x11-libs/pango-1.28[X,introspection?]
 	>=gnome-base/gconf-2
 	>=dev-libs/glib-2.14
@@ -68,6 +68,5 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 	intltoolize --force --copy --automake || die
-	epatch ${FILESDIR}/tmp.patch
 	eautoreconf
 }
