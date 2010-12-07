@@ -16,7 +16,7 @@ IUSE=""
 RDEPEND="dev-util/intltool"
 DEPEND="${RDEPEND}"
 
-G2CONF="--enable-animation"
+#G2CONF="--enable-animation"
 
 src_install() {
 	gnome2_src_install
