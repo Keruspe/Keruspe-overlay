@@ -1,5 +1,8 @@
 gdm
 seahorse-plugins
 accountsservice
-gnome-desktop
-libgnomekbd
+gnome-desktop patch
+libgnomekbd patch
+gnome-screensaver
+gnome-settings-daemon
+gnome-control-center
