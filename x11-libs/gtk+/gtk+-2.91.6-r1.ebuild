@@ -86,6 +86,7 @@ src_configure() {
 		$(use_enable xinerama)
 		$(use_enable cups cups auto)
 		$(use_enable introspection)
+		--disable-packagekit
 		--disable-papi"
 	if use aqua; then
 		myconf="${myconf} --with-gdktarget=quartz"
