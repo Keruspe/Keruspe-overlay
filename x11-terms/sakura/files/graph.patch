@@ -52,15 +52,6 @@
  sakura_set_palette(GtkWidget *widget, void *data)
  {
  	struct terminal *term;
-@@ -1431,7 +1459,7 @@
- 
- 	term_data_id = g_quark_from_static_string("sakura_term");
- 
--	/* Harcode TERM enviroment variable. With versions of vte>=0.26.0 behaviour seems to be different 
-+	/* Harcode TERM enviroment variable. With versions of vte>=0.26.0 behaviour seems to be different
- 	   and if TERM is not defined we get errors from several applications */
- 	g_setenv("TERM", "xterm", FALSE);
- 
 @@ -1569,6 +1597,20 @@
  	sakura.blinking_cursor= (strcmp(cfgtmp, "Yes")==0) ? 1 : 0;
  	g_free(cfgtmp);
