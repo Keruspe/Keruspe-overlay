@@ -2,8 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=3
 inherit eutils cmake-utils
-
 DESCRIPTION="sakura is a terminal emulator based on GTK and VTE"
 HOMEPAGE="http://www.pleyades.net/david/sakura.php"
 SRC_URI="http://www.pleyades.net/david/projects/sakura/${P}.tar.gz"
