@@ -1,4 +1,4 @@
-From 288cdd096ee19d170eaaa0ce887f96c2ff1a4a2c Mon Sep 17 00:00:00 2001
+From 0967fa1dc4f03809c26bfb0d906f113f922bd053 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:17:27 +0200
 Subject: [PATCH 1/3] paludis sort world
@@ -12,7 +12,7 @@ Subject: [PATCH 1/3] paludis sort world
  5 files changed, 67 insertions(+), 4 deletions(-)
 
 diff --git a/paludis/environments/paludis/world.cc b/paludis/environments/paludis/world.cc
-index 79e865d..0dc423e 100644
+index 2ffd2d1..13662db 100644
 --- a/paludis/environments/paludis/world.cc
 +++ b/paludis/environments/paludis/world.cc
 @@ -125,6 +125,7 @@ World::_add_string_to_world(const std::string & n) const
@@ -63,7 +63,7 @@ index f81a62b..0d8916c 100755
  END
  
 diff --git a/paludis/set_file.cc b/paludis/set_file.cc
-index b2bc0e3..a5b1ec9 100644
+index f6a36bc..a106ebd 100644
 --- a/paludis/set_file.cc
 +++ b/paludis/set_file.cc
 @@ -56,12 +56,15 @@ namespace
@@ -208,5 +208,5 @@ index 78d18bb..02f4656 100644
               */
              void rewrite() const;
 -- 
-1.7.3.2.245.g03276.dirty
+1.7.3.3.585.g74f6e.dirty
 

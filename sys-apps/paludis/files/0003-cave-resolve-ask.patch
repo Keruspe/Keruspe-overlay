@@ -1,4 +1,4 @@
-From a4ed01fa399c48ac511ec24b6fdf46d4303ee834 Mon Sep 17 00:00:00 2001
+From 46d4f9b3101efe6a5e9d5bdd2e33c3aad1b70e4c Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Sat, 7 Aug 2010 11:00:13 +0200
 Subject: [PATCH 3/3] cave resolve ask
@@ -13,7 +13,7 @@ Subject: [PATCH 3/3] cave resolve ask
  6 files changed, 45 insertions(+), 12 deletions(-)
 
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index a775bf5..4f1f749 100644
+index 195558f..8d9d73f 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
 @@ -104,6 +104,7 @@ namespace
@@ -145,7 +145,7 @@ index 7845acb..af3f01a 100644
  
          std::string app_name() const
 diff --git a/src/clients/cave/resolve_cmdline.cc b/src/clients/cave/resolve_cmdline.cc
-index 29531a5..902191e 100644
+index 48e5882..21bc044 100644
 --- a/src/clients/cave/resolve_cmdline.cc
 +++ b/src/clients/cave/resolve_cmdline.cc
 @@ -46,6 +46,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
@@ -157,7 +157,7 @@ index 29531a5..902191e 100644
      g_convenience_options(this, "Convenience Options", "Broad behaviour options. These options are simply "
              "a convenient way of selecting common groups of other options; see individual option descriptions "
 diff --git a/src/clients/cave/resolve_cmdline.hh b/src/clients/cave/resolve_cmdline.hh
-index 41f441f..8f98b97 100644
+index a25b447..e7302b3 100644
 --- a/src/clients/cave/resolve_cmdline.hh
 +++ b/src/clients/cave/resolve_cmdline.hh
 @@ -36,6 +36,7 @@ namespace paludis
@@ -169,12 +169,12 @@ index 41f441f..8f98b97 100644
              args::ArgsGroup g_convenience_options;
              args::SwitchArg a_lazy;
 diff --git a/src/clients/cave/resolve_common.cc b/src/clients/cave/resolve_common.cc
-index 2eb7c64..5176e4c 100644
+index 6ff20f4..7bb9bb5 100644
 --- a/src/clients/cave/resolve_common.cc
 +++ b/src/clients/cave/resolve_common.cc
-@@ -392,6 +392,8 @@ namespace
+@@ -395,6 +395,8 @@ namespace
  
-         if (! resolution_options.a_execute.specified())
+         if (pretend_only || ! resolution_options.a_execute.specified())
              args->push_back("--pretend");
 +        else if (resolution_options.a_ask.specified())
 +            args->push_back("--ask");
@@ -182,7 +182,7 @@ index 2eb7c64..5176e4c 100644
          for (Sequence<std::string>::ConstIterator p(world_specs->begin()), p_end(world_specs->end()) ;
                  p != p_end ; ++p)
 diff --git a/zsh-completion/_cave b/zsh-completion/_cave
-index 0bc9660..79d7097 100644
+index 879140c..12f7fd3 100644
 --- a/zsh-completion/_cave
 +++ b/zsh-completion/_cave
 @@ -570,6 +570,7 @@ _cave_cmd_report()
@@ -194,5 +194,5 @@ index 0bc9660..79d7097 100644
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--complete,-c,--no-complete}'[Do all optional work]' \
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--everything,-e,--no-everything}'[Do all optional work, and also reinstall]' \
 -- 
-1.7.3.2.245.g03276.dirty
+1.7.3.3.585.g74f6e.dirty
 

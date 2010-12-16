@@ -1,4 +1,4 @@
-From a8ad1e341f2f085e3fdb11ef07c6622339dddb38 Mon Sep 17 00:00:00 2001
+From 1fb19747ad03dcbe560c417181ca401dcc0d42d4 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:38:14 +0200
 Subject: [PATCH 2/3] paludis ask
@@ -92,7 +92,7 @@ index acada1e..b343234 100644
                  paludis::args::StringSetArg a_destinations;
  
 diff --git a/paludis/legacy/install_task.cc b/paludis/legacy/install_task.cc
-index f6bc660..2135fdf 100644
+index 95b66e5..93b6826 100644
 --- a/paludis/legacy/install_task.cc
 +++ b/paludis/legacy/install_task.cc
 @@ -130,6 +130,7 @@ namespace paludis
@@ -111,7 +111,7 @@ index f6bc660..2135fdf 100644
              fetch_only(false),
              preserve_world(false),
              safe_resume(false),
-@@ -803,6 +805,9 @@ InstallTask::_pretend()
+@@ -816,6 +818,9 @@ InstallTask::_pretend()
  
      on_pretend_all_post();
  
@@ -121,7 +121,7 @@ index f6bc660..2135fdf 100644
      if (_imp->pretend)
      {
          if (0 != perform_hook(Hook("install_pretend_post")
-@@ -1329,6 +1334,17 @@ InstallTask::execute()
+@@ -1342,6 +1347,17 @@ InstallTask::execute()
                  ,
                  make_null_shared_ptr()).max_exit_status())
          throw ActionAbortedError("Install task execute aborted by hook");
@@ -139,7 +139,7 @@ index f6bc660..2135fdf 100644
  }
  
  const DepList &
-@@ -1350,6 +1366,12 @@ InstallTask::set_pretend(const bool value)
+@@ -1363,6 +1379,12 @@ InstallTask::set_pretend(const bool value)
  }
  
  void
@@ -277,7 +277,7 @@ index cbade32..d1a5b0a 100644
          task.set_with_unused_dependencies(CommandLine::get_instance()->a_with_unused_dependencies.specified());
          task.set_with_dependencies(CommandLine::get_instance()->a_with_dependencies.specified());
 diff --git a/src/output/console_install_task.cc b/src/output/console_install_task.cc
-index 6110e38..0193002 100644
+index f1a53e8..91c1c11 100644
 --- a/src/output/console_install_task.cc
 +++ b/src/output/console_install_task.cc
 @@ -573,6 +573,28 @@ ConsoleInstallTask::on_pretend_all_post()
@@ -335,5 +335,5 @@ index f3fb939..e32cad4 100644
          "(--preserve-world -1)"{--preserve-world,-1}"[Don't modify the world file]"
          "--add-to-world-spec[Use this atom, rather than all targets, for updating world (for resume commands)]"
 -- 
-1.7.3.2.245.g03276.dirty
+1.7.3.3.585.g74f6e.dirty
 
