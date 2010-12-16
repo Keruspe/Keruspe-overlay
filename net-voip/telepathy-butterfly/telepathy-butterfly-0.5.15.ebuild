@@ -22,6 +22,7 @@ RDEPEND=">=dev-python/telepathy-python-0.15.17
 DOCS="AUTHORS NEWS"
 
 src_prepare() {
+	epatch ${FILESDIR}/fail.patch
 	mv py-compile py-compile-disabled
 	ln -s $(type -P true) py-compile
 }
