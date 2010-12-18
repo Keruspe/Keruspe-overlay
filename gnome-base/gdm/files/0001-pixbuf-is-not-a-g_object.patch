@@ -1,0 +1,37 @@
+From 205cecd406d477cc49c72fe1ce778d5cbe0ed926 Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Sat, 18 Dec 2010 11:43:03 +0100
+Subject: [PATCH] pixbuf is not a g_object
+
+---
+ gui/simple-greeter/gdm-user-chooser-widget.c |    7 ++-----
+ 1 files changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/gui/simple-greeter/gdm-user-chooser-widget.c b/gui/simple-greeter/gdm-user-chooser-widget.c
+index 19a7922..0afa9cd 100644
+--- a/gui/simple-greeter/gdm-user-chooser-widget.c
++++ b/gui/simple-greeter/gdm-user-chooser-widget.c
+@@ -479,7 +479,7 @@ add_user (GdmUserChooserWidget *widget,
+                 return;
+         }
+ 
+-        pixbuf = g_object_ref (widget->priv->stock_person_pixbuf);
++        pixbuf = widget->priv->stock_person_pixbuf;
+ 
+         tooltip = g_strdup_printf (_("Log in as %s"),
+                                    gdm_user_get_user_name (user));
+@@ -501,10 +501,7 @@ add_user (GdmUserChooserWidget *widget,
+         g_free (escaped_real_name);
+         g_free (escaped_username);
+         g_free (tooltip);
+-
+-        if (pixbuf != NULL) {
+-                g_object_unref (pixbuf);
+-        }
++        g_free (pixbuf);
+ 
+         queue_update_other_user_visibility (widget);
+ }
+-- 
+1.7.3.3.585.g74f6e.dirty
+

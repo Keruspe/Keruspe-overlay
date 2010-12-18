@@ -23,6 +23,7 @@
 =app-text/evince-2.91*
 =dev-libs/glib-2.27*
 =dev-libs/libgweather-2.91*
+=gnome-base/gdm-2.91*
 =gnome-base/gnome-control-center-2.91*
 =gnome-base/gnome-desktop-2.91*
 =gnome-base/gnome-keyring-2.91*

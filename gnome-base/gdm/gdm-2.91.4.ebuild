@@ -95,6 +95,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-2.32.0-xinitrc-ssh-agent.patch"
 	epatch "${FILESDIR}/${PN}-2.32.0-automagic-libxklavier-support.patch"
 
+	epatch ${FILESDIR}/0001-pixbuf-is-not-a-g_object.patch
 	mkdir "${S}"/m4
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
