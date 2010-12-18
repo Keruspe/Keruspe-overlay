@@ -25,7 +25,6 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	>=gnome-base/gconf-2.31.1
 	>=media-libs/libcanberra-0.10[gtk3]
 	>=sys-power/upower-0.9.1
-	>=dev-libs/libunique-1.1.0:0
 	>=x11-apps/xrandr-1.3
 	>=x11-proto/xproto-7.0.15
 	x11-libs/libX11

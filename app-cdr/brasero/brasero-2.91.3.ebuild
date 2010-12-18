@@ -21,7 +21,6 @@ COMMON_DEPEND="
 	>=media-libs/gstreamer-0.10.15
 	>=media-libs/gst-plugins-base-0.10
 	>=dev-libs/libxml2-2.6
-	>=dev-libs/libunique-1
 	x11-libs/libSM
 	beagle? ( >=dev-libs/libbeagle-0.3 )
 	introspection? ( >=dev-libs/gobject-introspection-0.6.3 )

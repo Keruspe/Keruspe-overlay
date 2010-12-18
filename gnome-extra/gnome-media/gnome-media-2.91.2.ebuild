@@ -19,7 +19,6 @@ RDEPEND=">=dev-libs/glib-2.18.2:2
 	>=media-libs/gstreamer-0.10.23
 	>=media-libs/gst-plugins-base-0.10.23
 	>=media-libs/gst-plugins-good-0.10
-	>=dev-libs/libunique-1
 	>=gnome-extra/libgnome-media-profiles-2.91
 	>=media-sound/pulseaudio-0.9.16[glib]
 	>=media-libs/libcanberra-0.13[gtk]

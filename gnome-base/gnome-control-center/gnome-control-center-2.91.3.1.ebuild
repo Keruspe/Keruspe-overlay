@@ -32,7 +32,6 @@ RDEPEND="x11-libs/libXft
 	gnome-base/accountsservice
 
 	app-admin/apg
-	dev-libs/libunique:0
 	x11-libs/pango
 	dev-libs/libxml2
 	media-libs/freetype
