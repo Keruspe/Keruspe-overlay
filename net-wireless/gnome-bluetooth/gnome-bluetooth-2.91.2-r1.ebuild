@@ -58,4 +58,5 @@ src_install() {
 		find "${ED}"/usr/$(get_libdir)/nautilus-sendto/plugins -name "*.la" -delete \
 			|| die "la file removal failed (1)"
 	fi
+	dosym ${PN}/lib${PN}-applet.so.0 /usr/$(get_libdir)/lib${PN}-applet.so.0
 }
