@@ -45,6 +45,8 @@
 =x11-libs/gtk+-2.91*
 =x11-libs/gtksourceview-2.91*
 =x11-libs/libnotify-0.7*
+=x11-themes/gnome-icon-theme-2.91*
+=x11-themes/gnome-icon-theme-symbolic-2.91*
 =x11-themes/gnome-themes-2.91*
 =x11-themes/gtk-engines-2.91*
 =x11-themes/gtk-theme-engine-clearlooks-2.91*
