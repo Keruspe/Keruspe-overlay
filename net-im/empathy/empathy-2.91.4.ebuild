@@ -12,7 +12,7 @@ LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="eds map nautilus networkmanager spell test webkit" #webkit needs webkit-gtk3
+IUSE="eds map nautilus networkmanager spell test" #webkit needs webkit-gtk3
 
 RDEPEND=">=dev-libs/glib-2.27.2:2
 	>=x11-libs/gtk+-2.91.3:3
@@ -34,7 +34,7 @@ RDEPEND=">=dev-libs/glib-2.27.2:2
 	>=net-im/telepathy-logger-0.1.5
 
 	map? (
-		>=media-libs/clutter-gtk-0.10:1.0 
+		>=media-libs/clutter-gtk-0.90:1.0 
 		>=gnome-extra/geoclue-0.11.1 )
 	nautilus? ( >=gnome-extra/nautilus-sendto-2.90.0 )
 	networkmanager? ( >=net-misc/networkmanager-0.7 )
@@ -70,8 +70,8 @@ pkg_setup() {
 		$(use_enable nautilus nautilus-sendto)
 		$(use_with networkmanager connectivity nm)
 		$(use_enable spell)
-		$(use_enable test coding-style-checks)
-		$(use_enable webkit)"
+		$(use_enable test coding-style-checks)"
+		#$(use_enable webkit)
 		#$(use_enable map) needs champlain-gtk3
 }
 
