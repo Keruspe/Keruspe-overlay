@@ -28,3 +28,8 @@ pkg_setup() {
 	DOCS="AUTHORS NEWS"
 	G2CONF="${G2CONF} --enable-icon-mapping"
 }
+
+src_prepare() {
+	sed -i 's/gtk-update-icon-cache/true/' configure
+	gnome2_src_prepare
+}
