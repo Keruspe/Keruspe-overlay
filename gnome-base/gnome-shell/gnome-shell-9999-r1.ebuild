@@ -28,7 +28,6 @@ RDEPEND=">=dev-libs/glib-2.25.9
 	>=media-libs/clutter-1.5.8[introspection]
 	x11-libs/gdk-pixbuf
 	dev-libs/libcroco:0.6
-	>=dev-libs/libical-0.43
 
 	x11-themes/gnome-icon-theme-symbolic
 	x11-themes/gnome-themes-standard
