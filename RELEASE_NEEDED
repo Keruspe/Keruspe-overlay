@@ -2,7 +2,3 @@ seahorse-plugins
 accountsservice
 gnome-desktop patch
 libgnomekbd patch
-gnome-screensaver
-gnome-settings-daemon
-gnome-control-center
-clutter-gtk
