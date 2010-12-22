@@ -1,4 +1,19 @@
 #!/bin/bash
 #instruo -g -D /var/paludis/repositories/keruspe/ --extra-repository-dir /var/paludis/repositories/gentoo/ -o /var/paludis/repositories/keruspe/metadata/cache/
-appareo -m -D /var/paludis/repositories/keruspe/ --extra-repository-dir /var/paludis/repositories/gentoo/ --extra-repository-dir /var/paludis/repositories/gnome -d /var/paludis/distfiles/ --override
+
+REPOSITORIES_PATH="/var/paludis/repositories"
+DEPTH=$[$(echo ${REPOSITORIES_PATH} | sed 's:/:\n:g' | wc -l)+2]
+
+digestify() {
+	for i in $(find ${REPOSITORIES_PATH}/${1} -mindepth 2 -maxdepth 2 -type d | grep -Ev '(.git|profiles|metadata)'); do
+		cave digest $(echo $i | cut -d'/' -f${DEPTH}-) ${1}
+	done
+}
+
+main() {
+	digestify keruspe
+}
+
+main
+
 exit 0
