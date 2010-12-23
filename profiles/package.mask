@@ -27,6 +27,7 @@
 =gnome-base/gnome-control-center-2.91*
 =gnome-base/gnome-desktop-2.91*
 =gnome-base/gnome-keyring-2.91*
+=gnome-base/gnome-session-2.91*
 =gnome-base/gnome-settings-daemon-2.91*
 =gnome-base/libgnomekbd-2.91*
 =gnome-base/nautilus-2.91*
@@ -42,6 +43,7 @@
 =net-analyzer/gnome-nettool-2.91*
 =net-im/empathy-2.91*
 =net-wireless/gnome-bluetooth-2.91*
+=x11-libs/gdk-pixbuf-2.23*
 =x11-libs/gtk+-2.91*
 =x11-libs/gtksourceview-2.91*
 =x11-libs/libnotify-0.7*
