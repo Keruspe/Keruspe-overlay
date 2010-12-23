@@ -43,6 +43,7 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		--docdir="${EPREFIX}/usr/share/doc/${PF}"
 		--with-default-wm=gnome-wm
+		--with-gtk=3.0
 		$(use_enable doc docbook-docs)
 		$(use_enable ipv6)"
 	DOCS="AUTHORS ChangeLog NEWS README"
