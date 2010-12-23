@@ -2,8 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
-inherit gnome2 autotools eutils
+EAPI="3"
+inherit gnome2
 
 DESCRIPTION="Libraries for the gnome desktop that are not part of the UI"
 HOMEPAGE="http://www.gnome.org/"
@@ -13,7 +13,6 @@ SLOT="3"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-# TODO: Add RDEPEND on pciutils (requires support for reading gzipped pnp.ids)
 RDEPEND=">=x11-libs/gtk+-2.91.6:3
 	>=dev-libs/glib-2.19.1
 	>=x11-libs/libXrandr-1.2
@@ -31,14 +30,7 @@ DEPEND="${RDEPEND}
 	~app-text/docbook-xml-dtd-4.1.2
 	x11-proto/xproto
 	>=x11-proto/randrproto-1.2"
-# Temporarily require the 2.31 version to ensure the proper pixmaps, gnome-about,
-# etc. are installed.  Switch to doing things the other way around once
-# gnome-about no longer uses pygtk 2
 PDEPEND=">=gnome-base/gnome-desktop-2.31:2"
-
-# Includes X11/Xatom.h in libgnome-desktop/gnome-bg.c which comes from xproto
-# Includes X11/extensions/Xrandr.h that includes randr.h from randrproto (and
-# eventually libXrandr shouldn't RDEPEND on randrproto)
 
 DOCS="AUTHORS ChangeLog HACKING NEWS README"
 
@@ -50,9 +42,4 @@ pkg_setup() {
 		--disable-gnome-about
 		--disable-desktop-docs
 		--with-pnp-ids-path=/usr/share/libgnome-desktop/pnp.ids"
-}
-
-src_prepare() {
-	epatch ${FILESDIR}/tmp.patch
-	gnome2_src_prepare
 }

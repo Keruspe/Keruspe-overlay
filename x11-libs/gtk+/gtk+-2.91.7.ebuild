@@ -10,7 +10,7 @@ HOMEPAGE="http://www.gtk.org/"
 
 LICENSE="LGPL-2"
 SLOT="3"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="aqua cups debug doc +introspection jpeg jpeg2k tiff test vim-syntax xinerama"
 
 RDEPEND="!aqua? (
