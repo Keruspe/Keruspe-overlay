@@ -3,16 +3,12 @@
 # $Header: $
 
 EAPI="3"
-GCONF_DEBUG="no"
 PYTHON_DEPEND="2:2.5"
 
-inherit autotools git gnome2 python
+inherit gnome2 python
 
 DESCRIPTION="Introspection infrastructure for gobject library bindings"
 HOMEPAGE="http://live.gnome.org/GObjectIntrospection/"
-
-SRC_URI=""
-EGIT_REPO_URI="git://git.gnome.org/${PN}"
 
 LICENSE="LGPL-2 GPL-2"
 SLOT="0"
@@ -38,13 +34,8 @@ pkg_setup() {
 	python_set_active_version 2
 }
 
-src_unpack() {
-	git_src_unpack
-}
-
 src_prepare() {
-	gtkdocize
-	eautoreconf
+	gnome2_src_prepare
 	use doc && MAKEOPTS="-j1"
 	ln -sf $(type -P true) py-compile
 }

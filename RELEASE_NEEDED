@@ -1,6 +1,5 @@
 seahorse-plugins
 accountsservice
 gnome-desktop patch
-libgnomekbd patch
 gsettings-desktop-schemas
 gdk-pixbuf

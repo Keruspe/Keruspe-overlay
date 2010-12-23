@@ -28,8 +28,3 @@ DOCS="AUTHORS ChangeLog NEWS README"
 pkg_setup() {
 	G2CONF="${G2CONF} --disable-tests --disable-static"
 }
-
-src_prepare() {
-	epatch ${FILESDIR}/tmp.patch
-	gnome2_src_prepare
-}
