@@ -75,12 +75,6 @@ pkg_setup() {
 		#$(use_enable map) needs champlain-gtk3
 }
 
-src_prepare() {
-	gnome2_src_prepare
-	sed -i 's/gcr_simple_certificate_new/gcr_simple_certificate_new_dummy/' \
-		libempathy-gtk/gcr-simple-certificate.{c,h}
-}
-
 src_test() {
 	unset DBUS_SESSION_BUS_ADDRESS
 	emake check || die "emake check failed."
