@@ -63,16 +63,6 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-	sed -i '/gdkconfig/d' libegg/eggsmclient-private.h
-	sed -i -e 's:gcr-certificate.h:gcr.h:g' \
-		-e 's:gcr-certificate-widget.h:gcr.h:g' \
-		-e '/pkcs11g.h/g' \
-		pkcs11/seahorse-pkcs11-certificate.c \
-		pkcs11/seahorse-pkcs11-certificate-props.h \
-		pkcs11/seahorse-pkcs11-certificate-props.c \
-		pkcs11/seahorse-pkcs11-helpers.c \
-		pkcs11/seahorse-pkcs11-object.c \
-		pkcs11/seahorse-pkcs11-operations.c
 	# Do not mess with CFLAGS with USE="debug"
 	sed -e '/CFLAGS="$CFLAGS -g -O0/d' \
 		-e 's/-Werror//' \
