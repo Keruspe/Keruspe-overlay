@@ -66,7 +66,7 @@ src_prepare() {
 	sed -i '/gdkconfig/d' libegg/eggsmclient-private.h
 	sed -i -e 's:gcr-certificate.h:gcr.h:g' \
 		-e 's:gcr-certificate-widget.h:gcr.h:g' \
-		-e '/pkcs11g.h/g'
+		-e '/pkcs11g.h/g' \
 		pkcs11/seahorse-pkcs11-certificate.c \
 		pkcs11/seahorse-pkcs11-certificate-props.h \
 		pkcs11/seahorse-pkcs11-certificate-props.c \
