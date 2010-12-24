@@ -20,7 +20,7 @@ RDEPEND=">=dev-libs/glib-2.27.2:2
 	>=net-libs/telepathy-glib-0.13.7
 	>=media-libs/libcanberra-0.4[gtk]
 	>=x11-libs/libnotify-0.7.0
-	>=gnome-base/gnome-keyring-2.91.1
+	>=gnome-base/gnome-keyring-2.91.4
 	>=net-libs/gnutls-2.8.5
 	>=dev-libs/folks-0.3.3
 
@@ -73,6 +73,12 @@ pkg_setup() {
 		$(use_enable test coding-style-checks)"
 		#$(use_enable webkit)
 		#$(use_enable map) needs champlain-gtk3
+}
+
+src_prepare() {
+	gnome2_src_prepare
+	sed -i 's/gcr_simple_certificate_new/gcr_simple_certificate_new_dummy/' \
+		libempathy-gtk/gcr-simple-certificate.{c,h}
 }
 
 src_test() {

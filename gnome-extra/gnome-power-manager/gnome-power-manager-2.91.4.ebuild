@@ -16,7 +16,7 @@ IUSE="doc policykit test"
 RESTRICT="test"
 
 COMMON_DEPEND=">=dev-libs/glib-2.25.9
-	>=x11-libs/gtk+-2.91.0:3
+	>=x11-libs/gtk+-2.91.7:3
 	>=gnome-base/gnome-keyring-0.6.0
 	>=dev-libs/dbus-glib-0.71
 	>=x11-libs/libnotify-0.7.0
@@ -73,6 +73,8 @@ src_prepare() {
 
 	use elibc_glibc || { sed -e 's/-lresolv//' -i configure \
 		|| die "resolv sed failed"; }
+
+	sed -i 's:gdk-x11:gtk+-x11:g' configure.ac
 
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf

@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-crypt/seahorse/seahorse-2.32.0.ebuild,v 1.1 2010/10/17 19:12:26 pacho Exp $
+# $Header: $
 
 EAPI="3"
 GCONF_DEBUG="yes"
@@ -18,9 +18,9 @@ IUSE="avahi debug doc +introspection ldap libnotify test"
 RDEPEND="
 	>=gnome-base/gconf-2
 	>=dev-libs/glib-2.10:2
-	>=x11-libs/gtk+-2.90:3[introspection?]
+	>=x11-libs/gtk+-2.90.7:3[introspection?]
 	>=dev-libs/dbus-glib-0.72
-	>=gnome-base/gnome-keyring-2.91.0
+	>=gnome-base/gnome-keyring-2.91.4
 	net-libs/libsoup:2.4
 	x11-misc/shared-mime-info
 
@@ -63,7 +63,16 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-
+	sed -i '/gdkconfig/d' libegg/eggsmclient-private.h
+	sed -i -e 's:gcr-certificate.h:gcr.h:g' \
+		-e 's:gcr-certificate-widget.h:gcr.h:g' \
+		-e '/pkcs11g.h/g'
+		pkcs11/seahorse-pkcs11-certificate.c \
+		pkcs11/seahorse-pkcs11-certificate-props.h \
+		pkcs11/seahorse-pkcs11-certificate-props.c \
+		pkcs11/seahorse-pkcs11-helpers.c \
+		pkcs11/seahorse-pkcs11-object.c \
+		pkcs11/seahorse-pkcs11-operations.c
 	# Do not mess with CFLAGS with USE="debug"
 	sed -e '/CFLAGS="$CFLAGS -g -O0/d' \
 		-e 's/-Werror//' \
