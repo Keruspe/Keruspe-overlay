@@ -60,6 +60,7 @@ src_unpack() {
 
 src_prepare() {
 	mkdir m4
+	sed -i 's:gdk-x11:gtk+-x11:g' configure.ac
 	intltoolize --force --copy --automake || die
 	eautoreconf
 }
