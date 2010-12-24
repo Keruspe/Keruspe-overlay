@@ -16,7 +16,7 @@ IUSE="beagle +cdr +css doc +introspection +libburn nautilus playlist test"
 COMMON_DEPEND="
 	>=dev-libs/glib-2.27.1
 	media-libs/libcanberra[gtk3]
-	>=x11-libs/gtk+-2.91.0:3[introspection?]
+	>=x11-libs/gtk+-2.91.7:3[introspection?]
 	>=gnome-base/gconf-2.31.1
 	>=media-libs/gstreamer-0.10.15
 	>=media-libs/gst-plugins-base-0.10

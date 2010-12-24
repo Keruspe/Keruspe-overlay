@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
 RDEPEND=">=dev-libs/glib-2.18:2
-	>=x11-libs/gtk+-2.90:3
+	>=x11-libs/gtk+-2.90.7:3
 	>=x11-libs/libxklavier-5.0"
 DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35
