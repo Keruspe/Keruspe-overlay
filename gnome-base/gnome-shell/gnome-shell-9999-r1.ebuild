@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND=">=dev-libs/glib-2.25.9
-	>=x11-libs/gtk+-2.91.6:3[introspection]
+	>=x11-libs/gtk+-2.91.7:3[introspection]
 	>=media-libs/gstreamer-0.10.16
 	>=media-libs/gst-plugins-base-0.10.16
 	>=gnome-base/gnome-desktop-2.91.2:3

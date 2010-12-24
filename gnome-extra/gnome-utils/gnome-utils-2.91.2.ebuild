@@ -14,7 +14,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="applet doc ipv6 test"
 
 RDEPEND=">=dev-libs/glib-2.20:2
-	>=x11-libs/gtk+-2.91:3
+	>=x11-libs/gtk+-2.91.7:3
 	applet? ( >=gnome-base/gnome-panel-2.28 )
 	>=gnome-base/libgtop-2.12
 	>=gnome-base/gconf-2
