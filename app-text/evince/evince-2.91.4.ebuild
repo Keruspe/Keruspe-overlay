@@ -12,7 +12,8 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="dbus debug djvu doc dvi gnome gnome-keyring images +introspection nautilus t1lib tiff"
+IUSE="dbus debug djvu doc dvi gnome gnome-keyring nautilus t1lib tiff"
+#+introspection
 
 RDEPEND="
 	>=app-text/libspectre-0.2.0
@@ -57,22 +58,21 @@ pkg_setup() {
 		--enable-pdf
 		--enable-ps
 		--enable-comics
-		--disable-impress
 		--enable-thumbnailer
 		--with-smclient=xsmp
 		--with-platform=gnome
 		--enable-help
 		--disable-maintainer-mode
+		--disable-introspection
 		$(use_enable dbus)
 		$(use_enable djvu)
 		$(use_enable dvi)
 		$(use_with gnome gconf)
 		$(use_with gnome-keyring keyring)
-		$(use_enable introspection)
 		$(use_enable nautilus)
 		$(use_enable t1lib)
-		$(use_enable images pixbuf)
 		$(use_enable tiff)"
+		#$(use_enable introspection)
 
 	DOCS="AUTHORS ChangeLog NEWS README TODO"
 }
