@@ -19,12 +19,13 @@ RDEPEND="
 	>=app-text/libspectre-0.2.0
 	>=dev-libs/glib-2.25.11:2
 	>=dev-libs/libxml2-2.5
-	>=x11-libs/gtk+-2.91.3:3[introspection?]
+	>=x11-libs/gtk+-2.91.7:3[introspection?]
 	>=x11-libs/libSM-1
+	gnome-base/gsettings-desktop-schemas
 	|| (
 		>=x11-themes/gnome-icon-theme-2.17.1
 		>=x11-themes/hicolor-icon-theme-0.10 )
-	>=x11-libs/cairo-1.9.10
+	>=x11-libs/cairo-1.10.0
 	>=app-text/poppler-0.14[cairo]
 	djvu? ( >=app-text/djvu-3.5.17 )
 	dvi? (
