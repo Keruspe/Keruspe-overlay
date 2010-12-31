@@ -53,7 +53,7 @@ pkg_setup() {
 		$(use_with ldap openldap)
 		$(use_enable ssl ssl)
 		$(use_enable ssl smime)
-		$(use_with weather)
+		$(use_enable weather)
 		--enable-gtk3
 		--enable-largefile
 		--with-libdb=/usr"
