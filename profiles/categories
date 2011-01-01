@@ -9,6 +9,7 @@ dev-java
 dev-libs
 dev-python
 dev-util
+dev-vcs
 games-action
 gnome-base
 gnome-extra
