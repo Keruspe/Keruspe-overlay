@@ -13,7 +13,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug introspection +sound test xinerama"
+IUSE="debug +introspection +sound test xinerama"
 
 RDEPEND=">=x11-libs/gtk+-2.91.7:3[introspection?]
 	>=x11-libs/pango-1.28[X,introspection?]
@@ -59,7 +59,7 @@ pkg_setup() {
 		--enable-startup-notification
 		--enable-xsync
 		--enable-verbose-mode
-		--enable-compile-warnings
+		--enable-compile-warnings=maximum
 		$(use_with sound libcanberra)
 		$(use_with introspection)
 		$(use_enable xinerama)"
