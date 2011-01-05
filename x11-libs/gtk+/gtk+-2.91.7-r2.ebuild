@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="3"
-inherit gnome.org flag-o-matic eutils libtool virtualx
+inherit autotools gnome.org flag-o-matic eutils libtool virtualx
 
 DESCRIPTION="Gimp ToolKit +"
 HOMEPAGE="http://www.gtk.org/"
@@ -76,6 +76,12 @@ src_prepare() {
 		append-flags "-I${EPREFIX}/usr/include/bind"
 		append-ldflags "-L${EPREFIX}/usr/lib/bind"
 	fi
+
+    ### TMP FIX ###
+	epatch ${FILESDIR}/gdk-x11.patch
+	epatch ${FILESDIR}/fix-SEGV.patch
+	eautoreconf
+	### /TMP FIX ###
 
 	elibtoolize
 }

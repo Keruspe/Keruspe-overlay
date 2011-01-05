@@ -30,7 +30,3 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog NEWS README"
 }
 
-src_prepare() {
-	gnome2_src_prepare
-	sed -i 's:gdk-x11:gtk+-x11:g' configure
-}

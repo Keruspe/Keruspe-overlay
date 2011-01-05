@@ -74,8 +74,6 @@ src_prepare() {
 	use elibc_glibc || { sed -e 's/-lresolv//' -i configure \
 		|| die "resolv sed failed"; }
 
-	sed -i 's:gdk-x11:gtk+-x11:g' configure.ac
-
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 }
