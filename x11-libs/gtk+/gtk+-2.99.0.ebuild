@@ -71,18 +71,6 @@ src_prepare() {
 	sed '\%/recent-manager/add%,/recent_manager_purge/ d' \
 		-i gtk/tests/recentmanager.c || die "sed 2 failed"
 
-	if use x86-interix; then
-		# activate the itx-bind package...
-		append-flags "-I${EPREFIX}/usr/include/bind"
-		append-ldflags "-L${EPREFIX}/usr/lib/bind"
-	fi
-
-    ### TMP FIX ###
-	epatch ${FILESDIR}/gdk-x11.patch
-	epatch ${FILESDIR}/fix-SEGV.patch
-	eautoreconf
-	### /TMP FIX ###
-
 	elibtoolize
 }
 
