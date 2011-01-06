@@ -1,3 +1,4 @@
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -29,7 +30,8 @@ RDEPEND="
 	pam? ( virtual/pam )
 	selinux? ( sys-libs/libselinux )
 	sys-apps/systemd-units
-	>=app-admin/syslog-ng-3"
+	>=app-admin/syslog-ng-3
+	sys-apps/lsb-release"
 DEPEND="${RDEPEND}
 	gtk? ( dev-lang/vala:0.12 )
 	>=sys-kernel/linux-headers-2.6.32
