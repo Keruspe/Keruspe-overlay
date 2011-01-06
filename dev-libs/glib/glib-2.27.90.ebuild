@@ -29,7 +29,7 @@ DEPEND="${RDEPEND}
 		>=dev-util/gtk-doc-1.11
 		~app-text/docbook-xml-dtd-4.1.2 )
 	test? ( >=sys-apps/dbus-1.2.14 )"
-PDEPEND="introspection? ( dev-libs/gobject-introspection )
+PDEPEND="introspection? ( >dev-libs/gobject-introspection-0.10.0 )
 	!<gnome-base/gvfs-1.6.5"
 # XXX: Consider adding test? ( sys-devel/gdb ); assert-msg-test tries to use it
 
