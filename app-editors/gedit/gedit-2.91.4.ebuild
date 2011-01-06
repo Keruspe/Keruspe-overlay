@@ -16,7 +16,7 @@ IUSE="doc +introspection spell"
 RDEPEND=">=x11-libs/libSM-1.0
 	>=dev-libs/libxml2-2.5.0
 	>=dev-libs/glib-2.25.15
-	>=x11-libs/gtk+-2.91:3[introspection?]
+	>=x11-libs/gtk+-2.99:3[introspection?]
 	>=x11-libs/gtksourceview-2.91.1:3.0[introspection?]
 	>=dev-libs/libpeas-0.7.0[gtk]
 	dev-python/pygobject[introspection]
