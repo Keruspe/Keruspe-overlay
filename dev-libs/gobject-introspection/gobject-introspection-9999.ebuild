@@ -25,7 +25,8 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	sys-devel/flex
 	doc? ( >=dev-util/gtk-doc-1.12 )
-	test? ( x11-libs/cairo )"
+	test? ( x11-libs/cairo )
+	dev-util/gtk-doc"
 
 pkg_setup() {
 	DOCS="AUTHORS CONTRIBUTORS ChangeLog NEWS README TODO"
