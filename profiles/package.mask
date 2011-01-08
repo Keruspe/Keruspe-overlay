@@ -44,7 +44,8 @@
 =net-analyzer/gnome-nettool-2.91*
 =net-im/empathy-2.91*
 =net-wireless/gnome-bluetooth-2.91*
-=x11-libs/gtk+-2.91*
+=x11-libs/gtk+-2.23*
+=x11-libs/gtk+-2.99*
 =x11-libs/gtksourceview-2.91*
 =x11-libs/libnotify-0.7*
 =x11-themes/gnome-icon-theme-2.91*
