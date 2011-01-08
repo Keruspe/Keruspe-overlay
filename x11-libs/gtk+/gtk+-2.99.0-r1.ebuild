@@ -80,13 +80,11 @@ src_configure() {
 		$(use_enable xinerama)
 		$(use_enable cups cups auto)
 		$(use_enable introspection)
+		$(use_enable aqua aqua-backend)
+		--enable-x11-backend
+		--enable xinput
 		--disable-packagekit
 		--disable-papi"
-	if use aqua; then
-		myconf="${myconf} --with-gdktarget=quartz"
-	else
-		myconf="${myconf} --with-gdktarget=x11 --with-xinput"
-	fi
 
 	# Passing --disable-debug is not recommended for production use
 	use debug && myconf="${myconf} --enable-debug=yes"
