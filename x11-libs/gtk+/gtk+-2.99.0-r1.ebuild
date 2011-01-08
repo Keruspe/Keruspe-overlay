@@ -82,7 +82,7 @@ src_configure() {
 		$(use_enable introspection)
 		$(use_enable aqua aqua-backend)
 		--enable-x11-backend
-		--enable xinput
+		--enable-xinput
 		--disable-packagekit
 		--disable-papi"
 
