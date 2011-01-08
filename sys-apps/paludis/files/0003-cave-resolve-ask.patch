@@ -1,4 +1,4 @@
-From 46d4f9b3101efe6a5e9d5bdd2e33c3aad1b70e4c Mon Sep 17 00:00:00 2001
+From 63c0cf76586b58634d8b3c5cfea10c693e67aed2 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Sat, 7 Aug 2010 11:00:13 +0200
 Subject: [PATCH 3/3] cave resolve ask
@@ -13,10 +13,10 @@ Subject: [PATCH 3/3] cave resolve ask
  6 files changed, 45 insertions(+), 12 deletions(-)
 
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index 195558f..8d9d73f 100644
+index d5d4996..64aea07 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
-@@ -104,6 +104,7 @@ namespace
+@@ -103,6 +103,7 @@ namespace
      {
          args::ArgsGroup g_general_options;
          args::SwitchArg a_pretend;
@@ -24,7 +24,7 @@ index 195558f..8d9d73f 100644
          args::SwitchArg a_set;
          args::StringSetArg a_world_specs;
          args::StringSetArg a_removed_if_dependent_names;
-@@ -115,6 +116,7 @@ namespace
+@@ -114,6 +115,7 @@ namespace
          ExecuteResolutionCommandLine() :
              g_general_options(main_options_section(), "General Options", "General options."),
              a_pretend(&g_general_options, "pretend", '\0', "Only carry out the pretend action", false),
@@ -32,7 +32,7 @@ index 195558f..8d9d73f 100644
              a_set(&g_general_options, "set", '\0', "Our target is a set rather than package specs", false),
              a_world_specs(&g_general_options, "world-specs", '\0', "Use the specified spec or set name for updating world"),
              a_removed_if_dependent_names(&g_general_options, "removed-if-dependent-names", '\0',
-@@ -271,6 +273,26 @@ namespace
+@@ -291,6 +293,26 @@ namespace
          return 0 == retcode;
      }
  
@@ -58,8 +58,8 @@ index 195558f..8d9d73f 100644
 +
      std::string maybe_replacing(
              const std::shared_ptr<Environment> & env,
-             const std::shared_ptr<const PackageIDSequence> & ids,
-@@ -1498,7 +1520,8 @@ namespace
+             const std::shared_ptr<const Sequence<PackageDepSpec> > & id_specs,
+@@ -1548,7 +1570,8 @@ namespace
              const std::shared_ptr<Environment> & env,
              const std::shared_ptr<JobLists> & lists,
              const ExecuteResolutionCommandLine & cmdline,
@@ -69,7 +69,7 @@ index 195558f..8d9d73f 100644
      {
          for (JobList<ExecuteJob>::ConstIterator c(lists->execute_job_list()->begin()),
                  c_end(lists->execute_job_list()->end()) ;
-@@ -1509,7 +1532,11 @@ namespace
+@@ -1559,7 +1582,11 @@ namespace
          int retcode(0);
  
          retcode |= execute_pretends(env, lists, cmdline);
@@ -82,7 +82,7 @@ index 195558f..8d9d73f 100644
              return retcode;
  
          retcode |= execute_executions(env, lists, cmdline, n_fetch_jobs);
-@@ -1668,36 +1695,37 @@ namespace
+@@ -1718,36 +1745,37 @@ namespace
                      make_null_shared_ptr()).max_exit_status())
              throw ActionAbortedError("Aborted by hook");
  
@@ -145,7 +145,7 @@ index 7845acb..af3f01a 100644
  
          std::string app_name() const
 diff --git a/src/clients/cave/resolve_cmdline.cc b/src/clients/cave/resolve_cmdline.cc
-index 48e5882..21bc044 100644
+index 89ecb01..ec0a370 100644
 --- a/src/clients/cave/resolve_cmdline.cc
 +++ b/src/clients/cave/resolve_cmdline.cc
 @@ -46,6 +46,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
@@ -169,7 +169,7 @@ index a25b447..e7302b3 100644
              args::ArgsGroup g_convenience_options;
              args::SwitchArg a_lazy;
 diff --git a/src/clients/cave/resolve_common.cc b/src/clients/cave/resolve_common.cc
-index 6ff20f4..7bb9bb5 100644
+index 210ab43..492ca69 100644
 --- a/src/clients/cave/resolve_common.cc
 +++ b/src/clients/cave/resolve_common.cc
 @@ -395,6 +395,8 @@ namespace
@@ -194,5 +194,5 @@ index 879140c..12f7fd3 100644
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--complete,-c,--no-complete}'[Do all optional work]' \
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--everything,-e,--no-everything}'[Do all optional work, and also reinstall]' \
 -- 
-1.7.3.3.585.g74f6e.dirty
+1.7.4.rc1.5.ge17aa.dirty
 
