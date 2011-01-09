@@ -1,4 +1,4 @@
-From 1fb19747ad03dcbe560c417181ca401dcc0d42d4 Mon Sep 17 00:00:00 2001
+From 5cc24283f57453c631e76d190ee065052ab9158e Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:38:14 +0200
 Subject: [PATCH 2/3] paludis ask
@@ -92,10 +92,10 @@ index acada1e..b343234 100644
                  paludis::args::StringSetArg a_destinations;
  
 diff --git a/paludis/legacy/install_task.cc b/paludis/legacy/install_task.cc
-index 95b66e5..93b6826 100644
+index 8450fef..3f5d770 100644
 --- a/paludis/legacy/install_task.cc
 +++ b/paludis/legacy/install_task.cc
-@@ -130,6 +130,7 @@ namespace paludis
+@@ -129,6 +129,7 @@ namespace paludis
          std::shared_ptr<const DestinationsSet> destinations;
  
          bool pretend;
@@ -103,7 +103,7 @@ index 95b66e5..93b6826 100644
          bool fetch_only;
          bool preserve_world;
          bool safe_resume;
-@@ -157,6 +158,7 @@ namespace paludis
+@@ -156,6 +157,7 @@ namespace paludis
              targets(std::make_shared<SetSpecTree>(std::make_shared<AllDepSpec>())),
              destinations(d),
              pretend(false),
@@ -111,7 +111,7 @@ index 95b66e5..93b6826 100644
              fetch_only(false),
              preserve_world(false),
              safe_resume(false),
-@@ -816,6 +818,9 @@ InstallTask::_pretend()
+@@ -820,6 +822,9 @@ InstallTask::_pretend()
  
      on_pretend_all_post();
  
@@ -121,7 +121,7 @@ index 95b66e5..93b6826 100644
      if (_imp->pretend)
      {
          if (0 != perform_hook(Hook("install_pretend_post")
-@@ -1342,6 +1347,17 @@ InstallTask::execute()
+@@ -1346,6 +1351,17 @@ InstallTask::execute()
                  ,
                  make_null_shared_ptr()).max_exit_status())
          throw ActionAbortedError("Install task execute aborted by hook");
@@ -139,7 +139,7 @@ index 95b66e5..93b6826 100644
  }
  
  const DepList &
-@@ -1363,6 +1379,12 @@ InstallTask::set_pretend(const bool value)
+@@ -1367,6 +1383,12 @@ InstallTask::set_pretend(const bool value)
  }
  
  void
@@ -174,7 +174,7 @@ index fc488ba..8186cdf 100644
              virtual void on_fetch_pre(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
              virtual void on_fetch_post(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
 diff --git a/paludis/legacy/uninstall_task.cc b/paludis/legacy/uninstall_task.cc
-index e02f4b8..475c0c2 100644
+index 45aa3d3..c91b357 100644
 --- a/paludis/legacy/uninstall_task.cc
 +++ b/paludis/legacy/uninstall_task.cc
 @@ -95,6 +95,7 @@ namespace paludis
@@ -277,7 +277,7 @@ index cbade32..d1a5b0a 100644
          task.set_with_unused_dependencies(CommandLine::get_instance()->a_with_unused_dependencies.specified());
          task.set_with_dependencies(CommandLine::get_instance()->a_with_dependencies.specified());
 diff --git a/src/output/console_install_task.cc b/src/output/console_install_task.cc
-index f1a53e8..91c1c11 100644
+index d64030f..0107bcb 100644
 --- a/src/output/console_install_task.cc
 +++ b/src/output/console_install_task.cc
 @@ -573,6 +573,28 @@ ConsoleInstallTask::on_pretend_all_post()
@@ -335,5 +335,5 @@ index f3fb939..e32cad4 100644
          "(--preserve-world -1)"{--preserve-world,-1}"[Don't modify the world file]"
          "--add-to-world-spec[Use this atom, rather than all targets, for updating world (for resume commands)]"
 -- 
-1.7.3.3.585.g74f6e.dirty
+1.7.4.rc1.5.ge17aa.dirty
 
