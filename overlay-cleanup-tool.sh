@@ -31,6 +31,7 @@ find_unused() {
 main() {
   find_duplicates keruspe gnome
   find_duplicates keruspe gentoo
+  find_duplicates keruspe systemd
   find_unused keruspe
 }
 
