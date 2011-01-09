@@ -20,11 +20,10 @@ RDEPEND="
 	>=sys-apps/dbus-1.4.0[systemd]
 	sys-libs/libcap
 	>=sys-fs/udev-163[systemd]
-	app-admin/tmpwatch
 	audit? ( sys-process/audit )
 	cryptsetup? ( sys-fs/cryptsetup )
 	gtk? (  >=x11-libs/gtk+-2.20:2
-		    >=x11-libs/libnotify-0.7
+		    x11-libs/libnotify
 			dev-libs/dbus-glib )
 	tcpwrap? ( sys-apps/tcp-wrappers )
 	pam? ( virtual/pam )
@@ -34,11 +33,7 @@ RDEPEND="
 	sys-apps/lsb-release"
 DEPEND="${RDEPEND}
 	gtk? ( dev-lang/vala:0.12 )
-	>=sys-kernel/linux-headers-2.6.32
-	app-text/docbook-xml-dtd:4.2
-	app-text/docbook-xsl-stylesheets
-	app-text/build-docbook-catalog
-	dev-libs/libxslt"
+	>=sys-kernel/linux-headers-2.6.32"
 
 CONFIG_CHECK="AUTOFS4_FS CGROUPS DEVTMPFS ~FANOTIFY"
 
