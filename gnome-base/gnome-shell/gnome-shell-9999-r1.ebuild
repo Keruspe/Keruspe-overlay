@@ -60,6 +60,7 @@ src_unpack() {
 
 src_prepare() {
 	mkdir m4
+	epatch ${FILESDIR}/0001-whitelist-dropbox-and-parcellite.patch
 	intltoolize --force --copy --automake || die
 	eautoreconf
 }
