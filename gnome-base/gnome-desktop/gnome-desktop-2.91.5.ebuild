@@ -30,16 +30,13 @@ DEPEND="${RDEPEND}
 	~app-text/docbook-xml-dtd-4.1.2
 	x11-proto/xproto
 	>=x11-proto/randrproto-1.2"
-PDEPEND=">=gnome-base/gnome-desktop-2.31:2"
 
 DOCS="AUTHORS ChangeLog HACKING NEWS README"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
-		--with-gnome-distributor=Gentoo
 		--disable-scrollkeeper
 		--disable-static
-		--disable-gnome-about
 		--disable-desktop-docs
 		--with-pnp-ids-path=/usr/share/libgnome-desktop/pnp.ids"
 }
