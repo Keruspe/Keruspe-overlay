@@ -21,8 +21,8 @@ RDEPEND="x11-libs/libXft
 	>=gnome-base/gconf-2.0
 	>=dev-libs/dbus-glib-0.73
 	>=x11-libs/libxklavier-4.0
-	>=gnome-base/libgnomekbd-2.91.0
-	>=gnome-base/gnome-desktop-2.91.2:3
+	>=gnome-base/libgnomekbd-2.91.2
+	>=gnome-base/gnome-desktop-2.91.5:3
 	>=gnome-base/gnome-menus-2.11.1
 	>=gnome-base/gnome-settings-daemon-2.91
 	gnome-base/accountsservice
