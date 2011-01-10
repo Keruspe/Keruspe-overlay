@@ -20,7 +20,7 @@ RDEPEND=">=x11-libs/gtk+-2.91.6:3
 	>=x11-libs/gdk-pixbuf-2.21.3
 	>=x11-libs/startup-notification-0.5
 	x11-libs/libX11
-	gnome-base/gsettings-desktop-schemas"
+	>=gnome-base/gsettings-desktop-schemas-0.1.4"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/intltool-0.40
