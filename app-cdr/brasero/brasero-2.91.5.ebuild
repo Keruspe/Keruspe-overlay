@@ -52,7 +52,6 @@ pkg_setup() {
 		--disable-scrollkeeper
 		--disable-caches
 		--disable-dependency-tracking
-		--with-gtk=3.0
 		$(use_enable beagle search beagle)
 		$(use_enable cdr cdrtools)
 		$(use_enable cdr cdrkit)

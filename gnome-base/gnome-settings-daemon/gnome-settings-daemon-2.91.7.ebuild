@@ -58,10 +58,8 @@ pkg_setup() {
 	DOCS="AUTHORS NEWS ChangeLog MAINTAINERS"
 	G2CONF="${G2CONF}
 		--disable-static
-		--disable-schemas-install
 		--enable-gconf-bridge
 		$(use_enable debug)
-		$(use_with libnotify)
 		$(use_enable policykit polkit)
 		$(use_enable pulseaudio pulse)
 		$(use_enable !pulseaudio gstreamer)
