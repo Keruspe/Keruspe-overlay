@@ -20,7 +20,7 @@ RDEPEND=">=x11-libs/gtk+-2.91.6:3
 	>=x11-libs/gdk-pixbuf-2.21.3
 	>=x11-libs/startup-notification-0.5
 	x11-libs/libX11
-	gnome-base/gsettings-desktop-schemas"
+	>=gnome-base/gsettings-desktop-schemas-0.1.4"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/intltool-0.40
@@ -30,16 +30,13 @@ DEPEND="${RDEPEND}
 	~app-text/docbook-xml-dtd-4.1.2
 	x11-proto/xproto
 	>=x11-proto/randrproto-1.2"
-PDEPEND=">=gnome-base/gnome-desktop-2.31:2"
 
 DOCS="AUTHORS ChangeLog HACKING NEWS README"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
-		--with-gnome-distributor=Gentoo
 		--disable-scrollkeeper
 		--disable-static
-		--disable-gnome-about
 		--disable-desktop-docs
 		--with-pnp-ids-path=/usr/share/libgnome-desktop/pnp.ids"
 }
