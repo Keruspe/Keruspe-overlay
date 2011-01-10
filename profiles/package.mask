@@ -39,6 +39,7 @@
 =gnome-extra/gnome-screensaver-2.91*
 =gnome-extra/libgnome-media-profiles-2.91*
 =gnome-extra/nautilus-sendto-2.90*
+=gnome-extra/zenity-2.91*
 =media-gfx/eog-2.91*
 =media-libs/clutter-1.5*
 =media-libs/clutter-gtk-0.91*
