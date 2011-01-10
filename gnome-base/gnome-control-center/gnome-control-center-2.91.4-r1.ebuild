@@ -36,7 +36,6 @@ RDEPEND="x11-libs/libXft
 	>=media-sound/pulseaudio-0.9.16
 	>=sys-power/upower-0.9.1
 	>=sys-auth/polkit-0.97
-	>=media-video/cheese-2.29.90
 	media-libs/gstreamer:0.10
 
 	x11-apps/xmodmap
