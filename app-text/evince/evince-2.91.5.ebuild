@@ -26,7 +26,7 @@ RDEPEND="
 		>=x11-themes/gnome-icon-theme-2.17.1
 		>=x11-themes/hicolor-icon-theme-0.10 )
 	>=x11-libs/cairo-1.10.0
-	>=app-text/poppler-0.14[cairo]
+	>=app-text/poppler-0.16[cairo]
 	djvu? ( >=app-text/djvu-3.5.17 )
 	dvi? (
 		virtual/tex-base
