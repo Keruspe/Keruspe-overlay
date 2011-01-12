@@ -24,7 +24,7 @@ RDEPEND=">=dev-libs/dbus-glib-0.74
 	>=x11-libs/gtk+-2.91.6
 	>=gnome-base/gconf-2.6.1
 	>=gnome-base/libgnomekbd-2.91.1
-	>=gnome-base/gnome-desktop-2.91.3:3
+	>=gnome-base/gnome-desktop-2.91.6:3
 	>=gnome-base/gsettings-desktop-schemas-0.1.2
 	media-libs/fontconfig
 
