@@ -127,6 +127,10 @@ src_install() {
 	dodoc AUTHORS ChangeLog* HACKING NEWS* README* || die "dodoc failed"
 	rm "${ED}etc/gtk-2.0/gtk.immodules"
 
+	use aqua && for i in gtk+-2.0.pc gtk+-quartz-2.0.pc gtk+-unix-print-2.0.pc; do
+		sed -i -e "s:Libs\: :Libs\: -framework Carbon :" "${ED%/}"/usr/lib/pkgconfig/$i || die "sed failed"
+	done
+
 	python_convert_shebangs 2 "${ED}"usr/bin/gtk-builder-convert
 }
 

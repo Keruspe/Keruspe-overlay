@@ -1,9 +1,9 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="3"
-inherit autotools gnome.org flag-o-matic eutils libtool virtualx
+inherit gnome.org flag-o-matic eutils libtool virtualx
 
 DESCRIPTION="Gimp ToolKit +"
 HOMEPAGE="http://www.gtk.org/"
@@ -31,7 +31,7 @@ RDEPEND="!aqua? (
 		>=x11-libs/gdk-pixbuf-2.21[introspection?,jpeg?,jpeg2k?,tiff?]
 	)
 	xinerama? ( x11-libs/libXinerama )
-	>=dev-libs/glib-2.27.3
+	>=dev-libs/glib-2.27.5
 	>=x11-libs/pango-1.20[introspection?]
 	>=dev-libs/atk-1.29.2[introspection?]
 	media-libs/fontconfig
@@ -80,7 +80,7 @@ src_configure() {
 		$(use_enable xinerama)
 		$(use_enable cups cups auto)
 		$(use_enable introspection)
-		$(use_enable aqua aqua-backend)
+		$(use_enable aqua quartz-backend)
 		--enable-x11-backend
 		--enable-xinput
 		--disable-packagekit
@@ -121,6 +121,8 @@ src_install() {
 
 	# Remove unneeded *.la files
 	find "${ED}" -name "*.la" -delete
+
+	rm -v "${ED}"/usr/bin/gtk-{builder-convert,update-icon-cache} || die
 
 	# add -framework Carbon to the .pc files
 	use aqua && for i in gtk+-3.0.pc gtk+-quartz-3.0.pc gtk+-unix-print-3.0.pc; do

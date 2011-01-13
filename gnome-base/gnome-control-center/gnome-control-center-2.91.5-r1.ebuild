@@ -1,7 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI=3
+GCONF_DEBUG="yes"
 inherit gnome2
 
 DESCRIPTION="The gnome2 Desktop configuration tool"
@@ -12,19 +13,17 @@ SLOT="3"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-RDEPEND="x11-libs/libXft
-	>=x11-libs/libXi-1.2
+RDEPEND="
+	>=dev-libs/glib-2.25.11
 	>=x11-libs/gdk-pixbuf-2.23.0
 	>=x11-libs/gtk+-2.91.6:3
-	>=dev-libs/glib-2.25.11
 	>=gnome-base/gsettings-desktop-schemas-0.1.3
 	>=gnome-base/gconf-2.0
 	>=dev-libs/dbus-glib-0.73
-	>=x11-libs/libxklavier-4.0
 	>=gnome-base/libgnomekbd-2.91.2
 	>=gnome-base/gnome-desktop-2.91.5:3
 	>=gnome-base/gnome-menus-2.11.1
-	>=gnome-base/gnome-settings-daemon-2.91
+	>=gnome-base/gnome-settings-daemon-2.91.2
 	gnome-base/accountsservice
 
 	app-admin/apg
@@ -40,7 +39,14 @@ RDEPEND="x11-libs/libXft
 
 	x11-apps/xmodmap
 	x11-libs/libX11
-	x11-libs/libXxf86misc"
+	x11-libs/libXft
+	x11-libs/libXxf86misc
+	>=x11-libs/libxklavier-4.0
+	>=x11-libs/libXi-1.2
+
+	!!gnome-extra/gnome-media[pulseaudio]
+	!!<gnome-extra/gnome-media-2.32.0-r300
+"
 DEPEND="${RDEPEND}
 	x11-proto/xproto
 	x11-proto/xf86miscproto
@@ -52,7 +58,7 @@ DEPEND="${RDEPEND}
 
 	app-text/scrollkeeper
 	>=app-text/gnome-doc-utils-0.10.1
-	doc? ( >=dev-utils/gtk-doc-1.9 )"
+	doc? ( >=dev-util/gtk-doc-1.9 )"
 
 pkg_setup() {
 	G2CONF="${G2CONF}
