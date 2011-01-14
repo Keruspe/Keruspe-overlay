@@ -12,16 +12,19 @@ HOMEPAGE="http://www.gnome.org/projects/eog/"
 LICENSE="GPL-2"
 SLOT="1"
 KEYWORDS="~amd64 ~x86"
-IUSE="dbus doc exif jpeg lcms python svg tiff xmp"
+IUSE="dbus doc exif +introspection jpeg lcms python svg tiff xmp"
 
-RDEPEND=">=x11-libs/gtk+-2.91.1:3[jpeg?,tiff?]
-	>=dev-libs/glib-2.25.9
+RDEPEND=">=x11-libs/gtk+-2.91.7:3[jpeg?,tiff?]
+	>=dev-libs/glib-2.25.15
+	>=x11-libs/gdk-pixbuf-2.4.0
+
 	>=dev-libs/libxml2-2
 	>=gnome-base/gconf-2.31.1
 	>=gnome-base/gnome-desktop-2.91.2:3
 	>=x11-themes/gnome-icon-theme-2.19.1
 	>=x11-misc/shared-mime-info-0.20
 	x11-libs/libX11
+	dev-libs/libpeas[gtk]
 
 	dbus? ( >=dev-libs/dbus-glib-0.71 )
 	exif? (
@@ -33,7 +36,8 @@ RDEPEND=">=x11-libs/gtk+-2.91.1:3[jpeg?,tiff?]
 		>=dev-python/pygobject-2.15.1
 		>=dev-python/pygtk-2.13 )
 	svg? ( >=gnome-base/librsvg-2.26 )
-	xmp? ( >=media-libs/exempi-2 )"
+	xmp? ( >=media-libs/exempi-2 )
+	introspection? ( >=dev-libs/gobject-introspection-0.9.3 )"
 
 DEPEND="${RDEPEND}
 	app-text/gnome-doc-utils
