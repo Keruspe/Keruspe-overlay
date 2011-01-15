@@ -45,8 +45,7 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 pkg_setup () {
 	G2CONF="${G2CONF}
 		--disable-more-warnings
-		--localstatedir=/var
-		--with-gtk2=yes"
+		--localstatedir=/var"
 }
 
 src_prepare() {
