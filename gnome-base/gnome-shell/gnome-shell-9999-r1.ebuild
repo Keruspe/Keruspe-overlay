@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI=3
+PYTHON_DEPEND="2:2.5"
 inherit autotools eutils gnome2 git python
 
 EGIT_REPO_URI="git://git.gnome.org/gnome-shell"
@@ -15,44 +16,46 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND=">=dev-libs/glib-2.25.9
+COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	>=x11-libs/gtk+-2.91.7:3[introspection]
-	>=media-libs/gstreamer-0.10.16
-	>=media-libs/gst-plugins-base-0.10.16
+	>=media-libs/clutter-1.5.8[introspection]
 	>=gnome-base/gnome-desktop-2.91.2:3
 	>=dev-libs/gobject-introspection-0.6.11
-	gnome-base/gsettings-desktop-schemas
 	dev-libs/dbus-glib
 	>=dev-libs/gjs-0.7
 	x11-libs/pango[introspection]
-	>=media-libs/clutter-1.5.8[introspection]
-	x11-libs/gdk-pixbuf
 	dev-libs/libcroco:0.6
 
 	x11-themes/gnome-icon-theme-symbolic
 	x11-themes/gnome-themes-standard
 	x11-themes/gtk-theme-engine-clearlooks
 
-	>=gnome-base/dconf-0.4.1
+	gnome-base/gconf[introspection]
 	gnome-base/gnome-menus
 	gnome-base/librsvg
+	>=media-libs/gstreamer-0.10.16
+	>=media-libs/gst-plugins-base-0.10.16
+	media-libs/libcanberra
+	media-sound/pulseaudio
 
 	x11-libs/startup-notification
 	x11-libs/libXfixes
+	>=x11-wm/mutter-2.91.4[introspection]
 	x11-apps/mesa-progs
-	>=x11-wm/mutter-2.91.3[introspection]
 
-	dev-python/dbus-python
-"
-DEPEND="${RDEPEND}
-	>=sys-devel/libtool-2.2.6
-	>=dev-lang/python-2.5
+	dev-python/dbus-python"
+RDEPEND="${COMMON_DEPEND}
+	x11-libs/gdk-pixbuf[introspection]
+	>=gnome-base/dconf-0.4.1
+	>=gnome-base/gnome-settings-daemon-2.91"
+DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.22
 	>=dev-util/intltool-0.26
-	gnome-base/gnome-common
-"
+	gnome-base/gnome-common"
 DOCS="AUTHORS README"
+G2CONF="--enable-compile-warnings=maximum
+--disable-schemas-compile"
 
 src_unpack() {
 	git_src_unpack

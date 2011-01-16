@@ -16,11 +16,11 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="coverage examples"
 
-RDEPEND=">=dev-libs/glib-2.16:2
-	>=dev-libs/gobject-introspection-0.9.13
+RDEPEND=">=dev-libs/glib-2.18:2
+	>=dev-libs/gobject-introspection-0.10.1
 	dev-libs/dbus-glib
 	x11-libs/cairo
-	net-libs/xulrunner:1.9"
+	>=net-libs/xulrunner-1.9.2:1.9"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.9

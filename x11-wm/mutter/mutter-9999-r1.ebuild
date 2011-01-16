@@ -15,8 +15,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug +introspection +sound test xinerama"
 
-RDEPEND=">=x11-libs/gtk+-2.91.7:3[introspection?]
-	>=x11-libs/pango-1.28[X,introspection?]
+RDEPEND=">=x11-libs/pango-1.28[X,introspection?]
+	>=x11-libs/cairo-1.10[X]
+	>=x11-libs/gtk+-2.91.7:3[introspection?]
 	>=gnome-base/gconf-2
 	>=dev-libs/glib-2.14
 	>=x11-libs/startup-notification-0.7
@@ -32,10 +33,9 @@ RDEPEND=">=x11-libs/gtk+-2.91.7:3[introspection?]
 	x11-libs/libXfixes
 	x11-libs/libXrandr
 	x11-libs/libXrender
-	>=x11-libs/cairo-1.9.12[X]
 
-	sound? ( >=media-libs/libcanberra-0.25-r1[gtk3] )
 	introspection? ( >=dev-libs/gobject-introspection-0.9.5 )
+	sound? (  >=media-libs/libcanberra-0.26[gtk3] )
 	xinerama? ( x11-libs/libXinerama )
 	gnome-extra/zenity
 	!x11-misc/expocity"
