@@ -45,6 +45,7 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 pkg_setup () {
 	G2CONF="${G2CONF}
 		--disable-more-warnings
+		--with-gtk2=yes
 		--localstatedir=/var"
 }
 
