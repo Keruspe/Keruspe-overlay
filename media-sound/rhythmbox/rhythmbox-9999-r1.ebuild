@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI=3
+PYTHON_DEPEND="python? 2:2.5"
 inherit git autotools gnome2 multilib virtualx eutils
 
 DESCRIPTION="Music management and playback software for GNOME"
@@ -10,57 +11,41 @@ HOMEPAGE="http://www.rhythmbox.org/"
 LICENSE="GPL-2"
 
 KEYWORDS="~amd64 ~x86"
-IUSE="+brasero cdr daap gnome-keyring ipod libnotify lirc musicbrainz mtp nsplugin python test udev upnp webkit"
 SLOT="0"
+IUSE="+brasero cdr daap dbus doc gnome-keyring html ipod +lastfm libnotify lirc
+musicbrainz mtp nsplugin python test udev upnp vala webkit"
 
 EGIT_REPO_URI="git://git.gnome.org/${PN}"
 SRC_URI=""
 
-COMMON_DEPEND=">=dev-libs/glib-2.18
+COMMON_DEPEND=">=dev-libs/glib-2.25.12
 	dev-libs/libxml2
 	>=x11-libs/gtk+-2.21.1
 	>=dev-libs/dbus-glib-0.71
-	>=dev-libs/totem-pl-parser-2.26.0
+	>=dev-libs/totem-pl-parser-2.32.1
 	>=gnome-base/gconf-2
-	>=gnome-extra/gnome-media-2.14.0
+	>=gnome-extra/gnome-media-2.14
+	>=net-libs/libsoup-2.26:2.4
 	>=net-libs/libsoup-gnome-2.26:2.4
-
-	>=media-libs/gst-plugins-base-0.10.20
-	|| (
-		>=media-libs/gst-plugins-base-0.10.24
-		>=media-libs/gst-plugins-bad-0.10.6 )
+	>=media-libs/gst-plugins-base-0.10.24
 
 	cdr? (
 		brasero? ( >=app-cdr/brasero-0.9.1 )
 		!brasero? ( >=gnome-extra/nautilus-cd-burner-2.21.6 ) )
-	daap? ( >=net-dns/avahi-0.6 
-		>=media-libs/libdmapsharing-2.1.6 )
+	daap? (
+		>=media-libs/libdmapsharing-2.1.6
+		>=net-dns/avahi-0.6 )
+	html? ( >=net-libs/webkit-gtk-1.1.17 )
 	gnome-keyring? ( >=gnome-base/gnome-keyring-0.4.9 )
-	udev? (
-		ipod? ( >=media-libs/libgpod-0.6 )
-		mtp? ( >=media-libs/libmtp-0.3.0 )
-		>=sys-fs/udev-145[extras] )
-	ipod? ( >=media-libs/libgpod-0.6 )
-	mtp? ( >=media-libs/libmtp-0.3.0 )
+	lastfm? ( dev-libs/json-glib )
 	libnotify? ( >=x11-libs/libnotify-0.4.1 )
 	lirc? ( app-misc/lirc )
 	musicbrainz? ( media-libs/musicbrainz:3 )
-	python? (
-		>=dev-lang/python-2.4.2
-		|| (
-			>=dev-lang/python-2.5
-			dev-python/celementtree )
-		>=dev-python/pygtk-2.8
-		>=dev-python/pygobject-2.15.4
-		>=dev-python/gconf-python-2.22
-		>=dev-python/gnome-keyring-python-2.22
-		>=dev-python/gst-python-0.10.8
-		webkit? (
-			dev-python/mako
-			dev-python/pywebkitgtk )
-		upnp? ( media-video/coherence )
-	)"
-
+	udev? (
+		ipod? ( >=media-libs/libgpod-0.7.92[udev] )
+		mtp? ( >=media-libs/libmtp-0.3 )
+		>=sys-fs/udev-145[extras] )
+"
 RDEPEND="${COMMON_DEPEND}
 	>=media-plugins/gst-plugins-soup-0.10
 	>=media-plugins/gst-plugins-libmms-0.10
@@ -69,16 +54,35 @@ RDEPEND="${COMMON_DEPEND}
 		>=media-plugins/gst-plugins-cdio-0.10 )
 	>=media-plugins/gst-plugins-meta-0.10-r2:0.10
 	>=media-plugins/gst-plugins-taglib-0.10.6
-	nsplugin? ( net-libs/xulrunner )"
 
+	nsplugin? ( net-libs/xulrunner )
+	python? (
+		>=dev-python/pygtk-2.8
+		>=dev-python/pygobject-2.15.4
+		>=dev-python/gconf-python-2.22
+		>=dev-python/libgnome-python-2.22
+		>=dev-python/gnome-keyring-python-2.22
+		>=dev-python/gst-python-0.10.8
+		dbus? ( dev-python/dbus-python )
+		webkit? (
+			dev-python/mako
+			dev-python/pywebkitgtk )
+		upnp? (
+			dev-python/louie
+			media-video/coherence
+			dev-python/twisted[gtk] ) )
+"
+# gtk-doc-am needed for eautoreconf
+#	dev-util/gtk-doc-am
 DEPEND="${COMMON_DEPEND}
 	dev-util/pkgconfig
 	>=dev-util/intltool-0.40
 	app-text/scrollkeeper
 	>=app-text/gnome-doc-utils-0.9.1
-	>=dev-util/gtk-doc-1.4
-	test? ( dev-libs/check )"
-
+	doc? ( >=dev-util/gtk-doc-1.4 )
+	test? ( dev-libs/check )
+	vala? ( >=dev-lang/vala-0.1.0:0.12 )
+"
 DOCS="AUTHORS ChangeLog DOCUMENTERS INTERNALS \
 	  MAINTAINERS MAINTAINERS.old NEWS README THANKS"
 
@@ -101,6 +105,10 @@ pkg_setup() {
 	fi
 
 	if ! use python; then
+		if use dbus; then
+			ewarn "You need python support to use the im-status plugin"
+		fi
+
 		if use webkit; then
 			ewarn "You need python support in addition to webkit to be able to use"
 			ewarn "the context panel plugin."
@@ -119,22 +127,25 @@ pkg_setup() {
 
 	G2CONF="${G2CONF}
 		MOZILLA_PLUGINDIR=/usr/$(get_libdir)/nsbrowser/plugins
-		$(use_with gnome-keyring)
-		$(use_with udev gudev)
-		$(use_with ipod)
-		$(use_enable libnotify)
-		$(use_enable lirc)
-		$(use_enable musicbrainz)
-		$(use_with mtp)
-		$(use_enable nsplugin browser-plugin)
-		$(use_enable python)
-		$(use_enable daap)
-		$(use_with daap mdns avahi)
+		VALAC=$(type -P valac-0.12)
 		--enable-mmkeys
 		--disable-scrollkeeper
 		--disable-schemas-install
 		--disable-static
-		--disable-vala"
+		$(use_enable daap)
+		$(use_enable lastfm)
+		$(use_enable libnotify)
+		$(use_enable lirc)
+		$(use_enable musicbrainz)
+		$(use_enable nsplugin browser-plugin)
+		$(use_enable python)
+		$(use_enable vala)
+		$(use_with daap mdns avahi)
+		$(use_with gnome-keyring)
+		$(use_with html webkit)
+		$(use_with ipod)
+		$(use_with mtp)
+		$(use_with udev gudev)"
 
 	export GST_INSPECT=/bin/true
 }
@@ -149,6 +160,7 @@ src_prepare() {
 	gnome-doc-prepare --automake
 	intltoolize --automake
 	eautoreconf
+	ln -s $(type -P true) py-compile
 }
 
 src_compile() {
@@ -171,6 +183,11 @@ src_install() {
 
 pkg_postinst() {
 	gnome2_pkg_postinst
+	if use python; then
+		python_need_rebuild
+		python_mod_optimize /usr/$(get_libdir)/rhythmbox/plugins
+	fi
+
 	ewarn
 	ewarn "If ${PN} doesn't play some music format, please check your"
 	ewarn "USE flags on media-plugins/gst-plugins-meta"
@@ -179,4 +196,5 @@ pkg_postinst() {
 
 pkg_postrm() {
 	gnome2_pkg_postrm
+	python_mod_cleanup /usr/lib*/rhythmbox/plugins
 }
