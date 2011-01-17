@@ -19,10 +19,10 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.7:2
 	>=x11-libs/libnotify-0.7.0
 	>=dev-libs/dbus-glib-0.74
 	gnome-base/gnome-control-center
-	nautilus? (
+	nautilus? ( || (
 		>=gnome-base/nautilus-2.91.7[sendto]
-		>=gnome-extra/nautilus-sendto-2.31.7
-		<gnome-extra/nautilus-sendto-2.91.0 )"
+		( >=gnome-extra/nautilus-sendto-2.31.7
+		<gnome-extra/nautilus-sendto-2.91.0 ) ) )"
 RDEPEND="${COMMON_DEPEND}
 	>=net-wireless/bluez-4.34
 	app-mobilephone/obexd
