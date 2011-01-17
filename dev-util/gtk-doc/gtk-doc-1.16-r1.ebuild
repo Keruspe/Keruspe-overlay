@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -53,9 +53,6 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 	epatch "${FILESDIR}/${PN}-1.8-emacs-keybindings.patch"
-	epatch "${FILESDIR}/${PN}-1.15-fixxref-vim-fixes.patch"
-	epatch "${FILESDIR}/${PN}-1.15-allow-selection-highlighter.patch"
-	eautoreconf
 }
 
 src_compile() {
@@ -72,9 +69,9 @@ src_install() {
 
 	if use doc; then
 		docinto doc
-		dodoc doc/*
+		dodoc doc/* || die
 		docinto examples
-		dodoc examples/*
+		dodoc examples/* || die
 	fi
 
 	if use emacs; then
