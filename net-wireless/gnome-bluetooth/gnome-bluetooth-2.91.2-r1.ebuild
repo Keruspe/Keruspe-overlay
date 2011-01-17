@@ -1,9 +1,10 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/net-wireless/gnome-bluetooth/gnome-bluetooth-2.32.0.ebuild,v 1.4 2010/12/19 11:51:36 pacho Exp $
 
 EAPI="3"
 GCONF_DEBUG="yes"
+
 inherit eutils gnome2 multilib
 
 DESCRIPTION="Fork of bluez-gnome focused on integration with GNOME"
@@ -12,7 +13,12 @@ HOMEPAGE="http://live.gnome.org/GnomeBluetooth"
 LICENSE="GPL-2 LGPL-2.1"
 SLOT="2"
 IUSE="doc +introspection nautilus"
-KEYWORDS="~amd64 ~x86"
+if [[ ${PV} = 9999 ]]; then
+	inherit gnome2-live
+	KEYWORDS=""
+else
+	KEYWORDS="~amd64 ~ppc ~x86"
+fi
 
 COMMON_DEPEND=">=dev-libs/glib-2.25.7:2
 	>=x11-libs/gtk+-2.91.3:3
@@ -20,7 +26,6 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.7:2
 	>=dev-libs/dbus-glib-0.74
 	gnome-base/gnome-control-center
 	nautilus? (
-		>=gnome-base/nautilus-2.91.7[sendto]
 		>=gnome-extra/nautilus-sendto-2.31.7
 		<gnome-extra/nautilus-sendto-2.91.0 )"
 RDEPEND="${COMMON_DEPEND}
