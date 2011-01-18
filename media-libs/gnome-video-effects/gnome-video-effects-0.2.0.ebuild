@@ -8,7 +8,7 @@ inherit gnome2
 DESCRIPTION="A collection of GStreamer effects to be used in different GNOME Modules"
 HOMEPAGE="http://git.gnome.org/browse/gnome-video-effects/"
 
-LICENSE="GPL-v2"
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
