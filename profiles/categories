@@ -1,10 +1,7 @@
 app-backup
-app-cdr
-app-editors
 app-laptop
 app-misc
 app-paludis
-app-text
 dev-java
 dev-libs
 dev-python
@@ -13,11 +10,9 @@ dev-vcs
 games-action
 gnome-base
 gnome-extra
-media-gfx
 media-libs
 media-sound
 media-video
-net-analyzer
 net-im
 net-libs
 net-misc

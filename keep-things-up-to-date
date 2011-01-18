@@ -10,10 +10,17 @@ digestify() {
 	done
 }
 
-main() {
-	digestify keruspe
+update_categories() {
+    pushd ${REPOSITORIES_PATH}/${1} &>/dev/null
+    find . -maxdepth 1 -type d -name '*-*' -printf "%f\n" | sort > profiles/categories
+    popd &>/dev/null
 }
 
-main
+main() {
+    digestify ${1}
+    update_categories ${1}
+}
+
+main keruspe
 
 exit 0
