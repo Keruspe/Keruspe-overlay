@@ -39,7 +39,8 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	>=media-libs/gst-plugins-base-0.10.16
 	media-libs/libcanberra
 	media-sound/pulseaudio
-	net-wireless/gnome-bluetooth[introspection]
+	bluetooth? ( >=net-wireless/gnome-bluetooth-2.91[introspection] )
+	!bluetooth? ( !!net-wireless/gnome-bluetooth )
 
 	x11-libs/startup-notification
 	x11-libs/libXfixes
