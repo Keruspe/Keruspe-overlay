@@ -20,7 +20,7 @@ RDEPEND=">=dev-libs/glib-2.24
 	>=sys-apps/dbus-1.1.0
 	>=dev-libs/dbus-glib-0.82
 	>=net-libs/telepathy-glib-0.13.7
-	net-libs/libsoup:2.4[ssl]
+	|| ( >=net-libs/libsoup-2.33:2.4 <net-libs/libsoup-2.33:2.4[ssl] )
 	>=net-libs/libnice-0.0.11
 	>=net-libs/gnutls-2.10.2
 	dev-db/sqlite:3
