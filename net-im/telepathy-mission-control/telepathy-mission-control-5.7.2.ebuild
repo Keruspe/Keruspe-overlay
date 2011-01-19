@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 IUSE="gnome-keyring test"
 
-RDEPEND=">=net-libs/telepathy-glib-0.11.9
+RDEPEND=">=net-libs/telepathy-glib-0.13.7
 	>=dev-libs/dbus-glib-0.82
 	>=gnome-base/gconf-2
 	gnome-keyring? ( || ( gnome-base/libgnome-keyring <gnome-base/gnome-keyring-2.29.4 ) )"
