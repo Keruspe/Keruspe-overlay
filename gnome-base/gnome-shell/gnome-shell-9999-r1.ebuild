@@ -14,7 +14,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="bluetooth"
 
 COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	>=x11-libs/gtk+-2.91.7:3[introspection]
