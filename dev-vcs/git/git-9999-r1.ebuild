@@ -2,8 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-
+EAPI=3
 GENTOO_DEPEND_ON_PERL=no
 inherit toolchain-funcs eutils elisp-common perl-module bash-completion git
 
