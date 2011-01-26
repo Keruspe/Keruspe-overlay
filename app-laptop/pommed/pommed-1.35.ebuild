@@ -16,8 +16,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="gtk X"
 
 COMMON_DEPEND="media-libs/alsa-lib
-	x86? ( sys-apps/pciutils )
-	amd64? (  sys-apps/pciutils )
+	~x86? ( sys-apps/pciutils )
+	~amd64? (  sys-apps/pciutils )
 	dev-libs/confuse
 	>=sys-apps/dbus-1.1
 	dev-libs/dbus-glib
