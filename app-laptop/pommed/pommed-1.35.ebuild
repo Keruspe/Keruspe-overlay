@@ -12,12 +12,12 @@ SRC_URI="http://alioth.debian.org/frs/download.php/${ALIOTH_NUMBER}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="gtk X"
 
 COMMON_DEPEND="media-libs/alsa-lib
-	~x86? ( sys-apps/pciutils )
-	~amd64? (  sys-apps/pciutils )
+	x86? ( sys-apps/pciutils )
+	amd64? (  sys-apps/pciutils )
 	dev-libs/confuse
 	>=sys-apps/dbus-1.1
 	dev-libs/dbus-glib
