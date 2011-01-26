@@ -40,8 +40,8 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	>=dev-util/gtk-doc-am-1.13
 	>=dev-util/gtk-doc-1.13
-	>=app-text/docbook-sgml-utils-0.6.14[jadetex]
-	dev-libs/libxslt
+	doc? ( >=app-text/docbook-sgml-utils-0.6.14[jadetex]
+		dev-libs/libxslt )
 "
 DOCS="AUTHORS README NEWS ChangeLog*"
 
