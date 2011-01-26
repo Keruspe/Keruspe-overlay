@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=3
 inherit gnome2
 
 DESCRIPTION="A cheesy program to take pictures and videos from your webcam"
