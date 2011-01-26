@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI="paludis-1"
 
 SCM_REPOSITORY="git://git.pioto.org/paludis.git"
 SCM_CHECKOUT_TO="${DISTDIR}/git-src/paludis"
