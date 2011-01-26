@@ -1,10 +1,9 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-voip/telepathy-gabble/telepathy-gabble-0.10.4.ebuild,v 1.2 2010/11/22 19:42:59 eva Exp $
+# $Header: $
 
-EAPI="2"
+EAPI=4
 PYTHON_DEPEND="2:2.5"
-
 inherit eutils python
 
 DESCRIPTION="A Jabber/XMPP connection manager, this handles single and multi user chats and voice calls."

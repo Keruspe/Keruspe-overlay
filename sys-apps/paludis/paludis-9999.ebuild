@@ -1,8 +1,8 @@
-# Copyright 1999-2010 Ciaran McCreesh
+# Copyright 1999-2011 Ciaran McCreesh
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="paludis-1"
+EAPI=4
 
 SCM_REPOSITORY="git://git.pioto.org/paludis.git"
 SCM_CHECKOUT_TO="${DISTDIR}/git-src/paludis"

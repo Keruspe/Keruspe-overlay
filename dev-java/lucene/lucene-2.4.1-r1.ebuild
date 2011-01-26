@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,7 +6,7 @@ JAVA_PKG_IUSE="doc source test"
 JAVA_PKG_BSFIX_ALL="no"
 JAVA_PKG_BSFIX_NAME="build.xml common-build.xml"
 
-EAPI=3
+EAPI=4
 inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="High-performance, full-featured text search engine written entirely in Java"

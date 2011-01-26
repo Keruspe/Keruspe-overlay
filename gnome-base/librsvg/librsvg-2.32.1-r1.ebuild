@@ -1,8 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-base/librsvg/librsvg-2.26.3.ebuild,v 1.3 2010/05/24 23:07:59 abcd Exp $
+# $Header: $
 
-EAPI="3"
+EAPI=4
 GCONF_DEBUG="no"
 
 inherit gnome2 multilib eutils autotools

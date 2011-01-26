@@ -1,10 +1,9 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-wireless/gnome-bluetooth/gnome-bluetooth-2.32.0.ebuild,v 1.4 2010/12/19 11:51:36 pacho Exp $
+# $Header: $
 
-EAPI="3"
+EAPI=4
 GCONF_DEBUG="yes"
-
 inherit eutils gnome2 multilib
 
 DESCRIPTION="Fork of bluez-gnome focused on integration with GNOME"

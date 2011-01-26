@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 inherit gnome2
 
 DESCRIPTION="A collection of GStreamer effects to be used in different GNOME Modules"
