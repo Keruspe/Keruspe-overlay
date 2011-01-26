@@ -16,8 +16,7 @@ KEYWORDS="amd64 x86"
 IUSE="gtk X"
 
 COMMON_DEPEND="media-libs/alsa-lib
-	x86? ( sys-apps/pciutils )
-	amd64? (  sys-apps/pciutils )
+	sys-apps/pciutils
 	dev-libs/confuse
 	>=sys-apps/dbus-1.1
 	dev-libs/dbus-glib
@@ -59,9 +58,7 @@ src_compile() {
 
 src_install() {
 	insinto /etc
-	if use x86 || use amd64; then
-		newins pommed.conf.mactel pommed.conf
-	fi
+	newins pommed.conf.mactel pommed.conf
 
 	insinto /etc/dbus-1/system.d
 	newins dbus-policy.conf pommed.conf
