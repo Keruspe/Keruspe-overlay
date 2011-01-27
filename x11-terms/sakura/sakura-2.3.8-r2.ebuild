@@ -25,5 +25,4 @@ DOCS="AUTHORS INSTALL"
 
 src_prepare() {
 	epatch ${FILESDIR}/graph.patch
-	cmake_src-prepare
 }
