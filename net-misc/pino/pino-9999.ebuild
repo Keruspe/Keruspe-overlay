@@ -23,7 +23,6 @@ RDEPEND="x11-libs/gtk+:2
 	x11-libs/libnotify
 	net-libs/libsoup:2.4
 	dev-libs/libxml2
-	>=net-libs/webkit-gtk-1.0:2
 	>=dev-libs/libunique-1.0:0
 	app-text/gtkspell
 	indicate? ( dev-libs/libindicate )"
@@ -31,6 +30,11 @@ DEPEND="${RDEPEND}
 	>=dev-lang/vala-0.10:0.10
 	sys-devel/gettext
 	dev-util/intltool"
+
+src_prepare() {
+	sed -i '/webkit/d' CMakeLists.txt
+	sed -i '/get_style_property/d' src/visual_style.vala
+}
 
 src_configure() {
 	sed -i 's/valac/valac-0.10/g' cmake/FindVala.cmake
