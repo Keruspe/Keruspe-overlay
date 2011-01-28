@@ -1,7 +1,7 @@
-From 29da527a56d1249ecc1b054186ac558658bc1db4 Mon Sep 17 00:00:00 2001
+From 789c4e0ec745988c58023cd7135461dda5af9e05 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Sun, 9 Jan 2011 16:51:32 +0100
-Subject: [PATCH 1/2] whitelist dropbox and parcellite
+Subject: [PATCH] whitelist dropbox and parcellite
 
 ---
  js/ui/statusIconDispatcher.js |    2 ++
