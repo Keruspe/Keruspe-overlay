@@ -1,4 +1,4 @@
-From 4d7f2c042eea92a6112e305bcf9fc63be202b702 Mon Sep 17 00:00:00 2001
+From 29da527a56d1249ecc1b054186ac558658bc1db4 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Sun, 9 Jan 2011 16:51:32 +0100
 Subject: [PATCH 1/2] whitelist dropbox and parcellite
@@ -8,18 +8,18 @@ Subject: [PATCH 1/2] whitelist dropbox and parcellite
  1 files changed, 2 insertions(+), 0 deletions(-)
 
 diff --git a/js/ui/statusIconDispatcher.js b/js/ui/statusIconDispatcher.js
-index 874ffb4..1724fbb 100644
+index c48f276..d520ed8 100644
 --- a/js/ui/statusIconDispatcher.js
 +++ b/js/ui/statusIconDispatcher.js
-@@ -16,6 +16,8 @@ const STANDARD_TRAY_ICON_IMPLEMENTATIONS = {
-     'nm-applet': 'network',
-     'gnome-power-manager': 'battery',
-     'keyboard': 'keyboard',
+@@ -20,6 +20,8 @@ const STANDARD_TRAY_ICON_IMPLEMENTATIONS = {
+     'kbd-scrolllock': 'keyboard',
+     'kbd-numlock': 'keyboard',
+     'kbd-capslock': 'keyboard'
 +    'parcellite': 'parcellite',
-+    'dropbox': 'dropbox',
-     'gnome-settings-daemon': 'display'
++    'dropbox': 'dropbox'
  };
  
+ function StatusIconDispatcher() {
 -- 
-1.7.4.rc2.18.gb20e9.dirty
+1.7.4.rc3.dirty
 
