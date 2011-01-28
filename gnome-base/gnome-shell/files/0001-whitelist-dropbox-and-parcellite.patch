@@ -1,25 +1,13 @@
-From 789c4e0ec745988c58023cd7135461dda5af9e05 Mon Sep 17 00:00:00 2001
-From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
-Date: Sun, 9 Jan 2011 16:51:32 +0100
-Subject: [PATCH] whitelist dropbox and parcellite
-
----
- js/ui/statusIconDispatcher.js |    2 ++
- 1 files changed, 2 insertions(+), 0 deletions(-)
-
 diff --git a/js/ui/statusIconDispatcher.js b/js/ui/statusIconDispatcher.js
-index c48f276..d520ed8 100644
+index c48f276..ecbbc56 100644
 --- a/js/ui/statusIconDispatcher.js
 +++ b/js/ui/statusIconDispatcher.js
-@@ -20,6 +20,8 @@ const STANDARD_TRAY_ICON_IMPLEMENTATIONS = {
-     'kbd-scrolllock': 'keyboard',
-     'kbd-numlock': 'keyboard',
-     'kbd-capslock': 'keyboard'
-+    'parcellite': 'parcellite',
-+    'dropbox': 'dropbox'
- };
+@@ -9,6 +9,8 @@ const NotificationDaemon = imports.ui.notificationDaemon;
+ const Util = imports.misc.util;
  
- function StatusIconDispatcher() {
--- 
-1.7.4.rc3.dirty
-
+ const STANDARD_TRAY_ICON_IMPLEMENTATIONS = {
++    'parcellite': 'parcellite',
++    'dropbox': 'dropbox',
+     'bluetooth-applet': 'bluetooth',
+     'gnome-volume-control-applet': 'volume', // renamed to gnome-sound-applet
+                                              // when moved to control center
