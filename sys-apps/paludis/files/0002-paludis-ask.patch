@@ -1,4 +1,4 @@
-From 5cc24283f57453c631e76d190ee065052ab9158e Mon Sep 17 00:00:00 2001
+From da5bf07ff7fa4f12a503a42baad3edf078c740b1 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:38:14 +0200
 Subject: [PATCH 2/3] paludis ask
@@ -92,7 +92,7 @@ index acada1e..b343234 100644
                  paludis::args::StringSetArg a_destinations;
  
 diff --git a/paludis/legacy/install_task.cc b/paludis/legacy/install_task.cc
-index 8450fef..3f5d770 100644
+index 1156ad6..9284998 100644
 --- a/paludis/legacy/install_task.cc
 +++ b/paludis/legacy/install_task.cc
 @@ -129,6 +129,7 @@ namespace paludis
@@ -153,10 +153,10 @@ index 8450fef..3f5d770 100644
  {
      _imp->preserve_world = value;
 diff --git a/paludis/legacy/install_task.hh b/paludis/legacy/install_task.hh
-index fc488ba..8186cdf 100644
+index 2a69db7..784bf18 100644
 --- a/paludis/legacy/install_task.hh
 +++ b/paludis/legacy/install_task.hh
-@@ -111,6 +111,7 @@ namespace paludis
+@@ -112,6 +112,7 @@ namespace paludis
  
              void set_fetch_only(const bool value);
              void set_pretend(const bool value);
@@ -164,7 +164,7 @@ index fc488ba..8186cdf 100644
              void set_preserve_world(const bool value);
              void set_add_to_world_spec(const std::string &);
              void set_safe_resume(const bool);
-@@ -166,6 +167,8 @@ namespace paludis
+@@ -167,6 +168,8 @@ namespace paludis
              virtual void on_pretend_post(const DepListEntry &) = 0;
              virtual void on_pretend_all_post() = 0;
  
@@ -174,7 +174,7 @@ index fc488ba..8186cdf 100644
              virtual void on_fetch_pre(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
              virtual void on_fetch_post(const DepListEntry &, const int x, const int y, const int s, const int f) = 0;
 diff --git a/paludis/legacy/uninstall_task.cc b/paludis/legacy/uninstall_task.cc
-index 45aa3d3..c91b357 100644
+index 4fc3e73..99bf101 100644
 --- a/paludis/legacy/uninstall_task.cc
 +++ b/paludis/legacy/uninstall_task.cc
 @@ -95,6 +95,7 @@ namespace paludis
@@ -218,10 +218,10 @@ index 45aa3d3..c91b357 100644
          on_preserve_world();
      else
 diff --git a/paludis/legacy/uninstall_task.hh b/paludis/legacy/uninstall_task.hh
-index e646557..b4db4f1 100644
+index 20621a7..5256f3e 100644
 --- a/paludis/legacy/uninstall_task.hh
 +++ b/paludis/legacy/uninstall_task.hh
-@@ -113,6 +113,7 @@ namespace paludis
+@@ -115,6 +115,7 @@ namespace paludis
              ///\{
  
              void set_pretend(const bool value);
@@ -229,7 +229,7 @@ index e646557..b4db4f1 100644
              void set_preserve_world(const bool value);
              void set_all_versions(const bool value);
              void set_with_unused_dependencies(const bool value);
-@@ -139,6 +140,8 @@ namespace paludis
+@@ -141,6 +142,8 @@ namespace paludis
              virtual void on_display_unmerge_list_post() = 0;
              virtual void on_display_unmerge_list_entry(const UninstallListEntry &) = 0;
  
@@ -335,5 +335,5 @@ index f3fb939..e32cad4 100644
          "(--preserve-world -1)"{--preserve-world,-1}"[Don't modify the world file]"
          "--add-to-world-spec[Use this atom, rather than all targets, for updating world (for resume commands)]"
 -- 
-1.7.4.rc1.5.ge17aa.dirty
+1.7.4.rc3.8.gd2d4.dirty
 

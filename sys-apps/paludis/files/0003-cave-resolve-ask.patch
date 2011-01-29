@@ -1,4 +1,4 @@
-From 63c0cf76586b58634d8b3c5cfea10c693e67aed2 Mon Sep 17 00:00:00 2001
+From a9db5506bbdd785894e0198ca796aa3bf4c16fe8 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Sat, 7 Aug 2010 11:00:13 +0200
 Subject: [PATCH 3/3] cave resolve ask
@@ -13,7 +13,7 @@ Subject: [PATCH 3/3] cave resolve ask
  6 files changed, 45 insertions(+), 12 deletions(-)
 
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index d5d4996..64aea07 100644
+index fb9bc59..91e445b 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
 @@ -103,6 +103,7 @@ namespace
@@ -32,7 +32,7 @@ index d5d4996..64aea07 100644
              a_set(&g_general_options, "set", '\0', "Our target is a set rather than package specs", false),
              a_world_specs(&g_general_options, "world-specs", '\0', "Use the specified spec or set name for updating world"),
              a_removed_if_dependent_names(&g_general_options, "removed-if-dependent-names", '\0',
-@@ -291,6 +293,26 @@ namespace
+@@ -293,6 +295,26 @@ namespace
          return 0 == retcode;
      }
  
@@ -59,7 +59,7 @@ index d5d4996..64aea07 100644
      std::string maybe_replacing(
              const std::shared_ptr<Environment> & env,
              const std::shared_ptr<const Sequence<PackageDepSpec> > & id_specs,
-@@ -1548,7 +1570,8 @@ namespace
+@@ -1550,7 +1572,8 @@ namespace
              const std::shared_ptr<Environment> & env,
              const std::shared_ptr<JobLists> & lists,
              const ExecuteResolutionCommandLine & cmdline,
@@ -69,7 +69,7 @@ index d5d4996..64aea07 100644
      {
          for (JobList<ExecuteJob>::ConstIterator c(lists->execute_job_list()->begin()),
                  c_end(lists->execute_job_list()->end()) ;
-@@ -1559,7 +1582,11 @@ namespace
+@@ -1561,7 +1584,11 @@ namespace
          int retcode(0);
  
          retcode |= execute_pretends(env, lists, cmdline);
@@ -82,7 +82,7 @@ index d5d4996..64aea07 100644
              return retcode;
  
          retcode |= execute_executions(env, lists, cmdline, n_fetch_jobs);
-@@ -1718,36 +1745,37 @@ namespace
+@@ -1720,36 +1747,37 @@ namespace
                      make_null_shared_ptr()).max_exit_status())
              throw ActionAbortedError("Aborted by hook");
  
@@ -145,7 +145,7 @@ index 7845acb..af3f01a 100644
  
          std::string app_name() const
 diff --git a/src/clients/cave/resolve_cmdline.cc b/src/clients/cave/resolve_cmdline.cc
-index 89ecb01..ec0a370 100644
+index b2cead4..0959413 100644
 --- a/src/clients/cave/resolve_cmdline.cc
 +++ b/src/clients/cave/resolve_cmdline.cc
 @@ -46,6 +46,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
@@ -182,10 +182,10 @@ index 210ab43..492ca69 100644
          for (Sequence<std::string>::ConstIterator p(world_specs->begin()), p_end(world_specs->end()) ;
                  p != p_end ; ++p)
 diff --git a/zsh-completion/_cave b/zsh-completion/_cave
-index 879140c..12f7fd3 100644
+index 00f8e46..9c6abc2 100644
 --- a/zsh-completion/_cave
 +++ b/zsh-completion/_cave
-@@ -570,6 +570,7 @@ _cave_cmd_report()
+@@ -635,6 +635,7 @@ _cave_cmd_report()
  _cave_resolve_arguments=(
      '(--help -h)'{--help,-h}'[Display help messsage]' \
      '(--execute -x --no-execute)'{--execute,-x,--no-execute}'[Execute the suggested actions]' \
@@ -194,5 +194,5 @@ index 879140c..12f7fd3 100644
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--complete,-c,--no-complete}'[Do all optional work]' \
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--everything,-e,--no-everything}'[Do all optional work, and also reinstall]' \
 -- 
-1.7.4.rc1.5.ge17aa.dirty
+1.7.4.rc3.8.gd2d4.dirty
 
