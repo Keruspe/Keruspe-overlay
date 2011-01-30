@@ -9,6 +9,7 @@
 =games-action/bomb-her-man-9999
 =gnome-base/accountsservice-9999
 ~gnome-base/gnome-shell-9999
+~gnome-extra/nm-applet-9999
 =media-libs/clutter-9999
 ~media-sound/rhythmbox-9999
 =net-misc/pino-9999
