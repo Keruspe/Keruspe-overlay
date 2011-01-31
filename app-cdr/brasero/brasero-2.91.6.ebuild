@@ -72,7 +72,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/${PN}-2.32.0-build-plugins-against-local-library.patch"
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 	gnome2_src_prepare
