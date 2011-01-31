@@ -17,7 +17,7 @@ IUSE="branding debug doc opengl pam"
 
 RDEPEND="
 	>=dev-libs/glib-2.15
-	>=x11-libs/gtk+-2.91.7:3
+	>=x11-libs/gtk+-2.99.3:3
 	>=gnome-base/gnome-desktop-2.91.5:3
 	>=gnome-base/gnome-menus-2.12
 	>=gnome-base/libgnomekbd-0.1

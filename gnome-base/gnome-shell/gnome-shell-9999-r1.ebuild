@@ -17,7 +17,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="bluetooth"
 
 COMMON_DEPEND=">=dev-libs/glib-2.25.9
-	>=x11-libs/gtk+-2.99.2:3[introspection]
+	>=x11-libs/gtk+-2.99.3:3[introspection]
 	>=media-libs/clutter-1.5.15[introspection]
 	>=gnome-base/gnome-desktop-2.91.2:3
 	>=dev-libs/gobject-introspection-0.10.1
