@@ -63,7 +63,6 @@ src_prepare() {
 	fi
 	sed 's:-DG.*DISABLE_DEPRECATED::g' -i configure.in configure \
 		|| die "sed 4 failed"
-	epatch "${FILESDIR}/${P}-missing-conditional.patch"
 	eautoreconf
 }
 
