@@ -1,7 +1,10 @@
+app-arch
 app-backup
+app-cdr
 app-laptop
 app-misc
 app-paludis
+app-text
 dev-java
 dev-libs
 dev-python
