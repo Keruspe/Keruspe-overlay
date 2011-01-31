@@ -30,8 +30,8 @@ DEPEND="${RDEPEND}
 pkg_setup() {
 	DOCS="AUTHORS ChangeLog NEWS README"
 	G2CONF="${G2CONF}
-		VALAC=$(type -p valac-0.10)
-		VAPIGEN=$(type -p vapigen-0.10)
+		VALAC=$(type -p valac-0.12)
+		VAPIGEN=$(type -p vapigen-0.12)
 		$(use_enable doc docs)
 		--enable-import-tool
 		--disable-Werror"
