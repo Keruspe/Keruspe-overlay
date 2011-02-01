@@ -69,7 +69,7 @@ src_unpack() {
 
 src_prepare() {
 	mkdir m4
-	epatch ${FILESDIR}/0001-whitelist-dropbox-and-parcellite.patch
+	epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
 	sed -i s/libedataserverui-1.2/libedataserverui-3.0/ configure.ac || die "sed
 	failed"
 	intltoolize --force --copy --automake || die
