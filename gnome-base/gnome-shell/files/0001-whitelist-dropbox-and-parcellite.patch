@@ -15,7 +15,7 @@ index c48f276..ecbbc56 100644
  const Util = imports.misc.util;
  
  const STANDARD_TRAY_ICON_IMPLEMENTATIONS = {
-+    'parcellite': 'parcellite',
++    'gpaste-applet': 'gpaste-applet',
 +    'dropbox': 'dropbox',
      'bluetooth-applet': 'bluetooth',
      'gnome-volume-control-applet': 'volume', // renamed to gnome-sound-applet
