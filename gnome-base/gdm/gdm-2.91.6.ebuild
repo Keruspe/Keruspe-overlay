@@ -22,8 +22,8 @@ SRC_URI="${SRC_URI}
 
 RDEPEND="
 	>=dev-libs/dbus-glib-0.74
-	>=dev-libs/glib-2.22:2
-	>=x11-libs/gtk+-2.20.2:2
+	>=dev-libs/glib-2.27.4:2
+	>=x11-libs/gtk+-2.91.1:3
 	>=x11-libs/pango-1.3
 	>=media-libs/libcanberra-0.4[gtk]
 	>=gnome-base/gconf-2.31.3

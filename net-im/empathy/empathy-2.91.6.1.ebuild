@@ -17,12 +17,12 @@ IUSE="eds map nautilus networkmanager spell test" #webkit needs webkit-gtk3
 RDEPEND=">=dev-libs/glib-2.27.2:2
 	>=x11-libs/gtk+-2.91.3:3
 	eds? ( >=gnome-extra/evolution-data-server-1.2 )
-	>=net-libs/telepathy-glib-0.13.7
+	>=net-libs/telepathy-glib-0.13.12
 	>=media-libs/libcanberra-0.4[gtk]
 	>=x11-libs/libnotify-0.7.0
 	>=gnome-base/gnome-keyring-2.91.4
 	>=net-libs/gnutls-2.8.5
-	>=dev-libs/folks-0.3.3
+	>=dev-libs/folks-0.3.4
 
 	net-libs/farsight2
 	media-libs/gstreamer:0.10
