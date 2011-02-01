@@ -12,7 +12,7 @@ LICENSE="GPL-2"
 
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
-IUSE="+brasero cdr daap dbus doc gnome-keyring html ipod +lastfm libnotify lirc
+IUSE="cdr daap dbus doc gnome-keyring html ipod +lastfm libnotify lirc
 musicbrainz mtp nsplugin python test udev upnp vala webkit"
 
 EGIT_REPO_URI="git://git.gnome.org/${PN}"
@@ -20,22 +20,22 @@ SRC_URI=""
 
 COMMON_DEPEND=">=dev-libs/glib-2.25.12
 	dev-libs/libxml2
-	>=x11-libs/gtk+-2.21.1
-	>=dev-libs/dbus-glib-0.71
+	>=x11-libs/gtk+-2.91.4:3
 	>=dev-libs/totem-pl-parser-2.32.1
 	>=gnome-base/gconf-2
 	>=gnome-extra/gnome-media-2.14
 	>=net-libs/libsoup-2.26:2.4
 	>=net-libs/libsoup-gnome-2.26:2.4
 	>=media-libs/gst-plugins-base-0.10.24
+	
+	>=dev-libs/gobject-introspection-0.10.0
 
 	cdr? (
-		brasero? ( >=app-cdr/brasero-0.9.1 )
-		!brasero? ( >=gnome-extra/nautilus-cd-burner-2.21.6 ) )
+		>=app-cdr/brasero-2.31.5 )
 	daap? (
 		>=media-libs/libdmapsharing-2.1.6
 		>=net-dns/avahi-0.6 )
-	html? ( >=net-libs/webkit-gtk-1.1.17 )
+	html? ( >=net-libs/webkit-gtk-1.1.17:3 )
 	gnome-keyring? ( >=gnome-base/gnome-keyring-0.4.9 )
 	lastfm? ( dev-libs/json-glib )
 	libnotify? ( >=x11-libs/libnotify-0.4.1 )
@@ -81,7 +81,7 @@ DEPEND="${COMMON_DEPEND}
 	>=app-text/gnome-doc-utils-0.9.1
 	doc? ( >=dev-util/gtk-doc-1.4 )
 	test? ( dev-libs/check )
-	vala? ( >=dev-lang/vala-0.1.0:0.12 )
+	vala? ( >=dev-lang/vala-0.11.0:0.12 )
 "
 DOCS="AUTHORS ChangeLog DOCUMENTERS INTERNALS \
 	  MAINTAINERS MAINTAINERS.old NEWS README THANKS"
@@ -117,12 +117,6 @@ pkg_setup() {
 		if use upnp; then
 			ewarn "You need python support in addition to upnp"
 		fi
-	fi
-
-	if use brasero; then
-		G2CONF="${G2CONF} $(use_with cdr libbrasero-media) --without-libnautilus-burn"
-	else
-		G2CONF="${G2CONF} $(use_with cdr libnautilus-burn) --without-libbrasero-media"
 	fi
 
 	G2CONF="${G2CONF}
