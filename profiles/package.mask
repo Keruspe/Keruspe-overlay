@@ -16,6 +16,7 @@
 =sys-apps/paludis-9999
 ~sys-apps/systemd-9999
 ~sys-boot/grub-9999
+=x11-misc/gpaste-9999
 =x11-misc/parcellite-9999
 ~x11-wm/mutter-9999
 
