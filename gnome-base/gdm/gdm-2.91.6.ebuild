@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 IUSE_LIBC="elibc_glibc"
-IUSE="accessibility applet +consolekit ipv6 gnome-keyring selinux tcpd test xinerama +xklavier $IUSE_LIBC"
+IUSE="accessibility +consolekit ipv6 gnome-keyring selinux tcpd test xinerama +xklavier $IUSE_LIBC"
 
 GDM_EXTRA="${PN}-2.20.9-gentoo-files-r1"
 
@@ -27,7 +27,6 @@ RDEPEND="
 	>=x11-libs/pango-1.3
 	>=media-libs/libcanberra-0.4[gtk]
 	>=gnome-base/gconf-2.31.3
-	applet? ( >=gnome-base/gnome-panel-2 )
 	>=gnome-base/gnome-session-2.28
 	>=x11-misc/xdg-utils-1.0.2-r3
 	>=sys-power/upower-0.9
@@ -51,6 +50,8 @@ RDEPEND="
 	tcpd? ( >=sys-apps/tcp-wrappers-7.6 )
 	xinerama? ( x11-libs/libXinerama )
 	xklavier? ( >=x11-libs/libxklavier-4 )
+
+	>=sys-apps/accountsservice-0.6.3
 
 	!gnome-extra/fast-user-switch-applet"
 DEPEND="${RDEPEND}
@@ -87,7 +88,6 @@ pkg_setup() {
 src_prepare() {
 	gnome2_src_prepare
 
-	use applet || epatch ${FILESDIR}/${PN}-2.31.90-remove-fusa.patch
 	epatch "${FILESDIR}/${PN}-2.32.0-selinux-remove-attr.patch"
 	epatch "${FILESDIR}/${PN}-2.32.0-fix-daemonize-regression.patch"
 	epatch "${FILESDIR}/${PN}-2.32.0-broken-VT-detection.patch"
@@ -95,7 +95,6 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-2.32.0-xinitrc-ssh-agent.patch"
 	epatch "${FILESDIR}/${PN}-2.32.0-automagic-libxklavier-support.patch"
 
-	epatch ${FILESDIR}/0001-pixbuf-is-not-a-g_object.patch
 	mkdir "${S}"/m4
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
