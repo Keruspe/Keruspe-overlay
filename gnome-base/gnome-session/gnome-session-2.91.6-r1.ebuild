@@ -46,8 +46,8 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		--disable-deprecation-flags
 		--disable-maintainer-mode
+		--disable-schemas-compile
 		--docdir="${EPREFIX}/usr/share/doc/${PF}"
-		--with-default-wm=gnome-wm
 		--with-gtk=3.0
 		$(use_enable doc docbook-docs)
 		$(use_enable ipv6)"
