@@ -13,7 +13,7 @@ EGIT_REPO_URI="http://github.com/Keruspe/GPaste.git"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="+applet"
 
 DEPEND="dev-libs/glib:2
 	>=sys-devel/gettext-0.18
@@ -23,6 +23,8 @@ DEPEND="dev-libs/glib:2
 RDEPEND="${DEPEND}"
 
 WANT_AUTOMAKE="1.11"
+
+G2CONF="$(use_enable applet)"
 
 src_prepare() {
 	mkdir m4
