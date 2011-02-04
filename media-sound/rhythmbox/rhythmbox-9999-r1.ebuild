@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=3
-PYTHON_DEPEND="python? 2:2.5"
 inherit git autotools gnome2 multilib virtualx eutils
 
 DESCRIPTION="Music management and playback software for GNOME"
@@ -13,7 +12,7 @@ LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="cdr daap dbus doc gnome-keyring html ipod +lastfm libnotify lirc
-musicbrainz mtp nsplugin python test udev upnp vala webkit"
+musicbrainz mtp nsplugin test udev upnp vala webkit"
 
 EGIT_REPO_URI="git://git.gnome.org/${PN}"
 SRC_URI=""
@@ -56,21 +55,6 @@ RDEPEND="${COMMON_DEPEND}
 	>=media-plugins/gst-plugins-taglib-0.10.6
 
 	nsplugin? ( net-libs/xulrunner )
-	python? (
-		>=dev-python/pygtk-2.8
-		>=dev-python/pygobject-2.15.4
-		>=dev-python/gconf-python-2.22
-		>=dev-python/libgnome-python-2.22
-		>=dev-python/gnome-keyring-python-2.22
-		>=dev-python/gst-python-0.10.8
-		dbus? ( dev-python/dbus-python )
-		webkit? (
-			dev-python/mako
-			dev-python/pywebkitgtk )
-		upnp? (
-			dev-python/louie
-			media-video/coherence
-			dev-python/twisted[gtk] ) )
 "
 # gtk-doc-am needed for eautoreconf
 #	dev-util/gtk-doc-am
@@ -104,21 +88,6 @@ pkg_setup() {
 		ewarn "You will not be able to burn CDs."
 	fi
 
-	if ! use python; then
-		if use dbus; then
-			ewarn "You need python support to use the im-status plugin"
-		fi
-
-		if use webkit; then
-			ewarn "You need python support in addition to webkit to be able to use"
-			ewarn "the context panel plugin."
-		fi
-
-		if use upnp; then
-			ewarn "You need python support in addition to upnp"
-		fi
-	fi
-
 	G2CONF="${G2CONF}
 		MOZILLA_PLUGINDIR=/usr/$(get_libdir)/nsbrowser/plugins
 		VALAC=$(type -P valac-0.12)
@@ -132,16 +101,14 @@ pkg_setup() {
 		$(use_enable lirc)
 		$(use_enable musicbrainz)
 		$(use_enable nsplugin browser-plugin)
-		$(use_enable python)
 		$(use_enable vala)
 		$(use_with daap mdns avahi)
 		$(use_with gnome-keyring)
 		$(use_with html webkit)
 		$(use_with ipod)
 		$(use_with mtp)
-		$(use_with udev gudev)"
-
-	export GST_INSPECT=/bin/true
+		$(use_with udev gudev)
+		$(use_with cdr brasero)"
 }
 
 src_unpack() {
@@ -154,7 +121,6 @@ src_prepare() {
 	gnome-doc-prepare --automake
 	intltoolize --automake
 	eautoreconf
-	ln -s $(type -P true) py-compile
 }
 
 src_compile() {
@@ -177,18 +143,8 @@ src_install() {
 
 pkg_postinst() {
 	gnome2_pkg_postinst
-	if use python; then
-		python_need_rebuild
-		python_mod_optimize /usr/$(get_libdir)/rhythmbox/plugins
-	fi
-
 	ewarn
 	ewarn "If ${PN} doesn't play some music format, please check your"
 	ewarn "USE flags on media-plugins/gst-plugins-meta"
 	ewarn
-}
-
-pkg_postrm() {
-	gnome2_pkg_postrm
-	python_mod_cleanup /usr/lib*/rhythmbox/plugins
 }
