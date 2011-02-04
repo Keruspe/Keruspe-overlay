@@ -48,7 +48,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9
 RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-icon-theme-symbolic
 	x11-themes/gnome-themes-standard
-	media-fonts/cantarell-fonts
+	media-fonts/cantarell
 
 	x11-libs/gdk-pixbuf[introspection]
 	>=gnome-base/dconf-0.4.1
