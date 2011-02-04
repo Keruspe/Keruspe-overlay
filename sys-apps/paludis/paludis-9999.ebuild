@@ -12,7 +12,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-CLIENTS_USE="accerso adjutrix appareo importare inquisitio instruo +paludis +reconcilio"
+CLIENTS_USE="accerso adjutrix appareo instruo +paludis"
 
 IUSE="${CLIENTS_USE}
 ask cran doc gemcutter pbins pink portage python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
@@ -90,8 +90,7 @@ src_compile() {
 	format_list() { echo $@ | tr -s \  ,; }
 	local repositories="default repository unavailable unpackaged $(usev cran) $(usev gemcutter)"
 	local clients="$(usev accerso) $(usev appareo) $(usev adjutrix) \
-		cave $(usev importare) $(usev inquisitio) \
-		$(usev instruo) $(usev paludis) $(usev reconcilio)"
+		cave $(usev instruo) $(usev paludis)"
 	local environments="default $(usev portage)"
 	econf \
 		$(use_enable doc doxygen ) \
@@ -122,19 +121,13 @@ src_install() {
 	use adjutrix && BASHCOMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
 	use paludis && BASHCOMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
 	use accerso && BASHCOMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
-	use importare && BASHCOMPLETION_NAME="importare" dobashcompletion bash-completion/importare
 	use instruo && BASHCOMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
-	use reconcilio && BASHCOMPLETION_NAME="reconcilio" dobashcompletion bash-completion/reconcilio
 	BASHCOMPLETION_NAME="cave" dobashcompletion bash-completion/cave
-	use inquisitio && BASHCOMPLETION_NAME="inquisitio" dobashcompletion bash-completion/inquisitio
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
 		use paludis && doins zsh-completion/_paludis
 		use adjutrix && doins zsh-completion/_adjutrix
 		doins zsh-completion/_cave
-		use importare && doins zsh-completion/_importare
-		use reconcilio && doins zsh-completion/_reconcilio
-		use inquisitio && doins zsh-completion/_inquisitio
 		doins zsh-completion/_paludis_packages
 	fi
 }
