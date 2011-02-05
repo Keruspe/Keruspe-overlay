@@ -27,7 +27,7 @@ RDEPEND=">=dev-libs/glib-2.16
 	>=gnome-base/gnome-keyring-2.20
 
 	>=dev-libs/libnl-1.1
-	>=net-misc/networkmanager-${PV}
+	>=net-misc/networkmanager-0.8.2
 	>=net-wireless/wireless-tools-28_pre9
 	>=net-wireless/wpa_supplicant-0.5.7
 	|| ( gnome-base/gnome-shell >=gnome-base/gnome-panel-2 xfce-base/xfce4-panel x11-misc/trayer )
