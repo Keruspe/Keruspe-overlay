@@ -12,7 +12,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-CLIENTS_USE="accerso adjutrix appareo instruo +paludis"
+CLIENTS_USE="accerso adjutrix appareo instruo paludis"
 
 IUSE="${CLIENTS_USE}
 ask cran doc gemcutter pbins pink portage python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
