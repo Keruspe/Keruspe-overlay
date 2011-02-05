@@ -4,7 +4,7 @@
 
 EAPI=3
 PYTHON_DEPEND="python? 2:2.5"
-inherit git autotools gnome2 multilib virtualx eutils
+inherit git autotools gnome2 multilib python virtualx eutils
 
 DESCRIPTION="Music management and playback software for GNOME"
 HOMEPAGE="http://www.rhythmbox.org/"
@@ -132,7 +132,8 @@ pkg_setup() {
 		$(use_with html webkit)
 		$(use_with ipod)
 		$(use_with mtp)
-		$(use_with udev gudev)"
+		$(use_with udev gudev)
+		$(use_with cdr brasero)"
 
 	export GST_INSPECT=/bin/true
 }
