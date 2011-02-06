@@ -8,7 +8,7 @@ inherit autotools bash-completion gnome2 git
 DESCRIPTION="Clipboard management system"
 HOMEPAGE="http://github.com/Keruspe/GPaste"
 SRC_URI=""
-EGIT_REPO_URI="http://github.com/Keruspe/GPaste.git"
+EGIT_REPO_URI="git://github.com/Keruspe/GPaste.git"
 
 LICENSE="GPL-3"
 SLOT="0"
