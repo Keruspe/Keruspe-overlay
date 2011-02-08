@@ -4,7 +4,6 @@ app-misc
 app-paludis
 dev-java
 dev-libs
-dev-python
 dev-util
 dev-vcs
 games-action
@@ -17,7 +16,6 @@ net-im
 net-libs
 net-misc
 net-voip
-net-wireless
 sys-apps
 sys-boot
 sys-fs
