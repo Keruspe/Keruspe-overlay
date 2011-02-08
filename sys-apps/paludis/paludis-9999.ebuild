@@ -12,7 +12,7 @@ DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 
-CLIENTS_USE="accerso adjutrix appareo instruo paludis"
+CLIENTS_USE="accerso appareo instruo"
 
 IUSE="${CLIENTS_USE}
 ask cran doc gemcutter pbins pink portage python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
@@ -79,18 +79,14 @@ src_unpack() {
 	scm_src_unpack
 	cd "${S}"
 	use sort-world && epatch ${FILESDIR}/0001-paludis-sort-world.patch
-	if use ask ; then 
-		epatch ${FILESDIR}/0002-paludis-ask.patch
-		epatch ${FILESDIR}/0003-cave-resolve-ask.patch
-	fi
+	use ask && epatch ${FILESDIR}/0002-cave-resolve-ask.patch
 	./autogen.bash || die "autogen.bash failed"
 }
 
 src_compile() {
 	format_list() { echo $@ | tr -s \  ,; }
 	local repositories="default repository unavailable unpackaged $(usev cran) $(usev gemcutter)"
-	local clients="$(usev accerso) $(usev appareo) $(usev adjutrix) \
-		cave $(usev instruo) $(usev paludis)"
+	local clients="$(usev accerso) $(usev appareo) cave $(usev instruo)"
 	local environments="default $(usev portage)"
 	econf \
 		$(use_enable doc doxygen ) \
@@ -118,17 +114,12 @@ src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	dodoc AUTHORS README NEWS
 
-	use adjutrix && BASHCOMPLETION_NAME="adjutrix" dobashcompletion bash-completion/adjutrix
-	use paludis && BASHCOMPLETION_NAME="paludis" dobashcompletion bash-completion/paludis
 	use accerso && BASHCOMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
 	use instruo && BASHCOMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
 	BASHCOMPLETION_NAME="cave" dobashcompletion bash-completion/cave
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
-		use paludis && doins zsh-completion/_paludis
-		use adjutrix && doins zsh-completion/_adjutrix
 		doins zsh-completion/_cave
-		doins zsh-completion/_paludis_packages
 	fi
 }
 

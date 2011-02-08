@@ -1,17 +1,45 @@
-From a9db5506bbdd785894e0198ca796aa3bf4c16fe8 Mon Sep 17 00:00:00 2001
+From 312e55f324778d7189ea74ac52b9f8849f4e03e9 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
-Date: Sat, 7 Aug 2010 11:00:13 +0200
-Subject: [PATCH 3/3] cave resolve ask
+Date: Mon, 26 Jul 2010 18:38:14 +0200
+Subject: [PATCH 2/2] cave resolve ask
 
 ---
+ doc/faq/misfunctionality.html.part         |    9 -----
  src/clients/cave/cmd_execute_resolution.cc |   46 ++++++++++++++++++++++-----
  src/clients/cave/cmd_resolve.cc            |    6 ++--
  src/clients/cave/resolve_cmdline.cc        |    1 +
  src/clients/cave/resolve_cmdline.hh        |    1 +
  src/clients/cave/resolve_common.cc         |    2 +
  zsh-completion/_cave                       |    1 +
- 6 files changed, 45 insertions(+), 12 deletions(-)
+ 7 files changed, 45 insertions(+), 21 deletions(-)
 
+diff --git a/doc/faq/misfunctionality.html.part b/doc/faq/misfunctionality.html.part
+index a43287f..ef6ba64 100644
+--- a/doc/faq/misfunctionality.html.part
++++ b/doc/faq/misfunctionality.html.part
+@@ -6,7 +6,6 @@
+     <li><a href="misfunctionality.html#wgetresume">wget Resume Support</a></li>
+     <li><a href="misfunctionality.html#skipfirst">Build Resume / Skip First Support</a></li>
+     <li><a href="misfunctionality.html#nice">No Automatic Niceness Support</a></li>
+-    <li><a href="misfunctionality.html#ask">No Ask Support</a></li>
+     <li><a href="misfunctionality.html#xtermtitles">Restoring XTerm Titles</a></li>
+     <li><a href="misfunctionality.html#ecompress">No Automatic Manpage / Documentation Compression</a></li>
+ </ul>
+@@ -63,14 +62,6 @@ elegant.</p>
+ <p>Rationale: Learn how to use <code>nice</code>. There's no
+ <code>GCC_NICENESS</code> or <code>VIM_NICENESS</code> either.</p>
+ 
+-<h2 id="ask">No Ask Support</h2>
+-
+-<p>Non-Problem: There's nothing like <code>emerge --ask</code>.</p>
+-
+-<p>Rationale: the <code>paludis</code> client is non-interactive. If someone is
+-making an interactive client, there are much better ways of doing it than
+-the limited functionality that <code>emerge --ask</code> provides.</p>
+-
+ <h2 id="xtermtitles">Restoring XTerm Titles</h2>
+ 
+ <p>Non-Problem: Paludis doesn't restore the xterm title on exit.</p>
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
 index fb9bc59..91e445b 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
@@ -145,7 +173,7 @@ index 7845acb..af3f01a 100644
  
          std::string app_name() const
 diff --git a/src/clients/cave/resolve_cmdline.cc b/src/clients/cave/resolve_cmdline.cc
-index b2cead4..0959413 100644
+index c255b57..1cd83f2 100644
 --- a/src/clients/cave/resolve_cmdline.cc
 +++ b/src/clients/cave/resolve_cmdline.cc
 @@ -46,6 +46,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
@@ -169,10 +197,10 @@ index a25b447..e7302b3 100644
              args::ArgsGroup g_convenience_options;
              args::SwitchArg a_lazy;
 diff --git a/src/clients/cave/resolve_common.cc b/src/clients/cave/resolve_common.cc
-index 210ab43..492ca69 100644
+index 37257b3..8644b17 100644
 --- a/src/clients/cave/resolve_common.cc
 +++ b/src/clients/cave/resolve_common.cc
-@@ -395,6 +395,8 @@ namespace
+@@ -391,6 +391,8 @@ namespace
  
          if (pretend_only || ! resolution_options.a_execute.specified())
              args->push_back("--pretend");
@@ -194,5 +222,5 @@ index 00f8e46..9c6abc2 100644
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--complete,-c,--no-complete}'[Do all optional work]' \
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--everything,-e,--no-everything}'[Do all optional work, and also reinstall]' \
 -- 
-1.7.4.rc3.8.gd2d4.dirty
+1.7.4.2.g597a6.dirty
 
