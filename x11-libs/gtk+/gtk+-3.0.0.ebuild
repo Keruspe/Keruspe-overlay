@@ -160,6 +160,11 @@ pkg_postinst() {
 		elog "Alternatively, check \"gtk-print-preview-command\" documentation and"
 		elog "add it to your gtkrc."
 	fi
+
+	ewarn
+	ewarn "After upgrading from gtk+-2.9X to gtk+-3.0 you WILL have to run
+	revdep-rebuild or cave fix-linkage -x in order to have a sane system"
+	ewarn
 }
 
 pkg_postrm() {
