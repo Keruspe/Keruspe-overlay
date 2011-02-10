@@ -33,7 +33,7 @@ RDEPEND="!aqua? (
 		>=x11-libs/gdk-pixbuf-2.21:2[introspection?,jpeg?,jpeg2k?,tiff?]
 	)
 	xinerama? ( x11-libs/libXinerama )
-	>=dev-libs/glib-2.27.5
+	>=dev-libs/glib-2.28.0
 	>=x11-libs/pango-1.20[introspection?]
 	>=dev-libs/atk-1.29.2[introspection?]
 	media-libs/fontconfig
