@@ -18,7 +18,7 @@ IUSE="+applet bash-completion zsh-completion"
 DEPEND="dev-libs/glib:2
 	>=sys-devel/gettext-0.18
 	dev-util/intltool
-	x11-libs/gtk+:3
+	>=x11-libs/gtk+-3.0.0:3
 	dev-lang/vala:0.12"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
