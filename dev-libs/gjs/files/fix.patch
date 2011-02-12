@@ -1,0 +1,290 @@
+From 9a2220e320eea7cdaa7689f8efd85cc35ca2413f Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Sat, 12 Feb 2011 20:13:49 +0100
+Subject: [PATCH] xulrunner2: conditionally adapt to new Strict setters
+
+Upstream broke their API in commit:
+http://hg.mozilla.org/mozilla-central/rev/4b56bfdf61a7
+They added an extra arg to the setters, a JSBool to enable strict mode.
+Adapt setters to match the new API
+
+https://bugzilla.gnome.org/process_bug.cgi
+---
+ configure.ac           |    1 +
+ gi/boxed.c             |    7 +++++++
+ gi/function.c          |    4 ++++
+ gi/keep-alive.c        |    4 ++++
+ gi/ns.c                |    4 ++++
+ gi/object.c            |    3 +++
+ gi/param.c             |    4 ++++
+ gi/repo.c              |    4 ++++
+ gi/union.c             |    4 ++++
+ gjs/byteArray.c        |    9 +++++++++
+ gjs/importer.c         |    4 ++++
+ gjs/jsapi-util.c       |    7 ++++++-
+ gjs/jsapi-util.h       |    9 ++++++++-
+ modules/dbus-exports.c |    4 ++++
+ 14 files changed, 66 insertions(+), 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 3da23d2..5ff896b 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -152,6 +152,7 @@ fi
+ AC_CHECK_LIB([mozjs], [JS_GetStringBytes], AC_DEFINE([HAVE_JS_GETSTRINGBYTES], [1], [Define if we still have JS_GetStringBytes]),, [$JS_LIBS])
+ AC_CHECK_LIB([mozjs], [JS_GetFunctionName], AC_DEFINE([HAVE_JS_GETFUNCTIONNAME], [1], [Define if we still have JS_GetFunctionName]),, [$JS_LIBS])
+ AC_CHECK_LIB([mozjs], [JS_GetStringChars], AC_DEFINE([HAVE_JS_GETSTRINGCHARS], [1], [Define if we still have JS_GetStringChars]),, [$JS_LIBS])
++AC_CHECK_LIB([mozjs], [JS_StrictPropertyStub], AC_DEFINE([HAVE_JS_STRICTPROPERTYSTUB], [1], [Define if we have JS_StrictPropertyStub]),, [$JS_LIBS])
+ 
+ AC_MSG_CHECKING([for mozilla-js >= 2 ])
+ if `$PKG_CONFIG --exists $JS_PACKAGE '>=' 2`; then
+diff --git a/gi/boxed.c b/gi/boxed.c
+index 9bdd513..2d0f5ac 100644
+--- a/gi/boxed.c
++++ b/gi/boxed.c
+@@ -851,6 +851,9 @@ static JSBool
+ boxed_field_setter (JSContext *context,
+                     JSObject  *obj,
+                     jsid       id,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++                    JSBool     strict,
++#endif
+                     jsval     *value)
+ {
+     Boxed *priv;
+@@ -959,7 +962,11 @@ static struct JSClass gjs_boxed_class = {
+     JS_PropertyStub,
+     JS_PropertyStub,
+     JS_PropertyStub,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++    JS_StrictPropertyStub,
++#else
+     JS_PropertyStub,
++#endif
+     JS_EnumerateStub,
+     (JSResolveOp) boxed_new_resolve, /* needs cast since it's the new resolve signature */
+     JS_ConvertStub,
+diff --git a/gi/function.c b/gi/function.c
+index 56fc5f5..a6bc84f 100644
+--- a/gi/function.c
++++ b/gi/function.c
+@@ -974,7 +974,11 @@ static struct JSClass gjs_function_class = {
+     JS_PropertyStub,
+     JS_PropertyStub,
+     JS_PropertyStub,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++    JS_StrictPropertyStub,
++#else
+     JS_PropertyStub,
++#endif
+     JS_EnumerateStub,
+     (JSResolveOp) function_new_resolve, /* needs cast since it's the new resolve signature */
+     JS_ConvertStub,
+diff --git a/gi/keep-alive.c b/gi/keep-alive.c
+index 87fb2f0..b7fc1a8 100644
+--- a/gi/keep-alive.c
++++ b/gi/keep-alive.c
+@@ -187,7 +187,11 @@ static struct JSClass gjs_keep_alive_class = {
+     JS_PropertyStub,
+     JS_PropertyStub,
+     JS_PropertyStub,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++    JS_StrictPropertyStub,
++#else
+     JS_PropertyStub,
++#endif
+     JS_EnumerateStub,
+     JS_ResolveStub,
+     JS_ConvertStub,
+diff --git a/gi/ns.c b/gi/ns.c
+index b6591ff..8dcf52e 100644
+--- a/gi/ns.c
++++ b/gi/ns.c
+@@ -213,7 +213,11 @@ static struct JSClass gjs_ns_class = {
+     JS_PropertyStub,
+     JS_PropertyStub,
+     JS_PropertyStub,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++    JS_StrictPropertyStub,
++#else
+     JS_PropertyStub,
++#endif
+     JS_EnumerateStub,
+     (JSResolveOp) ns_new_resolve, /* needs cast since it's the new resolve signature */
+     JS_ConvertStub,
+diff --git a/gi/object.c b/gi/object.c
+index 4e04dce..25b561a 100644
+--- a/gi/object.c
++++ b/gi/object.c
+@@ -184,6 +184,9 @@ static JSBool
+ object_instance_set_prop(JSContext *context,
+                          JSObject  *obj,
+                          jsid       id,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++                         JSBool     strict,
++#endif
+                          jsval     *value_p)
+ {
+     ObjectInstance *priv;
+diff --git a/gi/param.c b/gi/param.c
+index 1b03ad2..af809a5 100644
+--- a/gi/param.c
++++ b/gi/param.c
+@@ -259,7 +259,11 @@ static struct JSClass gjs_param_class = {
+     JS_PropertyStub,
+     JS_PropertyStub,
+     param_get_prop,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++    JS_StrictPropertyStub,
++#else
+     JS_PropertyStub,
++#endif
+     JS_EnumerateStub,
+     (JSResolveOp) param_new_resolve, /* needs cast since it's the new resolve signature */
+     JS_ConvertStub,
+diff --git a/gi/repo.c b/gi/repo.c
+index 3381da1..7fbef99 100644
+--- a/gi/repo.c
++++ b/gi/repo.c
+@@ -222,7 +222,11 @@ static struct JSClass gjs_repo_class = {
+     JS_PropertyStub,
+     JS_PropertyStub,
+     JS_PropertyStub,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++    JS_StrictPropertyStub,
++#else
+     JS_PropertyStub,
++#endif
+     JS_EnumerateStub,
+     (JSResolveOp) repo_new_resolve, /* needs cast since it's the new resolve signature */
+     JS_ConvertStub,
+diff --git a/gi/union.c b/gi/union.c
+index b2978af..2aa4e40 100644
+--- a/gi/union.c
++++ b/gi/union.c
+@@ -355,7 +355,11 @@ static struct JSClass gjs_union_class = {
+     JS_PropertyStub,
+     JS_PropertyStub,
+     JS_PropertyStub,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++    JS_StrictPropertyStub,
++#else
+     JS_PropertyStub,
++#endif
+     JS_EnumerateStub,
+     (JSResolveOp) union_new_resolve, /* needs cast since it's the new resolve signature */
+     JS_ConvertStub,
+diff --git a/gjs/byteArray.c b/gjs/byteArray.c
+index a1d1ffe..02c627f 100644
+--- a/gjs/byteArray.c
++++ b/gjs/byteArray.c
+@@ -45,6 +45,9 @@ static JSBool byte_array_get_prop      (JSContext    *context,
+ static JSBool byte_array_set_prop      (JSContext    *context,
+                                         JSObject     *obj,
+                                         jsid          id,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++                                        JSBool        strict,
++#endif
+                                         jsval        *value_p);
+ static JSBool byte_array_new_resolve   (JSContext    *context,
+                                         JSObject     *obj,
+@@ -237,6 +240,9 @@ static JSBool
+ byte_array_length_setter(JSContext *context,
+                          JSObject  *obj,
+                          jsid       id,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++                         JSBool     strict,
++#endif
+                          jsval     *value_p)
+ {
+     ByteArrayInstance *priv;
+@@ -296,6 +302,9 @@ static JSBool
+ byte_array_set_prop(JSContext *context,
+                     JSObject  *obj,
+                     jsid       id,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++                    JSBool     strict,
++#endif
+                     jsval     *value_p)
+ {
+     ByteArrayInstance *priv;
+diff --git a/gjs/importer.c b/gjs/importer.c
+index d875a38..5b0cbd9 100644
+--- a/gjs/importer.c
++++ b/gjs/importer.c
+@@ -1021,7 +1021,11 @@ static struct JSClass gjs_importer_class = {
+     JS_PropertyStub,
+     JS_PropertyStub,
+     JS_PropertyStub,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++    JS_StrictPropertyStub,
++#else
+     JS_PropertyStub,
++#endif
+     (JSEnumerateOp) importer_new_enumerate, /* needs cast since it's the new enumerate signature */
+     (JSResolveOp) importer_new_resolve, /* needs cast since it's the new resolve signature */
+     JS_ConvertStub,
+diff --git a/gjs/jsapi-util.c b/gjs/jsapi-util.c
+index 27260ca..f58715c 100644
+--- a/gjs/jsapi-util.c
++++ b/gjs/jsapi-util.c
+@@ -240,7 +240,12 @@ gjs_runtime_get_current_context(JSRuntime *runtime)
+ 
+ static JSClass global_class = {
+     "GjsGlobal", JSCLASS_GLOBAL_FLAGS,
+-    JS_PropertyStub, JS_PropertyStub, JS_PropertyStub, JS_PropertyStub,
++    JS_PropertyStub, JS_PropertyStub, JS_PropertyStub,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++    JS_StrictPropertyStub,
++#else
++    JS_PropertyStub,
++#endif
+     JS_EnumerateStub, JS_ResolveStub, JS_ConvertStub, JS_FinalizeStub,
+     JSCLASS_NO_OPTIONAL_MEMBERS
+ };
+diff --git a/gjs/jsapi-util.h b/gjs/jsapi-util.h
+index 5266ff0..1582fcb 100644
+--- a/gjs/jsapi-util.h
++++ b/gjs/jsapi-util.h
+@@ -128,6 +128,13 @@ _GJS_DEFINE_PROTO_FULL(tn, cn, gjs_##cn##_constructor)
+ #define GJS_DEFINE_PROTO_ABSTRACT(tn, cn) \
+ _GJS_DEFINE_PROTO_FULL(tn, cn, NULL)
+ 
++// Define "temporary" macro for using it in another one without nesting
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++    #define SETTER_TYPE JS_StrictPropertyStub
++#else
++    #define SETTER_TYPE JS_PropertyStub
++#endif
++
+ #define _GJS_DEFINE_PROTO_FULL(type_name, cname, ctor) \
+ static JSPropertySpec gjs_##cname##_proto_props[]; \
+ static JSFunctionSpec gjs_##cname##_proto_funcs[]; \
+@@ -148,7 +155,7 @@ static struct JSClass gjs_##cname##_class = { \
+     JS_PropertyStub, \
+     JS_PropertyStub, \
+     JS_PropertyStub, \
+-    JS_PropertyStub,\
++    SETTER_TYPE, \
+     JS_EnumerateStub,\
+     (JSResolveOp) gjs_##cname##_new_resolve, \
+     JS_ConvertStub, \
+diff --git a/modules/dbus-exports.c b/modules/dbus-exports.c
+index e234bf8..8b2b777 100644
+--- a/modules/dbus-exports.c
++++ b/modules/dbus-exports.c
+@@ -1803,7 +1803,11 @@ static struct JSClass gjs_js_exports_class = {
+     JS_PropertyStub,
+     JS_PropertyStub,
+     JS_PropertyStub,
++#ifdef HAVE_JS_STRICTPROPERTYSTUB
++    JS_StrictPropertyStub,
++#else
+     JS_PropertyStub,
++#endif
+     JS_EnumerateStub,
+     (JSResolveOp) exports_new_resolve, /* needs cast since it's the new resolve signature */
+     JS_ConvertStub,
+-- 
+1.7.4.2.g597a6.dirty
+
