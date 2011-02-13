@@ -45,7 +45,8 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	>=x11-wm/mutter-2.91.6[introspection]
 	x11-apps/mesa-progs
 
-	dev-python/dbus-python"
+	dev-python/dbus-python
+	dev-python/gconf-python"
 RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-icon-theme-symbolic
 	x11-themes/gnome-themes-standard
