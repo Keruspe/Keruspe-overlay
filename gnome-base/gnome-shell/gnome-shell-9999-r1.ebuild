@@ -14,7 +14,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="bluetooth"
+IUSE="bluetooth gpaste"
 
 COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	>=x11-libs/gtk+-3.0.0:3[introspection]
@@ -51,6 +51,7 @@ RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-icon-theme-symbolic
 	x11-themes/gnome-themes-standard
 	media-fonts/cantarell
+	gpaste? ( x11-misc/gpaste )
 
 	x11-libs/gdk-pixbuf[introspection]
 	>=gnome-base/dconf-0.4.1
@@ -72,7 +73,12 @@ src_unpack() {
 
 src_prepare() {
 	mkdir m4
-	epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
+	if use gpaste; then
+		epatch ${FILESDIR}/0001-GPaste-native-applet.patch
+		epatch ${FILESDIR}/0002-whitelist-dropbox-gnote.patch
+	else
+		epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
+	fi
 	intltoolize --force --copy --automake || die
 	eautoreconf
 }
