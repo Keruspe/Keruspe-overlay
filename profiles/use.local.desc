@@ -4,23 +4,11 @@
 
 app-admin/gnome-system-tools:nautilus - Enable nautilus plugin
 app-misc/kupfer:keybinder - Use python keybinder
-app-text/evince:images - Enable images support via pixbuf
-dev-util/anjuta-extras:scintilla - Enable scintilla plugin
-dev-util/anjuta-extras:valgrind - Enable valgrind plugin
-gnome-base/gdm:applet - Build fast-user-switch-applet
-gnome-extra/gnome-utils:applet - Enable Gdict applet
+gnome-base/gnome-shell:gpaste - Enable support for GPaste (Experimental)
 net-im/empathy:cc-embedding - Enable control-center embedding
 net-im/empathy:map - Enable geolocalisation stuff
-net-misc/networkmanager:modem - Enable modemmanager
 sys-apps/paludis:ask - Enable ask option (not supported upstream)
 sys-apps/paludis:sort-world - Sort the world file when modifying it (not supported upstream)
 sys-apps/paludis:accerso - Enable accerso client: Mirror client
-sys-apps/paludis:adjutrix - Enable adjutrix client: A tool for arch teams
-sys-apps/paludis:appareo - Enable appareo client: Manifest client
-sys-apps/paludis:cave - Enable cave client: Powerful futurist client
-sys-apps/paludis:importare - Enable importare client: Allow import of manually built app
-sys-apps/paludis:inquisitio - Enable inquisitio client: Search client for paludis
 sys-apps/paludis:instruo - Enable instruo client: Metadata generation client
-sys-apps/paludis:paludis - Enable paludis client: Default client
-sys-apps/paludis:reconcilio - Enable reconcilio client: Link fix client for paludis
 sys-boot/grub:efi - Build grub for EFI
