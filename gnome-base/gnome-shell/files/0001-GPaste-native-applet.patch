@@ -1,13 +1,13 @@
-From 54b62f90fe98606ce4ff271c426f3ca25622cd12 Mon Sep 17 00:00:00 2001
+From c873cd11951546264b7c68dc8235fbf3f488499d Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Sat, 29 Jan 2011 10:50:04 +0100
-Subject: [PATCH 1/2] GPaste native applet
+Subject: [PATCH] GPaste native applet
 
 ---
  js/ui/panel.js                |    3 +-
- js/ui/status/gpaste.js        |  109 +++++++++++++++++++++++++++++++++++++++++
+ js/ui/status/gpaste.js        |  108 +++++++++++++++++++++++++++++++++++++++++
  js/ui/statusIconDispatcher.js |    1 +
- 3 files changed, 112 insertions(+), 1 deletions(-)
+ 3 files changed, 111 insertions(+), 1 deletions(-)
  create mode 100644 js/ui/status/gpaste.js
 
 diff --git a/js/ui/panel.js b/js/ui/panel.js
@@ -27,10 +27,10 @@ index 4d0e001..2b9bd68 100644
      'battery': imports.ui.status.power.Indicator,
 diff --git a/js/ui/status/gpaste.js b/js/ui/status/gpaste.js
 new file mode 100644
-index 0000000..7fa2432
+index 0000000..aadfc86
 --- /dev/null
 +++ b/js/ui/status/gpaste.js
-@@ -0,0 +1,109 @@
+@@ -0,0 +1,108 @@
 +/* -*- mode: js2; js2-basic-offset: 4; indent-tabs-mode: nil -*- */
 +
 +const DBus = imports.dbus;
@@ -113,10 +113,9 @@ index 0000000..7fa2432
 +                let limit = 20;
 +                if (history.length < 20) limit = history.length;
 +                for (index = 0; index < limit; ++index) {
-+                    let selection = new PopupMenu.PopupMenuItem(history[index]);
++                    let selection = new PopupMenu.PopupMenuItem(history[index].replace('\n', ' '));
 +                    let label = selection.label;
 +                    let inner_index = index;
-+                    label.clutter_text.single_line_mode = true;
 +                    label.clutter_text.max_length = 60;
 +                    label.clutter_text.ellipsize = Pango.EllipsizeMode.END;
 +                    //selection.actor.button_mask = St.ButtonMask.ONE | St.ButtonMask.THREE;
