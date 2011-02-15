@@ -32,6 +32,8 @@ COMMON_DEPEND="
 	search-index? ( dev-db/sqlite:3 )"
 
 DEPEND="${COMMON_DEPEND}
+    app-text/asciidoc
+    app-text/xmlto
 	sys-devel/autoconf:2.5
 	sys-devel/automake:1.11
 	doc? (
