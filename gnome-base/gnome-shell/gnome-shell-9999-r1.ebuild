@@ -53,6 +53,7 @@ RDEPEND="${COMMON_DEPEND}
 	media-fonts/cantarell
 	gpaste? ( x11-misc/gpaste )
 
+	>=net-libs/telepathy-glib-0.13.12[introspection]
 	x11-libs/gdk-pixbuf[introspection]
 	>=gnome-base/dconf-0.4.1
 	>=gnome-base/gnome-settings-daemon-2.91
