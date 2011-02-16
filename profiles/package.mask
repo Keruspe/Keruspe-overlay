@@ -21,44 +21,6 @@
 =x11-misc/parcellite-9999
 ~x11-wm/mutter-9999
 
-# Mask Gnome 2.9x
-=app-arch/file-roller-2.91*
-=app-cdr/brasero-2.91*
-=app-crypt/seahorse-2.91*
-=app-editors/gedit-2.91*
-=app-text/evince-2.91*
-=dev-libs/glib-2.27*
-=dev-libs/libgweather-2.91*
-=gnome-base/gdm-2.91*
-=gnome-base/gnome-control-center-2.91*
-=gnome-base/gnome-desktop-2.91*
-=gnome-base/gnome-keyring-2.91*
-=gnome-base/gnome-session-2.91*
-=gnome-base/gnome-settings-daemon-2.91*
-=gnome-base/libgnomekbd-2.91*
-=gnome-base/nautilus-2.91*
-=gnome-extra/evolution-data-server-2.91*
-=gnome-extra/gnome-media-2.91*
-=gnome-extra/gnome-power-manager-2.91*
-=gnome-extra/gnome-screensaver-2.91*
-=gnome-extra/libgnome-media-profiles-2.91*
-=gnome-extra/nautilus-sendto-2.90*
-=gnome-extra/zenity-2.91*
-=media-gfx/eog-2.91*
-=media-libs/clutter-gtk-0.91*
-=net-analyzer/gnome-nettool-2.91*
-=net-im/empathy-2.91*
-=net-wireless/gnome-bluetooth-2.91*
-=sys-apps/gnome-disk-utility-2.91*
-=x11-libs/gtk+-2.23*
-=x11-libs/gtk+-2.99*
-=x11-libs/gtksourceview-2.91*
-=x11-libs/libnotify-0.7*
-=x11-themes/gnome-icon-theme-2.91*
-=x11-themes/gnome-icon-theme-symbolic-2.91*
-=x11-themes/gtk-engines-2.91*
-=x11-themes/gtk-theme-engine-clearlooks-2.91*
-
 # Dummy Kernel
 sys-kernel/dummy-sources
 
