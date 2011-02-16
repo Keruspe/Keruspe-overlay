@@ -13,7 +13,7 @@ EGIT_REPO_URI="git://github.com/Keruspe/GPaste.git"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+applet bash-completion zsh-completion"
+IUSE="+applet bash-completion gnome-shell zsh-completion"
 
 DEPEND="dev-libs/glib:2
 	>=sys-devel/gettext-0.18
@@ -22,11 +22,13 @@ DEPEND="dev-libs/glib:2
 	dev-lang/vala:0.12"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
+	gnome-shell? ( gnome-base/gnome-shell )
 	zsh-completion? ( app-shells/zsh )"
 
 WANT_AUTOMAKE="1.11"
 
-G2CONF="$(use_enable applet)"
+G2CONF="$(use_enable applet)
+	$(use_enable gnome-shell gnome-shell-extension)"
 
 src_prepare() {
 	mkdir m4

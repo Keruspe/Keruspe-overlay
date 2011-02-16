@@ -51,7 +51,6 @@ RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-icon-theme-symbolic
 	x11-themes/gnome-themes-standard
 	media-fonts/cantarell
-	gpaste? ( x11-misc/gpaste )
 
 	>=net-libs/telepathy-glib-0.13.12[introspection]
 	x11-libs/gdk-pixbuf[introspection]
@@ -74,12 +73,7 @@ src_unpack() {
 
 src_prepare() {
 	mkdir m4
-	if use gpaste; then
-		epatch ${FILESDIR}/0001-GPaste-native-applet.patch
-		epatch ${FILESDIR}/0002-whitelist-dropbox-gnote.patch
-	else
-		epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
-	fi
+	epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
 	intltoolize --force --copy --automake || die
 	eautoreconf
 }
