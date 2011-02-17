@@ -13,7 +13,7 @@ EGIT_REPO_URI="git://github.com/Keruspe/GPaste.git"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+applet bash-completion gnome-shell zsh-completion"
+IUSE="applet bash-completion +gnome-shell zsh-completion"
 
 DEPEND="dev-libs/glib:2
 	>=sys-devel/gettext-0.18
@@ -35,6 +35,10 @@ src_prepare() {
 	eautoreconf
 	intltoolize --force --automake
 	gnome2_src_prepare
+	if ! has_version gnome-base/gnome-shell; then
+		einfo "You do not have gnome-shell installed, building gtk+ applet"
+		G2CONF+="--enable-applet"
+	fi
 }
 
 src_install() {
