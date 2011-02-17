@@ -1,0 +1,25 @@
+From fd4806d74ef7cd77fbfe3ad567c12f2b10595293 Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Sat, 29 Jan 2011 10:50:04 +0100
+Subject: [PATCH 2/2] whitelist notification stuff
+
+---
+ js/ui/statusIconDispatcher.js |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/js/ui/statusIconDispatcher.js b/js/ui/statusIconDispatcher.js
+index 4c4e8ce..afa746a 100644
+--- a/js/ui/statusIconDispatcher.js
++++ b/js/ui/statusIconDispatcher.js
+@@ -10,6 +10,8 @@ const Util = imports.misc.util;
+ 
+ const STANDARD_TRAY_ICON_IMPLEMENTATIONS = {
+     'gpaste-applet': 'gpaste',
++    'dropbox': 'dropbox',
++    'gnote': 'gnote',
+     'bluetooth-applet': 'bluetooth',
+     'gnome-volume-control-applet': 'volume', // renamed to gnome-sound-applet
+                                              // when moved to control center
+-- 
+1.7.4.1.42.g43f9f.dirty
+

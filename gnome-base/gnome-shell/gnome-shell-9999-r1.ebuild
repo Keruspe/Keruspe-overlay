@@ -73,7 +73,8 @@ src_unpack() {
 
 src_prepare() {
 	mkdir m4
-	epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
+	epatch ${FILESDIR}/0001-whitelist-gpaste.patch
+	epatch ${FILESDIR}/0002-whitelist-notification-stuff.patch
 	intltoolize --force --copy --automake || die
 	eautoreconf
 }
