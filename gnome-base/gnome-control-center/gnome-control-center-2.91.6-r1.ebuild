@@ -69,6 +69,11 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog NEWS README TODO"
 }
 
+src_prepare() {
+	gnome2_src_prepare
+	epatch "${FILESDIR}/${P}-port-to-gtkstyle-context.patch"
+}
+
 src_install() {
 	gnome2_src_install
 	find "${ED}" -name "*.la" -delete || die "remove of la files failed"
