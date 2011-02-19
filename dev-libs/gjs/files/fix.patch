@@ -1,0 +1,58 @@
+From 740f57b035c15bdfb256097d6c198c1b3af93504 Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Sat, 19 Feb 2011 17:04:25 +0100
+Subject: [PATCH] xulrunner2: Conditionally adapt to JS_GetScopeChain removal
+
+Upstream removed JS_GetScopeChain in commit :
+http://hg.mozilla.org/mozilla-central/rev/b0bf06306261
+
+Use JS_GetGlobalForScopeChain when available to adapt to that change.
+---
+ configure.ac     |    1 +
+ gjs/compat.h     |    4 ++++
+ gjs/jsapi-util.c |    2 +-
+ 3 files changed, 6 insertions(+), 1 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index aa819a2..32f1d64 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -153,6 +153,7 @@ AC_CHECK_LIB([mozjs], [JS_GetStringBytes], AC_DEFINE([HAVE_JS_GETSTRINGBYTES], [
+ AC_CHECK_LIB([mozjs], [JS_GetFunctionName], AC_DEFINE([HAVE_JS_GETFUNCTIONNAME], [1], [Define if we still have JS_GetFunctionName]),, [$JS_LIBS])
+ AC_CHECK_LIB([mozjs], [JS_GetStringChars], AC_DEFINE([HAVE_JS_GETSTRINGCHARS], [1], [Define if we still have JS_GetStringChars]),, [$JS_LIBS])
+ AC_CHECK_LIB([mozjs], [JS_StrictPropertyStub], AC_DEFINE([HAVE_JS_STRICTPROPERTYSTUB], [1], [Define if we have JS_StrictPropertyStub]),, [$JS_LIBS])
++AC_CHECK_LIB([mozjs], [JS_GetGlobalForScopeChain], AC_DEFINE([HAVE_JS_GETGLOBALFORSCOPECHAIN], [1], [Define if we have JS_GetGlobalForScopeChain]),, [$JS_LIBS])
+ 
+ AC_MSG_CHECKING([for mozilla-js >= 2 ])
+ if `$PKG_CONFIG --exists $JS_PACKAGE '>=' 2`; then
+diff --git a/gjs/compat.h b/gjs/compat.h
+index 09c2b98..3ceeb1d 100644
+--- a/gjs/compat.h
++++ b/gjs/compat.h
+@@ -139,6 +139,10 @@ gjs_##name##_constructor(JSContext *context,            \
+ #define JS_StrictPropertyStub JS_PropertyStub
+ #endif
+ 
++#ifndef HAVE_JS_GETGLOBALFORSCOPECHAIN
++#define JS_GetGlobalForScopeChain JS_GetScopeChain
++#endif
++
+ G_END_DECLS
+ 
+ #endif  /* __GJS_COMPAT_H__ */
+diff --git a/gjs/jsapi-util.c b/gjs/jsapi-util.c
+index cc89ab5..97e359b 100644
+--- a/gjs/jsapi-util.c
++++ b/gjs/jsapi-util.c
+@@ -914,7 +914,7 @@ gjs_explain_scope(JSContext  *context,
+               global, debugstr);
+     g_free(debugstr);
+ 
+-    parent = JS_GetScopeChain(context);
++    parent = JS_GetGlobalForScopeChain(context);
+     chain = g_string_new(NULL);
+     while (parent != NULL) {
+         char *debug;
+-- 
+1.7.4.1.42.g43f9f.dirty
+

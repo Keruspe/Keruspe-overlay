@@ -43,6 +43,7 @@ src_unpack() {
 
 src_prepare() {
 	gnome2_src_prepare
+	epatch ${FILESDIR}/fix.patch
 	python_convert_shebangs 2 "${S}"/scripts/make-tests
 	eautoreconf
 }
