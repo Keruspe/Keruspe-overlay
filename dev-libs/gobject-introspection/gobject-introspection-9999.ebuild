@@ -44,8 +44,6 @@ src_unpack() {
 src_prepare() {
 	use doc && MAKEOPTS="-j1"
 	ln -sf $(type -P true) py-compile
-
-	epatch "${FILESDIR}/${P}-fix-lookup-of-cached-type-nodes.patch"
 	gtkdocize
 	eautoreconf
 }
