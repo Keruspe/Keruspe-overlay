@@ -59,7 +59,6 @@ RDEPEND="${COMMON_DEPEND}
 	python? (
 		>=dev-python/pygobject-2.15.4
 		>=dev-python/gconf-python-2.22
-		>=dev-python/libgnome-python-2.22
 		>=dev-python/gnome-keyring-python-2.22
 		>=dev-python/gst-python-0.10.8
 		webkit? (
