@@ -14,7 +14,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="bluetooth gpaste"
+IUSE="bluetooth nm-applet"
 
 COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	>=x11-libs/gtk+-3.0.0:3[introspection]
@@ -23,6 +23,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	>=gnome-base/gsettings-desktop-schemas-0.1.7
 	>=dev-libs/gobject-introspection-0.10.1
 	>=gnome-extra/evolution-data-server-2.91.6[introspection]
+	>=net-libs/telepathy-glib-0.13.12[introspection]
 
 	dev-libs/dbus-glib
 	>=dev-libs/gjs-0.7.11
@@ -52,12 +53,13 @@ RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-themes-standard
 	media-fonts/cantarell
 
-	>=net-libs/telepathy-glib-0.13.12[introspection]
 	x11-libs/gdk-pixbuf[introspection]
 	>=gnome-base/dconf-0.4.1
 	>=gnome-base/gnome-settings-daemon-2.91
 	>=gnome-base/gnome-control-center-2.91
-	>=gnome-base/libgnomekbd-2.91.4[introspection]"
+	>=gnome-base/libgnomekbd-2.91.4[introspection]
+
+	nm-applet? ( >=gnome-extra/nm-applet-9999 )"
 DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.22
@@ -72,6 +74,15 @@ src_unpack() {
 }
 
 src_prepare() {
+	if use nm-applet; then
+		# See https://bugzilla.gnome.org/show_bug.cgi?id=621707"
+		ewarn "Adding support for the experimental NetworkManager applet."
+		ewarn "This needs the latest NetworkManager & nm-applet trunk."
+		ewarn "Report bugs about this to 'nirbheek' on #gentoo-desktop @ FreeNode."
+		epatch "${FILESDIR}/${PN}-nm-1.patch"
+		epatch "${FILESDIR}/${PN}-nm-2.patch"
+		epatch "${FILESDIR}/${PN}-nm-3.patch"
+	fi
 	mkdir m4
 	epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
 	intltoolize --force --copy --automake || die
