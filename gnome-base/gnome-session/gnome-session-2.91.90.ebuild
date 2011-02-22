@@ -19,6 +19,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.16:2
 	>=dev-libs/dbus-glib-0.76
 	>=gnome-base/gconf-2
 	>=sys-power/upower-0.9.0
+	gnome-base/librsvg:2
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
 
 	virtual/opengl
@@ -28,10 +29,13 @@ COMMON_DEPEND=">=dev-libs/glib-2.16:2
 	x11-libs/libXcomposite
 	x11-libs/libXext
 	x11-libs/libXtst
+	x11-misc/xdg-user-dirs
+	x11-misc/xdg-user-dirs-gtk
 	x11-apps/xdpyinfo"
 RDEPEND="${COMMON_DEPEND}
 	gnome-base/gnome-settings-daemon
 	gnome-base/gnome-shell"
+PDEPEND="gnome-base/gnome-shell"
 DEPEND="${COMMON_DEPEND}
 	>=dev-lang/perl-5
 	>=sys-devel/gettext-0.10.40
@@ -66,4 +70,13 @@ src_install() {
 	dodir /etc/X11/Sessions || die "dodir failed"
 	exeinto /etc/X11/Sessions
 	doexe "${FILESDIR}/Gnome" || die "doexe failed"
+	exeinto /etc/X11/xinit/xinitrc.d/
+	doexe "${FILESDIR}/10-user-dirs-update" || die "doexe failed"
+}
+
+pkg_postinst() {
+	if ! has_version gnome-base/gdm && ! has_version kde-base/kdm; then
+		ewarn "If you use a custom .xinitrc for your X session,"
+		ewarn "make sure that the commands in the xinitrc.d scripts are run."
+	fi
 }

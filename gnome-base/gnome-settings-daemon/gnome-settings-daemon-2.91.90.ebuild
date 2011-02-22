@@ -11,7 +11,7 @@ HOMEPAGE="http://www.gnome.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug policykit smartcard"
+IUSE="debug packagekit policykit smartcard +udev"
 
 COMMON_DEPEND=">=dev-libs/dbus-glib-0.74
 	>=dev-libs/glib-2.26.0
@@ -31,10 +31,15 @@ COMMON_DEPEND=">=dev-libs/dbus-glib-0.74
 	>=media-sound/pulseaudio-0.9.16
 	media-libs/libcanberra[gtk3]
 
+	packagekit? (
+		dev-libs/glib:2
+		>=app-portage/packagekit-0.6.4
+		>=sys-power/upower-0.9.1 )
 	policykit? (
 		>=sys-auth/polkit-0.97
 		>=sys-apps/dbus-1.1.2 )
-	smartcard? ( >=dev-libs/nss-3.11.2 )"
+	smartcard? ( >=dev-libs/nss-3.11.2 )
+	udev? ( sys-fs/udev[extras] )"
 RDEPEND="${COMMON_DEPEND}
 	>=x11-themes/gnome-themes-standard-2.91
 	>=x11-themes/gnome-icon-theme-2.91
@@ -54,8 +59,10 @@ pkg_setup() {
 		--disable-schemas-compile
 		--enable-gconf-bridge
 		$(use_enable debug)
+		$(use_enable packagekit)
 		$(use_enable policykit polkit)
-		$(use_enable smartcard smartcard-support)"
+		$(use_enable smartcard smartcard-support)
+		$(use_enable udev gudev)"
 }
 
 src_install() {
