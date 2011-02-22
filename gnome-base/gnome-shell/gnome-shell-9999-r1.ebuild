@@ -40,6 +40,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	media-sound/pulseaudio
 	bluetooth? ( >=net-wireless/gnome-bluetooth-2.91[introspection] )
 	!bluetooth? ( !!net-wireless/gnome-bluetooth )
+	>=sys-auth/polkit-0.100
 
 	x11-libs/startup-notification
 	x11-libs/libXfixes
