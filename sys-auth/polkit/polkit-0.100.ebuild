@@ -30,10 +30,6 @@ PDEPEND=">=sys-auth/consolekit-0.4[policykit]
 	gtk? ( || ( >=gnome-extra/polkit-gnome-0.96-r1 lxde-base/lxpolkit ) )
 	kde? ( || ( sys-auth/polkit-kde-agent sys-auth/polkit-kde ) )"
 
-src_prepare() {
-	epatch "${FILESDIR}"/${PN}-0.96-getcwd.patch
-}
-
 src_configure() {
 	local myauth="--with-authfw=shadow"
 	use pam && myauth="--with-authfw=pam --with-pam-module-dir=$(getpam_mod_dir)"
