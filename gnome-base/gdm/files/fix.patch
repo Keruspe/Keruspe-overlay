@@ -1,0 +1,31 @@
+From 4f63038e588f334ec062a38c620fcf8f8c0fa222 Mon Sep 17 00:00:00 2001
+From: Ray Strode <rstrode@redhat.com>
+Date: Tue, 22 Feb 2011 22:42:35 +0000
+Subject: user-chooser-widget: zero idle id when done with it
+
+Because we weren't zeroing it, it could never get queued
+after it finished its first run.
+
+This fixes a bug that prevents the users from showing up
+in the user list.
+---
+diff --git a/gui/simple-greeter/gdm-user-chooser-widget.c b/gui/simple-greeter/gdm-user-chooser-widget.c
+index 7b0445c..be756a6 100644
+--- a/gui/simple-greeter/gdm-user-chooser-widget.c
++++ b/gui/simple-greeter/gdm-user-chooser-widget.c
+@@ -873,7 +873,12 @@ add_users (GdmUserChooserWidget *widget)
+                 gdm_chooser_widget_loaded (GDM_CHOOSER_WIDGET (widget));
+         }
+ 
+-        return (widget->priv->users_to_add != NULL);
++        if (widget->priv->users_to_add == NULL) {
++            widget->priv->add_users_idle_id = 0;
++            return FALSE;
++        }
++
++        return TRUE;
+ }
+ 
+ static void
+--
+cgit v0.8.3.4
