@@ -1,4 +1,4 @@
-From 11400d81fd9775bac7db3e49e620004bb9d6fab5 Mon Sep 17 00:00:00 2001
+From 9116def21829543cee2775e573fc6276e40b3f0e Mon Sep 17 00:00:00 2001
 From: Giovanni Campagna <gcampagna@src.gnome.org>
 Date: Tue, 25 Jan 2011 22:08:12 +0100
 Subject: [PATCH] Status area: add NetworkManager indicator
@@ -10,15 +10,31 @@ dialogs.
 
 https://bugzilla.gnome.org/show_bug.cgi?id=621707
 ---
+ data/theme/gnome-shell.css      |    4 +
  js/Makefile.am                  |    2 +
  js/misc/modemManager.js         |   93 +++
  js/ui/panel.js                  |    3 +-
- js/ui/status/network.js         | 1656 +++++++++++++++++++++++++++++++++++++++
- tools/build/gnome-shell.modules |   19 +
- 5 files changed, 1772 insertions(+), 1 deletions(-)
+ js/ui/status/network.js         | 1665 +++++++++++++++++++++++++++++++++++++++
+ tools/build/gnome-shell.modules |   17 +
+ 6 files changed, 1783 insertions(+), 1 deletions(-)
  create mode 100644 js/misc/modemManager.js
  create mode 100644 js/ui/status/network.js
 
+diff --git a/data/theme/gnome-shell.css b/data/theme/gnome-shell.css
+index 2aa110f..e760826 100644
+--- a/data/theme/gnome-shell.css
++++ b/data/theme/gnome-shell.css
+@@ -178,6 +178,10 @@ StTooltip StLabel {
+     background-image: url("toggle-on-intl.svg");
+ }
+ 
++.popup-inactive-menu-item {
++	font-style: italic;
++}
++
+ /* Panel */
+ 
+ #panel {
 diff --git a/js/Makefile.am b/js/Makefile.am
 index e4a4145..53f80d4 100644
 --- a/js/Makefile.am
@@ -140,10 +156,10 @@ index 0000000..104262b
 +};
 \ No newline at end of file
 diff --git a/js/ui/panel.js b/js/ui/panel.js
-index f1a5e90..46355c4 100644
+index f45af43..a26e1f3 100644
 --- a/js/ui/panel.js
 +++ b/js/ui/panel.js
-@@ -37,7 +37,8 @@ const STANDARD_TRAY_ICON_SHELL_IMPLEMENTATION = {
+@@ -38,7 +38,8 @@ const STANDARD_TRAY_ICON_SHELL_IMPLEMENTATION = {
      'a11y': imports.ui.status.accessibility.ATIndicator,
      'volume': imports.ui.status.volume.Indicator,
      'battery': imports.ui.status.power.Indicator,
@@ -155,10 +171,10 @@ index f1a5e90..46355c4 100644
  if (Config.HAVE_BLUETOOTH)
 diff --git a/js/ui/status/network.js b/js/ui/status/network.js
 new file mode 100644
-index 0000000..a0cd576
+index 0000000..3691adf
 --- /dev/null
 +++ b/js/ui/status/network.js
-@@ -0,0 +1,1656 @@
+@@ -0,0 +1,1665 @@
 +// -*- mode: js2; indent-tabs-mode: nil; js2-basic-offset: 4 -*-
 +const ByteArray = imports.byteArray;
 +const DBus = imports.dbus;
@@ -406,11 +422,15 @@ index 0000000..a0cd576
 +    },
 +
 +    removeConnection: function(connection, skipCreateAuto) {
-+        if (!connection._uuid)
++        if (!connection._uuid) {
++            log ('Cannot remove a connection without an UUID');
 +            return;
++        }
 +        let pos = this.findConnection(connection._uuid);
-+        if (pos == -1)
++        if (pos == -1) {
++            log ('Connection was never added, cannot remove');
 +            return;
++        }
 +
 +        let obj = this.connections[pos];
 +        if (obj.item)
@@ -502,6 +522,7 @@ index 0000000..a0cd576
 +                this.section.addMenuItem(this.disconnectItem);
 +        }
 +        if (this.connections.length > 0) {
++            this.hasAuto = false;
 +            for(let j = 0; j < this.connections.length; ++j) {
 +                let obj = this.connections[j];
 +                if (this.activeConnection && obj.connection == this.activeConnection._connection)
@@ -510,6 +531,7 @@ index 0000000..a0cd576
 +                this.section.addMenuItem(obj.item);
 +            }
 +        } else if (this.autoConnectionName) {
++            this.hasAuto = true;
 +            this.autoConnectionItem = new PopupMenu.PopupMenuItem(this.autoConnectionName);
 +            this.autoConnectionItem.connect('activate', Lang.bind(this, function() {
 +                let connection = this.createAutomaticConnection();
@@ -1473,6 +1495,12 @@ index 0000000..a0cd576
 +                a._notifyDefault6Id = a.connect('notify::default6', Lang.bind(this, this._update_icon));
 +                if (a.state == NetworkManager.ActiveConnectionState.ACTIVATING) // prepare to notify to the user
 +                    a._notifyStateId = a.connect('notify::state', Lang.bind(this, this._notify_active_connection));
++                else {
++                    // notify immediately
++                    Mainloop.idle_add(Lang.bind(this, function() {
++                        this._notify_active_connection(a);
++                    }));
++                }
 +
 +                a._inited = true;
 +            }
@@ -1527,16 +1555,11 @@ index 0000000..a0cd576
 +            }
 +        }
 +
-+        if (activating)
-+            this._mainConnection = activating;
-+        else if (default_ip4)
-+            this._mainConnection = default_ip4;
-+        else
-+            this._mainConnection = default_ip6;
++        this._mainConnection = activating || default_ip4 || default_ip6 || this._activeConnections[0] || null;
 +    },
 +
 +    _notify_active_connection: function(active) {
-+        if (active.state == NetworkManager.ActiveConnectionState.ACTIVE) {
++        if (active.state == NetworkManager.ActiveConnectionState.ACTIVATED) {
 +            this._ensureSource();
 +
 +            let icon;
@@ -1564,7 +1587,7 @@ index 0000000..a0cd576
 +            }
 +
 +            let iconActor = new St.Icon({ icon_name: icon,
-+                                          con_type: St.IconType.SYMBOLIC,
++                                          icon_type: St.IconType.SYMBOLIC,
 +                                          icon_size: this._source.ICON_SIZE
 +                                        });
 +            let notification = new MessageTray.Notification(this._source,
@@ -1573,8 +1596,10 @@ index 0000000..a0cd576
 +                                                            { icon: iconActor });
 +            this._source.notify(notification);
 +
-+            active.disconnect(active._stateChangeId);
-+            active._stateChangeId = 0;
++            if (active._stateChangeId) {
++                active.disconnect(active._stateChangeId);
++                active._stateChangeId = 0;
++            }
 +        }
 +
 +        this._sync_nm_state();
@@ -1816,7 +1841,7 @@ index 0000000..a0cd576
 +    }
 +};
 diff --git a/tools/build/gnome-shell.modules b/tools/build/gnome-shell.modules
-index e8b5493..b14fd53 100644
+index e8b5493..2f44c5d 100644
 --- a/tools/build/gnome-shell.modules
 +++ b/tools/build/gnome-shell.modules
 @@ -9,6 +9,8 @@
@@ -1828,23 +1853,7 @@ index e8b5493..b14fd53 100644
    <repository type="tarball" name="cairo.org"
        href="http://cairographics.org/"/>
    <repository type="tarball" name="0pointer.de"
-@@ -237,6 +239,7 @@
- 	<dep package="gnome-settings-daemon"/>
- 	<dep package="gnome-bluetooth"/>
-         <dep package="telepathy-glib"/>
-+        <dep package="NetworkManager"/>
-     </dependencies>
-   </autotools>
- 
-@@ -255,6 +258,7 @@
-       <dep package="gnome-themes-standard"/>
-       <dep package="gnome-shell"/>
-       <dep package="gnome-power-manager"/>
-+      <dep package="network-manager-applet"/>
-     </dependencies>
-   </metamodule>
- 
-@@ -315,4 +319,19 @@
+@@ -315,4 +317,19 @@
      </dependencies>
  </autotools>
  

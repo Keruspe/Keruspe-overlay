@@ -79,7 +79,7 @@ src_prepare() {
 		ewarn "Adding support for the experimental NetworkManager applet."
 		ewarn "This needs the latest NetworkManager & nm-applet trunk."
 		ewarn "Report bugs about this to 'nirbheek' on #gentoo-desktop @ FreeNode."
-		epatch "${FILESDIR}/${PN}-nm.patch"
+		epatch "${FILESDIR}/gnome-shell-experimental-nm-applet.patch"
 	fi
 	mkdir m4
 	epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
