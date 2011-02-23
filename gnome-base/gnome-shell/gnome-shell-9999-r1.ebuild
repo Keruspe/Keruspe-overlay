@@ -28,7 +28,6 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	>=media-libs/gstreamer-0.10.16
 	>=media-libs/gst-plugins-base-0.10.16
 	>=net-libs/telepathy-glib-0.13.12[introspection]
-	>=net-wireless/gnome-bluetooth-2.90.0[introspection]
 	>=sys-auth/polkit-0.100[introspection]
 	>=x11-wm/mutter-2.91.90[introspection]
 
