@@ -22,7 +22,7 @@ DEPEND="dev-libs/glib:2
 	dev-lang/vala:0.12"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
-	gnome-shell? ( gnome-base/gnome-shell )
+	gnome-shell? ( >=gnome-base/gnome-shell-2.91.90 )
 	zsh-completion? ( app-shells/zsh )"
 
 WANT_AUTOMAKE="1.11"
