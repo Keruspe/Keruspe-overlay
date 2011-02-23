@@ -17,7 +17,7 @@ IUSE="debug indicate"
 
 RDEPEND="x11-libs/gtk+:2
 	dev-libs/libgee
-	net-libs/librest
+	net-libs/rest
 	x11-libs/libnotify
 	net-libs/libsoup:2.4
 	dev-libs/libxml2
