@@ -17,16 +17,22 @@ KEYWORDS="~amd64 ~x86"
 IUSE="bluetooth nm-applet"
 
 COMMON_DEPEND=">=dev-libs/glib-2.25.9
+	>=dev-libs/gjs-0.7.11
+	>=dev-libs/gobject-introspection-0.10.1
+	x11-libs/gdk-pixbuf:2[introspection]
 	>=x11-libs/gtk+-3.0.0:3[introspection]
 	>=media-libs/clutter-1.5.15[introspection]
 	>=gnome-base/gnome-desktop-2.91.2:3
 	>=gnome-base/gsettings-desktop-schemas-0.1.7
-	>=dev-libs/gobject-introspection-0.10.1
 	>=gnome-extra/evolution-data-server-2.91.6[introspection]
+	>=media-libs/gstreamer-0.10.16
+	>=media-libs/gst-plugins-base-0.10.16
 	>=net-libs/telepathy-glib-0.13.12[introspection]
+	>=net-wireless/gnome-bluetooth-2.90.0[introspection]
+	>=sys-auth/polkit-0.100[introspection]
+	>=x11-wm/mutter-2.91.90[introspection]
 
 	dev-libs/dbus-glib
-	>=dev-libs/gjs-0.7.11
 	dev-libs/libxml2:2
 	x11-libs/pango[introspection]
 	dev-libs/libcroco:0.6
@@ -34,14 +40,10 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	gnome-base/gconf[introspection]
 	gnome-base/gnome-menus
 	gnome-base/librsvg
-	>=media-libs/gstreamer-0.10.16
-	>=media-libs/gst-plugins-base-0.10.16
 	media-libs/libcanberra
 	media-sound/pulseaudio
 	bluetooth? ( >=net-wireless/gnome-bluetooth-2.91[introspection] )
 	!bluetooth? ( !!net-wireless/gnome-bluetooth )
-	>=sys-auth/polkit-0.100
-	>=sys-power/upower-0.9.8
 
 	x11-libs/startup-notification
 	x11-libs/libXfixes
@@ -49,17 +51,17 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	x11-apps/mesa-progs
 
 	dev-python/dbus-python
-	dev-python/gconf-python"
+	nm-applet? ( >=net-misc/networkmanager-9999[introspection] )"
 RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-icon-theme-symbolic
 	x11-themes/gnome-themes-standard
 	media-fonts/cantarell
 
-	x11-libs/gdk-pixbuf[introspection]
 	>=gnome-base/dconf-0.4.1
 	>=gnome-base/gnome-settings-daemon-2.91
 	>=gnome-base/gnome-control-center-2.91
 	>=gnome-base/libgnomekbd-2.91.4[introspection]
+	sys-power/upower[introspection]
 
 	nm-applet? ( >=gnome-extra/nm-applet-9999 )"
 DEPEND="${COMMON_DEPEND}
@@ -87,6 +89,16 @@ src_prepare() {
 	epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
 	intltoolize --force --copy --automake || die
 	eautoreconf
+}
+
+pkg_postinst() {
+	if ! has_version '>=media-libs/gst-plugins-good-0.10.23' || \
+	   ! has_version 'media-plugins/gst-plugins-vp8'; then
+		ewarn "To make use of GNOME Shell's built-in screen recording utility,"
+		ewarn "you need to either install >=media-libs/gst-plugins-good-0.10.23"
+		ewarn "and media-plugins/gst-plugins-vp8, or use dconf-editor to change"
+		ewarn "/apps/gnome-shell/recorder/pipeline to what you want to use."
+	fi
 }
 
 src_install() {
