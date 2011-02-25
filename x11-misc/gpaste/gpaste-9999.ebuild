@@ -23,7 +23,7 @@ DEPEND="dev-libs/glib:2
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
 	gnome-shell? ( >=gnome-base/gnome-shell-2.91.90 )
-	zsh-completion? ( app-shells/zsh )"
+	zsh-completion? ( app-shells/zsh app-shells/zsh-completion )"
 
 WANT_AUTOMAKE="1.11"
 
