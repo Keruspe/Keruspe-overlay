@@ -3,17 +3,22 @@
 # $Header: $
 
 EAPI=4
-inherit eutils flag-o-matic multilib toolchain-funcs linux-info
+inherit eutils flag-o-matic multilib toolchain-funcs linux-info systemd
 
 scriptversion=164
+scriptname=${PN}-gentoo-scripts-${scriptversion}
+
+SRC_URI="mirror://kernel/linux/utils/kernel/hotplug/${P}.tar.bz2
+		 test? ( mirror://gentoo/${PN}-151-testsys.tar.bz2 )
+		 mirror://gentoo/${scriptname}.tar.bz2"
+
 DESCRIPTION="Linux dynamic and persistent device naming support (aka userspace devfs)"
 HOMEPAGE="http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev.html"
-SRC_URI="mirror://kernel/linux/utils/kernel/hotplug/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="selinux introspection extras test systemd"
+IUSE="selinux introspection +openrc extras test"
 
 COMMON_DEPEND="selinux? ( sys-libs/libselinux )
 	extras? (
@@ -104,6 +109,10 @@ sed_libexec_dir() {
 }
 
 src_prepare() {
+	if use test; then
+			mv "${WORKDIR}"/test/sys "${S}"/test/
+	fi
+
 	sed -e 's/GROUP="dialout"/GROUP="uucp"/' \
 		-i rules/{rules.d,arch}/*.rules \
 	|| die "failed to change group dialout to uucp"
@@ -123,6 +132,11 @@ src_prepare() {
 		rules/rules.d/78-sound-card.rules \
 		extras/rule_generator/write_*_rules \
 		|| die "sed failed"
+
+	cd "${WORKDIR}/${scriptname}"
+	sed_libexec_dir \
+		helpers/* \
+		rc/*/*
 }
 
 src_configure() {
@@ -137,8 +151,8 @@ src_configure() {
 		--enable-static \
 		$(use_with selinux) \
 		$(use_enable extras) \
-		$(use_enable introspection) \
-		$(use_with systemd systemdsystemunitdir "/$(get_libdir)/systemd/system")
+		"$(use_with_systemdsystemunitdir)" \
+		$(use_enable introspection)
 }
 
 src_compile() {
@@ -147,23 +161,20 @@ src_compile() {
 }
 
 src_install() {
-	local scriptdir="${FILESDIR}/${scriptversion}"
+	emake -C "${WORKDIR}/${scriptname}" \
+		DESTDIR="${D}" LIBDIR="$(get_libdir)" \
+		KV_min="${KV_min}" KV_reliable="${KV_reliable}" \
+		install || die "make install failed"
+
+	if ! use openrc; then
+		rm "${D}/$(get_libdir)/udev/rules.d/90-network.rules" || die
+		rm "${D}/$(get_libdir)/udev/net.sh" || die
+	fi
 
 	into /
 	emake DESTDIR="${D}" install || die "make install failed"
 
 	exeinto "${udev_libexec_dir}"
-	newexe "${FILESDIR}"/net-130-r1.sh net.sh	|| die "net.sh not installed properly"
-	newexe "${FILESDIR}"/move_tmp_persistent_rules-112-r1.sh move_tmp_persistent_rules.sh \
-		|| die "move_tmp_persistent_rules.sh not installed properly"
-	newexe "${FILESDIR}"/write_root_link_rule-125 write_root_link_rule \
-		|| die "write_root_link_rule not installed properly"
-
-	doexe "${scriptdir}"/shell-compat-KV.sh \
-		|| die "shell-compat.sh not installed properly"
-	doexe "${scriptdir}"/shell-compat-addon.sh \
-		|| die "shell-compat.sh not installed properly"
-
 	keepdir "${udev_libexec_dir}"/state
 	keepdir "${udev_libexec_dir}"/devices
 
@@ -177,33 +188,12 @@ src_install() {
 	cd "${S}"/rules
 	insinto "${udev_libexec_dir}"/rules.d/
 
-	doins "${scriptdir}"/??-*.rules
 	doins misc/30-kernel-compat.rules
 	if [[ -f arch/40-${ARCH}.rules ]]
 	then
 		doins "arch/40-${ARCH}.rules"
 	fi
 	cd "${S}"
-
-	insinto /$(get_libdir)/rcscripts/addons
-	doins "${scriptdir}"/udev-start.sh \
-		|| die "udev-start.sh not installed properly"
-	doins "${scriptdir}"/udev-stop.sh \
-		|| die "udev-stop.sh not installed properly"
-
-	local init
-	for init in udev udev-mount udev-dev-tarball udev-postmount; do
-		newinitd "${scriptdir}/${init}.initd" "${init}" \
-			|| die "initscript ${init} not installed properly"
-	done
-
-	sed -e "s/%KV_MIN%/${KV_min}/" \
-		-e "s/%KV_MIN_RELIABLE%/${KV_reliable}/" \
-		-i "${D}"/etc/init.d/udev-mount
-
-	newconfd "${scriptdir}/udev.confd" udev \
-		|| die "config file not installed properly"
-
 	insinto /etc/modprobe.d
 	newins "${FILESDIR}"/blacklist-146 blacklist.conf
 	newins "${FILESDIR}"/pnp-aliases pnp-aliases.conf
@@ -351,6 +341,13 @@ postinst_init_scripts() {
 
 pkg_postinst() {
 	fix_old_persistent_net_rules
+
+	rmdir "${ROOT}"/dev/loop 2>/dev/null
+	if [[ -d "${ROOT}"/dev/loop ]]; then
+		ewarn "Please make sure your remove /dev/loop,"
+		ewarn "else losetup may be confused when looking for unused devices."
+	fi
+
 	restart_udevd
 	postinst_init_scripts
 
