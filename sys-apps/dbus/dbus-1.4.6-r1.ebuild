@@ -26,7 +26,6 @@ CDEPEND="
 	)
 "
 RDEPEND="${CDEPEND}
-	!<sys-apps/dbus-0.91
 	>=dev-libs/expat-1.95.8
 "
 DEPEND="${CDEPEND}
@@ -49,16 +48,11 @@ pkg_setup() {
 }
 
 src_prepare() {
-	# Delete pregenerated files from tarball wrt #337989 (testsuite fails)
-	find test/data -type f -name '*.service' -exec rm -f '{}' +
-	find test/data -type f -name 'debug-*.conf' -exec rm -f '{}' +
-
-	# Remove CFLAGS that is not supported by all gcc, bug #274456
-	sed 's/-Wno-pointer-sign//g' -i configure.in configure || die
-
 	# Tests were restricted because of this
-	sed -e 's/.*bus_dispatch_test.*/printf ("Disabled due to excess noise\\n");/' \
-		-e '/"dispatch"/d' -i "${S}/bus/test-main.c" || die
+	sed -i \
+		-e 's/.*bus_dispatch_test.*/printf ("Disabled due to excess noise\\n");/' \
+		-e '/"dispatch"/d' \
+		bus/test-main.c || die
 
 	epatch "${FILESDIR}"/${PN}-1.4.0-asneeded.patch
 
@@ -118,35 +112,34 @@ src_compile() {
 
 	cd "${BD}"
 	einfo "Running make in ${BD}"
-	emake || die "make failed"
+	emake || die
 
 	if use doc; then
-		einfo "Building API documentation..."
-		doxygen || die "doxygen failed"
+		doxygen || die
 	fi
 
 	if use test; then
 		cd "${TBD}"
 		einfo "Running make in ${TBD}"
-		emake || die "make failed"
+		emake || die
 	fi
 }
 
 src_test() {
 	cd "${TBD}"
-	DBUS_VERBOSE=1 Xmake check || die "make check failed"
+	DBUS_VERBOSE=1 Xemake -j1 check || die
 }
 
 src_install() {
 	# initscript
-	newinitd "${FILESDIR}"/dbus.init-1.0 dbus || die "newinitd failed"
+	newinitd "${FILESDIR}"/dbus.init-1.0 dbus || die
 
 	if use X ; then
 		# dbus X session script (#77504)
 		# turns out to only work for GDM (and startx). has been merged into
 		# other desktop (kdm and such scripts)
 		exeinto /etc/X11/xinit/xinitrc.d/
-		doexe "${FILESDIR}"/80-dbus || die "doexe failed"
+		doexe "${FILESDIR}"/80-dbus || die
 	fi
 
 	# needs to exist for the system socket
@@ -160,19 +153,19 @@ src_install() {
 	keepdir /etc/dbus-1/system.d/
 	keepdir /etc/dbus-1/session.d/
 
-	dodoc AUTHORS ChangeLog HACKING NEWS README doc/TODO || die "dodoc failed"
+	dodoc AUTHORS ChangeLog HACKING NEWS README doc/TODO || die
 
 	cd "${BD}"
 	# FIXME: split dtd's in dbus-dtd ebuild
-	emake DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${ED}" install || die
 	if use doc; then
-		dohtml -p api/ doc/api/html/* || die "dohtml api failed"
+		dohtml -p api/ doc/api/html/* || die
 		cd "${S}"
-		dohtml doc/*.html || die "dohtml failed"
+		dohtml doc/*.html || die
 	fi
 
 	# Remove .la files
-	find "${D}" -type f -name '*.la' -exec rm -f '{}' +
+	find "${D}" -type f -name '*.la' -exec rm -f {} +
 }
 
 pkg_postinst() {
