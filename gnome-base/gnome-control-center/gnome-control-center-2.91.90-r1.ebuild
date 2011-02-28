@@ -4,9 +4,9 @@
 EAPI=3
 GCONF_DEBUG="yes"
 
-inherit gnome2
+inherit gnome2 eutils
 
-DESCRIPTION="The gnome2 Desktop configuration tool"
+DESCRIPTION="GNOME Desktop Configuration Tool"
 HOMEPAGE="http://www.gnome.org/"
 
 LICENSE="GPL-2"
@@ -48,8 +48,8 @@ COMMON_DEPEND="
 	networkmanager? ( >=net-misc/networkmanager-0.8.992 )
 	socialweb? ( net-libs/libsocialweb )
 
-	!!gnome-extra/gnome-media[pulseaudio]
-	!!<gnome-extra/gnome-media-2.32.0-r300"
+	!gnome-extra/gnome-media[pulseaudio]
+	!<gnome-extra/gnome-media-2.32.0-r300"
 RDEPEND="${COMMON_DEPEND}
 	sys-apps/accountsservice"
 PDEPEND=">=gnome-base/gnome-session-2.91.6-r1"
@@ -66,13 +66,18 @@ DEPEND="${COMMON_DEPEND}
 	>=app-text/gnome-doc-utils-0.10.1
 	doc? ( >=dev-util/gtk-doc-1.9 )"
 
-pkg_setup() {
+src_prepare() {
 	G2CONF="${G2CONF}
 		--disable-update-mimedb
 		--disable-static
 		--disable-schemas-install
 		$(use_with socialweb libsocialweb)"
 	DOCS="AUTHORS ChangeLog NEWS README TODO"
+
+	# bug 356729
+	epatch "${FILESDIR}/${PN}-fix-networkmanager-api.patch"
+
+	gnome2_src_prepare
 }
 
 src_install() {
