@@ -15,7 +15,7 @@ SRC_URI=""
 CLIENTS_USE="accerso appareo instruo"
 
 IUSE="${CLIENTS_USE}
-ask cran doc gemcutter pbins pink portage python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
+ask doc gemcutter pbins pink portage python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -87,7 +87,7 @@ src_unpack() {
 
 src_compile() {
 	format_list() { echo $@ | tr -s \  ,; }
-	local repositories="default repository unavailable unpackaged $(usev cran) $(usev gemcutter)"
+	local repositories="default repository unavailable unpackaged $(usev gemcutter)"
 	local clients="$(usev accerso) $(usev appareo) cave $(usev instruo)"
 	local environments="default $(usev portage)"
 	econf \
