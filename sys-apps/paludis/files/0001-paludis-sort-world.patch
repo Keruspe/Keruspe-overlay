@@ -1,4 +1,4 @@
-From 3ed4baf77d340dc2b48bdb4d9eca558e121118e3 Mon Sep 17 00:00:00 2001
+From a2900d04d785eafda18e2e0e2ddcc200db097a60 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:17:27 +0200
 Subject: [PATCH 1/2] paludis sort world
@@ -208,5 +208,5 @@ index e3a853c..019ccbb 100644
               */
              void rewrite() const;
 -- 
-1.7.4.2.g597a6.dirty
+1.7.4.1.57.g0466.dirty
 
