@@ -70,7 +70,8 @@ DEPEND="${COMMON_DEPEND}
 	gnome-base/gnome-common"
 DOCS="AUTHORS README"
 G2CONF="--enable-compile-warnings=maximum
---disable-schemas-compile"
+--disable-schemas-compile
+--disable-jhbuild-wrapper-script"
 
 src_unpack() {
 	git_src_unpack
