@@ -8,6 +8,7 @@
 ~dev-vcs/git-9999
 =games-action/bomb-her-man-9999
 =gnome-base/accountsservice-9999
+~gnome-base/gnome-session-9999
 ~gnome-base/gnome-shell-9999
 =gnome-base/gsettings-desktop-schemas-9999
 ~gnome-extra/nm-applet-9999

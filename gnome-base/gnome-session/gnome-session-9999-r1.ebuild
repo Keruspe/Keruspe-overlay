@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="3"
-inherit autotools eutils gnome2
+inherit autotools eutils gnome2 git
 
 DESCRIPTION="Gnome session manager"
 HOMEPAGE="http://www.gnome.org/"
@@ -11,6 +11,9 @@ HOMEPAGE="http://www.gnome.org/"
 LICENSE="GPL-2 LGPL-2 FDL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+
+SRC_URI=""
+EGIT_REPO_URI=git://git.gnome.org/${PN}
 
 IUSE="doc ipv6 elibc_FreeBSD"
 
@@ -51,7 +54,6 @@ pkg_setup() {
 		--disable-maintainer-mode
 		--disable-schemas-compile
 		--docdir="${EPREFIX}/usr/share/doc/${PF}"
-		--with-gtk=3.0
 		$(use_enable doc docbook-docs)
 		$(use_enable ipv6)"
 	DOCS="AUTHORS ChangeLog NEWS README"
