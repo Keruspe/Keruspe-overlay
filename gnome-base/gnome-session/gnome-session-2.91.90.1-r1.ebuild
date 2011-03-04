@@ -33,8 +33,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.16:2
 	x11-misc/xdg-user-dirs-gtk
 	x11-apps/xdpyinfo"
 RDEPEND="${COMMON_DEPEND}
-	gnome-base/gnome-settings-daemon
-	gnome-base/gnome-shell"
+	gnome-base/gnome-settings-daemon"
 PDEPEND="gnome-base/gnome-shell"
 DEPEND="${COMMON_DEPEND}
 	>=dev-lang/perl-5

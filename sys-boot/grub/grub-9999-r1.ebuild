@@ -16,14 +16,15 @@ EAPI=4
 LICENSE="GPL-3"
 use multislot && SLOT="2" || SLOT="0"
 KEYWORDS="~amd64"
-IUSE="custom-cflags debug efi multislot nls static truetype"
+IUSE="custom-cflags debug efi multislot static truetype"
 
 RDEPEND=">=sys-libs/ncurses-5.2-r5
 	dev-libs/lzo
-	truetype? ( media-libs/freetype:2 media-fonts/unifont )"
+	truetype? ( media-libs/freetype >=media-fonts/unifont-5 )"
 DEPEND="${RDEPEND}
-	dev-lang/ruby
-	sys-devel/autogen"
+	>=sys-devel/autogen-5.10
+	>=dev-lang/python-2.5.2
+	sys-apps/help2man"
 PROVIDE="virtual/bootloader"
 
 src_configure() {
@@ -43,7 +44,6 @@ src_configure() {
 		$(use_enable debug mm-debug) \
 		$(use_enable debug grub-emu-usb) \
 		$(use_enable debug grub-fstest) \
-		$(use_enable nls) \
 		${myconf} || die
 }
 
@@ -60,6 +60,8 @@ src_install() {
 	if use multislot ; then
 		sed -i "s:grub-install:grub2-install:" "${D}"/sbin/grub-install || die
 		mv "${D}"/sbin/grub{,2}-install || die
+		mv "${D}"/sbin/grub{,2}-set-default || die
+		mv "${D}"/usr/share/man/man8/grub{,2}-install.8 || die
 		mv "${D}"/usr/share/info/grub{,2}.info || die
 	fi
 }
@@ -75,9 +77,13 @@ setup_boot_dir() {
 }
 
 pkg_postinst() {
+	mount-boot_mount_boot_partition
+
 	if use multislot ; then
 		elog "You have installed grub2 with USE=multislot, so to coexist"
 		elog "with grub1, the grub2 install binary is named grub2-install."
 	fi
 	setup_boot_dir "${ROOT}"boot
+
+	mount-boot_pkg_postinst
 }

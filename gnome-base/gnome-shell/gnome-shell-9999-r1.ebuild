@@ -23,13 +23,13 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	>=x11-libs/gtk+-3.0.0:3[introspection]
 	>=media-libs/clutter-1.5.15[introspection]
 	>=gnome-base/gnome-desktop-2.91.2:3
-	>=gnome-base/gsettings-desktop-schemas-0.1.8
+	>=gnome-base/gsettings-desktop-schemas-0.1.7.1
 	>=gnome-extra/evolution-data-server-2.91.6[introspection]
 	>=media-libs/gstreamer-0.10.16
 	>=media-libs/gst-plugins-base-0.10.16
 	>=net-libs/telepathy-glib-0.13.12[introspection]
 	>=sys-auth/polkit-0.100[introspection]
-	>=x11-wm/mutter-2.91.90[introspection]
+	>=x11-wm/mutter-2.91.90.1[introspection]
 
 	dev-libs/dbus-glib
 	dev-libs/libxml2:2
@@ -46,10 +46,8 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9
 
 	x11-libs/startup-notification
 	x11-libs/libXfixes
-	>=x11-wm/mutter-2.91.90[introspection]
 	x11-apps/mesa-progs
-
-	dev-python/dbus-python
+	
 	nm-applet? ( >=net-misc/networkmanager-9999[introspection] )"
 RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-icon-theme-symbolic
@@ -57,10 +55,13 @@ RDEPEND="${COMMON_DEPEND}
 	media-fonts/cantarell
 
 	>=gnome-base/dconf-0.4.1
-	>=gnome-base/gnome-settings-daemon-2.91
-	>=gnome-base/gnome-control-center-2.91
 	>=gnome-base/libgnomekbd-2.91.4[introspection]
 	sys-power/upower[introspection]
+	
+	>=gnome-base/gnome-session-2.91.91
+
+	>=gnome-base/gnome-settings-daemon-2.91
+	>=gnome-base/gnome-control-center-2.91
 
 	nm-applet? ( >=gnome-extra/nm-applet-9999 )"
 DEPEND="${COMMON_DEPEND}
@@ -97,12 +98,12 @@ pkg_postinst() {
 		ewarn "To make use of GNOME Shell's built-in screen recording utility,"
 		ewarn "you need to either install >=media-libs/gst-plugins-good-0.10.23"
 		ewarn "and media-plugins/gst-plugins-vp8, or use dconf-editor to change"
-		ewarn "/apps/gnome-shell/recorder/pipeline to what you want to use."
+		ewarn "apps.gnome-shell.recorder/pipeline to what you want to use."
 	fi
 }
 
 src_install() {
 	gnome2_src_install
-	python_convert_shebangs 2 "${ED}"usr/bin/gnome-shell
+	python_convert_shebangs 2 tools/check-for-missing.py
 	find "${ED}" -name "*.la" -delete || die "la files removal failed"
 }

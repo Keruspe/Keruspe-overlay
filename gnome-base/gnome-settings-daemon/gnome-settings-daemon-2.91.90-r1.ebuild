@@ -11,7 +11,7 @@ HOMEPAGE="http://www.gnome.org"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug packagekit policykit smartcard +udev"
+IUSE="debug +udev packagekit policykit smartcard"
 
 COMMON_DEPEND=">=dev-libs/dbus-glib-0.74
 	>=dev-libs/glib-2.26.0
@@ -33,6 +33,7 @@ COMMON_DEPEND=">=dev-libs/dbus-glib-0.74
 
 	packagekit? (
 		dev-libs/glib:2
+		sys-fs/udev[extras]
 		>=app-portage/packagekit-0.6.4
 		>=sys-power/upower-0.9.1 )
 	policykit? (
