@@ -61,7 +61,6 @@ pkg_setup() {
 
 src_prepare() {
 	gnome2_src_prepare
-	epatch "${FILESDIR}/${PN}-2.32.0-session-saving-button.patch"
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 }
