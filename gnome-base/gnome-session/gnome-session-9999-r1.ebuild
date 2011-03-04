@@ -60,6 +60,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	mkdir m4
 	gnome2_src_prepare
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
