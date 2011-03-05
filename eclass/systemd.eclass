@@ -12,7 +12,7 @@
 
 IUSE="systemd"
 
-DEPEND="systemd? ( sys-apps/systemd )"
+PDEPEND="systemd? ( sys-apps/systemd )"
 
 # doservices: install systemd .service files. Usage is 'doservices files....'.
 doservices() {
