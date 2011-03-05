@@ -46,9 +46,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9
 
 	x11-libs/startup-notification
 	x11-libs/libXfixes
-	x11-apps/mesa-progs
-	
-	nm-applet? ( >=net-misc/networkmanager-9999[introspection] )"
+	x11-apps/mesa-progs"
 RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-icon-theme-symbolic
 	x11-themes/gnome-themes-standard
@@ -61,14 +59,13 @@ RDEPEND="${COMMON_DEPEND}
 	>=gnome-base/gnome-session-2.91.91
 
 	>=gnome-base/gnome-settings-daemon-2.91
-	>=gnome-base/gnome-control-center-2.91
-
-	nm-applet? ( >=gnome-extra/nm-applet-9999 )"
+	>=gnome-base/gnome-control-center-2.91"
 DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.22
 	>=dev-util/intltool-0.26
 	gnome-base/gnome-common"
+PDEPED="nm-applet? ( >=net-misc/networkmanager-9999[introspection] )"
 DOCS="AUTHORS README"
 G2CONF="--enable-compile-warnings=maximum
 --disable-schemas-compile
