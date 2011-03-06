@@ -7,7 +7,7 @@ inherit eutils toolchain-funcs linux-info
 
 DESCRIPTION="Manage special features such as screen and keyboard backlight on Apple MacBook Pro/PowerBook"
 HOMEPAGE="http://technologeek.org/projects/pommed/index.html"
-ALIOTH_NUMBER="3464"
+ALIOTH_NUMBER="3495"
 SRC_URI="http://alioth.debian.org/frs/download.php/${ALIOTH_NUMBER}/${P}.tar.gz"
 
 LICENSE="GPL-2"
