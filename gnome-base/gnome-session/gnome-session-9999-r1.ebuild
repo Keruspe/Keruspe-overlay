@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="3"
-inherit autotools eutils gnome2 git
+inherit autotools gnome2 git
 
 DESCRIPTION="Gnome session manager"
 HOMEPAGE="http://www.gnome.org/"
@@ -68,6 +68,7 @@ src_prepare() {
 
 src_install() {
 	gnome2_src_install
+
 	dodir /etc/X11/Sessions || die "dodir failed"
 	exeinto /etc/X11/Sessions
 	doexe "${FILESDIR}/Gnome" || die "doexe failed"
