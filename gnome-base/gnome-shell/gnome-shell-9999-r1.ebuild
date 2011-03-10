@@ -85,6 +85,7 @@ src_prepare() {
 	fi
 	mkdir m4
 	epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
+	epatch ${FILESDIR}/${PN}-fix-gnome-bluetooth.patch
 	intltoolize --force --copy --automake || die
 	eautoreconf
 }
