@@ -65,7 +65,7 @@ DEPEND="${COMMON_DEPEND}
 	>=dev-util/pkgconfig-0.22
 	>=dev-util/intltool-0.26
 	gnome-base/gnome-common"
-PDEPEND="nm-applet? ( >=net-misc/networkmanager-9999[introspection] )"
+PDEPEND="nm-applet? ( >=net-misc/networkmanager-0.8.996[introspection] )"
 DOCS="AUTHORS README"
 G2CONF="--enable-compile-warnings=maximum
 --disable-schemas-compile
