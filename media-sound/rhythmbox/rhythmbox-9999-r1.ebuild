@@ -18,27 +18,27 @@ musicbrainz mtp nsplugin python test udev upnp vala webkit"
 EGIT_REPO_URI="git://git.gnome.org/${PN}"
 SRC_URI=""
 
-COMMON_DEPEND=">=dev-libs/glib-2.25.12
-	dev-libs/libxml2
-	>=x11-libs/gtk+-2.91.4:3
+COMMON_DEPEND=">=dev-libs/glib-2.26.0:2
+	dev-libs/libxml2:2
+	>=x11-libs/gtk+-2.91.4:3[introspection]
+	>=x11-libs/gdk-pixbuf-2.18.0
+	>=dev-libs/gobject-introspection-0.10.0
 	>=dev-libs/totem-pl-parser-2.32.1
-	>=gnome-base/gconf-2
-	>=gnome-extra/gnome-media-2.14
+	>=gnome-base/gconf-2:2
+	>=media-libs/libgnome-media-profiles-2.91.0:3
 	>=net-libs/libsoup-2.26:2.4
 	>=net-libs/libsoup-gnome-2.26:2.4
-	>=media-libs/gst-plugins-base-0.10.24
-	
-	>=dev-libs/gobject-introspection-0.10.0
+	>=media-libs/gst-plugins-base-0.10.24:0.10
+	media-libs/gstreamer:0.10[introspection]
 
-	cdr? (
-		>=app-cdr/brasero-2.31.5 )
+	cdr? ( >=app-cdr/brasero-2.91.90 )
 	daap? (
-		>=media-libs/libdmapsharing-2.1.6
+		media-libs/libdmapsharing:3.0
 		>=net-dns/avahi-0.6 )
-	html? ( >=net-libs/webkit-gtk-1.1.17:3 )
 	gnome-keyring? ( >=gnome-base/gnome-keyring-0.4.9 )
+	html? ( >=net-libs/webkit-gtk-1.3.9:3 )
 	lastfm? ( dev-libs/json-glib )
-	libnotify? ( >=x11-libs/libnotify-0.4.1 )
+	libnotify? ( >=x11-libs/libnotify-0.5.1 )
 	lirc? ( app-misc/lirc )
 	musicbrainz? ( media-libs/musicbrainz:3 )
 	udev? (
@@ -58,12 +58,16 @@ RDEPEND="${COMMON_DEPEND}
 	nsplugin? ( net-libs/xulrunner )
 	python? (
 		>=dev-python/pygobject-2.15.4
-		>=dev-python/gconf-python-2.22
-		>=dev-python/gnome-keyring-python-2.22
 		>=dev-python/gst-python-0.10.8
+
+		x11-libs/gdk-pixbuf:2[introspection]
+		x11-libs/gtk+:3[introspection]
+		x11-libs/pango[introspection]
+		gnome-base/gconf:2[introspection]
+		gnome-keyring? ( dev-python/gnome-keyring-python )
 		webkit? (
 			dev-python/mako
-			dev-python/pywebkitgtk )
+			net-libs/webkit-gtk:3[introspection] )
 		upnp? (
 			dev-python/louie
 			media-video/coherence
@@ -73,7 +77,7 @@ RDEPEND="${COMMON_DEPEND}
 #	dev-util/gtk-doc-am
 DEPEND="${COMMON_DEPEND}
 	dev-util/pkgconfig
-	>=dev-util/intltool-0.40
+	>=dev-util/intltool-0.35
 	app-text/scrollkeeper
 	>=app-text/gnome-doc-utils-0.9.1
 	doc? ( >=dev-util/gtk-doc-1.4 )
@@ -116,6 +120,10 @@ pkg_setup() {
 		fi
 	fi
 
+	if use gnome-keyring && ! use python; then
+		ewarn "The magnatune plugin requires USE='python gnome-keyring'"
+	fi
+
 	G2CONF="${G2CONF}
 		MOZILLA_PLUGINDIR=/usr/$(get_libdir)/nsbrowser/plugins
 		VALAC=$(type -P valac-0.12)
@@ -131,13 +139,13 @@ pkg_setup() {
 		$(use_enable nsplugin browser-plugin)
 		$(use_enable python)
 		$(use_enable vala)
+		$(use_with cdr brasero)
 		$(use_with daap mdns avahi)
 		$(use_with gnome-keyring)
 		$(use_with html webkit)
 		$(use_with ipod)
 		$(use_with mtp)
-		$(use_with udev gudev)
-		$(use_with cdr brasero)"
+		$(use_with udev gudev)"
 
 	export GST_INSPECT=/bin/true
 }
@@ -148,6 +156,8 @@ src_unpack() {
 
 src_prepare() {
 	gnome2_src_prepare
+
+	mv py-compile py-compile.orig
 	gtkdocize
 	gnome-doc-prepare --automake
 	intltoolize --automake

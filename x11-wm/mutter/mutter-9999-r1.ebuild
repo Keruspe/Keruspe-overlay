@@ -13,17 +13,17 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug +introspection +sound test xinerama"
+IUSE="debug +sound test xinerama"
 
-RDEPEND=">=x11-libs/pango-1.28[X,introspection?]
+RDEPEND=">=x11-libs/pango-1.28[X,introspection]
 	>=x11-libs/cairo-1.10[X]
-	>=x11-libs/gtk+-2.91.7:3[introspection?]
+	>=x11-libs/gtk+-2.91.7:3[introspection]
 	>=gnome-base/gconf-2
 	>=dev-libs/glib-2.14
 	>=x11-libs/startup-notification-0.7
 	>=x11-libs/libXcomposite-0.2
 
-	>=media-libs/clutter-1.5.5[introspection?]
+	>=media-libs/clutter-1.5.5[introspection]
 	x11-libs/libICE
 	x11-libs/libSM
 	x11-libs/libX11
@@ -34,7 +34,7 @@ RDEPEND=">=x11-libs/pango-1.28[X,introspection?]
 	x11-libs/libXrandr
 	x11-libs/libXrender
 
-	introspection? ( >=dev-libs/gobject-introspection-0.9.5 )
+	>=dev-libs/gobject-introspection-0.9.5
 	sound? (  >=media-libs/libcanberra-0.26[gtk3] )
 	xinerama? ( x11-libs/libXinerama )
 	gnome-extra/zenity
@@ -62,7 +62,6 @@ pkg_setup() {
 		--enable-verbose-mode
 		--enable-compile-warnings=maximum
 		$(use_with sound libcanberra)
-		$(use_with introspection)
 		$(use_enable xinerama)"
 }
 
