@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI=4
+WANT_AUTOMAKE=1.11
 inherit autotools git
 
 DESCRIPTION="Twitter and Identi.ca client"
