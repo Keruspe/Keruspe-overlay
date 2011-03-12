@@ -2,11 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-app-admin/gnome-system-tools:nautilus - Enable nautilus plugin
 app-misc/kupfer:keybinder - Use python keybinder
-gnome-base/gnome-shell:gpaste - Enable support for GPaste (Experimental)
-net-im/empathy:cc-embedding - Enable control-center embedding
-net-im/empathy:map - Enable geolocalisation stuff
 sys-apps/paludis:ask - Enable ask option (not supported upstream)
 sys-apps/paludis:sort-world - Sort the world file when modifying it (not supported upstream)
 sys-apps/paludis:accerso - Enable accerso client: Mirror client

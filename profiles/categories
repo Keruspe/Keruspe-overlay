@@ -9,9 +9,7 @@ dev-vcs
 games-action
 gnome-base
 gnome-extra
-media-libs
 media-sound
-media-video
 net-misc
 net-voip
 sys-apps
