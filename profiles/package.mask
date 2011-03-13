@@ -17,3 +17,6 @@
 # Dummy Kernel
 sys-kernel/dummy-sources
 
+# Splitted parts not here
+=media-libs/gst-plugins-bad-0.10.21
+
