@@ -3,16 +3,16 @@
 # $Header: $
 
 EAPI=4
-inherit eutils toolchain-funcs linux-info
+inherit eutils git toolchain-funcs linux-info
 
 DESCRIPTION="Manage special features such as screen and keyboard backlight on Apple MacBook Pro/PowerBook"
 HOMEPAGE="http://technologeek.org/projects/pommed/index.html"
-ALIOTH_NUMBER="3495"
-SRC_URI="http://alioth.debian.org/frs/download.php/${ALIOTH_NUMBER}/${P}.tar.gz"
+SRC_URI=""
+EGIT_REPO_URI="git://git.debian.org/pommed/pommed.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="gtk X"
 
 COMMON_DEPEND="media-libs/alsa-lib
@@ -35,6 +35,14 @@ pkg_setup() {
 	linux-info_pkg_setup
 	CONFIG_CHECK="~DMIID"
 	check_extra_config
+}
+
+src_unpack() {
+	git_src_unpack
+}
+
+src_prepare() {
+	epatch ${FILESDIR}/fix-backlight.patch
 }
 
 src_compile() {
