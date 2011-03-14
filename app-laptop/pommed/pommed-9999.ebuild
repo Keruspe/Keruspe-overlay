@@ -41,10 +41,6 @@ src_unpack() {
 	git_src_unpack
 }
 
-src_prepare() {
-	epatch ${FILESDIR}/fix-backlight.patch
-}
-
 src_compile() {
 	emake CC="$(tc-getCC)" OFLIB=1 || die "emake pommed failed"
 
