@@ -4,7 +4,7 @@
 
 EAPI=3
 PYTHON_DEPEND="2:2.5"
-inherit autotools eutils gnome2 git python
+inherit autotools eutils gnome2 git
 
 EGIT_REPO_URI="git://git.gnome.org/gnome-shell"
 DESCRIPTION="Provides core UI functions for the GNOME 3 desktop"
@@ -99,9 +99,4 @@ pkg_postinst() {
 		ewarn "and media-plugins/gst-plugins-vp8, or use dconf-editor to change"
 		ewarn "apps.gnome-shell.recorder/pipeline to what you want to use."
 	fi
-}
-
-src_install() {
-	gnome2_src_install
-	python_convert_shebangs 2 tools/check-for-missing.py
 }
