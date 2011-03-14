@@ -15,12 +15,10 @@ IUSE="debug"
 
 RDEPEND=">=gnome-base/nautilus-2.16
 	>=dev-libs/glib-2.14
-	dev-python/pygtk
 	>=x11-libs/gtk+-2.12
 	>=x11-libs/libnotify-0.4.4"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig
-	dev-python/docutils"
+	dev-util/pkgconfig"
 
 DOCS="AUTHORS ChangeLog NEWS README"
 G2CONF="${G2CONF} $(use_enable debug)"
