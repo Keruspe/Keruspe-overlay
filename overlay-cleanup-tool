@@ -33,7 +33,7 @@ main() {
   find_duplicates keruspe gentoo
   find_duplicates keruspe systemd
   find_unused systemd | grep -Ev '(udev|/systemd)'
-  find_unused keruspe
+  find_unused keruspe | grep -v grub
 }
 
 main
