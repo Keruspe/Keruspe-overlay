@@ -3,12 +3,11 @@
 # $Header: $
 
 EAPI=3
-
 inherit gnome2
 
 DESCRIPTION="A simple, easy to use paint program for GNOME"
-HOMEPAGE="http://code.google.com/p/gnome-paint/"
-SRC_URI="http://${PN}.googlecode.com/files/${P}.tar.gz"
+HOMEPAGE="https://launchpad.net/gnome-paint"
+SRC_URI="http://launchpad.net/${PN}/trunk/${PV}/+download/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
