@@ -14,7 +14,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="bluetooth nm-applet"
+IUSE="bluetooth"
 
 COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	>=dev-libs/gjs-0.7.11
@@ -67,8 +67,8 @@ DEPEND="${COMMON_DEPEND}
 	>=dev-util/pkgconfig-0.22
 	>=dev-util/intltool-0.26
 	gnome-base/gnome-common"
-PDEPEND="nm-applet? ( >=net-misc/networkmanager-0.8.996[introspection]
-	>=gnome-extra/nm-applet-0.8.996 )"
+PDEPEND=">=net-misc/networkmanager-0.8.996[introspection]
+	>=gnome-extra/nm-applet-0.8.996"
 DOCS="AUTHORS README"
 G2CONF="--enable-compile-warnings=maximum
 --disable-schemas-compile
@@ -79,13 +79,6 @@ src_unpack() {
 }
 
 src_prepare() {
-	if use nm-applet; then
-		# See https://bugzilla.gnome.org/show_bug.cgi?id=621707"
-		ewarn "Adding support for the experimental NetworkManager applet."
-		ewarn "This needs the latest NetworkManager & nm-applet trunk."
-		ewarn "Report bugs about this to 'nirbheek' on #gentoo-desktop @ FreeNode."
-		epatch "${FILESDIR}/gnome-shell-experimental-nm-applet.patch"
-	fi
 	mkdir m4
 	epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
 	epatch ${FILESDIR}/${PN}-fix-gnome-bluetooth.patch
