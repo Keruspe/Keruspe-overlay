@@ -52,6 +52,8 @@ RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-themes-standard
 	media-fonts/cantarell
 
+	>=sys-auth/polkit-0.101[introspection]
+	
 	>=gnome-base/dconf-0.4.1
 	>=gnome-base/libgnomekbd-2.91.4[introspection]
 	sys-power/upower[introspection]
