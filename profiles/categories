@@ -10,6 +10,7 @@ gnome-base
 gnome-extra
 media-libs
 media-sound
+net-dns
 net-misc
 net-voip
 sys-apps

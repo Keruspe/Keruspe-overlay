@@ -1,21 +1,20 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/pulseaudio/pulseaudio-0.9.22.ebuild,v 1.9 2011/02/11 08:49:58 radhermit Exp $
+# $Header: $
 
-EAPI=3
-
-inherit autotools eutils libtool flag-o-matic versionator
+EAPI=4
+inherit autotools eutils libtool flag-o-matic versionator git
 
 DESCRIPTION="A networked sound server with an advanced plugin system"
 HOMEPAGE="http://www.pulseaudio.org/"
 
-SRC_URI="http://0pointer.de/lennart/projects/${PN}/${P}.tar.gz"
+EGIT_REPO_URI="git://0pointer.de/pulseaudio.git"
 
 LICENSE="LGPL-2 GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="+alsa avahi +caps jack lirc oss tcpd +X dbus libsamplerate gnome bluetooth
-+asyncns +glib test doc +udev ipv6 system-wide realtime +gdbm tdb"
+KEYWORDS="~amd64 ~x86"
+IUSE="+alsa avahi +caps equalizer jack lirc oss tcpd +X dbus libsamplerate gnome
+bluetooth +asyncns +glib test doc +udev ipv6 system-wide realtime +orc +gdbm tdb"
 
 RDEPEND="app-admin/eselect-esd
 	X? (
@@ -42,13 +41,13 @@ RDEPEND="app-admin/eselect-esd
 	asyncns? ( net-libs/libasyncns )
 	udev? ( >=sys-fs/udev-143[extras] )
 	realtime? ( sys-auth/rtkit )
+	equalizer? ( sci-libs/fftw:3.0 )
+	orc? ( >=dev-lang/orc-0.4.9 )
 	>=media-libs/audiofile-0.2.6-r1
 	>=media-libs/speex-1.2_beta
 	>=media-libs/libsndfile-1.0.20
 	gdbm? ( sys-libs/gdbm )
-	!gdbm? (
-		tdb? ( sys-libs/tdb )
-	)
+	!gdbm? ( tdb? ( sys-libs/tdb ) )
 	>=sys-devel/libtool-2.2.4" # it's a valid RDEPEND, libltdl.so is used
 
 DEPEND="${RDEPEND}
@@ -79,27 +78,19 @@ pkg_setup() {
 	enewuser pulse -1 -1 /var/run/pulse pulse,audio
 }
 
-src_prepare() {
-	if use arm; then
-		# Fix build on armv5 - bug #294599
-		epatch "${FILESDIR}/${PN}-0.9.21-armv5-build-fix.patch"
-		eautoreconf
-	fi
-
-	elibtoolize
-}
+EGIT_BOOTSTRAP="./bootstrap.sh"
 
 src_configure() {
 	# It's a binutils bug, once I can find time to fix that I'll add a
 	# proper dependency and fix this up. — flameeyes
 	append-ldflags $(no-as-needed)
 
-	local database="simple"
-	if use gdbm; then
-		database="gdbm"
-	elif use tdb; then
-		database="tdb"
-	fi
+    local database="simple"
+    if use gdbm; then
+            database="gdbm"
+    elif use tdb; then
+            database="tdb"
+    fi
 
 	econf \
 		--enable-largefile \
