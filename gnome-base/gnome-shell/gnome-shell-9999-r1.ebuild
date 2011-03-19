@@ -14,7 +14,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="bluetooth"
+IUSE="bluetooth +nm-applet"
 
 COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	>=dev-libs/gjs-0.7.11
@@ -67,8 +67,9 @@ DEPEND="${COMMON_DEPEND}
 	>=dev-util/pkgconfig-0.22
 	>=dev-util/intltool-0.26
 	gnome-base/gnome-common"
-PDEPEND=">=net-misc/networkmanager-0.8.996[introspection]
-	>=gnome-extra/nm-applet-0.8.996"
+PDEPEND="nm-applet? (
+	>=net-misc/networkmanager-0.8.996[introspection]
+	>=gnome-extra/nm-applet-0.8.996 )"
 DOCS="AUTHORS README"
 G2CONF="--enable-compile-warnings=maximum
 --disable-schemas-compile
