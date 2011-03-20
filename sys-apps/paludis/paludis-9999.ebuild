@@ -32,7 +32,7 @@ COMMON_DEPEND="
 	search-index? ( dev-db/sqlite:3 )"
 
 DEPEND="${COMMON_DEPEND}
-    app-text/asciidoc
+    >=app-text/asciidoc-8.6.3
     app-text/xmlto
 	sys-devel/autoconf:2.5
 	sys-devel/automake:1.11
@@ -42,7 +42,8 @@ DEPEND="${COMMON_DEPEND}
 		python-bindings? ( dev-python/epydoc dev-python/pygments )
 		ruby-bindings? ( dev-ruby/syntax dev-ruby/allison )
 	)
-	dev-util/pkgconfig"
+	dev-util/pkgconfig
+	dev-util/gtest"
 
 RDEPEND="${COMMON_DEPEND}
 	sys-apps/sandbox"
