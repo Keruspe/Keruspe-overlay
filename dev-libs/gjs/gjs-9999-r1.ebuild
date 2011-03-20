@@ -2,9 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
-PYTHON_DEPEND="2"
-inherit autotools gnome2 git python
+EAPI=4
+inherit autotools gnome2 git
 
 DESCRIPTION="Javascript bindings for GNOME"
 HOMEPAGE="http://live.gnome.org/Gjs"
@@ -52,7 +51,6 @@ src_prepare() {
 	fi
 
 	gnome2_src_prepare
-	python_convert_shebangs 2 "${S}"/scripts/make-tests
 	eautoreconf
 }
 

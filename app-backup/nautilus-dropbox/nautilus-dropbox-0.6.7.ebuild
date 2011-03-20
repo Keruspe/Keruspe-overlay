@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 inherit gnome2 eutils
 
 DESCRIPTION="Store, Sync and Share Files Online"

@@ -2,8 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
-PYTHON_DEPEND="2:2.5"
+EAPI=4
 inherit autotools eutils gnome2 git
 
 EGIT_REPO_URI="git://git.gnome.org/gnome-shell"
