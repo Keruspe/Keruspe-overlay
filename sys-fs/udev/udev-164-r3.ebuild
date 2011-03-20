@@ -162,17 +162,17 @@ src_compile() {
 
 src_install() {
 	emake -C "${WORKDIR}/${scriptname}" \
-		DESTDIR="${D}" LIBDIR="$(get_libdir)" \
+		DESTDIR="${ED}" LIBDIR="$(get_libdir)" \
 		KV_min="${KV_min}" KV_reliable="${KV_reliable}" \
 		install || die "make install failed"
 
 	if ! use openrc; then
-		rm "${D}/$(get_libdir)/udev/rules.d/90-network.rules" || die
-		rm "${D}/$(get_libdir)/udev/net.sh" || die
+		rm "${ED}/$(get_libdir)/udev/rules.d/90-network.rules" || die
+		rm "${ED}/$(get_libdir)/udev/net.sh" || die
 	fi
 
 	into /
-	emake DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${ED}" install || die "make install failed"
 
 	exeinto "${udev_libexec_dir}"
 	keepdir "${udev_libexec_dir}"/state
@@ -181,7 +181,7 @@ src_install() {
 	dosym "..${udev_libexec_dir}/scsi_id" /sbin/scsi_id
 
 	echo "# If you need to change mount-options, do it in /etc/fstab" \
-	>> "${D}"/etc/udev/udev.conf
+	>> "${ED}"/etc/udev/udev.conf
 
 	keepdir /etc/udev/rules.d
 
@@ -199,14 +199,14 @@ src_install() {
 	newins "${FILESDIR}"/pnp-aliases pnp-aliases.conf
 
 	sed_libexec_dir \
-		"${D}/$(get_libdir)"/rcscripts/addons/*.sh \
-		"${D}/${udev_libexec_dir}"/write_root_link_rule \
-		"${D}"/etc/conf.d/udev \
-		"${D}"/etc/init.d/udev* \
-		"${D}"/etc/modprobe.d/*
+		"${ED}/$(get_libdir)"/rcscripts/addons/*.sh \
+		"${ED}/${udev_libexec_dir}"/write_root_link_rule \
+		"${ED}"/etc/conf.d/udev \
+		"${ED}"/etc/init.d/udev* \
+		"${ED}"/etc/modprobe.d/*
 
 	dodoc ChangeLog README TODO || die "failed installing docs"
-	rm -rf "${D}/usr/share/doc/${PN}"
+	rm -rf "${ED}/usr/share/doc/${PN}"
 	if use extras; then
 		dodoc extras/keymap/README.keymap.txt || die "failed installing docs"
 	fi
@@ -224,7 +224,7 @@ pkg_preinst() {
 
 	if [[ -d ${ROOT}/lib/udev-state ]]
 	then
-		mv -f "${ROOT}"/lib/udev-state/* "${D}"/lib/udev/state/
+		mv -f "${ROOT}"/lib/udev-state/* "${ED}"/lib/udev/state/
 		rm -r "${ROOT}"/lib/udev-state
 	fi
 

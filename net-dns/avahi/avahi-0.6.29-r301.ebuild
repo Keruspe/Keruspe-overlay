@@ -162,12 +162,12 @@ src_compile() {
 }
 
 src_install() {
-	emake install py_compile=true DESTDIR="${D}" || die "make install failed"
+	emake install py_compile=true DESTDIR="${ED}" || die "make install failed"
 	use bookmarks && use python && use dbus && use gtk || \
-		rm -f "${D}"/usr/bin/avahi-bookmarks
+		rm -f "${ED}"/usr/bin/avahi-bookmarks
 
-	use howl-compat && ln -s avahi-compat-howl.pc "${D}"/usr/$(get_libdir)/pkgconfig/howl.pc
-	use mdnsresponder-compat && ln -s avahi-compat-libdns_sd/dns_sd.h "${D}"/usr/include/dns_sd.h
+	use howl-compat && ln -s avahi-compat-howl.pc "${ED}"/usr/$(get_libdir)/pkgconfig/howl.pc
+	use mdnsresponder-compat && ln -s avahi-compat-libdns_sd/dns_sd.h "${ED}"/usr/include/dns_sd.h
 
 	if use autoipd; then
 		insinto /$(get_libdir)/rcscripts/net

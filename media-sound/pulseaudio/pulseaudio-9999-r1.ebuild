@@ -135,7 +135,7 @@ src_test() {
 }
 
 src_install() {
-	emake -j1 DESTDIR="${D}" install || die "make install failed"
+	emake -j1 DESTDIR="${ED}" install || die "make install failed"
 
 	# Drop the script entirely if X is disabled
 	use X || rm "${ED}"/usr/bin/start-pulseaudio-x11
@@ -173,7 +173,7 @@ src_install() {
 	use prefix || diropts -o pulse -g pulse -m0755
 	keepdir /var/run/pulse
 
-	find "${D}" -name '*.la' -delete
+	find "${ED}" -name '*.la' -delete
 }
 
 pkg_postinst() {

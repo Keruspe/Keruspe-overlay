@@ -48,6 +48,6 @@ src_test() {
 }
 
 src_install() {
-	emake install DESTDIR="${D}" || die "emake install failed"
+	emake install DESTDIR="${ED}" || die "emake install failed"
 	dodoc AUTHORS NEWS ChangeLog README || die "dodoc failed"
 }

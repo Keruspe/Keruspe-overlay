@@ -52,17 +52,17 @@ src_compile() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die
+	emake DESTDIR="${ED}" install || die
 	dodoc AUTHORS ChangeLog NEWS README THANKS TODO
-	cat <<-EOF >> "${D}"/lib*/grub/grub-mkconfig_lib
+	cat <<-EOF >> "${ED}"/lib*/grub/grub-mkconfig_lib
 	GRUB_DISTRIBUTOR="Gentoo"
 	EOF
 	if use multislot ; then
-		sed -i "s:grub-install:grub2-install:" "${D}"/sbin/grub-install || die
-		mv "${D}"/sbin/grub{,2}-install || die
-		mv "${D}"/sbin/grub{,2}-set-default || die
-		mv "${D}"/usr/share/man/man8/grub{,2}-install.8 || die
-		mv "${D}"/usr/share/info/grub{,2}.info || die
+		sed -i "s:grub-install:grub2-install:" "${ED}"/sbin/grub-install || die
+		mv "${ED}"/sbin/grub{,2}-install || die
+		mv "${ED}"/sbin/grub{,2}-set-default || die
+		mv "${ED}"/usr/share/man/man8/grub{,2}-install.8 || die
+		mv "${ED}"/usr/share/info/grub{,2}.info || die
 	fi
 }
 

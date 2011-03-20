@@ -179,7 +179,7 @@ src_test() {
 
 src_install() {
 	gnome2_src_install
-	find "${D}/usr/$(get_libdir)/rhythmbox/plugins" -name "*.la" -delete \
+	find "${ED}/usr/$(get_libdir)/rhythmbox/plugins" -name "*.la" -delete \
 		|| die "failed to remove *.la files"
 }
 

@@ -1,6 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/gst-plugins-bad/gst-plugins-bad-0.10.19.ebuild,v 1.8 2011/03/11 18:15:55 xarthisius Exp $
+# $Header: $
 
 inherit gst-plugins-bad gnome2 eutils flag-o-matic libtool
 

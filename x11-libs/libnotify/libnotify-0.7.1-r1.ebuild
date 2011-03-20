@@ -35,6 +35,6 @@ src_configure() {
 }
 
 src_install() {
-	emake install DESTDIR="${D}" || die "emake install failed"
+	emake install DESTDIR="${ED}" || die "emake install failed"
 	dodoc AUTHORS ChangeLog NEWS || die "dodoc failed"
 }

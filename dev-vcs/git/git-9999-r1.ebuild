@@ -147,7 +147,7 @@ src_prepare() {
 
 git_emake() {
 	emake ${MY_MAKEOPTS} \
-		DESTDIR="${D}" \
+		DESTDIR="${ED}" \
 		OPTCFLAGS="${CFLAGS}" \
 		OPTLDFLAGS="${LDFLAGS}" \
 		OPTCC="$(tc-getCC)" \
