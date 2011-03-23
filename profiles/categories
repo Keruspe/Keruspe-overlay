@@ -11,6 +11,7 @@ gnome-extra
 media-libs
 media-sound
 net-dns
+net-libs
 net-misc
 net-voip
 sys-apps
