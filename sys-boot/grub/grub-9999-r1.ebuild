@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EBZR_REPO_URI="http://bzr.savannah.gnu.org/r/grub/trunk/grub"
+EBZR_REPO_URI="http://bzr.savannah.gnu.org/r/grub/trunk/grub/"
 EBZR_BOOTSTRAP="autogen.sh"
 inherit bzr mount-boot eutils flag-o-matic toolchain-funcs
 
@@ -32,7 +32,7 @@ src_configure() {
 	use static && append-ldflags -static
 
 	local myconf=''
-	use efi && myconf='--with-platform=efi'
+	use efi && myconf="--with-platform=efi --target=x86_64 --program-prefix=''"
 
 	econf \
 		--disable-werror \
