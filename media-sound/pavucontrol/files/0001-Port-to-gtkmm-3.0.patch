@@ -1,0 +1,39 @@
+From a201d58c7c77c5126dc61395b01fd5f7b6a99119 Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Sat, 26 Mar 2011 23:29:37 +0100
+Subject: [PATCH] Port to gtkmm-3.0
+
+---
+ configure.ac      |    2 +-
+ src/mainwindow.cc |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index beb33f3..ee225cc 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -39,7 +39,7 @@ AC_PROG_LN_S
+ AC_TYPE_SIGNAL
+ AC_HEADER_STDC
+ 
+-PKG_CHECK_MODULES(GUILIBS, [ gtkmm-2.4 >= 2.16 sigc++-2.0 libcanberra-gtk >= 0.16 ])
++PKG_CHECK_MODULES(GUILIBS, [ gtkmm-3.0 >= 2.99 sigc++-2.0 libcanberra-gtk3 >= 0.16 ])
+ AC_SUBST(GUILIBS_CFLAGS)
+ AC_SUBST(GUILIBS_LIBS)
+ 
+diff --git a/src/mainwindow.cc b/src/mainwindow.cc
+index ddd0579..0f1a5c3 100644
+--- a/src/mainwindow.cc
++++ b/src/mainwindow.cc
+@@ -152,7 +152,7 @@ MainWindow* MainWindow::create() {
+ void MainWindow::on_realize() {
+     Gtk::Window::on_realize();
+ 
+-    get_window()->set_cursor(Gdk::Cursor(Gdk::WATCH));
++    get_window()->set_cursor(Gdk::Cursor::create(Gdk::WATCH));
+ }
+ 
+ MainWindow::~MainWindow() {
+-- 
+1.7.4.1.433.gcd306.dirty
+
