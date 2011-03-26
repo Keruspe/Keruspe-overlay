@@ -8,6 +8,7 @@
 =dev-libs/gobject-introspection-9999
 ~dev-vcs/git-9999
 ~gnome-base/gnome-shell-9999
+=media-sound/pavucontrol-9999
 ~media-sound/pulseaudio-9999
 ~media-sound/rhythmbox-9999
 =sys-apps/paludis-9999
