@@ -126,8 +126,6 @@ src_unpack() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/git-1.7.2-always-install-js.patch
-
 	sed -i \
 		-e 's:^\(CFLAGS =\).*$:\1 $(OPTCFLAGS) -Wall:' \
 		-e 's:^\(LDFLAGS =\).*$:\1 $(OPTLDFLAGS):' \
