@@ -153,7 +153,7 @@ src_install() {
 			$(use_define alsa) \
 			$(use_define bluetooth) \
 			$(use_define udev) \
-			"${FILESDIR}/pulseaudio.init.d-4" \
+			"${FILESDIR}/pulseaudio.init.d-5" \
 			> "${T}/pulseaudio"
 
 		doinitd "${T}/pulseaudio"
