@@ -42,6 +42,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9
 	media-sound/pulseaudio
 	bluetooth? ( >=net-wireless/gnome-bluetooth-2.91[introspection] )
 	!bluetooth? ( !!net-wireless/gnome-bluetooth )
+	>=net-im/telepathy-logger-0.2.5
 
 	x11-libs/startup-notification
 	x11-libs/libXfixes
