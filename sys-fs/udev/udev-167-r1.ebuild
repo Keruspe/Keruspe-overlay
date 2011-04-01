@@ -4,8 +4,7 @@
 
 EAPI=4
 inherit eutils flag-o-matic multilib toolchain-funcs linux-info systemd
-
-scriptversion=164
+scriptversion=164-v2
 scriptname=${PN}-gentoo-scripts-${scriptversion}
 
 SRC_URI="mirror://kernel/linux/utils/kernel/hotplug/${P}.tar.bz2
@@ -119,7 +118,7 @@ src_prepare() {
 
 	MD5=$(md5sum < "${S}/rules/rules.d/50-udev-default.rules")
 	MD5=${MD5/  -/}
-	if [[ ${MD5} != f3c9ade42f70cec0459f9e58a99c632a ]]
+	if [[ ${MD5} != a9954d57e97aa0ad2e0ed53899d9559a ]]
 	then
 		echo
 		eerror "50-udev-default.rules has been updated, please validate!"
@@ -132,7 +131,6 @@ src_prepare() {
 		rules/rules.d/78-sound-card.rules \
 		extras/rule_generator/write_*_rules \
 		|| die "sed failed"
-
 	cd "${WORKDIR}/${scriptname}"
 	sed_libexec_dir \
 		helpers/* \
