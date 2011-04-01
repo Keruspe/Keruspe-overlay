@@ -1,0 +1,57 @@
+From 2f6424b2f0a4e0968518c43725165c11186f92ff Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Fri, 1 Apr 2011 21:04:57 +0200
+Subject: [PATCH 2/2] Conditionally adapt to JS_DestroyScript removal
+
+Upstream changed the behaviour of several things about JSScripts in
+http://hg.mozilla.org/mozilla-central/rev/c919a7271ac1
+
+We now have to use a JSObject instead of a JSScript in certain circumstances,
+and we no longer have to call JS_DestroyScript which no longer exists
+---
+ configure.ac      |    1 +
+ modules/console.c |    6 ++++++
+ 2 files changed, 7 insertions(+), 0 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 853613f..f3175d3 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -163,6 +163,7 @@ AC_CHECK_LIB([mozjs], [JS_StrictPropertyStub], AC_DEFINE([HAVE_JS_STRICTPROPERTY
+ AC_CHECK_LIB([mozjs], [JS_GetGlobalForScopeChain], AC_DEFINE([HAVE_JS_GETGLOBALFORSCOPECHAIN], [1], [Define if we have JS_GetGlobalForScopeChain]),, [$JS_LIBS])
+ dnl xulrunner 2.2 checks
+ AC_CHECK_LIB([mozjs], [JS_CLASS_TRACE], AC_DEFINE([HAVE_JS_CLASS_TRACE], [1], [Define if we still have JS_CLASS_TRACE]),, [$JS_LIBS])
++AC_CHECK_LIB([mozjs], [JS_DestroyScript], AC_DEFINE([HAVE_JS_DESTROYSCRIPT], [1], [Define if we still have JS_DestroyScript]),, [$JS_LIBS])
+ 
+ AC_MSG_CHECKING([for mozilla-js >= 2 ])
+ if `$PKG_CONFIG --exists $JS_PACKAGE '>=' 2`; then
+diff --git a/modules/console.c b/modules/console.c
+index 49f891b..e6945be 100644
+--- a/modules/console.c
++++ b/modules/console.c
+@@ -161,7 +161,11 @@ gjs_console_interact(JSContext *context,
+ {
+     JSObject *object = JS_THIS_OBJECT(context, vp);
+     gboolean eof = FALSE;
++#ifdef HAVE_JS_DESTROYSCRIPT
+     JSScript *script = NULL;
++#else
++    JSObject *script = NULL;
++#endif
+     jsval result;
+     JSString *str;
+     GString *buffer = NULL;
+@@ -219,8 +223,10 @@ gjs_console_interact(JSContext *context,
+         }
+ 
+  next:
++#ifdef HAVE_JS_DESTROYSCRIPT
+         if (script)
+             JS_DestroyScript(context, script);
++#endif
+         g_string_free(buffer, TRUE);
+     } while (!eof);
+ 
+-- 
+1.7.4.2.422.g537d99.dirty
+

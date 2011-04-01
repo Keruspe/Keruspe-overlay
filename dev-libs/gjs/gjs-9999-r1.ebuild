@@ -50,6 +50,9 @@ src_prepare() {
 		ewarn "gnome-shell so that it links with xulrunner."
 	fi
 
+	epatch ${FILESDIR}/0001-Conditionally-adapt-to-JS_CLASS_TRACE-removal.patch
+	epatch ${FILESDIR}/0002-Conditionally-adapt-to-JS_DestroyScript-removal.patch
+
 	gnome2_src_prepare
 	eautoreconf
 }
