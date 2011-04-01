@@ -1,4 +1,4 @@
-From a983deb0c67250971dd8dd1c6e2ae580855758c7 Mon Sep 17 00:00:00 2001
+From 94e441b3f3f1262da0a25edf4e2af87d805298e9 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Fri, 1 Apr 2011 20:55:43 +0200
 Subject: [PATCH 1/2] Conditionally adapt to JS_CLASS_TRACE removal
@@ -6,8 +6,8 @@ Subject: [PATCH 1/2] Conditionally adapt to JS_CLASS_TRACE removal
 Upstream removed it in http://hg.mozilla.org/mozilla-central/rev/a7784d11c59b
 ---
  configure.ac    |    3 +++
- gi/keep-alive.c |   11 +++++++++--
- 2 files changed, 12 insertions(+), 2 deletions(-)
+ gi/keep-alive.c |   10 ++++++++--
+ 2 files changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
 index 715f2c3..853613f 100644
@@ -29,10 +29,10 @@ index 715f2c3..853613f 100644
  AC_MSG_CHECKING([for mozilla-js >= 2 ])
  if `$PKG_CONFIG --exists $JS_PACKAGE '>=' 2`; then
 diff --git a/gi/keep-alive.c b/gi/keep-alive.c
-index c7149ac..9d51a4f 100644
+index c7149ac..e268eaf 100644
 --- a/gi/keep-alive.c
 +++ b/gi/keep-alive.c
-@@ -184,8 +184,11 @@ keep_alive_trace(JSTracer *tracer,
+@@ -184,8 +184,10 @@ keep_alive_trace(JSTracer *tracer,
   */
  static struct JSClass gjs_keep_alive_class = {
      "__private_GjsKeepAlive", /* means "new __private_GjsKeepAlive()" works */
@@ -40,13 +40,12 @@ index c7149ac..9d51a4f 100644
 -    JSCLASS_MARK_IS_TRACE, /* TraceOp not MarkOp */
 +#ifdef HAVE_JS_CLASS_TRACE
 +    JSCLASS_MARK_IS_TRACE | /* TraceOp not MarkOp */
-+#else
-+    JSCLASS_HAS_PRIVATE,
 +#endif
++    JSCLASS_HAS_PRIVATE,
      JS_PropertyStub,
      JS_PropertyStub,
      JS_PropertyStub,
-@@ -200,7 +203,11 @@ static struct JSClass gjs_keep_alive_class = {
+@@ -200,7 +202,11 @@ static struct JSClass gjs_keep_alive_class = {
      NULL,
      NULL,
      NULL,
