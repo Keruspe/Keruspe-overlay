@@ -157,11 +157,11 @@ src_unpack() {
 src_prepare() {
 	gnome2_src_prepare
 
-	mv py-compile py-compile.orig
 	gtkdocize
 	gnome-doc-prepare --automake
 	intltoolize --automake
 	eautoreconf
+	mv py-compile py-compile.orig
 	ln -s $(type -P true) py-compile
 }
 
