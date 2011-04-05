@@ -108,6 +108,8 @@ sed_libexec_dir() {
 }
 
 src_prepare() {
+	epatch "${FILESDIR}/udev-167-revert-disable-all-extras.patch"
+	eautoreconf
 	if use test; then
 			mv "${WORKDIR}"/test/sys "${S}"/test/
 	fi
@@ -135,9 +137,6 @@ src_prepare() {
 	sed_libexec_dir \
 		helpers/* \
 		rc/*/*
-	
-	epatch "${FILESDIR}/udev-167-revert-disable-all-extras.patch"
-	eautoreconf
 }
 
 src_configure() {
