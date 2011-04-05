@@ -79,7 +79,13 @@ gnome2_src_prepare() {
 	gnome2_omf_fix
 
 	# Run libtoolize
-	elibtoolize ${ELTCONF}
+	if has ${EAPI:-0} 0 1 2 3; then
+		elibtoolize ${ELTCONF}
+	else
+		# Everything is fatal EAPI 4 onwards
+		nonfatal elibtoolize ${ELTCONF}
+	fi
+
 }
 
 gnome2_src_configure() {
@@ -99,20 +105,11 @@ gnome2_src_configure() {
 	addwrite "/root/.gnome2"
 
 	# GST_REGISTRY is to work around gst-inspect trying to read/write /root
-	GST_REGISTRY="${S}/registry.xml" econf "$@" ${G2CONF} || die "configure failed"
+	GST_REGISTRY="${S}/registry.xml" econf "$@" ${G2CONF}
 }
 
 gnome2_src_compile() {
 	has ${EAPI:-0} 0 1 && gnome2_src_configure "$@"
-
-	# Whenever new API is added to glib/cairo/libxml2 etc, gobject-introspection
-	# needs to be rebuilt so that the typelibs/girs contain the new API data
-	if has introspection ${IUSE} && use introspection; then
-		ewarn "If you get a compilation failure related to introspection, try"
-		ewarn "rebuilding dev-libs/gobject-introspection so that it's updated"
-		ewarn "for any new glib, cairo, etc APIs"
-	fi
-
 	emake || die "compile failure"
 }
 
@@ -156,7 +153,7 @@ gnome2_src_install() {
 	# Delete all .la files
 	if [[ "${GNOME2_LA_PUNT}" != "no" ]]; then
 		ebegin "Removing .la files"
-		find "${D}" -name '*.la' -exec rm -f '{}' + || die
+		find "${D}" -name '*.la' -exec rm -f {} + || die
 		eend
 	fi
 }
@@ -177,6 +174,12 @@ gnome2_pkg_postinst() {
 	if [[ "${SCROLLKEEPER_UPDATE}" = "1" ]]; then
 		gnome2_scrollkeeper_update
 	fi
+	# This should only be in the overlay
+	ewarn "**************************************************************"
+	ewarn "This is the *experimental* Keruspe Overlay"
+	ewarn "Please report bugs at Marc-Antoine@Perennou.com"
+	ewarn "Do NOT go to upstream with bugs without checking with me first"
+	ewarn "**************************************************************"
 }
 
 #gnome2_pkg_prerm() {
