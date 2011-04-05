@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=4
-inherit eutils flag-o-matic multilib toolchain-funcs linux-info systemd
+inherit autotools eutils flag-o-matic multilib toolchain-funcs linux-info systemd
 scriptversion=164-v2
 scriptname=${PN}-gentoo-scripts-${scriptversion}
 
@@ -135,6 +135,9 @@ src_prepare() {
 	sed_libexec_dir \
 		helpers/* \
 		rc/*/*
+	
+	epatch "${FILESDIR}/udev-167-revert-disable-all-extras.patch"
+	eautoreconf
 }
 
 src_configure() {
