@@ -28,6 +28,7 @@ RDEPEND="
 	tcpwrap? ( sys-apps/tcp-wrappers )
 	pam? ( virtual/pam )
 	selinux? ( sys-libs/libselinux )
+	>=sys-apps/util-linux-2.19
 	sys-apps/systemd-units
 	>=app-admin/syslog-ng-3
 	sys-apps/lsb-release"
@@ -35,15 +36,15 @@ DEPEND="${RDEPEND}
 	gtk? ( dev-lang/vala:0.12 )
 	>=sys-kernel/linux-headers-2.6.32"
 
-CONFIG_CHECK="AUTOFS4_FS CGROUPS DEVTMPFS ~FANOTIFY"
+CONFIG_CHECK="AUTOFS4_FS CGROUPS DEVTMPFS ~FANOTIFY ~IPV6"
 
 pkg_setup() {
 	linux-info_pkg_setup
 	enewgroup lock # used by var-lock.mount
+	enewgroup tty 5 # used by mount-setup for /dev/pts
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/0001-Revert-Revert-Revert-fsck-add-new-l-switch-to-fsck-m.patch
 	eautoreconf
 }
 
@@ -88,16 +89,40 @@ src_install() {
 	for i in telinit shutdown runlevel reboot poweroff halt; do
 		mv ${i}.8 systemd.${i}.8
 	done
+	keepdir /run
 }
 
 check_mtab_is_symlink() {
 	if test ! -L "${ROOT}"etc/mtab; then
 		ewarn "${ROOT}etc/mtab must be a symlink to ${ROOT}proc/self/mounts!"
 		ewarn "To correct that, execute"
-		ewarn "  ln -sf '${ROOT}proc/self/mounts' '${ROOT}etc/mtab'"
+		ewarn "    $ ln -sf '${ROOT}proc/self/mounts' '${ROOT}etc/mtab'"
+	fi
+}
+
+systemd_machine_id_setup() {
+	einfo "Setting up /etc/machine-id..."
+	"${ROOT}"bin/systemd-machine-id-setup
+	if test $? != 0; then
+		ewarn "Setting up /etc/machine-id failed, to fix it please see"
+		ewarn "  http://lists.freedesktop.org/archives/dbus/2011-March/014187.html"
+	elif test ! -L "${ROOT}"var/lib/dbus/machine-id; then
+		# This should be fixed in the dbus ebuild, but we warn about it here.
+		ewarn "${ROOT}var/lib/dbus/machine-id ideally should be a symlink to"
+		ewarn "${ROOT}etc/machine-id to make it clear that they have the same"
+		ewarn "content."
 	fi
 }
 
 pkg_postinst() {
 	check_mtab_is_symlink
+
+	systemd_machine_id_setup
+
+	# Inform user about extra configuration
+	elog "You may need to perform some additional configuration for some"
+	elog "programs to work, see the systemd manpages for loading modules and"
+	elog "handling tmpfiles:"
+	elog "    $ man modules-load.d"
+	elog "    $ man tmpfiles.d"
 }
