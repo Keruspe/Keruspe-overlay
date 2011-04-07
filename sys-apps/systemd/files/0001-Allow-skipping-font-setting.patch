@@ -1,0 +1,73 @@
+From 168e046e355b751d78aefc460983ae155ab0e5c0 Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Thu, 7 Apr 2011 15:31:22 +0200
+Subject: [PATCH] Allow skipping font setting
+
+In some cases, we may want to keep the font which is built in the kernel
+instead of setting a new one.
+Allow user to disable setting a new one by setting SKIP_FONT_SETTING to
+yes in /etc/vconsole.conf or with vconsole.skipfontsetting=yes in the
+kernel cmdline.
+
+Signed-off-by: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+---
+ src/vconsole-setup.c |   14 ++++++++++++--
+ 1 files changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/src/vconsole-setup.c b/src/vconsole-setup.c
+index 67fb7b6..8572a71 100644
+--- a/src/vconsole-setup.c
++++ b/src/vconsole-setup.c
+@@ -144,6 +144,7 @@ int main(int argc, char **argv) {
+         char *vc_font = NULL;
+         char *vc_font_map = NULL;
+         char *vc_font_unimap = NULL;
++        char *skip_font_setting = NULL;
+ #ifdef TARGET_GENTOO
+         char *vc_unicode = NULL;
+ #endif
+@@ -187,6 +188,7 @@ int main(int argc, char **argv) {
+                                         "vconsole.font", &vc_font,
+                                         "vconsole.font.map", &vc_font_map,
+                                         "vconsole.font.unimap", &vc_font_unimap,
++                                        "vconsole.skipfontsetting", &skip_font_setting,
+                                         NULL)) < 0) {
+ 
+                         if (r != -ENOENT)
+@@ -202,6 +204,7 @@ int main(int argc, char **argv) {
+                                 "FONT", &vc_font,
+                                 "FONT_MAP", &vc_font_map,
+                                 "FONT_UNIMAP", &vc_font_unimap,
++                                "SKIP_FONT_SETTING", &skip_font_setting,
+                                 NULL)) < 0) {
+ 
+                 if (r != -ENOENT)
+@@ -423,9 +426,13 @@ int main(int argc, char **argv) {
+         if (!utf8)
+                 disable_utf8(fd);
+ 
++        if (!skip_font_setting)
++            skip_font_setting = strdup("no");
++
+         if (load_keymap(vc, vc_keymap, vc_keymap_toggle, utf8, &keymap_pid) >= 0 &&
+-            load_font(vc, vc_font, vc_font_map, vc_font_unimap, &font_pid) >= 0)
+-                r = EXIT_SUCCESS;
++            ((skip_font_setting && strcmp(skip_font_setting, "yes") == 0) ||
++             load_font(vc, vc_font, vc_font_map, vc_font_unimap, &font_pid) >= 0))
++                 r = EXIT_SUCCESS;
+ 
+ finish:
+         if (keymap_pid > 0)
+@@ -439,6 +446,9 @@ finish:
+         free(vc_font_map);
+         free(vc_font_unimap);
+ 
++        if (skip_font_setting)
++            free(skip_font_setting);
++
+         if (fd >= 0)
+                 close_nointr_nofail(fd);
+ 
+-- 
+1.7.5.rc0.116.g44bc5.dirty
+
