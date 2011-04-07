@@ -1,0 +1,26 @@
+From d4239b57d7f35e7c5820c4a4d8d986420910f643 Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Thu, 7 Apr 2011 16:20:06 +0200
+Subject: [PATCH 2/2] Allow skipping font setting for Gentoo
+
+Signed-off-by: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+---
+ src/vconsole-setup.c |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/src/vconsole-setup.c b/src/vconsole-setup.c
+index 510e845..cbac4ef 100644
+--- a/src/vconsole-setup.c
++++ b/src/vconsole-setup.c
+@@ -340,6 +340,8 @@ int main(int argc, char **argv) {
+                                         "CONSOLETRANSLATION", &vc_font_map,
+                                         "unicodemap", &vc_font_unimap,
+                                         "UNICODEMAP", &vc_font_unimap,
++                                        "skip_font_setting", &skip_font_setting,
++                                        "SKIP_FONT_SETTING", &skip_font_setting,
+                                         NULL)) < 0) {
+                         if (r != -ENOENT)
+                                 log_warning("Failed to read /etc/conf.d/consolefont: %s", strerror(-r));
+-- 
+1.7.5.rc0.116.g44bc5.dirty
+

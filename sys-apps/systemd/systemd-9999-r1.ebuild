@@ -46,6 +46,7 @@ pkg_setup() {
 
 src_prepare() {
 	epatch ${FILESDIR}/0001-Allow-skipping-font-setting.patch
+	epatch ${FILESDIR}/0002-Allow-skipping-font-setting-for-Gentoo.patch
 	eautoreconf
 }
 

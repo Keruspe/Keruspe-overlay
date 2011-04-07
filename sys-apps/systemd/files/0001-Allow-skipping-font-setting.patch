@@ -1,7 +1,7 @@
-From 168e046e355b751d78aefc460983ae155ab0e5c0 Mon Sep 17 00:00:00 2001
+From 0c9b394e6f3a1b61f799ae5372e2014297fc926c Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Thu, 7 Apr 2011 15:31:22 +0200
-Subject: [PATCH] Allow skipping font setting
+Subject: [PATCH 1/2] Allow skipping font setting
 
 In some cases, we may want to keep the font which is built in the kernel
 instead of setting a new one.
@@ -11,11 +11,11 @@ kernel cmdline.
 
 Signed-off-by: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 ---
- src/vconsole-setup.c |   14 ++++++++++++--
- 1 files changed, 12 insertions(+), 2 deletions(-)
+ src/vconsole-setup.c |   11 +++++++++--
+ 1 files changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/src/vconsole-setup.c b/src/vconsole-setup.c
-index 67fb7b6..8572a71 100644
+index 67fb7b6..510e845 100644
 --- a/src/vconsole-setup.c
 +++ b/src/vconsole-setup.c
 @@ -144,6 +144,7 @@ int main(int argc, char **argv) {
@@ -42,13 +42,9 @@ index 67fb7b6..8572a71 100644
                                  NULL)) < 0) {
  
                  if (r != -ENOENT)
-@@ -423,9 +426,13 @@ int main(int argc, char **argv) {
-         if (!utf8)
+@@ -424,8 +427,9 @@ int main(int argc, char **argv) {
                  disable_utf8(fd);
  
-+        if (!skip_font_setting)
-+            skip_font_setting = strdup("no");
-+
          if (load_keymap(vc, vc_keymap, vc_keymap_toggle, utf8, &keymap_pid) >= 0 &&
 -            load_font(vc, vc_font, vc_font_map, vc_font_unimap, &font_pid) >= 0)
 -                r = EXIT_SUCCESS;
@@ -58,7 +54,7 @@ index 67fb7b6..8572a71 100644
  
  finish:
          if (keymap_pid > 0)
-@@ -439,6 +446,9 @@ finish:
+@@ -439,6 +443,9 @@ finish:
          free(vc_font_map);
          free(vc_font_unimap);
  
