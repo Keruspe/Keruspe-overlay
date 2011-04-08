@@ -1,4 +1,4 @@
-From 0c9b394e6f3a1b61f799ae5372e2014297fc926c Mon Sep 17 00:00:00 2001
+From dc127d501f0e743bd7782d21150b507b66003a05 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Thu, 7 Apr 2011 15:31:22 +0200
 Subject: [PATCH 1/2] Allow skipping font setting
@@ -15,7 +15,7 @@ Signed-off-by: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
  1 files changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/src/vconsole-setup.c b/src/vconsole-setup.c
-index 67fb7b6..510e845 100644
+index 67fb7b6..bde2b42 100644
 --- a/src/vconsole-setup.c
 +++ b/src/vconsole-setup.c
 @@ -144,6 +144,7 @@ int main(int argc, char **argv) {
@@ -48,7 +48,7 @@ index 67fb7b6..510e845 100644
          if (load_keymap(vc, vc_keymap, vc_keymap_toggle, utf8, &keymap_pid) >= 0 &&
 -            load_font(vc, vc_font, vc_font_map, vc_font_unimap, &font_pid) >= 0)
 -                r = EXIT_SUCCESS;
-+            ((skip_font_setting && strcmp(skip_font_setting, "yes") == 0) ||
++            ((skip_font_setting && parse_boolean(skip_font_setting) > 0) ||
 +             load_font(vc, vc_font, vc_font_map, vc_font_unimap, &font_pid) >= 0))
 +                 r = EXIT_SUCCESS;
  
