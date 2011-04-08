@@ -2,68 +2,68 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-inherit autotools gnome2 git
+EAPI="3"
+GCONF_DEBUG="no"
+GNOME2_LA_PUNT="yes"
+PYTHON_DEPEND="2"
+
+inherit eutils gnome2-live python virtualx
 
 DESCRIPTION="Javascript bindings for GNOME"
 HOMEPAGE="http://live.gnome.org/Gjs"
-EGIT_REPO_URI="git://git.gnome.org/gjs"
-SRC_URI=""
 
 LICENSE="MIT MPL-1.1 LGPL-2 GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="coverage examples"
+IUSE="coverage examples test"
 
+# Things are untested and broken with anything other than xulrunner-2.0
 RDEPEND=">=dev-libs/glib-2.18:2
 	>=dev-libs/gobject-introspection-0.10.1
+
 	dev-libs/dbus-glib
+	sys-libs/readline
 	x11-libs/cairo
-	|| ( >=net-libs/xulrunner-1.9.2:1.9
-		 >=dev-lang/spidermonkey-1.9.2 )
-	!<dev-lang/spidermonkey-1.9.2"
+	>=net-libs/xulrunner-2.0:1.9"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.9
 	coverage? (
 		sys-devel/gcc
-		dev-util/lcov )"
-
-src_unpack() {
-	git_src_unpack
-}
+		dev-util/lcov )
+	!dev-lang/spidermonkey"
+# HACK HACK: gjs-tests picks up /usr/lib/libmozjs.so with spidermonkey installed
 
 src_prepare() {
 	# AUTHORS, ChangeLog are empty
 	DOCS="NEWS README"
+	# FIXME: add systemtap/dtrace support, like in glib:2
 	G2CONF="${G2CONF}
+		--disable-systemtap
+		--disable-dtrace
 		$(use_enable coverage)"
 
-	# If spidermonkey & xulrunner are installed configure prefers spidermonkey.
-	# This will break gnome-shell if the user removes spidermonkey.
-	# Mozilla wants to move to a split spidermonkey, so this problem should
-	# solve itself in the future. For now, we add an ewarn.
-	if has_version dev-lang/spidermonkey && has_version net-libs/xulrunner; then
-		ewarn "You have both spidermonkey and xulrunner installed,"
-		ewarn "hence gnome-shell will be linked with spidermonkey."
-		ewarn "If you remove spidermonkey, you will need to recompile"
-		ewarn "gnome-shell so that it links with xulrunner."
-	fi
+	# https://bugs.gentoo.org/353941
+	epatch "${FILESDIR}/${PN}-drop-js-config.patch"
 
 	epatch ${FILESDIR}/0001-Conditionally-adapt-to-JS_CLASS_TRACE-removal.patch
 	epatch ${FILESDIR}/0002-Conditionally-adapt-to-JS_DestroyScript-removal.patch
 
 	gnome2_src_prepare
-	eautoreconf
+	python_convert_shebangs 2 "${S}"/scripts/make-tests
+}
+
+src_test() {
+	# Tests need dbus
+	Xemake check || die
 }
 
 src_install() {
+	# installation sometimes fails in parallel
 	gnome2_src_install -j1
 
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
 		doins ${S}/examples/* || die "doins examples failed!"
 	fi
-
-	find "${ED}" -name "*.la" -delete || die "la files removal failed"
 }
