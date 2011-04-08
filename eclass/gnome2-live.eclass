@@ -42,7 +42,7 @@ ELTCONF=${ELTCONF:-}
 GNOME_LIVE_MODULE=${MODPATH:-"${PN}"}
 
 # GIT URI for the project
-EGIT_REPO_URI="${EGIT_REPO_URI:-"git://git.gnome.org/${MODPATH}"}"
+EGIT_REPO_URI="${EGIT_REPO_URI:-"git://git.gnome.org/${GNOME_LIVE_MODULE}"}"
 
 # Unset SRC_URI auto-set by gnome2.eclass
 SRC_URI=""
