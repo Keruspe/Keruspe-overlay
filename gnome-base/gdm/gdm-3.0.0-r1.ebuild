@@ -124,7 +124,6 @@ src_prepare() {
 	# fix libxklavier automagic support
 	epatch "${FILESDIR}/${PN}-2.32.0-automagic-libxklavier-support.patch"
 
-	mkdir "${S}"/m4
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 }
