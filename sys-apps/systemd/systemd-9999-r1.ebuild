@@ -81,12 +81,6 @@ src_install() {
 	dodoc "${ED}/usr/share/doc/systemd"/* && \
 		rm -r "${ED}/usr/share/doc/systemd/"
 
-	cd ${ED}/usr/share/man/man1/
-	mv init.1 systemd.init.1
-	cd ${ED}/usr/share/man/man5/
-	mv tmpfiles.d.5 systemd.tmpfiles.d.5
-	cd ${ED}/usr/share/man/man7/
-	mv daemon.7 systemd.daemon.7
 	cd ${ED}/usr/share/man/man8/
 	for i in telinit shutdown runlevel reboot poweroff halt; do
 		mv ${i}.8 systemd.${i}.8
