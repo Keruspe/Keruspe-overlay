@@ -1,33 +1,91 @@
-From 01d99d39887a7ba69bc72c6acd0fc280fbb3df63 Mon Sep 17 00:00:00 2001
+From d842b69932f604aa49974493b92dbe77cf70e654 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Thu, 7 Apr 2011 15:31:22 +0200
 Subject: [PATCH] Allow skipping font setting
 
 In some cases, we may want to keep the font which is built in the kernel
 instead of setting a new one.
-Allow user to disable setting a new one by setting the consolefont to "none".
+Allow user to disable setting a new one instead of forcing a default one.
 
 Signed-off-by: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 ---
- src/vconsole-setup.c |    5 +++--
- 1 files changed, 3 insertions(+), 2 deletions(-)
+ Makefile.am          |   15 +++++----------
+ src/vconsole-setup.c |    7 +++----
+ 2 files changed, 8 insertions(+), 14 deletions(-)
 
+diff --git a/Makefile.am b/Makefile.am
+index 2f08ceb..1f11fb5 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -69,31 +69,26 @@ AM_CPPFLAGS = \
+ if TARGET_GENTOO
+ AM_CPPFLAGS += \
+ 	-DKBD_LOADKEYS=\"/usr/bin/loadkeys\" \
+-	-DKBD_SETFONT=\"/usr/bin/setfont\" \
+-	-DDEFAULT_FONT=\"LatArCyrHeb-16\"
++	-DKBD_SETFONT=\"/usr/bin/setfont\"
+ else
+ if TARGET_ARCH
+ AM_CPPFLAGS += \
+ 	-DKBD_LOADKEYS=\"/usr/bin/loadkeys\" \
+-	-DKBD_SETFONT=\"/usr/bin/setfont\" \
+-	-DDEFAULT_FONT=\"LatArCyrHeb-16\"
++	-DKBD_SETFONT=\"/usr/bin/setfont\"
+ else
+ if TARGET_FRUGALWARE
+ AM_CPPFLAGS += \
+ 	-DKBD_LOADKEYS=\"/usr/bin/loadkeys\" \
+-	-DKBD_SETFONT=\"/usr/bin/setfont\" \
+-	-DDEFAULT_FONT=\"LatArCyrHeb-16\"
++	-DKBD_SETFONT=\"/usr/bin/setfont\"
+ else
+ if TARGET_MANDRIVA
+ AM_CPPFLAGS += \
+ 	-DKBD_LOADKEYS=\"/bin/loadkeys\" \
+-	-DKBD_SETFONT=\"/bin/setfont\" \
+-	-DDEFAULT_FONT=\"LatArCyrHeb-16\"
++	-DKBD_SETFONT=\"/bin/setfont\"
+ else
+ AM_CPPFLAGS += \
+ 	-DKBD_LOADKEYS=\"/bin/loadkeys\" \
+-	-DKBD_SETFONT=\"/bin/setfont\" \
+-	-DDEFAULT_FONT=\"latarcyrheb-sun16\"
++	-DKBD_SETFONT=\"/bin/setfont\"
+ endif
+ endif
+ endif
 diff --git a/src/vconsole-setup.c b/src/vconsole-setup.c
-index 67fb7b6..f77ad61 100644
+index 67fb7b6..21ba09e 100644
 --- a/src/vconsole-setup.c
 +++ b/src/vconsole-setup.c
-@@ -424,8 +424,9 @@ int main(int argc, char **argv) {
+@@ -412,8 +412,6 @@ int main(int argc, char **argv) {
+ 
+         if (!vc_keymap)
+                 vc_keymap = strdup("us");
+-        if (!vc_font)
+-                vc_font = strdup(DEFAULT_FONT);
+ 
+         if (!vc_keymap || !vc_font) {
+                 log_error("Failed to allocate strings.");
+@@ -424,7 +422,7 @@ int main(int argc, char **argv) {
                  disable_utf8(fd);
  
          if (load_keymap(vc, vc_keymap, vc_keymap_toggle, utf8, &keymap_pid) >= 0 &&
 -            load_font(vc, vc_font, vc_font_map, vc_font_unimap, &font_pid) >= 0)
--                r = EXIT_SUCCESS;
-+            (strcmp(vc_font, "none") == 0 ||
-+                load_font(vc, vc_font, vc_font_map, vc_font_unimap, &font_pid) >= 0))
-+                    r = EXIT_SUCCESS;
++            (!vc_font || load_font(vc, vc_font, vc_font_map, vc_font_unimap, &font_pid) >= 0))
+                 r = EXIT_SUCCESS;
  
  finish:
-         if (keymap_pid > 0)
+@@ -435,7 +433,8 @@ finish:
+                 wait_for_terminate_and_warn(KBD_SETFONT, font_pid);
+ 
+         free(vc_keymap);
+-        free(vc_font);
++        if (vc_font)
++                free(vc_font);
+         free(vc_font_map);
+         free(vc_font_unimap);
+ 
 -- 
 1.7.5.rc0.116.g44bc5.dirty
 
