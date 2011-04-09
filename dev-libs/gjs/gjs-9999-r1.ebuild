@@ -15,7 +15,7 @@ HOMEPAGE="http://live.gnome.org/Gjs"
 LICENSE="MIT MPL-1.1 LGPL-2 GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="coverage examples test"
+IUSE="examples test"
 
 # Things are untested and broken with anything other than xulrunner-2.0
 RDEPEND=">=dev-libs/glib-2.18:2
@@ -28,9 +28,6 @@ RDEPEND=">=dev-libs/glib-2.18:2
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.9
-	coverage? (
-		sys-devel/gcc
-		dev-util/lcov )
 	!dev-lang/spidermonkey"
 # HACK HACK: gjs-tests picks up /usr/lib/libmozjs.so with spidermonkey installed
 
@@ -41,7 +38,7 @@ src_prepare() {
 	G2CONF="${G2CONF}
 		--disable-systemtap
 		--disable-dtrace
-		$(use_enable coverage)"
+		--disable-coverage"
 
 	# https://bugs.gentoo.org/353941
 	epatch "${FILESDIR}/${PN}-drop-js-config.patch"
