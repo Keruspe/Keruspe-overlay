@@ -1,10 +1,10 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-wireless/wpa_supplicant/wpa_supplicant-0.7.3-r2.ebuild,v 1.2 2011/03/15 18:10:20 hwoarang Exp $
+# $Header: $
 
 EAPI="2"
 
-inherit eutils toolchain-funcs qt4-r2
+inherit eutils toolchain-funcs qt4-r2 systemd
 
 DESCRIPTION="IEEE 802.1X/WPA supplicant for secure wireless transfers"
 HOMEPAGE="http://hostap.epitest.fi/wpa_supplicant/"
