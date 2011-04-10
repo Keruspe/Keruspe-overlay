@@ -61,8 +61,6 @@ PDEPEND="
 		net-misc/rsync
 		net-misc/wget"
 
-PROVIDE="virtual/portage"
-
 create-paludis-user() {
 	enewgroup "paludisbuild"
 	enewuser "paludisbuild" -1 -1 "/var/tmp/paludis" "paludisbuild,tty"
