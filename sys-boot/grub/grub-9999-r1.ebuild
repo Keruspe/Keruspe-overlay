@@ -25,7 +25,6 @@ DEPEND="${RDEPEND}
 	>=sys-devel/autogen-5.10
 	>=dev-lang/python-2.5.2
 	sys-apps/help2man"
-PROVIDE="virtual/bootloader"
 
 src_configure() {
 	use custom-cflags || unset CFLAGS CXXFLAGS LDFLAGS
