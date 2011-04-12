@@ -14,7 +14,7 @@ EGIT_BRANCH="master"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="audit cryptsetup gtk pam selinux sysv +tcpwrap"
+IUSE="audit cryptsetup gtk pam selinux symlinks sysv +tcpwrap"
 
 RDEPEND="
 	>=sys-apps/dbus-1.4.0[systemd]
@@ -27,6 +27,7 @@ RDEPEND="
 			dev-libs/dbus-glib )
 	tcpwrap? ( sys-apps/tcp-wrappers )
 	pam? ( virtual/pam )
+	symlinks? ( !!sys-apps/sysvinit )
 	selinux? ( sys-libs/libselinux )
 	>=sys-apps/util-linux-2.19
 	sys-apps/systemd-units
@@ -74,17 +75,29 @@ src_configure() {
 		${myconf}
 }
 
+rename_mans() {
+	cd ${ED}/usr/share/man/man8/
+	for i in telinit shutdown runlevel reboot poweroff halt; do
+		mv ${i}.8 systemd.${i}.8
+	done
+}
+
 src_install() {
 	emake DESTDIR=${ED} install || die "emake install failed"
 
 	dodoc "${ED}/usr/share/doc/systemd"/* && \
 		rm -r "${ED}/usr/share/doc/systemd/"
 
-	cd ${ED}/usr/share/man/man8/
-	for i in telinit shutdown runlevel reboot poweroff halt; do
-		mv ${i}.8 systemd.${i}.8
-	done
 	keepdir /run
+	find ${ED} -name '*.la' -delete
+	if use symlinks; then
+        dosym /bin/systemctl /sbin/init
+        dosym /bin/systemctl /sbin/poweroff
+        dosym /bin/systemctl /sbin/halt
+        dosym /bin/systemctl /sbin/reboot
+	else
+		rename_mans
+	fi
 }
 
 check_mtab_is_symlink() {
