@@ -37,7 +37,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9:2
 	bluetooth? ( >=net-wireless/gnome-bluetooth-2.91[introspection] )
 	!bluetooth? ( !!net-wireless/gnome-bluetooth )
 	>=sys-auth/polkit-0.100[introspection]
-	>=x11-wm/mutter-3.0.0[introspection]
+	>=x11-wm/mutter-3.0.0
 
 	dev-libs/dbus-glib
 	dev-libs/libxml2:2
