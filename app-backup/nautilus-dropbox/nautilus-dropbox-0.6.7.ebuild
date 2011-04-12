@@ -18,6 +18,8 @@ RDEPEND=">=gnome-base/nautilus-2.16
 	>=x11-libs/gtk+-2.12
 	>=x11-libs/libnotify-0.4.4"
 DEPEND="${RDEPEND}
+    dev-python/docutils
+	dev-python/pygtk
 	dev-util/pkgconfig"
 
 DOCS="AUTHORS ChangeLog NEWS README"
@@ -33,6 +35,8 @@ src_install () {
 	local extensiondir="$(pkg-config --variable=extensiondir libnautilus-extension)"
 	fowners root:dropbox "${extensiondir}"/libnautilus-dropbox.{a,la,so}
 	fperms o-rwx "${extensiondir}"/libnautilus-dropbox.{a,la,so}
+
+	find ${ED} -name '*.la' -delete
 }
 
 pkg_postinst () {
