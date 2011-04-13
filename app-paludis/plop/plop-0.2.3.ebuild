@@ -2,8 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-
+EAPI="4"
 inherit eutils bash-completion
 
 DESCRIPTION="A nice paludis.log parser (patched genlop)"
@@ -29,7 +28,7 @@ src_prepare() {
 	cd "${S}"
 	mv genlop plop
 	mv genlop.1 plop.1
-	epatch "${FILESDIR}/plop-${PV}_0.30.8.patch"
+	epatch "${FILESDIR}/${P}_0.30.8.patch"
 }
 
 src_install() {

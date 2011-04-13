@@ -1,16 +1,14 @@
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-
+EAPI="4"
 inherit git
-
-EGIT_BRANCH="master"
-EGIT_REPO_URI="git://git.pioto.org/paludis-scripts.git"
 
 DESCRIPTION="Scripts for paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
+EGIT_REPO_URI="git://git.pioto.org/paludis-scripts.git"
 
 LICENSE="GPL-2"
 SLOT="0"
