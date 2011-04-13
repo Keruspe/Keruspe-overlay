@@ -2,12 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-inherit autotools bash-completion gnome2 git
+EAPI="4"
+inherit autotools bash-completion gnome2-live
 
 DESCRIPTION="Clipboard management system"
 HOMEPAGE="http://github.com/Keruspe/GPaste"
-SRC_URI=""
 EGIT_REPO_URI="git://github.com/Keruspe/GPaste.git"
 
 LICENSE="GPL-3"
