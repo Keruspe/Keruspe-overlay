@@ -122,7 +122,7 @@ src_install() {
 		insinto /usr/share/zsh/site-functions
 		doins zsh-completion/_cave
 	fi
-	find ${ED} -name '*.la' -exec rm -f {} +
+	find ${D} -name '*.la' -exec rm -f {} +
 }
 
 src_test() {
