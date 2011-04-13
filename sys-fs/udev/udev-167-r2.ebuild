@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI="4"
 inherit autotools eutils flag-o-matic multilib toolchain-funcs linux-info systemd
 scriptversion=164-v2
 scriptname=${PN}-gentoo-scripts-${scriptversion}
@@ -46,9 +46,11 @@ RDEPEND="${COMMON_DEPEND}
 	!sys-fs/device-mapper
 	>=sys-apps/baselayout-1.12.5"
 
+# required kernel options
 CONFIG_CHECK="~INOTIFY_USER ~SIGNALFD ~!SYSFS_DEPRECATED ~!SYSFS_DEPRECATED_V2
 	~!IDE"
 
+# We need the lib/rcscripts/addon support
 PROVIDE="virtual/dev-manager"
 
 udev_check_KV() {
@@ -66,13 +68,19 @@ udev_check_KV() {
 
 pkg_setup() {
 	linux-info_pkg_setup
+
 	udev_libexec_dir="/$(get_libdir)/udev"
 
+	# udev requires signalfd introduced in kernel 2.6.25,
+	# but a glibc compiled against >=linux-headers-2.6.27 uses the
+	# new signalfd syscall introduced in kernel 2.6.27 without falling back
+	# to the old one. So we just depend on 2.6.27 here, see Bug #281312.
 	KV_PATCH_min=25
-	KV_PATCH_reliable=27
+	KV_PATCH_reliable=31
 	KV_min=2.6.${KV_PATCH_min}
 	KV_reliable=2.6.${KV_PATCH_reliable}
 
+	# always print kernel version requirements
 	ewarn
 	ewarn "${P} does not support Linux kernel before version ${KV_min}!"
 	if [[ ${KV_PATCH_min} != ${KV_PATCH_reliable} ]]; then
@@ -114,6 +122,7 @@ src_prepare() {
 			mv "${WORKDIR}"/test/sys "${S}"/test/
 	fi
 
+	# change rules back to group uucp instead of dialout for now
 	sed -e 's/GROUP="dialout"/GROUP="uucp"/' \
 		-i rules/{rules.d,arch}/*.rules \
 	|| die "failed to change group dialout to uucp"
@@ -178,22 +187,31 @@ src_install() {
 	keepdir "${udev_libexec_dir}"/state
 	keepdir "${udev_libexec_dir}"/devices
 
+	# create symlinks for these utilities to /sbin
+	# where multipath-tools expect them to be (Bug #168588)
 	dosym "..${udev_libexec_dir}/scsi_id" /sbin/scsi_id
 
+	# Add gentoo stuff to udev.conf
 	echo "# If you need to change mount-options, do it in /etc/fstab" \
 	>> "${ED}"/etc/udev/udev.conf
 
+	# let the dir exist at least
 	keepdir /etc/udev/rules.d
 
+	# Now installing rules
 	cd "${S}"/rules
 	insinto "${udev_libexec_dir}"/rules.d/
 
+	# support older kernels
 	doins misc/30-kernel-compat.rules
+
+	# Adding arch specific rules
 	if [[ -f arch/40-${ARCH}.rules ]]
 	then
 		doins "arch/40-${ARCH}.rules"
 	fi
 	cd "${S}"
+
 	insinto /etc/modprobe.d
 	newins "${FILESDIR}"/blacklist-146 blacklist.conf
 	newins "${FILESDIR}"/pnp-aliases pnp-aliases.conf
@@ -205,7 +223,10 @@ src_install() {
 		"${ED}"/etc/init.d/udev* \
 		"${ED}"/etc/modprobe.d/*
 
+	# documentation
 	dodoc ChangeLog README TODO || die "failed installing docs"
+
+	# keep doc in just one directory, Bug #281137
 	rm -rf "${ED}/usr/share/doc/${PN}"
 	if use extras; then
 		dodoc extras/keymap/README.keymap.txt || die "failed installing docs"
@@ -213,6 +234,7 @@ src_install() {
 }
 
 pkg_preinst() {
+	# moving old files to support newer modprobe, 12 May 2009
 	local f dir=${ROOT}/etc/modprobe.d/
 	for f in pnp-aliases blacklist; do
 		if [[ -f $dir/$f && ! -f $dir/$f.conf ]]
@@ -234,16 +256,19 @@ pkg_preinst() {
 		mv -f "${ROOT}"/etc/udev/udev.config "${ROOT}"/etc/udev/udev.rules
 	fi
 
+	# delete the old udev.hotplug symlink if it is present
 	if [[ -h ${ROOT}/etc/hotplug.d/default/udev.hotplug ]]
 	then
 		rm -f "${ROOT}"/etc/hotplug.d/default/udev.hotplug
 	fi
 
+	# delete the old wait_for_sysfs.hotplug symlink if it is present
 	if [[ -h ${ROOT}/etc/hotplug.d/default/05-wait_for_sysfs.hotplug ]]
 	then
 		rm -f "${ROOT}"/etc/hotplug.d/default/05-wait_for_sysfs.hotplug
 	fi
 
+	# delete the old wait_for_sysfs.hotplug symlink if it is present
 	if [[ -h ${ROOT}/etc/hotplug.d/default/10-udev.hotplug ]]
 	then
 		rm -f "${ROOT}"/etc/hotplug.d/default/10-udev.hotplug
@@ -262,6 +287,7 @@ pkg_preinst() {
 	previous_less_than_113=$?
 }
 
+# 19 Nov 2008
 fix_old_persistent_net_rules() {
 	local rules=${ROOT}/etc/udev/rules.d/70-persistent-net.rules
 	[[ -f ${rules} ]] || return
@@ -269,22 +295,32 @@ fix_old_persistent_net_rules() {
 	elog
 	elog "Updating persistent-net rules file"
 
+	# Change ATTRS to ATTR matches, Bug #246927
 	sed -i -e 's/ATTRS{/ATTR{/g' "${rules}"
 
+	# Add KERNEL matches if missing, Bug #246849
 	sed -ri \
 		-e '/KERNEL/ ! { s/NAME="(eth|wlan|ath)([0-9]+)"/KERNEL=="\1*", NAME="\1\2"/}' \
 		"${rules}"
 }
 
+# See Bug #129204 for a discussion about restarting udevd
 restart_udevd() {
 	if [[ ${NO_RESTART} = "1" ]]; then
 		ewarn "Not restarting udevd, as your kernel is too old!"
 		return
 	fi
 
+	# need to merge to our system
 	[[ ${ROOT} = / ]] || return
+
+	# check if root of init-process is identical to ours (not in chroot)
 	[[ -r /proc/1/root && /proc/1/root/ -ef /proc/self/root/ ]] || return
+
+	# abort if there is no udevd running
 	[[ -n $(pidof udevd) ]] || return
+
+	# abort if no /dev/.udev exists
 	[[ -e /dev/.udev ]] || return
 
 	elog
@@ -306,6 +342,15 @@ restart_udevd() {
 }
 
 postinst_init_scripts() {
+	# FIXME: we may need some code that detects if this is a system bootstrap
+	# and auto-enables udev then
+	#
+	# FIXME: inconsistent handling of init-scripts here
+	#  * udev is added to sysinit in openrc-ebuild
+	#  * we add udev-postmount to default in here
+	#
+
+	# migration to >=openrc-0.4
 	if [[ -e "${ROOT}"/etc/runlevels/sysinit && ! -e "${ROOT}"/etc/runlevels/sysinit/udev ]]
 	then
 		ewarn
@@ -317,7 +362,12 @@ postinst_init_scripts() {
 		ewarn
 	fi
 
+	# add udev-postmount to default runlevel instead of that ugly injecting
+	# like a hotplug event, 2009/10/15
+
+	# already enabled?
 	[[ -e "${ROOT}"/etc/runlevels/default/udev-postmount ]] && return
+
 	local enable_postmount=0
 	[[ -e "${ROOT}"/etc/runlevels/sysinit/udev ]] && enable_postmount=1
 	[[ "${ROOT}" = "/" && -d /dev/.udev/ ]] && enable_postmount=1
@@ -342,6 +392,8 @@ postinst_init_scripts() {
 pkg_postinst() {
 	fix_old_persistent_net_rules
 
+	# "losetup -f" is confused if there is an empty /dev/loop/, Bug #338766
+	# So try to remove it here (will only work if empty).
 	rmdir "${ROOT}"/dev/loop 2>/dev/null
 	if [[ -d "${ROOT}"/dev/loop ]]; then
 		ewarn "Please make sure your remove /dev/loop,"
@@ -349,8 +401,13 @@ pkg_postinst() {
 	fi
 
 	restart_udevd
+
 	postinst_init_scripts
 
+	# people want reminders, I'll give them reminders.  Odds are they will
+	# just ignore them anyway...
+
+	# delete 40-scsi-hotplug.rules, it is integrated in 50-udev.rules, 19 Jan 2007
 	if [[ $previous_equal_to_103_r3 = 0 ]] &&
 		[[ -e ${ROOT}/etc/udev/rules.d/40-scsi-hotplug.rules ]]
 	then
@@ -359,23 +416,27 @@ pkg_postinst() {
 		rm -f "${ROOT}"/etc/udev/rules.d/40-scsi-hotplug.rules
 	fi
 
+	# Removing some device-nodes we thought we need some time ago, 25 Jan 2007
 	if [[ -d ${ROOT}/lib/udev/devices ]]
 	then
 		rm -f "${ROOT}"/lib/udev/devices/{null,zero,console,urandom}
 	fi
 
+	# Removing some old file, 29 Jan 2007
 	if [[ $previous_less_than_104_r5 = 0 ]]
 	then
 		rm -f "${ROOT}"/etc/dev.d/net/hotplug.dev
 		rmdir --ignore-fail-on-non-empty "${ROOT}"/etc/dev.d/net 2>/dev/null
 	fi
 
+	# 19 Mar 2007
 	if [[ $previous_less_than_106_r5 = 0 ]] &&
 		[[ -e ${ROOT}/etc/udev/rules.d/95-net.rules ]]
 	then
 		rm -f "${ROOT}"/etc/udev/rules.d/95-net.rules
 	fi
 
+	# Try to remove /etc/dev.d as that is obsolete, 23 Apr 2007
 	if [[ -d ${ROOT}/etc/dev.d ]]
 	then
 		rmdir --ignore-fail-on-non-empty "${ROOT}"/etc/dev.d/default "${ROOT}"/etc/dev.d 2>/dev/null
@@ -386,6 +447,8 @@ pkg_postinst() {
 		fi
 	fi
 
+	# 64-device-mapper.rules now gets installed by sys-fs/device-mapper
+	# remove it if user don't has sys-fs/device-mapper installed, 27 Jun 2007
 	if [[ $previous_less_than_113 = 0 ]] &&
 		[[ -f ${ROOT}/etc/udev/rules.d/64-device-mapper.rules ]] &&
 		! has_version sys-fs/device-mapper
@@ -394,10 +457,12 @@ pkg_postinst() {
 			einfo "Removed unneeded file 64-device-mapper.rules"
 	fi
 
+	# requested in bug #275974, added 2009/09/05
 	ewarn
 	ewarn "If after the udev update removable devices or CD/DVD drives"
 	ewarn "stop working, try re-emerging HAL before filling a bug report"
 
+	# requested in Bug #225033:
 	elog
 	elog "persistent-net does assigning fixed names to network devices."
 	elog "If you have problems with the persistent-net rules,"
