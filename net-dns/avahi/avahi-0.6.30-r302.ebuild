@@ -55,8 +55,8 @@ DEPEND="${COMMON_DEPEND}
 		mono? ( >=virtual/monodoc-1.1.8 )
 	)"
 RDEPEND="${COMMON_DEPEND}
-   howl-compat? ( !net-misc/howl )
-   mdnsresponder-compat? ( !net-misc/mDNSResponder )"
+	howl-compat? ( !net-misc/howl )
+	mdnsresponder-compat? ( !net-misc/mDNSResponder )"
 
 pkg_setup() {
 	if use python; then
@@ -69,7 +69,7 @@ pkg_setup() {
 	fi
 
 	if { use gtk && ! use utils; } || { ! use gtk && use utils; }; then
-	        ewarn "If you want the avahi utilities, enable USE='gtk utils'"
+		ewarn "If you want the avahi utilities, enable USE='gtk utils'"
 	fi
 }
 
@@ -94,14 +94,17 @@ src_prepare() {
 	sed -i\
 		-e "s:\\.\\./\\.\\./\\.\\./doc/avahi-docs/html/:../../../doc/${PF}/html/:" \
 		doxygen_to_devhelp.xsl || die
+
+	# Make gtk utils optional
 	epatch "${FILESDIR}/${PN}-0.6.28-optional-gtk-utils.patch"
+
 	eautoreconf
 }
 
 src_configure() {
 	use sh && replace-flags -O? -O0
 
-	local myconf=""
+	local myconf="--disable-static"
 
 	if use python; then
 		myconf+="
@@ -128,12 +131,12 @@ src_configure() {
 	econf \
 		--localstatedir=/var \
 		--with-distro=gentoo \
-		--enable-gobject \
 		--disable-python-dbus \
 		--disable-pygtk \
 		--disable-xmltoman \
 		--disable-monodoc \
 		--enable-glib \
+		--enable-gobject \
 		$(use_enable test tests) \
 		$(use_enable autoipd) \
 		$(use_enable mdnsresponder-compat compat-libdns_sd) \
@@ -182,6 +185,9 @@ src_install() {
 		insinto /usr/share/devhelp/books/avahi
 		doins avahi.devhelp || die
 	fi
+
+	# Remove .la files
+	find "${D}" -name '*.la' -exec rm -f {} + || die
 }
 
 pkg_postrm() {
