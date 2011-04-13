@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI="4"
 inherit autotools eutils libtool flag-o-matic versionator git
 
 DESCRIPTION="A networked sound server with an advanced plugin system"
