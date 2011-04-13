@@ -59,4 +59,5 @@ src_test() {
 src_install() {
 	emake install DESTDIR="${ED}" || die "emake install failed"
 	dodoc AUTHORS NEWS ChangeLog README || die "dodoc failed"
+	find ${ED} -name '*.la' -exec rm -f {} +
 }

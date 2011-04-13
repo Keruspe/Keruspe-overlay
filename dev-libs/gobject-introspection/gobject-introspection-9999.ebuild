@@ -5,6 +5,7 @@
 EAPI="3"
 GCONF_DEBUG="no"
 PYTHON_DEPEND="2:2.5"
+GNOME2_LA_PUNT="yes"
 inherit gnome2-live python
 
 DESCRIPTION="Introspection infrastructure for gobject library bindings"

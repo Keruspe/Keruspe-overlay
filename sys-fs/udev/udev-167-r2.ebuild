@@ -231,6 +231,7 @@ src_install() {
 	if use extras; then
 		dodoc extras/keymap/README.keymap.txt || die "failed installing docs"
 	fi
+	find ${ED} -name '*.la' -exec rm -f {} +
 }
 
 pkg_preinst() {

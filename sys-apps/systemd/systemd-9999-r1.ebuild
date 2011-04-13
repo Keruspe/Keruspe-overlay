@@ -89,7 +89,6 @@ src_install() {
 		rm -r "${ED}/usr/share/doc/systemd/"
 
 	keepdir /run
-	find ${ED} -name '*.la' -delete
 	if use symlinks; then
         dosym /bin/systemctl /sbin/init
         dosym /bin/systemctl /sbin/poweroff
@@ -98,6 +97,7 @@ src_install() {
 	else
 		rename_mans
 	fi
+	find ${ED} -name '*.la' -exec rm -f {} +
 }
 
 check_mtab_is_symlink() {

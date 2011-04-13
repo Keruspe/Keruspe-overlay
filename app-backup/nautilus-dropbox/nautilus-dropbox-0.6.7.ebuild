@@ -36,7 +36,7 @@ src_install () {
 	fowners root:dropbox "${extensiondir}"/libnautilus-dropbox.{a,la,so}
 	fperms o-rwx "${extensiondir}"/libnautilus-dropbox.{a,la,so}
 
-	find ${ED} -name '*.la' -delete
+	find ${ED} -name '*.la' -exec rm -f {} +
 }
 
 pkg_postinst () {

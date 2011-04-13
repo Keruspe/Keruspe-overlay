@@ -173,7 +173,7 @@ src_install() {
 	use prefix || diropts -o pulse -g pulse -m0755
 	keepdir /var/run/pulse
 
-	find "${ED}" -name '*.la' -delete
+	find "${ED}" -name '*.la' -exec rm -f {} +
 }
 
 pkg_postinst() {
