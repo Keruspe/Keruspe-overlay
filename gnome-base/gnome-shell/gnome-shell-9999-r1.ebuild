@@ -100,7 +100,6 @@ pkg_setup() {
 
 src_prepare() {
 	epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
-	epatch ${FILESDIR}/${PN}-fix-gnome-bluetooth.patch
     gnome2_src_prepare
 }
 
