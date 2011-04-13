@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI="4"
 inherit gnome2 eutils
 
 DESCRIPTION="Store, Sync and Share Files Online"
@@ -14,8 +14,8 @@ KEYWORDS="~x86 ~amd64"
 IUSE="debug"
 
 RDEPEND=">=gnome-base/nautilus-2.16
-	>=dev-libs/glib-2.14
-	>=x11-libs/gtk+-2.12
+	>=dev-libs/glib-2.14:2
+	>=x11-libs/gtk+-2.12:2
 	>=x11-libs/libnotify-0.4.4"
 DEPEND="${RDEPEND}
     dev-python/docutils
