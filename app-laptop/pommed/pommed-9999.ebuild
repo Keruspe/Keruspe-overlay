@@ -2,8 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-inherit eutils git toolchain-funcs linux-info
+EAPI="4"
+inherit git toolchain-funcs linux-info
 
 DESCRIPTION="Manage special features such as screen and keyboard backlight on Apple MacBook Pro/PowerBook"
 HOMEPAGE="http://technologeek.org/projects/pommed/index.html"
@@ -22,7 +22,7 @@ COMMON_DEPEND="media-libs/alsa-lib
 	dev-libs/dbus-glib
 	sys-libs/zlib
 	media-libs/audiofile
-	gtk? ( >=x11-libs/gtk+-2 )
+	gtk? ( >=x11-libs/gtk+-2:2 )
 	X? ( x11-libs/libX11
 		x11-libs/libXpm )"
 DEPEND="${COMMON_DEPEND}
