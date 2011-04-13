@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI="4"
 DESCRIPTION="Full sources for the Linux kernel - dummy version"
 HOMEPAGE="http://www.kernel.org"
 KEYWORDS="~amd64 ~x86"
