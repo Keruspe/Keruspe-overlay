@@ -29,11 +29,14 @@ find_unused() {
 }
 
 main() {
-  find_duplicates keruspe gnome
-  find_duplicates keruspe gentoo
-  find_duplicates keruspe systemd
+  find_duplicates $1 gnome
+  find_duplicates $1 gentoo
+  find_duplicates $1 systemd
   find_unused systemd | grep -Ev '(avahi|udev|/systemd|networkmanager|wpa_supplicant)'
-  find_unused keruspe | grep -v grub
+  find_unused $1 | grep -v grub
 }
 
-main
+main keruspe
+
+exit 0
+
