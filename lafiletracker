@@ -1,2 +1,15 @@
 #!/bin/zsh
-grep -l '\.la' $(grep -l keruspe /var/db/pkg/**/REPOSITORY | sed s/REPOSITORY/CONTENTS/)
+
+VDB_PATH="/var/db/pkg"
+track_la() {
+   grep -l '\.la' $(grep -l $1 ${VDB_PATH}/**/REPOSITORY | sed s/REPOSITORY/CONTENTS/) | sed "s:${VDB_PATH}/\([^/]*/[^/]*\)/CONTENTS:\1:"
+}
+
+main() {
+   track_la $1
+}
+
+main keruspe
+
+exit 0
+
