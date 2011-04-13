@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
-PYTHON_DEPEND=2
+EAPI="3"
+PYTHON_DEPEND="2"
 
-inherit autotools eutils elisp-common gnome2 python
+inherit eutils elisp-common gnome2 python
 
 DESCRIPTION="GTK+ Documentation Generator"
 HOMEPAGE="http://www.gtk.org/gtk-doc/"
@@ -15,14 +15,15 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug doc emacs highlight vim test"
 
-RDEPEND=">=dev-libs/glib-2.6
+# dev-tex/tex4ht blocker needed due bug #315287
+RDEPEND=">=dev-libs/glib-2.6:2
 	>=dev-lang/perl-5.6
 	>=app-text/openjade-1.3.1
 	dev-libs/libxslt
-	>=dev-libs/libxml2-2.3.6
-	~app-text/docbook-xml-dtd-4.3
+	>=dev-libs/libxml2-2.3.6:2
+	app-text/docbook-xml-dtd:4.5
 	app-text/docbook-xsl-stylesheets
-	app-text/docbook-sgml-dtd
+	app-text/docbook-sgml-dtd:4.5
 	>=app-text/docbook-dsssl-stylesheets-1.40
 	emacs? ( virtual/emacs )
 	highlight? (
@@ -47,16 +48,20 @@ pkg_setup() {
 	else
 		G2CONF="${G2CONF} $(use_with highlight highlight source-highlight)"
 	fi
+	G2CONF+=" --with-xml-catalog=${EPREFIX}/etc/xml/catalog"
 	python_set_active_version 2
 }
 
 src_prepare() {
 	gnome2_src_prepare
+
+	# Remove global Emacs keybindings.
 	epatch "${FILESDIR}/${PN}-1.8-emacs-keybindings.patch"
 }
 
 src_compile() {
 	gnome2_src_compile
+
 	use emacs && elisp-compile tools/gtk-doc.el
 }
 
@@ -64,6 +69,8 @@ src_install() {
 	gnome2_src_install
 
 	python_convert_shebangs 2 "${ED}"/usr/bin/gtkdoc-depscan
+
+	# Don't install those files, they are in gtk-doc-am now
 	rm "${ED}"/usr/share/aclocal/gtk-doc.m4 || die "failed to remove gtk-doc.m4"
 	rm "${ED}"/usr/bin/gtkdoc-rebase || die "failed to remove gtkdoc-rebase"
 
