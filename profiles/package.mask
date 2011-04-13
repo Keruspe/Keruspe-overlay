@@ -6,7 +6,6 @@
 =app-laptop/pommed-9999
 ~dev-libs/gjs-9999
 =dev-libs/gobject-introspection-9999
-~dev-vcs/git-9999
 ~gnome-base/gnome-shell-9999
 =media-sound/pavucontrol-9999
 ~media-sound/pulseaudio-9999
@@ -18,7 +17,4 @@
 
 # Dummy Kernel
 sys-kernel/dummy-sources
-
-# Splitted parts not here
-=media-libs/gst-plugins-bad-0.10.21
 
