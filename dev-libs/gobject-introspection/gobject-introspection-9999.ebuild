@@ -2,11 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI="3"
 GCONF_DEBUG="no"
 PYTHON_DEPEND="2:2.5"
-
-inherit autotools git gnome2 python
+inherit gnome2-live python
 
 DESCRIPTION="Introspection infrastructure for gobject library bindings"
 HOMEPAGE="http://live.gnome.org/GObjectIntrospection/"
@@ -16,17 +15,14 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
-SRC_URI=""
-EGIT_REPO_URI="git://git.gnome.org/gobject-introspection"
-
 RDEPEND=">=dev-libs/glib-2.24:2
 	virtual/libffi"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	sys-devel/flex
+	dev-util/gtk-doc
 	doc? ( >=dev-util/gtk-doc-1.12 )
-	test? ( x11-libs/cairo )
-	dev-util/gtk-doc"
+	test? ( x11-libs/cairo )"
 
 pkg_setup() {
 	DOCS="AUTHORS CONTRIBUTORS ChangeLog NEWS README TODO"
@@ -37,22 +33,19 @@ pkg_setup() {
 	python_set_active_version 2
 }
 
-src_unpack() {
-	git_src_unpack
-}
-
 src_prepare() {
+	# FIXME: Parallel compilation failure with USE=doc
 	use doc && MAKEOPTS="-j1"
+
+	# Don't pre-compile .py
 	ln -sf $(type -P true) py-compile
-	gtkdocize
-	eautoreconf
+	gnome2_src_prepare
 }
 
 src_install() {
 	gnome2_src_install
 	python_convert_shebangs 2 "${ED}"usr/bin/g-ir-scanner
 	python_convert_shebangs 2 "${ED}"usr/bin/g-ir-annotation-tool
-	find "${ED}" -name "*.la" -delete || die "la files removal failed"
 }
 
 pkg_postinst() {
