@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI="4"
 WANT_AUTOMAKE=1.11
 inherit autotools git
 
@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND=">=x11-libs/gtk+-2.24:2
-	>=dev-libs/glib-2.14
+	>=dev-libs/glib-2.14:2
 	>=dev-libs/libgee-0.5
 	>=x11-libs/libnotify-0.7
 	net-libs/libsoup:2.4
