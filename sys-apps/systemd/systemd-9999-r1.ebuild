@@ -82,6 +82,14 @@ rename_mans() {
 	done
 }
 
+do_symlinks() {
+    dosym /bin/systemctl /sbin/init
+    dosym /bin/systemctl /sbin/poweroff
+    dosym /bin/systemctl /sbin/halt
+    dosym /bin/systemctl /sbin/reboot
+    dosym /bin/systemctl /sbin/shutdown
+}
+
 src_install() {
 	emake DESTDIR=${ED} install || die "emake install failed"
 
@@ -90,10 +98,7 @@ src_install() {
 
 	keepdir /run
 	if use symlinks; then
-        dosym /bin/systemctl /sbin/init
-        dosym /bin/systemctl /sbin/poweroff
-        dosym /bin/systemctl /sbin/halt
-        dosym /bin/systemctl /sbin/reboot
+	    do_symlinks
 	else
 		rename_mans
 	fi
