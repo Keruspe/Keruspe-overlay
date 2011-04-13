@@ -1,0 +1,2 @@
+#!/bin/zsh
+grep -l '\.la' $(grep -l keruspe /var/db/pkg/**/REPOSITORY | sed s/REPOSITORY/CONTENTS/)
