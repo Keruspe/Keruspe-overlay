@@ -14,7 +14,7 @@ EGIT_BRANCH="master"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="audit cryptsetup gtk pam selinux symlinks sysv +tcpwrap"
+IUSE="audit cryptsetup gtk +pam python selinux symlinks sysv +tcpwrap"
 
 RDEPEND="
 	>=sys-apps/dbus-1.4.0[systemd]
@@ -27,6 +27,8 @@ RDEPEND="
 			dev-libs/dbus-glib )
 	tcpwrap? ( sys-apps/tcp-wrappers )
 	pam? ( virtual/pam )
+	python? ( dev-python/dbus-python
+	  dev-python/pycairo )
 	symlinks? ( !!sys-apps/sysvinit )
 	selinux? ( sys-libs/libselinux )
 	>=sys-apps/util-linux-2.19
