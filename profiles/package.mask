@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -10,6 +10,7 @@
 =media-sound/pavucontrol-9999
 ~media-sound/pulseaudio-9999
 ~media-sound/rhythmbox-9999
+~media-video/mplayer2-9999
 =sys-apps/paludis-9999
 ~sys-apps/systemd-9999
 ~sys-boot/grub-9999
