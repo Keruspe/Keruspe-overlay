@@ -50,9 +50,6 @@ RDEPEND="${COMMON_DEPEND}
 CONFIG_CHECK="~INOTIFY_USER ~SIGNALFD ~!SYSFS_DEPRECATED ~!SYSFS_DEPRECATED_V2
 	~!IDE"
 
-# We need the lib/rcscripts/addon support
-PROVIDE="virtual/dev-manager"
-
 udev_check_KV() {
 	local ok=0
 	if [[ ${KV_MAJOR} == 2 && ${KV_MINOR} == 6 ]]
