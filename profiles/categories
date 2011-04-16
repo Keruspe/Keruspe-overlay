@@ -17,7 +17,6 @@ net-wireless
 sys-apps
 sys-boot
 sys-fs
-sys-kernel
 x11-libs
 x11-misc
 x11-wm
