@@ -2,7 +2,7 @@
 
 VDB_PATH="/var/db/pkg"
 track_la() {
-   grep -l '\.la' $(grep -l $1 ${VDB_PATH}/*/*/REPOSITORY | sed s/REPOSITORY/CONTENTS/) | sed "s:${VDB_PATH}/\([^/]*/[^/]*\)/CONTENTS:\1:"
+   grep -l '\.la ' $(grep -l $1 ${VDB_PATH}/*/*/REPOSITORY | sed s/REPOSITORY/CONTENTS/) | sed "s:${VDB_PATH}/\([^/]*/[^/]*\)/CONTENTS:\1:"
 }
 
 main() {
