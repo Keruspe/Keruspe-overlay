@@ -48,7 +48,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch ${FILESDIR}/0001-Allow-skipping-font-setting.patch
 	eautoreconf
 }
 
