@@ -87,6 +87,7 @@ pkg_setup() {
 	fi
 
 	echo
+	get_version
 	udev_check_KV
 	case "$?" in
 		2)	einfo "Your kernel version (${KV_FULL}) is new enough to run ${P} reliably." ;;
