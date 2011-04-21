@@ -63,9 +63,11 @@ udev_check_KV() {
 	return $ok
 }
 
-pkg_setup() {
-	linux-info_pkg_setup
+pkg_pretend() {
+	check_extra_config
+}
 
+pkg_setup() {
 	udev_libexec_dir="/$(get_libdir)/udev"
 
 	# udev requires signalfd introduced in kernel 2.6.25,
