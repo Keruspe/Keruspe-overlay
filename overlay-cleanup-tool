@@ -33,7 +33,7 @@ main() {
   find_duplicates $1 gentoo
   find_duplicates $1 systemd
   find_unused systemd | grep -Ev '(avahi|udev|/systemd|networkmanager|wpa_supplicant)'
-  find_unused $1 | grep -v grub
+  find_unused $1 | grep -Ev '(grub|bomb-her-man)'
 }
 
 main keruspe
