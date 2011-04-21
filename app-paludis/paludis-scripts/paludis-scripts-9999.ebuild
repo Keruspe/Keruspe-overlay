@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="4"
-inherit git
+inherit git-2
 
 DESCRIPTION="Scripts for paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
@@ -19,7 +19,7 @@ DEPEND=""
 RDEPEND="sys-apps/paludis[ruby-bindings]"
 
 src_unpack() {
-	git_src_unpack
+	git-2_src_unpack
 }
 
 src_install() {

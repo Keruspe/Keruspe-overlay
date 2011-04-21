@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="4"
-inherit git toolchain-funcs linux-info
+inherit git-2 toolchain-funcs linux-info
 
 DESCRIPTION="Manage special features such as screen and keyboard backlight on Apple MacBook Pro/PowerBook"
 HOMEPAGE="http://technologeek.org/projects/pommed/index.html"
@@ -31,14 +31,14 @@ RDEPEND="${COMMON_DEPEND}
 	media-sound/alsa-utils
 	virtual/eject"
 
-pkg_setup() {
-	linux-info_pkg_setup
-	CONFIG_CHECK="~DMIID"
+CONFIG_CHECK="~DMIID"
+
+pkg_pretend() {
 	check_extra_config
 }
 
 src_unpack() {
-	git_src_unpack
+	git-2_src_unpack
 }
 
 src_compile() {

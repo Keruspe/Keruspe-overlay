@@ -4,12 +4,11 @@
 
 EAPI=4
 WANT_AUTOMAKE=1.11
-inherit autotools git linux-info pam
+inherit autotools git-2 linux-info pam
 
 DESCRIPTION="systemd is a system and service manager for Linux"
 HOMEPAGE="http://www.freedesktop.org/wiki/Software/systemd"
 EGIT_REPO_URI="git://anongit.freedesktop.org/systemd"
-EGIT_BRANCH="master"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -42,9 +41,12 @@ DEPEND="${RDEPEND}
 CONFIG_CHECK="AUTOFS4_FS CGROUPS DEVTMPFS ~FANOTIFY ~IPV6"
 
 pkg_setup() {
-	linux-info_pkg_setup
 	enewgroup lock # used by var-lock.mount
 	enewgroup tty 5 # used by mount-setup for /dev/pts
+}
+
+pkg_pretend() {
+	check_extra_config
 }
 
 src_prepare() {

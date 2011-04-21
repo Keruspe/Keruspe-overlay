@@ -4,7 +4,7 @@
 
 EAPI="4"
 WANT_AUTOMAKE=1.11
-inherit autotools git
+inherit autotools git-2
 
 DESCRIPTION="Twitter and Identi.ca client"
 HOMEPAGE="http://github.com/Keruspe/Twident"

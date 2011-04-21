@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="4"
-inherit git
+inherit git-2
 
 DESCRIPTION="Tool to keep your Gentoo/GNU/Linux up to date using cave"
 HOMEPAGE="https://github.com/Keruspe/palumaj"

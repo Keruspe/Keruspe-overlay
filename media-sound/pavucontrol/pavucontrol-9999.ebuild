@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="4"
-inherit autotools eutils git
+inherit autotools eutils git-2
 
 DESCRIPTION="Pulseaudio Volume Control, GTK based mixer for Pulseaudio"
 HOMEPAGE="http://0pointer.de/lennart/projects/pavucontrol/"

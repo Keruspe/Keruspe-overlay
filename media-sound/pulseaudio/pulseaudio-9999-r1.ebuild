@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="4"
-inherit autotools eutils libtool flag-o-matic versionator git
+inherit autotools eutils libtool flag-o-matic versionator git-2
 
 DESCRIPTION="A networked sound server with an advanced plugin system"
 HOMEPAGE="http://www.pulseaudio.org/"

@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="3"
-inherit autotools games git
+inherit autotools games git-2
 
 DESCRIPTION="A bomberman clone, student project"
 HOMEPAGE="http://github.com/Keruspe/Bomb-her-man"

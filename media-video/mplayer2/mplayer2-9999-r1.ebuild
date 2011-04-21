@@ -4,7 +4,7 @@
 
 EAPI="4"
 EGIT_REPO_URI="git://git.mplayer2.org/mplayer2.git"
-inherit toolchain-funcs eutils flag-o-matic multilib base git
+inherit toolchain-funcs eutils flag-o-matic multilib base git-2
 
 DESCRIPTION="Media Player for Linux"
 HOMEPAGE="http://www.mplayer2.org/"
@@ -186,7 +186,7 @@ pkg_setup() {
 }
 
 src_unpack() {
-	git_src_unpack
+	git-2_src_unpack
 
 	if ! use truetype; then
 		unpack font-arial-iso-8859-1.tar.bz2 \
