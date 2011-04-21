@@ -39,7 +39,7 @@ DEPEND="${DEPEND}
 ELTCONF=${ELTCONF:-}
 
 # Default git module name
-GNOME_LIVE_MODULE=${MODPATH:-"${PN}"}
+GNOME_LIVE_MODULE=${GNOME_LIVE_MODULE:-"${PN}"}
 
 # GIT URI for the project
 EGIT_REPO_URI="${EGIT_REPO_URI:-"git://git.gnome.org/${GNOME_LIVE_MODULE}"}"
@@ -145,7 +145,7 @@ gnome2_src_prepare() {
 
 # Run manually for ebuilds that have a custom pkg_postinst
 gnome2-live_pkg_postinst() {
-	ewarn "This is a live ebuild, upstream scm will mostly be UNstable"
+	ewarn "This is a live ebuild, upstream scms will mostly be UNstable"
 	ewarn "Do NOT report bugs about this package to Gentoo"
 	ewarn "Report upstream bugs (with patches if possible) instead."
 }
