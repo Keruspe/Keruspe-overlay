@@ -56,7 +56,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-implicit_declaration.patch
+	epatch "${FILESDIR}"/${PN}-1.0.2-implicit_declaration.patch
 	gnome2_src_prepare
 }
 
