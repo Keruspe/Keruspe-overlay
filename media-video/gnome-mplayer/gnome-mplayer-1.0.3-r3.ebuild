@@ -36,10 +36,6 @@ DEPEND="${RDEPEND}
 
 DOCS="ChangeLog README DOCS/keyboard_shortcuts.txt DOCS/tech/dbus.txt DOCS/tech/plugin-interaction.txt"
 
-src_prepare() {
-	epatch "${FILESDIR}"/${PN}-1.0.2-implicit_declaration.patch
-}
-
 src_configure() {
 	# FIXME: The only reason why --without-gpm-new-method is passed is lack of testing.
 	econf \
@@ -61,4 +57,23 @@ src_configure() {
 src_install() {
 	default
 	rm -rf "${ED}"/usr/share/doc/${PN}
+}
+
+pkg_preinst() {
+	gnome2_icon_savelist
+	gnome2_schemas_savelist
+}
+
+pkg_postinst() {
+	fdo-mime_desktop_database_update
+	fdo-mime_mime_database_update
+	gnome2_icon_cache_update
+	gnome2_schemas_update
+}
+
+pkg_postrm() {
+	fdo-mime_desktop_database_update
+	fdo-mime_mime_database_update
+	gnome2_icon_cache_update
+	gnome2_schemas_update --uninstall
 }
