@@ -15,7 +15,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="alsa dbus gnome ipod libnotify musicbrainz nautilus pulseaudio"
 
 RDEPEND=">=dev-libs/glib-2.26:2
-	|| ( media-video/mplayer2[ass]
+	|| ( ~media-video/mplayer2-9999[ass]
 	  >=media-video/mplayer-1.0_rc4_p20091026-r1[ass] )
 	>=x11-libs/gtk+-2.22:2
 	x11-libs/libX11
