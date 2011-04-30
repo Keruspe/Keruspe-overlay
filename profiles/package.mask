@@ -17,5 +17,5 @@
 ~x11-wm/mutter-9999
 
 # Dummy Kernel
-sys-kernel/dummy-sources
+virtual/linux-sources
 
