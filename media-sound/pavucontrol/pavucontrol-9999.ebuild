@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="4"
-inherit autotools eutils git-2
+inherit autotools git-2
 
 DESCRIPTION="Pulseaudio Volume Control, GTK based mixer for Pulseaudio"
 HOMEPAGE="http://0pointer.de/lennart/projects/pavucontrol/"
@@ -13,12 +13,14 @@ EGIT_REPO_URI="git://git.0pointer.de/${PN}.git"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="nls"
+IUSE="gtk3 nls"
 
-RDEPEND=">=dev-cpp/gtkmm-2.98:3.0
+RDEPEND="gtk3? ( >=dev-cpp/gtkmm-2.98:3.0 )
+	!gtk3? ( >=dev-cpp/gtkmm-2.16:2.4
+		dev-cpp/libglademm:2.4 )
 	>=dev-libs/libsigc++-2.2:2
-	>=media-libs/libcanberra-0.16[gtk3]
 	>=media-sound/pulseaudio-0.9.16[glib]
+	>=media-libs/libcanberra-0.16[gtk,gtk3?]
 	|| ( x11-themes/tango-icon-theme x11-themes/gnome-icon-theme )"
 DEPEND="${RDEPEND}
 	nls? ( sys-devel/gettext
@@ -27,7 +29,6 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	touch doc/README
-	epatch ${FILESDIR}/0001-Port-to-gtkmm-3.0.patch
 	intltoolize --copy --automake
 	eautoreconf
 }
