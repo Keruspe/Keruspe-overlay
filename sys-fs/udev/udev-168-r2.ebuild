@@ -68,8 +68,6 @@ pkg_pretend() {
 }
 
 pkg_setup() {
-	udev_libexec_dir="/$(get_libdir)/udev"
-
 	# udev requires signalfd introduced in kernel 2.6.25,
 	# but a glibc compiled against >=linux-headers-2.6.27 uses the
 	# new signalfd syscall introduced in kernel 2.6.27 without falling back
@@ -87,6 +85,8 @@ pkg_setup() {
 	fi
 
 	echo
+	# We don't care about the secondary revision of the kernel.
+	# 2.6.30.4 -> 2.6.30 is all we check
 	get_version
 	udev_check_KV
 	case "$?" in
@@ -111,16 +111,17 @@ pkg_setup() {
 	fi
 }
 
-sed_libexec_dir() {
-	sed -e "s#/lib/udev#${udev_libexec_dir}#" -i "$@"
-}
-
 src_prepare() {
-	epatch "${FILESDIR}/udev-167-revert-disable-all-extras.patch"
-	eautoreconf
 	if use test; then
-			mv "${WORKDIR}"/test/sys "${S}"/test/
+		mv "${WORKDIR}"/test/sys "${S}"/test/
 	fi
+
+	cd "${WORKDIR}/${scriptname}"
+
+	sed -e '/^LIBEXECDIR/s-$(LIBDIR)-lib-' -i Makefile \
+		|| die "patching Makefile failed"
+
+	cd "${S}"
 
 	# change rules back to group uucp instead of dialout for now
 	sed -e 's/GROUP="dialout"/GROUP="uucp"/' \
@@ -136,16 +137,6 @@ src_prepare() {
 		eerror "md5sum: ${MD5}"
 		die "50-udev-default.rules has been updated, please validate!"
 	fi
-
-	sed_libexec_dir \
-		rules/rules.d/50-udev-default.rules \
-		rules/rules.d/78-sound-card.rules \
-		extras/rule_generator/write_*_rules \
-		|| die "sed failed"
-	cd "${WORKDIR}/${scriptname}"
-	sed_libexec_dir \
-		helpers/* \
-		rc/*/*
 }
 
 src_configure() {
@@ -155,7 +146,7 @@ src_configure() {
 		--sbindir=/sbin \
 		--libdir=/usr/$(get_libdir) \
 		--with-rootlibdir=/$(get_libdir) \
-		--libexecdir="${udev_libexec_dir}" \
+		--libexecdir=/lib/udev \
 		--enable-logging \
 		--enable-static \
 		$(use_with selinux) \
@@ -183,13 +174,13 @@ src_install() {
 	into /
 	emake DESTDIR="${ED}" install || die "make install failed"
 
-	exeinto "${udev_libexec_dir}"
-	keepdir "${udev_libexec_dir}"/state
-	keepdir "${udev_libexec_dir}"/devices
+	exeinto /lib/udev
+	keepdir /lib/udev/state
+	keepdir /lib/udev/devices
 
 	# create symlinks for these utilities to /sbin
 	# where multipath-tools expect them to be (Bug #168588)
-	dosym "..${udev_libexec_dir}/scsi_id" /sbin/scsi_id
+	dosym "../lib/udev/scsi_id" /sbin/scsi_id
 
 	# Add gentoo stuff to udev.conf
 	echo "# If you need to change mount-options, do it in /etc/fstab" \
@@ -200,7 +191,7 @@ src_install() {
 
 	# Now installing rules
 	cd "${S}"/rules
-	insinto "${udev_libexec_dir}"/rules.d/
+	insinto /lib/udev/rules.d/
 
 	# support older kernels
 	doins misc/30-kernel-compat.rules
@@ -215,13 +206,6 @@ src_install() {
 	insinto /etc/modprobe.d
 	newins "${FILESDIR}"/blacklist-146 blacklist.conf
 	newins "${FILESDIR}"/pnp-aliases pnp-aliases.conf
-
-	sed_libexec_dir \
-		"${ED}/$(get_libdir)"/rcscripts/addons/*.sh \
-		"${ED}/${udev_libexec_dir}"/write_root_link_rule \
-		"${ED}"/etc/conf.d/udev \
-		"${ED}"/etc/init.d/udev* \
-		"${ED}"/etc/modprobe.d/*
 
 	# documentation
 	dodoc ChangeLog README TODO || die "failed installing docs"
@@ -252,7 +236,7 @@ pkg_preinst() {
 	fi
 
 	if [[ -f ${ROOT}/etc/udev/udev.config &&
-	     ! -f ${ROOT}/etc/udev/udev.rules ]]
+		 ! -f ${ROOT}/etc/udev/udev.rules ]]
 	then
 		mv -f "${ROOT}"/etc/udev/udev.config "${ROOT}"/etc/udev/udev.rules
 	fi
