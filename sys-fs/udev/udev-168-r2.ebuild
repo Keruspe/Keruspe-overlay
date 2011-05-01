@@ -167,8 +167,8 @@ src_install() {
 		install || die "make install failed"
 
 	if ! use openrc; then
-		rm "${ED}/$(get_libdir)/udev/rules.d/90-network.rules" || die
-		rm "${ED}/$(get_libdir)/udev/net.sh" || die
+		rm "${ED}/lib/udev/rules.d/90-network.rules" || die
+		rm "${ED}/lib/udev/net.sh" || die
 	fi
 
 	into /
