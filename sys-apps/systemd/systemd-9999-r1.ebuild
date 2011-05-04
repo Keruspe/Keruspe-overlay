@@ -16,9 +16,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE="audit cryptsetup gtk +pam python selinux symlinks sysv +tcpwrap"
 
 RDEPEND="
-	>=sys-apps/dbus-1.4.0[systemd]
+	>=sys-apps/dbus-1.4.0
 	sys-libs/libcap
-	>=sys-fs/udev-163[systemd]
+	>=sys-fs/udev-168
 	audit? ( sys-process/audit )
 	cryptsetup? ( sys-fs/cryptsetup )
 	gtk? (  >=x11-libs/gtk+-2.20:2
