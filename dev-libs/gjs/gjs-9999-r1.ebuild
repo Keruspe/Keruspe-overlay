@@ -40,9 +40,6 @@ src_prepare() {
 		--disable-dtrace
 		--disable-coverage"
 
-	# https://bugs.gentoo.org/353941
-	epatch "${FILESDIR}/${PN}-drop-js-config.patch"
-
 	gnome2_src_prepare
 	python_convert_shebangs 2 "${S}"/scripts/make-tests
 }
