@@ -43,10 +43,6 @@ src_prepare() {
 	# https://bugs.gentoo.org/353941
 	epatch "${FILESDIR}/${PN}-drop-js-config.patch"
 
-	epatch ${FILESDIR}/0001-Conditionally-adapt-to-JS_CLASS_TRACE-removal.patch
-	epatch ${FILESDIR}/0002-Conditionally-adapt-to-JS_DestroyScript-removal.patch
-	epatch ${FILESDIR}/0003-conditonally-adapt-to-JS_BufferIsCompilableUnit-chan.patch
-
 	gnome2_src_prepare
 	python_convert_shebangs 2 "${S}"/scripts/make-tests
 }
