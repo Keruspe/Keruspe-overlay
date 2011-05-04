@@ -41,7 +41,7 @@ pkg_setup() {
 		--disable-docbook-docs
 		--disable-maintainer-mode
 		--disable-more-warnings
-		$(use_with_systemdsystemunitdir) \
+		$(systemd_with_unitdir) \
 		$(use_enable introspection)"
 	DOCS="AUTHORS NEWS README TODO"
 }

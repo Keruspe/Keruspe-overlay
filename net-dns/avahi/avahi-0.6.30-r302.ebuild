@@ -152,7 +152,7 @@ src_configure() {
 		--disable-qt3 \
 		$(use_enable qt4) \
 		$(use_enable gdbm) \
-		$(use_with_systemdsystemunitdir) \
+		$(systemd_with_unitdir) \
 		${myconf}
 }
 

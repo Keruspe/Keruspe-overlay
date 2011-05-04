@@ -151,7 +151,7 @@ src_configure() {
 		--enable-static \
 		$(use_with selinux) \
 		$(use_enable extras) \
-		"$(use_with_systemdsystemunitdir)" \
+		$(systemd_with_unitdir) \
 		$(use_enable introspection)
 }
 

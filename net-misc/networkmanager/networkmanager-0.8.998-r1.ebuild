@@ -101,7 +101,7 @@ src_configure() {
 		$(use_with dhclient)
 		$(use_with dhcpcd)
 		$(use_with doc docs)
-		$(use_with_systemdsystemunitdir)
+		$(systemd_with_unitdir)
 		$(use_with resolvconf)"
 
 		if use nss ; then
