@@ -36,10 +36,10 @@ DEPEND="${COMMON_DEPEND}
 pkg_setup() {
 	local extensions=""
 	for ext in ${EXTENSIONS}; do
-		use ${ext} && extensions="${extensions} ${ext}"
+		use ${ext} && extensions="${ext} ${extensions}"
 	done
 	DOCS="HACKING README"
 	G2CONF="${G2CONF}
 		--disable-schemas-compile
-		--enable-extensions=\"${extensions}\""
+		--enable-extensions=${extensions}"
 }
