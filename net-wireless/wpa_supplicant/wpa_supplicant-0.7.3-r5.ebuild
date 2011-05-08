@@ -13,7 +13,7 @@ LICENSE="|| ( GPL-2 BSD )"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="dbus debug gnutls eap-sim fasteap madwifi ps3 qt4 readline ssl wimax wps kernel_linux kernel_FreeBSD"
+IUSE="dbus debug gnutls eap-sim fasteap madwifi ps3 qt4 readline ssl systemd wimax wps kernel_linux kernel_FreeBSD"
 
 RDEPEND="dbus? ( sys-apps/dbus )
 	kernel_linux? (
@@ -256,7 +256,7 @@ src_install() {
 	fi
 
 	if use systemd; then
-		doservices "${FILESDIR}"/wpa_supplicant.service
+		systemd_dounit "${FILESDIR}"/wpa_supplicant.service
 	fi
 }
 
