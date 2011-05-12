@@ -33,7 +33,8 @@ RDEPEND="
 	>=sys-apps/util-linux-2.19
 	sys-apps/systemd-units
 	>=app-admin/syslog-ng-3
-	sys-apps/lsb-release"
+	sys-apps/lsb-release
+	sys-apps/baselayout-systemd"
 DEPEND="${RDEPEND}
 	gtk? ( dev-lang/vala:0.12 )
 	>=sys-kernel/linux-headers-2.6.32"
