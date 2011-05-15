@@ -40,8 +40,6 @@ src_prepare() {
 		--disable-dtrace
 		--disable-coverage"
 
-		epatch ${FILESDIR}/null-terminated-arrays.patch
-
 	gnome2_src_prepare
 	python_convert_shebangs 2 "${S}"/scripts/make-tests
 }
