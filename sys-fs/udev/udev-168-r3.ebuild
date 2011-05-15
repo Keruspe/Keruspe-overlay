@@ -3,8 +3,10 @@
 # $Header: $
 
 EAPI="4"
-inherit autotools eutils flag-o-matic multilib toolchain-funcs linux-info systemd
-scriptversion=164-v2
+
+inherit eutils flag-o-matic multilib toolchain-funcs linux-info systemd autotools
+
+scriptversion=v3
 scriptname=${PN}-gentoo-scripts-${scriptversion}
 
 SRC_URI="mirror://kernel/linux/utils/kernel/hotplug/${P}.tar.bz2
@@ -115,11 +117,6 @@ src_prepare() {
 	if use test; then
 		mv "${WORKDIR}"/test/sys "${S}"/test/
 	fi
-
-	cd "${WORKDIR}/${scriptname}"
-
-	sed -e '/^LIBEXECDIR/s-$(LIBDIR)-lib-' -i Makefile \
-		|| die "patching Makefile failed"
 
 	cd "${S}"
 
