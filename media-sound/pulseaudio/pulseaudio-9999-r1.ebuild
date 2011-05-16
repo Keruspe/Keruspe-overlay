@@ -18,8 +18,9 @@ bluetooth +asyncns +glib test doc +udev ipv6 system-wide realtime +orc +gdbm tdb
 
 RDEPEND="app-admin/eselect-esd
 	X? (
-		|| ( >=x11-libs/libX11-1.4.0 <x11-libs/libX11-1.4.0[xcb] )
-		>=x11-libs/xcb-util-0.3.1
+		>=x11-libs/libX11-1.4.0
+		>=x11-libs/libxcb-1.6
+		x11-libs/xcb-util
 		x11-libs/libSM
 		x11-libs/libICE
 		x11-libs/libXtst
@@ -54,7 +55,7 @@ DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )
 	X? (
 		x11-proto/xproto
-		|| ( >=x11-libs/libXtst-1.0.99.2 <x11-proto/xextproto-7.0.99 )
+		>=x11-libs/libXtst-1.0.99.2
 	)
 	dev-libs/libatomic_ops
 	dev-util/pkgconfig
