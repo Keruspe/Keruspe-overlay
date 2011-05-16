@@ -57,6 +57,7 @@ DEPEND="${RDEPEND}
 		x11-proto/xproto
 		>=x11-libs/libXtst-1.0.99.2
 	)
+	>=dev-libs/json-c-0.9
 	dev-libs/libatomic_ops
 	dev-util/pkgconfig
 	system-wide? ( || ( dev-util/unifdef sys-freebsd/freebsd-ubin ) )
