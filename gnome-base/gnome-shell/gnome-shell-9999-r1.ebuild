@@ -15,7 +15,7 @@ HOMEPAGE="http://live.gnome.org/GnomeShell"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="bluetooth +nm-applet"
+IUSE="bluetooth +nm-applet +recorder"
 
 # gnome-desktop-2.91.2 is needed due to header changes, db82a33 in gnome-desktop
 # FIXME: Automagic gnome-bluetooth[introspection] support.
@@ -79,7 +79,8 @@ RDEPEND="${COMMON_DEPEND}
 
 	nm-applet? (
 		>=gnome-extra/nm-applet-0.8.997
-		>=net-misc/networkmanager-0.8.997[introspection] )"
+		>=net-misc/networkmanager-0.8.997[introspection] )
+	recorder? ( media-plugins/gst-plugins-vp8 )"
 DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.22
@@ -101,15 +102,4 @@ pkg_setup() {
 src_prepare() {
 	epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
     gnome2_src_prepare
-}
-
-pkg_postinst() {
-	gnome2_pkg_postinst
-	if ! has_version '>=media-libs/gst-plugins-good-0.10.23' || \
-	   ! has_version 'media-plugins/gst-plugins-vp8'; then
-		ewarn "To make use of GNOME Shell's built-in screen recording utility,"
-		ewarn "you need to either install >=media-libs/gst-plugins-good-0.10.23"
-		ewarn "and media-plugins/gst-plugins-vp8, or use dconf-editor to change"
-		ewarn "apps.gnome-shell.recorder/pipeline to what you want to use."
-	fi
 }
