@@ -52,8 +52,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9:2
 
 	x11-libs/startup-notification
 	x11-libs/libX11
-	x11-libs/libXfixes
-	x11-apps/mesa-progs"
+	x11-libs/libXfixes"
 # Runtime-only deps are probably incomplete and approximate.
 # Each block:
 # 1. Pull in polkit-0.101 for pretty authorization dialogs
