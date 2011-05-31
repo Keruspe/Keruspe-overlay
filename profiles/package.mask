@@ -3,16 +3,16 @@
 # $Header: $
 
 # Mask Scm packages
-=app-laptop/pommed-9999
+~app-laptop/pommed-9999
 ~dev-libs/gjs-9999
-=dev-libs/gobject-introspection-9999
+~dev-libs/gobject-introspection-9999
 ~gnome-base/gnome-shell-9999
 ~gnome-extra/gnome-shell-extensions-9999
-=media-sound/pavucontrol-9999
+~media-sound/pavucontrol-9999
 ~media-sound/pulseaudio-9999
 ~media-sound/rhythmbox-9999
 ~media-video/mplayer2-9999
-=sys-apps/paludis-9999
+~sys-apps/paludis-9999
 ~sys-apps/systemd-9999
 ~sys-boot/grub-9999
 ~x11-wm/mutter-9999
