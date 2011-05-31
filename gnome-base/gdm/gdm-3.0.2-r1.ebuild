@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="3"
 GCONF_DEBUG="yes"
 
 inherit autotools eutils gnome2 pam
@@ -12,7 +12,7 @@ HOMEPAGE="http://www.gnome.org/projects/gdm/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~sh ~sparc ~x86"
 
 IUSE_LIBC="elibc_glibc"
 IUSE="accessibility +consolekit ipv6 gnome-keyring selinux tcpd test xinerama +xklavier $IUSE_LIBC"
@@ -34,7 +34,7 @@ COMMON_DEPEND="
 	>=gnome-base/gconf-2.31.3
 	>=x11-misc/xdg-utils-1.0.2-r3
 	>=sys-power/upower-0.9
-	>=sys-apps/accountsservice-0.6.5
+	>=sys-apps/accountsservice-0.6.12
 
 	app-text/iso-codes
 
@@ -111,7 +111,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-2.32.0-fix-daemonize-regression.patch"
 
 	# GDM grabs VT2 instead of VT7, bug 261339, bug 284053, bug 288852
-	epatch "${FILESDIR}/${PN}-3.0.0-fix-vt-problems.patch"
+	epatch "${FILESDIR}/${PN}-2.32.0-fix-vt-problems.patch"
 
 	# make custom session work, bug #216984
 	epatch "${FILESDIR}/${PN}-2.32.0-custom-session.patch"
@@ -122,6 +122,7 @@ src_prepare() {
 	# fix libxklavier automagic support
 	epatch "${FILESDIR}/${PN}-2.32.0-automagic-libxklavier-support.patch"
 
+	mkdir -p "${S}"/m4
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
 }
@@ -133,7 +134,7 @@ src_install() {
 
 	# FIXME: Remove dosym usage, gone in EAPI 4
 	# gdm-binary should be gdm to work with our init (#5598)
-	rm -f "${ED}/usr/sbin/gdm"
+	rm -f "${D}/usr/sbin/gdm"
 	dosym /usr/sbin/gdm-binary /usr/sbin/gdm
 
 	# our x11's scripts point to /usr/bin/gdm
