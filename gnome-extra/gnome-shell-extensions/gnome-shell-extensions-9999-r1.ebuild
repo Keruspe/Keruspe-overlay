@@ -13,9 +13,11 @@ HOMEPAGE="http://live.gnome.org/GnomeShell/Extensions"
 
 LICENSE="GPL-2"
 SLOT="0"
-EXTENSIONS="example alternate-tab xrandr-indicator windowsNavigator auto-move-windows
-dock user-theme alternative-status-menu gajim drive-menu places-menu"
-IUSE="${EXTENSIONS}"
+DEFAULT_EXTENSIONS="alternative-status-menu apps-menu dock drive-menu gajim
+places-menu windowsNavigator"
+ALL_EXTENSIONS="${DEFAULT_EXTENSIONS} alternate-tab auto-move-windows example
+native-window-placement systemMonitor user-theme xrandr-indicator"
+IUSE="${ALL_EXTENSIONS}"
 KEYWORDS="~amd64 ~x86"
 
 COMMON_DEPEND="
@@ -28,18 +30,25 @@ RDEPEND="${COMMON_DEPEND}
 	x11-libs/gtk+:3[introspection]
 	x11-libs/pango[introspection]"
 DEPEND="${COMMON_DEPEND}
+	systemMonitor? ( gnome-base/libgtop )
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.22
 	>=dev-util/intltool-0.26
 	gnome-base/gnome-common"
 
 pkg_setup() {
-	local extensions=""
-	for ext in ${EXTENSIONS}; do
+	extensions=""
+	for ext in ${ALL_EXTENSIONS}; do
 		use ${ext} && extensions="${ext} ${extensions}"
 	done
 	DOCS="HACKING README"
-	G2CONF="${G2CONF}
-		--disable-schemas-compile
-		--enable-extensions=${extensions}"
+}
+
+src_prepare() {
+	sed -i s/2\.28\.4/2.28.3/ configure.ac
+	gnome2_src_prepare
+}
+
+src_configure() {
+	econf --enable-extensions="${extensions}"
 }
