@@ -1,0 +1,25 @@
+From daa0f7d9fd7f4b09bbcef3953be062d1dda2890b Mon Sep 17 00:00:00 2001
+From: Julien Durillon <julien.durillon@gmail.com>
+Date: Mon, 2 May 2011 12:29:38 +0200
+Subject: [PATCH] Fixed drm bug
+
+---
+ src/cairo-xcb-screen.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/cairo-xcb-screen.c b/src/cairo-xcb-screen.c
+index b61f20b..3c77e1c 100644
+--- a/src/cairo-xcb-screen.c
++++ b/src/cairo-xcb-screen.c
+@@ -115,7 +115,7 @@ _pattern_cache_entry_destroy (void *closure)
+ #if CAIRO_HAS_DRM_SURFACE && CAIRO_HAS_XCB_DRM_FUNCTIONS
+ #include "drm/cairo-drm-private.h"
+ 
+-#include <drm/drm.h>
++#include <libdrm/drm.h>
+ #include <sys/ioctl.h>
+ #include <xcb/dri2.h>
+ #include <unistd.h>
+-- 
+1.7.5.rc3
+
