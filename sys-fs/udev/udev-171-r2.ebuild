@@ -2,59 +2,79 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="1"
 
-inherit eutils flag-o-matic multilib toolchain-funcs linux-info systemd autotools
+inherit eutils flag-o-matic multilib toolchain-funcs linux-info systemd
 
-scriptversion=v3
-scriptname=${PN}-gentoo-scripts-${scriptversion}
+PATCHSET=${P}-gentoo-patchset-v1
+scriptversion=v4
+scriptname=udev-gentoo-scripts-${scriptversion}
 
-SRC_URI="mirror://kernel/linux/utils/kernel/hotplug/${P}.tar.bz2
-		 test? ( mirror://gentoo/${PN}-151-testsys.tar.bz2 )
-		 mirror://gentoo/${scriptname}.tar.bz2"
-
+if [[ ${PV} == "9999" ]]; then
+	SRC_URI="mirror://gentoo/${scriptname}.tar.bz2"
+	EGIT_REPO_URI="git://git.kernel.org/pub/scm/linux/hotplug/udev.git"
+	EGIT_BRANCH="master"
+	inherit git autotools
+else
+	# please update testsys-tarball whenever udev-xxx/test/sys/ is changed
+	SRC_URI="mirror://kernel/linux/utils/kernel/hotplug/${P}.tar.bz2
+			 test? ( mirror://gentoo/${PN}-151-testsys.tar.bz2 )
+			 mirror://gentoo/${scriptname}.tar.bz2"
+	[[ -n "${PATCHSET}" ]] && SRC_URI="${SRC_URI} mirror://gentoo/${PATCHSET}.tar.bz2"
+fi
 DESCRIPTION="Linux dynamic and persistent device naming support (aka userspace devfs)"
 HOMEPAGE="http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev.html"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="selinux introspection +openrc extras test"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
+IUSE="selinux test debug +rule_generator hwdb acl gudev introspection keymap floppy edd action_modeswitch +openrc"
 
 COMMON_DEPEND="selinux? ( sys-libs/libselinux )
-	extras? (
-		sys-apps/acl
-		>=sys-apps/usbutils-0.82
-		virtual/libusb:0
-		sys-apps/pciutils
-		dev-libs/glib:2
-	)
+	acl? ( sys-apps/acl dev-libs/glib:2 )
+	gudev? ( dev-libs/glib:2 )
+	introspection? ( dev-libs/gobject-introspection )
+	action_modeswitch? ( virtual/libusb:0 )
 	>=sys-apps/util-linux-2.16
 	>=sys-libs/glibc-2.9"
 
 DEPEND="${COMMON_DEPEND}
-	extras? (
-		dev-util/gperf
-		dev-util/pkgconfig
-	)
+	keymap? ( dev-util/gperf )
+	dev-util/pkgconfig
 	virtual/os-headers
-	introspection? ( dev-libs/gobject-introspection )
 	!<sys-kernel/linux-headers-2.6.29
 	test? ( app-text/tree )"
 
 RDEPEND="${COMMON_DEPEND}
+	hwdb?
+	(
+		>=sys-apps/usbutils-0.82
+		sys-apps/pciutils
+	)
 	!sys-apps/coldplug
 	!<sys-fs/lvm2-2.02.45
 	!sys-fs/device-mapper
-	!<sys-apps/baselayout-1.12.5"
+	>=sys-apps/baselayout-1.12.5"
+
+if [[ ${PV} == "9999" ]]; then
+	# for documentation processing with xsltproc
+	DEPEND="${DEPEND}
+		app-text/docbook-xsl-stylesheets
+		app-text/docbook-xml-dtd
+		dev-util/gtk-doc"
+fi
 
 # required kernel options
 CONFIG_CHECK="~INOTIFY_USER ~SIGNALFD ~!SYSFS_DEPRECATED ~!SYSFS_DEPRECATED_V2
 	~!IDE"
 
+# Return values:
+# 2 - reliable
+# 1 - unreliable
+# 0 - too old
 udev_check_KV() {
 	local ok=0
-	if [[ ${KV_MAJOR} == 2 && ${KV_MINOR} == 6 ]]
+	if [[ ${KV_MAJOR} == 2 && ${KV_MINOR} == 6 ]] || [[ ${KV_MAJOR} == 3 ]]
 	then
 		if kernel_is -ge 2 6 ${KV_PATCH_reliable} ; then
 			ok=2
@@ -65,17 +85,15 @@ udev_check_KV() {
 	return $ok
 }
 
-pkg_pretend() {
-	check_extra_config
-}
-
 pkg_setup() {
+	linux-info_pkg_setup
+
 	# udev requires signalfd introduced in kernel 2.6.25,
 	# but a glibc compiled against >=linux-headers-2.6.27 uses the
 	# new signalfd syscall introduced in kernel 2.6.27 without falling back
 	# to the old one. So we just depend on 2.6.27 here, see Bug #281312.
-	KV_PATCH_min=25
-	KV_PATCH_reliable=31
+	KV_PATCH_min=32
+	KV_PATCH_reliable=32
 	KV_min=2.6.${KV_PATCH_min}
 	KV_reliable=2.6.${KV_PATCH_reliable}
 
@@ -89,15 +107,14 @@ pkg_setup() {
 	echo
 	# We don't care about the secondary revision of the kernel.
 	# 2.6.30.4 -> 2.6.30 is all we check
-	get_version
 	udev_check_KV
 	case "$?" in
 		2)	einfo "Your kernel version (${KV_FULL}) is new enough to run ${P} reliably." ;;
 		1)	ewarn "Your kernel version (${KV_FULL}) is new enough to run ${P},"
 			ewarn "but it may be unreliable in some cases."
-			;;
+			ebeep ;;
 		0)	eerror "Your kernel version (${KV_FULL}) is too old to run ${P}"
-			;;
+			ebeep ;;
 	esac
 	echo
 
@@ -110,33 +127,60 @@ pkg_setup() {
 		eerror "as your running kernel version (${KV_FULL}) is too old."
 		eerror "You really need to use a newer kernel after a reboot!"
 		NO_RESTART=1
+		ebeep
 	fi
 }
 
-src_prepare() {
-	if use test; then
-		mv "${WORKDIR}"/test/sys "${S}"/test/
+src_unpack() {
+	unpack ${A}
+	if [[ ${PV} == "9999" ]] ; then
+		git_src_unpack
+	else
+		if use test; then
+			mv "${WORKDIR}"/test/sys "${S}"/test/
+		fi
 	fi
 
+	#cd "${WORKDIR}/${scriptname}"
+
 	cd "${S}"
+
+	# patches go here...
+
+	# backport some patches
+	if [[ -n "${PATCHSET}" ]]; then
+		EPATCH_SOURCE="${WORKDIR}/${PATCHSET}" EPATCH_SUFFIX="patch" \
+			  EPATCH_FORCE="yes" epatch
+	fi
 
 	# change rules back to group uucp instead of dialout for now
 	sed -e 's/GROUP="dialout"/GROUP="uucp"/' \
 		-i rules/{rules.d,arch}/*.rules \
 	|| die "failed to change group dialout to uucp"
 
-	MD5=$(md5sum < "${S}/rules/rules.d/50-udev-default.rules")
-	MD5=${MD5/  -/}
-	if [[ ${MD5} != a9954d57e97aa0ad2e0ed53899d9559a ]]
-	then
-		echo
-		eerror "50-udev-default.rules has been updated, please validate!"
-		eerror "md5sum: ${MD5}"
-		die "50-udev-default.rules has been updated, please validate!"
+	if [[ ${PV} != 9999 ]]; then
+		# Make sure there is no sudden changes to upstream rules file
+		# (more for my own needs than anything else ...)
+		MD5=$(md5sum < "${S}/rules/rules.d/50-udev-default.rules")
+		MD5=${MD5/  -/}
+		if [[ ${MD5} != a9954d57e97aa0ad2e0ed53899d9559a ]]
+		then
+			echo
+			eerror "50-udev-default.rules has been updated, please validate!"
+			eerror "md5sum: ${MD5}"
+			die "50-udev-default.rules has been updated, please validate!"
+		fi
+	fi
+
+	if [[ ${PV} == 9999 ]]; then
+		gtkdocize --copy || die "gtkdocize failed"
+		eautoreconf
 	fi
 }
 
-src_configure() {
+src_compile() {
+	filter-flags -fprefetch-loop-arrays
+
 	econf \
 		--prefix=/usr \
 		--sysconfdir=/etc \
@@ -147,29 +191,36 @@ src_configure() {
 		--enable-logging \
 		--enable-static \
 		$(use_with selinux) \
-		$(use_enable extras) \
-		$(systemd_with_unitdir) \
-		$(use_enable introspection)
-}
+		$(use_enable debug) \
+		$(use_enable rule_generator) \
+		$(use_enable hwdb) \
+		--with-pci-ids-path=/usr/share/misc/pci.ids \
+		--with-usb-ids-path=/usr/share/misc/usb.ids \
+		$(use_enable acl udev_acl) \
+		$(use_enable gudev) \
+		$(use_enable introspection) \
+		$(use_enable keymap) \
+		$(use_enable floppy) \
+		$(use_enable edd) \
+		$(use_enable action_modeswitch) \
+		$(systemd_with_unitdir)
 
-src_compile() {
-	filter-flags -fprefetch-loop-arrays
 	emake || die "compiling udev failed"
 }
 
 src_install() {
 	emake -C "${WORKDIR}/${scriptname}" \
-		DESTDIR="${ED}" LIBDIR="$(get_libdir)" \
+		DESTDIR="${D}" LIBDIR="$(get_libdir)" \
 		KV_min="${KV_min}" KV_reliable="${KV_reliable}" \
 		install || die "make install failed"
 
 	if ! use openrc; then
-		rm "${ED}/lib/udev/rules.d/90-network.rules" || die
-		rm "${ED}/lib/udev/net.sh" || die
+		rm "${D}/lib/udev/rules.d/90-network.rules" || die
+		rm "${D}/lib/udev/net.sh" || die
 	fi
 
 	into /
-	emake DESTDIR="${ED}" install || die "make install failed"
+	emake DESTDIR="${D}" install || die "make install failed"
 
 	exeinto /lib/udev
 	keepdir /lib/udev/state
@@ -181,7 +232,7 @@ src_install() {
 
 	# Add gentoo stuff to udev.conf
 	echo "# If you need to change mount-options, do it in /etc/fstab" \
-	>> "${ED}"/etc/udev/udev.conf
+	>> "${D}"/etc/udev/udev.conf
 
 	# let the dir exist at least
 	keepdir /etc/udev/rules.d
@@ -208,11 +259,10 @@ src_install() {
 	dodoc ChangeLog README TODO || die "failed installing docs"
 
 	# keep doc in just one directory, Bug #281137
-	rm -rf "${ED}/usr/share/doc/${PN}"
-	if use extras; then
+	rm -rf "${D}/usr/share/doc/${PN}"
+	if use keymap; then
 		dodoc extras/keymap/README.keymap.txt || die "failed installing docs"
 	fi
-	find ${ED} -name '*.la' -exec rm -f {} +
 }
 
 pkg_preinst() {
@@ -228,7 +278,7 @@ pkg_preinst() {
 
 	if [[ -d ${ROOT}/lib/udev-state ]]
 	then
-		mv -f "${ROOT}"/lib/udev-state/* "${ED}"/lib/udev/state/
+		mv -f "${ROOT}"/lib/udev-state/* "${D}"/lib/udev/state/
 		rm -r "${ROOT}"/lib/udev-state
 	fi
 
@@ -320,17 +370,28 @@ restart_udevd() {
 		eerror
 		eerror "Please have a look at this before rebooting."
 		eerror "If in doubt, please downgrade udev back to your old version"
+		ebeep
 	fi
 }
 
 postinst_init_scripts() {
-	# FIXME: we may need some code that detects if this is a system bootstrap
-	# and auto-enables udev then
-	#
+	local enable_postmount=false
+
 	# FIXME: inconsistent handling of init-scripts here
 	#  * udev is added to sysinit in openrc-ebuild
 	#  * we add udev-postmount to default in here
 	#
+
+	# If we are building stages, add udev to the sysinit runlevel automatically.
+	if use build
+	then
+		if [[ -x "${ROOT}"/etc/init.d/udev  \
+			&& -d "${ROOT}"/etc/runlevels/sysinit ]]
+		then
+			ln -s "${ROOT}"/etc/init.d/udev "${ROOT}"/etc/runlevels/sysinit/udev
+		fi
+		enable_postmount=true
+	fi
 
 	# migration to >=openrc-0.4
 	if [[ -e "${ROOT}"/etc/runlevels/sysinit && ! -e "${ROOT}"/etc/runlevels/sysinit/udev ]]
@@ -350,11 +411,10 @@ postinst_init_scripts() {
 	# already enabled?
 	[[ -e "${ROOT}"/etc/runlevels/default/udev-postmount ]] && return
 
-	local enable_postmount=0
-	[[ -e "${ROOT}"/etc/runlevels/sysinit/udev ]] && enable_postmount=1
-	[[ "${ROOT}" = "/" && -d /dev/.udev/ ]] && enable_postmount=1
+	[[ -e "${ROOT}"/etc/runlevels/sysinit/udev ]] && enable_postmount=true
+	[[ "${ROOT}" = "/" && -d /dev/.udev/ ]] && enable_postmount=true
 
-	if [[ ${enable_postmount} = 1 ]]
+	if $enable_postmount
 	then
 		local initd=udev-postmount
 
