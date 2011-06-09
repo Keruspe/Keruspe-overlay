@@ -40,7 +40,7 @@ RDEPEND="app-admin/eselect-esd
 		>=sys-apps/dbus-1.0.0
 	)
 	asyncns? ( net-libs/libasyncns )
-	udev? ( >=sys-fs/udev-143[extras] )
+	udev? ( || ( >=sys-fs/udev-171[hwdb] >=sys-fs/udev-143[extras] ) )
 	realtime? ( sys-auth/rtkit )
 	equalizer? ( sci-libs/fftw:3.0 )
 	orc? ( >=dev-lang/orc-0.4.9 )
