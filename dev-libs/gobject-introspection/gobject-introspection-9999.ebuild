@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
-RDEPEND=">=dev-libs/glib-2.24:2
+RDEPEND=">=dev-libs/glib-2.29.7:2
 	virtual/libffi"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
