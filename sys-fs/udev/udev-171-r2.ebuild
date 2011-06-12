@@ -18,7 +18,7 @@ if [[ ${PV} == "9999" ]]; then
 else
 	# please update testsys-tarball whenever udev-xxx/test/sys/ is changed
 	SRC_URI="mirror://kernel/linux/utils/kernel/hotplug/${P}.tar.bz2
-			 test? ( mirror://gentoo/${PN}-151-testsys.tar.bz2 )
+			 test? ( mirror://gentoo/${PN}-171-testsys.tar.bz2 )
 			 mirror://gentoo/${scriptname}.tar.bz2"
 	[[ -n "${PATCHSET}" ]] && SRC_URI="${SRC_URI} mirror://gentoo/${PATCHSET}.tar.bz2"
 fi
@@ -28,9 +28,13 @@ HOMEPAGE="http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev.html"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
-IUSE="selinux test debug +rule_generator hwdb acl gudev introspection keymap floppy edd action_modeswitch +openrc"
+IUSE="selinux test debug +rule_generator hwdb acl gudev introspection keymap floppy edd action_modeswitch extras +openrc"
 
 COMMON_DEPEND="selinux? ( sys-libs/libselinux )
+	extras? ( sys-apps/acl
+		dev-libs/glib:2
+		dev-libs/gobject-introspection
+		virtual/libusb:0 )
 	acl? ( sys-apps/acl dev-libs/glib:2 )
 	gudev? ( dev-libs/glib:2 )
 	introspection? ( dev-libs/gobject-introspection )
@@ -40,6 +44,7 @@ COMMON_DEPEND="selinux? ( sys-libs/libselinux )
 
 DEPEND="${COMMON_DEPEND}
 	keymap? ( dev-util/gperf )
+	extras? ( dev-util/gperf )
 	dev-util/pkgconfig
 	virtual/os-headers
 	!<sys-kernel/linux-headers-2.6.29
@@ -47,6 +52,11 @@ DEPEND="${COMMON_DEPEND}
 
 RDEPEND="${COMMON_DEPEND}
 	hwdb?
+	(
+		>=sys-apps/usbutils-0.82
+		sys-apps/pciutils
+	)
+	extras?
 	(
 		>=sys-apps/usbutils-0.82
 		sys-apps/pciutils
@@ -181,6 +191,7 @@ src_unpack() {
 src_compile() {
 	filter-flags -fprefetch-loop-arrays
 
+	if ! use extras; then
 	econf \
 		--prefix=/usr \
 		--sysconfdir=/etc \
@@ -204,6 +215,31 @@ src_compile() {
 		$(use_enable edd) \
 		$(use_enable action_modeswitch) \
 		$(systemd_with_unitdir)
+	else
+	econf \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--sbindir=/sbin \
+		--libdir=/usr/$(get_libdir) \
+		--with-rootlibdir=/$(get_libdir) \
+		--libexecdir=/lib/udev \
+		--enable-logging \
+		--enable-static \
+		$(use_with selinux) \
+		$(use_enable debug) \
+		--enable-rule_generator \
+		--enable-hwdb \
+		--with-pci-ids-path=/usr/share/misc/pci.ids \
+		--with-usb-ids-path=/usr/share/misc/usb.ids \
+		--enable-udev_acl \
+		--enable-gudev \
+		--enable-introspection \
+		--enable-keymap \
+		--enable-floppy \
+		--enable-edd \
+		--enable-action_modeswitch \
+		$(systemd_with_unitdir)
+	fi
 
 	emake || die "compiling udev failed"
 }
@@ -498,11 +534,6 @@ pkg_postinst() {
 			rm -f "${ROOT}"/etc/udev/rules.d/64-device-mapper.rules
 			einfo "Removed unneeded file 64-device-mapper.rules"
 	fi
-
-	# requested in bug #275974, added 2009/09/05
-	ewarn
-	ewarn "If after the udev update removable devices or CD/DVD drives"
-	ewarn "stop working, try re-emerging HAL before filling a bug report"
 
 	# requested in Bug #225033:
 	elog
