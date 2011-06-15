@@ -27,9 +27,7 @@ RDEPEND=">=dev-libs/glib-2.18:2
 	>=net-libs/xulrunner-2.0:1.9"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
-	>=dev-util/pkgconfig-0.9
-	!dev-lang/spidermonkey"
-# HACK HACK: gjs-tests picks up /usr/lib/libmozjs.so with spidermonkey installed
+	>=dev-util/pkgconfig-0.9"
 
 src_prepare() {
 	# AUTHORS, ChangeLog are empty

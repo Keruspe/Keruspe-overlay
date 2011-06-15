@@ -84,10 +84,7 @@ DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.22
 	>=dev-util/intltool-0.26
-	gnome-base/gnome-common
-	!dev-lang/spidermonkey"
-# libmozjs.so is picked up from /usr/lib while compiling, so block at build-time
-# https://bugs.gentoo.org/show_bug.cgi?id=360413
+	gnome-base/gnome-common"
 
 pkg_setup() {
 	DOCS="AUTHORS README"
