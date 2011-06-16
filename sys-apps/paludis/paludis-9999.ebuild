@@ -10,10 +10,7 @@ HOMEPAGE="http://paludis.pioto.org/"
 SRC_URI=""
 EGIT_REPO_URI="git://git.pioto.org/paludis.git"
 
-CLIENTS_USE="accerso appareo instruo"
-
-IUSE="${CLIENTS_USE}
-ask doc gemcutter pbins pink portage python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
+IUSE="ask doc gemcutter pbins pink portage python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -85,7 +82,7 @@ src_unpack() {
 src_compile() {
 	format_list() { echo $@ | tr -s \  ,; }
 	local repositories="default repository unavailable unpackaged $(usev gemcutter)"
-	local clients="$(usev accerso) $(usev appareo) cave $(usev instruo)"
+	local clients="cave"
 	local environments="default $(usev portage)"
 	econf \
 		$(use_enable doc doxygen ) \
@@ -113,8 +110,6 @@ src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	dodoc AUTHORS README NEWS
 
-	use accerso && BASHCOMPLETION_NAME="accerso" dobashcompletion bash-completion/accerso
-	use instruo && BASHCOMPLETION_NAME="instruo" dobashcompletion bash-completion/instruo
 	BASHCOMPLETION_NAME="cave" dobashcompletion bash-completion/cave
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
