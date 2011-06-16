@@ -21,7 +21,7 @@ RDEPEND=">=x11-libs/gtk+-2.24:2
 	>=x11-libs/libnotify-0.7
 	net-libs/libsoup:2.4
 	dev-libs/libxml2
-	>=net-libs/rest-0.7"
+	>=net-libs/rest-0.7.10"
 DEPEND="${RDEPEND}
 	>=dev-lang/vala-0.11.4:0.12
 	sys-devel/gettext
