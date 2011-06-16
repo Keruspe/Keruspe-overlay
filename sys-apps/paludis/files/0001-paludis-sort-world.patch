@@ -1,4 +1,4 @@
-From fb0c49bb5fe80cb6ccf3a4e2dd07f0c9580718b0 Mon Sep 17 00:00:00 2001
+From 56dcc8a921e96085afd9154226fd5ba7ab147786 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:17:27 +0200
 Subject: [PATCH 1/2] paludis sort world
@@ -63,10 +63,10 @@ index f81a62b..0d8916c 100755
  END
  
 diff --git a/paludis/set_file.cc b/paludis/set_file.cc
-index bc62eb6..e6fbe90 100644
+index 646ccf4..f786c5d 100644
 --- a/paludis/set_file.cc
 +++ b/paludis/set_file.cc
-@@ -61,12 +61,15 @@ namespace
+@@ -60,12 +60,15 @@ namespace
          protected:
              SetFileHandler();
  
@@ -82,7 +82,7 @@ index bc62eb6..e6fbe90 100644
              virtual void rewrite() const = 0;
      };
  
-@@ -88,6 +91,7 @@ namespace
+@@ -87,6 +90,7 @@ namespace
              virtual std::shared_ptr<SetSpecTree> contents() const;
              virtual bool add(const std::string &);
              virtual bool remove(const std::string &);
@@ -90,7 +90,7 @@ index bc62eb6..e6fbe90 100644
              virtual void rewrite() const;
      };
  
-@@ -104,6 +108,7 @@ namespace
+@@ -103,6 +107,7 @@ namespace
              virtual std::shared_ptr<SetSpecTree> contents() const;
              virtual bool add(const std::string &) PALUDIS_ATTRIBUTE((noreturn));
              virtual bool remove(const std::string &) PALUDIS_ATTRIBUTE((noreturn));
@@ -98,7 +98,7 @@ index bc62eb6..e6fbe90 100644
              virtual void rewrite() const PALUDIS_ATTRIBUTE((noreturn));
      };
  
-@@ -125,6 +130,7 @@ namespace
+@@ -124,6 +129,7 @@ namespace
              virtual std::shared_ptr<SetSpecTree> contents() const;
              virtual bool add(const std::string &);
              virtual bool remove(const std::string &);
@@ -106,7 +106,7 @@ index bc62eb6..e6fbe90 100644
              virtual void rewrite() const;
      };
  
-@@ -304,6 +310,22 @@ SetFileHandler::~SetFileHandler()
+@@ -303,6 +309,22 @@ SetFileHandler::~SetFileHandler()
  {
  }
  
@@ -129,7 +129,7 @@ index bc62eb6..e6fbe90 100644
  SimpleHandler::SimpleHandler(const SetFileParams & p) :
      _p(p)
  {
-@@ -409,6 +431,17 @@ SimpleHandler::remove(const std::string & p)
+@@ -408,6 +430,17 @@ SimpleHandler::remove(const std::string & p)
  }
  
  void
@@ -147,7 +147,7 @@ index bc62eb6..e6fbe90 100644
  SimpleHandler::rewrite() const
  {
      Lock l(_mutex);
-@@ -502,6 +535,17 @@ PaludisConfHandler::remove(const std::string & p)
+@@ -501,6 +534,17 @@ PaludisConfHandler::remove(const std::string & p)
  }
  
  void
@@ -165,7 +165,7 @@ index bc62eb6..e6fbe90 100644
  PaludisConfHandler::rewrite() const
  {
      Context context("When rewriting paludis conf set file '" + stringify(_p.file_name()) + "':");
-@@ -574,6 +618,12 @@ PaludisBashHandler::remove(const std::string & p)
+@@ -572,6 +616,12 @@ PaludisBashHandler::remove(const std::string & p)
  }
  
  void
@@ -178,7 +178,7 @@ index bc62eb6..e6fbe90 100644
  PaludisBashHandler::rewrite() const
  {
      throw SetFileError(_p.file_name(), "Cannot modify bash script '" + stringify(_p.file_name()) + "'");
-@@ -611,6 +661,12 @@ SetFile::contents() const
+@@ -609,6 +659,12 @@ SetFile::contents() const
  }
  
  void
@@ -208,5 +208,5 @@ index e3a853c..019ccbb 100644
               */
              void rewrite() const;
 -- 
-1.7.4.1.294.gaf4c6.dirty
+1.7.6.rc1.1.g2c162b.dirty
 

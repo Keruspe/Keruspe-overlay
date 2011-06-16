@@ -1,4 +1,4 @@
-From 7ce50ff8fba89792d7f1f647598db704a5d5193a Mon Sep 17 00:00:00 2001
+From 0bd45d930737092c9c754386666d800fbefc60ad Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:38:14 +0200
 Subject: [PATCH 2/2] cave resolve ask
@@ -41,7 +41,7 @@ index a43287f..ef6ba64 100644
  
  <p>Non-Problem: Paludis doesn't restore the xterm title on exit.</p>
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index e1bdc14..f2a4dbc 100644
+index b9b71c1..260bd0d 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
 @@ -104,7 +104,8 @@ namespace
@@ -118,10 +118,10 @@ index e0a7f2a..9985df5 100644
  
          std::string app_name() const
 diff --git a/src/clients/cave/resolve_cmdline.cc b/src/clients/cave/resolve_cmdline.cc
-index 2a107d7..b84f73d 100644
+index 90252b0..6b1ad27 100644
 --- a/src/clients/cave/resolve_cmdline.cc
 +++ b/src/clients/cave/resolve_cmdline.cc
-@@ -47,6 +47,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
+@@ -46,6 +46,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
      ArgsSection(h, "Resolution Options"),
      g_execution_options(this, "Execution Options", "Control execution."),
      a_execute(&g_execution_options, "execute", 'x', "Execute the suggested actions", true),
@@ -130,7 +130,7 @@ index 2a107d7..b84f73d 100644
      g_convenience_options(this, "Convenience Options", "Broad behaviour options. These options are simply "
              "a convenient way of selecting common groups of other options; see individual option descriptions "
 diff --git a/src/clients/cave/resolve_cmdline.hh b/src/clients/cave/resolve_cmdline.hh
-index 8ee7b02..3483358 100644
+index 8bdd0b4..589230c 100644
 --- a/src/clients/cave/resolve_cmdline.hh
 +++ b/src/clients/cave/resolve_cmdline.hh
 @@ -36,6 +36,7 @@ namespace paludis
@@ -142,10 +142,10 @@ index 8ee7b02..3483358 100644
              args::ArgsGroup g_convenience_options;
              args::SwitchArg a_lazy;
 diff --git a/src/clients/cave/resolve_common.cc b/src/clients/cave/resolve_common.cc
-index cd8d643..83c144f 100644
+index b095dfc..d1727a2 100644
 --- a/src/clients/cave/resolve_common.cc
 +++ b/src/clients/cave/resolve_common.cc
-@@ -428,6 +428,8 @@ namespace
+@@ -427,6 +427,8 @@ namespace
  
          if (pretend_only || ! resolution_options.a_execute.specified())
              args->push_back("--pretend");
@@ -167,5 +167,5 @@ index 7067fa8..cd774bb 100644
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--complete,-c,--no-complete}'[Do all optional work]' \
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--everything,-e,--no-everything}'[Do all optional work, and also reinstall]' \
 -- 
-1.7.4.1.294.gaf4c6.dirty
+1.7.6.rc1.1.g2c162b.dirty
 
