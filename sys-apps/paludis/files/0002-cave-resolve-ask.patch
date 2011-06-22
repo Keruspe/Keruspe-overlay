@@ -1,4 +1,4 @@
-From 0bd45d930737092c9c754386666d800fbefc60ad Mon Sep 17 00:00:00 2001
+From 0a0f409268b713108bc487b060605802e2c6c6bb Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:38:14 +0200
 Subject: [PATCH 2/2] cave resolve ask
@@ -41,7 +41,7 @@ index a43287f..ef6ba64 100644
  
  <p>Non-Problem: Paludis doesn't restore the xterm title on exit.</p>
 diff --git a/src/clients/cave/cmd_execute_resolution.cc b/src/clients/cave/cmd_execute_resolution.cc
-index b9b71c1..260bd0d 100644
+index b9b71c1..568af40 100644
 --- a/src/clients/cave/cmd_execute_resolution.cc
 +++ b/src/clients/cave/cmd_execute_resolution.cc
 @@ -104,7 +104,8 @@ namespace
@@ -95,7 +95,7 @@ index b9b71c1..260bd0d 100644
          retcode |= execute_pretends(env, lists, cmdline);
 +
 +        if ((! cmdline.a_pretend.specified()) && cmdline.a_ask.specified() && lists->execute_job_list()->length() != 0 && (! do_ask()))
-+               cmdline.a_pretend.set_specified(true);
++               cmdline.a_pretend.set_specified(args::aos_specified);
 +
          if (0 != retcode || cmdline.a_pretend.specified())
              return retcode;
@@ -118,7 +118,7 @@ index e0a7f2a..9985df5 100644
  
          std::string app_name() const
 diff --git a/src/clients/cave/resolve_cmdline.cc b/src/clients/cave/resolve_cmdline.cc
-index 90252b0..6b1ad27 100644
+index 82abf30..7033c28 100644
 --- a/src/clients/cave/resolve_cmdline.cc
 +++ b/src/clients/cave/resolve_cmdline.cc
 @@ -46,6 +46,7 @@ ResolveCommandLineResolutionOptions::ResolveCommandLineResolutionOptions(args::A
@@ -142,7 +142,7 @@ index 8bdd0b4..589230c 100644
              args::ArgsGroup g_convenience_options;
              args::SwitchArg a_lazy;
 diff --git a/src/clients/cave/resolve_common.cc b/src/clients/cave/resolve_common.cc
-index b095dfc..d1727a2 100644
+index 3ddbddb..2770932 100644
 --- a/src/clients/cave/resolve_common.cc
 +++ b/src/clients/cave/resolve_common.cc
 @@ -427,6 +427,8 @@ namespace
@@ -155,7 +155,7 @@ index b095dfc..d1727a2 100644
          for (Sequence<std::string>::ConstIterator p(world_specs->begin()), p_end(world_specs->end()) ;
                  p != p_end ; ++p)
 diff --git a/zsh-completion/_cave b/zsh-completion/_cave
-index 7067fa8..cd774bb 100644
+index 7dd5afe..e47f43f 100644
 --- a/zsh-completion/_cave
 +++ b/zsh-completion/_cave
 @@ -666,6 +666,7 @@ _cave_cmd_report()
@@ -167,5 +167,5 @@ index 7067fa8..cd774bb 100644
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--complete,-c,--no-complete}'[Do all optional work]' \
      '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--everything,-e,--no-everything}'[Do all optional work, and also reinstall]' \
 -- 
-1.7.6.rc1.1.g2c162b.dirty
+1.7.6.rc2.8.g28eb.dirty
 
