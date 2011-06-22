@@ -1,6 +1,5 @@
 app-laptop
 app-paludis
-dev-db
 dev-java
 dev-libs
 dev-util
@@ -10,6 +9,7 @@ gnome-extra
 media-sound
 media-video
 net-dns
+net-im
 net-libs
 net-misc
 net-wireless
