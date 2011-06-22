@@ -6,6 +6,7 @@
 ~app-laptop/pommed-9999
 ~dev-libs/gjs-9999
 ~dev-libs/gobject-introspection-9999
+~dev-util/valgrind-9999
 ~gnome-base/gnome-shell-9999
 ~gnome-extra/gnome-shell-extensions-9999
 ~media-sound/pavucontrol-9999
