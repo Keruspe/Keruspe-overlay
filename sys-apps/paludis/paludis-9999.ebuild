@@ -82,7 +82,6 @@ src_unpack() {
 src_compile() {
 	format_list() { echo $@ | tr -s \  ,; }
 	local repositories="default repository unavailable unpackaged $(usev gemcutter)"
-	local clients="cave"
 	local environments="default $(usev portage)"
 	econf \
 		$(use_enable doc doxygen ) \
@@ -98,7 +97,6 @@ src_compile() {
 		$(use_enable xml ) \
 		--with-vim-install-dir=/usr/share/vim/vimfiles \
 		--with-repositories=$(format_list ${repositories}) \
-		--with-clients=$(format_list ${clients}) \
 		--with-environments=$(format_list ${environments}) \
 		--with-git-head="$(git rev-parse HEAD)" \
 		|| die "econf failed"
