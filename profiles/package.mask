@@ -14,6 +14,7 @@
 ~media-sound/rhythmbox-9999
 ~media-video/mplayer2-9999
 ~net-im/empathy-9999
+~net-voip/telepathy-salut-9999
 ~sys-apps/paludis-9999
 ~sys-apps/systemd-9999
 ~sys-boot/grub-9999

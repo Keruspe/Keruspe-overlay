@@ -12,6 +12,7 @@ net-dns
 net-im
 net-libs
 net-misc
+net-voip
 net-wireless
 sys-apps
 sys-boot
