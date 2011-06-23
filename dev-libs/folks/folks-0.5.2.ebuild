@@ -29,6 +29,7 @@ DEPEND="${RDEPEND}
 	>=dev-lang/vala-0.12.0:0.12[vapigen]
 	>=dev-libs/gobject-introspection-0.9.12
 	sys-devel/gettext
+	net-libs/libsocialweb[vala]
 "
 
 pkg_setup() {
