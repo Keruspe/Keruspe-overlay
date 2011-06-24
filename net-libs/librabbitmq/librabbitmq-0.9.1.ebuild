@@ -3,7 +3,6 @@
 # $Header: $
 inherit base autotools
 
-
 EAPI=4
 
 DESCRIPTION="Library to use rabbitmq"
@@ -12,7 +11,7 @@ SRC_URI="http://hg.rabbitmq.com/rabbitmq-codegen/archive/740afa9df161.tar.bz2
 http://hg.rabbitmq.com/rabbitmq-c/archive/2c0ea67d4e40.tar.bz2"
 RESTRICT="nomirror"
 
-LICENSE="GPL-2.0"
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="static-libs"
