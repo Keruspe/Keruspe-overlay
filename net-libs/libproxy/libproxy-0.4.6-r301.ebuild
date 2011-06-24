@@ -23,7 +23,7 @@ RDEPEND="
 	networkmanager? ( net-misc/networkmanager )
 	perl? (	dev-lang/perl )
 	vala? ( dev-lang/vala:0.12 )
-	xulrunner? ( >=net-libs/xulrunner-1.9.1:1.9 )"
+	xulrunner? ( || ( ~www-client/firefox-9999 >=net-libs/xulrunner-1.9.1 ) )"
 	# Disable till we figure out how to fix problems with gtk2/gtk3 apps
 	#webkit? ( net-libs/webkit-gtk:3 )
 
