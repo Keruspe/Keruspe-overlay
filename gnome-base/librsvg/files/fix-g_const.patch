@@ -1,0 +1,103 @@
+From 01c1c36070184d67f4e0b925acf82a0c0a509558 Mon Sep 17 00:00:00 2001
+From: Javier Jardón <jjardon@gnome.org>
+Date: Thu, 09 Jun 2011 16:21:03 +0000
+Subject: Use "const" instead G_CONST_RETURN
+
+https://bugzilla.gnome.org/show_bug.cgi?id=652213
+---
+diff --git a/rsvg-base.c b/rsvg-base.c
+index 6d7a5c3..9fd065a 100644
+--- a/rsvg-base.c
++++ b/rsvg-base.c
+@@ -1102,7 +1102,7 @@ rsvg_handle_set_base_gfile (RsvgHandle *handle,
+  * Returns: the base uri, possibly null
+  * Since: 2.8
+  */
+-G_CONST_RETURN char *
++const char *
+ rsvg_handle_get_base_uri (RsvgHandle * handle)
+ {
+     g_return_val_if_fail (handle, NULL);
+@@ -1246,7 +1246,7 @@ rsvg_drawing_ctx_free (RsvgDrawingCtx * handle)
+  *
+  * Since: 2.9
+  */
+-G_CONST_RETURN char *
++const char *
+ rsvg_handle_get_metadata (RsvgHandle * handle)
+ {
+     g_return_val_if_fail (handle, NULL);
+@@ -1268,7 +1268,7 @@ rsvg_handle_get_metadata (RsvgHandle * handle)
+  *
+  * Since: 2.4
+  */
+-G_CONST_RETURN char *
++const char *
+ rsvg_handle_get_title (RsvgHandle * handle)
+ {
+     g_return_val_if_fail (handle, NULL);
+@@ -1290,7 +1290,7 @@ rsvg_handle_get_title (RsvgHandle * handle)
+  *
+  * Since: 2.4
+  */
+-G_CONST_RETURN char *
++const char *
+ rsvg_handle_get_desc (RsvgHandle * handle)
+ {
+     g_return_val_if_fail (handle, NULL);
+diff --git a/rsvg-private.h b/rsvg-private.h
+index 85bd7ac..288c2de 100644
+--- a/rsvg-private.h
++++ b/rsvg-private.h
+@@ -275,7 +275,7 @@ typedef void (*RsvgPropertyBagEnumFunc) (const char *key, const char *value, gpo
+ RsvgPropertyBag	    *rsvg_property_bag_new       (const char **atts);
+ RsvgPropertyBag	    *rsvg_property_bag_ref       (RsvgPropertyBag * bag);
+ void                 rsvg_property_bag_free      (RsvgPropertyBag * bag);
+-G_CONST_RETURN char *rsvg_property_bag_lookup    (RsvgPropertyBag * bag, const char *key);
++const char          *rsvg_property_bag_lookup    (RsvgPropertyBag * bag, const char *key);
+ guint                rsvg_property_bag_size	     (RsvgPropertyBag * bag);
+ void                 rsvg_property_bag_enumerate (RsvgPropertyBag * bag, RsvgPropertyBagEnumFunc func,
+                                                   gpointer user_data);
+diff --git a/rsvg-styles.c b/rsvg-styles.c
+index 7498ec9..13b952e 100644
+--- a/rsvg-styles.c
++++ b/rsvg-styles.c
+@@ -1557,7 +1557,7 @@ rsvg_property_bag_free (RsvgPropertyBag * bag)
+     g_hash_table_unref (bag);
+ }
+ 
+-G_CONST_RETURN char *
++const char *
+ rsvg_property_bag_lookup (RsvgPropertyBag * bag, const char *key)
+ {
+     return (const char *) g_hash_table_lookup (bag, (gconstpointer) key);
+diff --git a/rsvg.h b/rsvg.h
+index 41c4127..13e0838 100644
+--- a/rsvg.h
++++ b/rsvg.h
+@@ -126,8 +126,8 @@ gboolean     rsvg_handle_close		(RsvgHandle * handle, GError ** error);
+ GdkPixbuf   *rsvg_handle_get_pixbuf	(RsvgHandle * handle);
+ GdkPixbuf   *rsvg_handle_get_pixbuf_sub (RsvgHandle * handle, const char *id);
+ 
+-G_CONST_RETURN char	*rsvg_handle_get_base_uri (RsvgHandle * handle);
+-void                 rsvg_handle_set_base_uri (RsvgHandle * handle, const char *base_uri);
++const char  *rsvg_handle_get_base_uri (RsvgHandle * handle);
++void         rsvg_handle_set_base_uri (RsvgHandle * handle, const char *base_uri);
+ 
+ void rsvg_handle_get_dimensions (RsvgHandle * handle, RsvgDimensionData * dimension_data);
+ 
+@@ -163,9 +163,9 @@ RsvgHandle *rsvg_handle_new_from_stream_sync (GInputStream   *input_stream,
+ 
+ /* Accessibility API */
+ 
+-G_CONST_RETURN char *rsvg_handle_get_title	(RsvgHandle * handle);
+-G_CONST_RETURN char *rsvg_handle_get_desc	(RsvgHandle * handle);
+-G_CONST_RETURN char *rsvg_handle_get_metadata	(RsvgHandle * handle);
++const char *rsvg_handle_get_title	(RsvgHandle * handle);
++const char *rsvg_handle_get_desc	(RsvgHandle * handle);
++const char *rsvg_handle_get_metadata	(RsvgHandle * handle);
+ 
+ RsvgHandle *rsvg_handle_new_from_data (const guint8 * data, gsize data_len, GError ** error);
+ RsvgHandle *rsvg_handle_new_from_file (const gchar * file_name, GError ** error);
+--
+cgit v0.9
