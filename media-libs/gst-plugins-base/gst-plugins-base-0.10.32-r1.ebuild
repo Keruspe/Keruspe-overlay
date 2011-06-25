@@ -33,6 +33,7 @@ DOCS="AUTHORS NEWS README RELEASE"
 
 src_unpack() {
 	gnome2_src_unpack
+	epatch ${FILESDIR}/fix-g_const.patch
 	epatch "$FILESDIR/${PN}-0.10.31-fix-tag-test-linking.patch"
 	epatch "$FILESDIR/${P}-fix-tests-encodebin.patch"
 }

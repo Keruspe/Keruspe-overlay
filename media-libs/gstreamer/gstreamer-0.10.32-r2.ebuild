@@ -47,6 +47,7 @@ src_configure() {
 src_prepare() {
 	# Fix voice/video calling: taken from upstream, drop for next release
 	epatch ${FILESDIR}/fix-g_const.patch
+	sed -i 394s/\(gpointer\)// gst/gstelementfactory.c
 	epatch "${FILESDIR}/${P}-fix-valve-drops.patch"
 	default_src_prepare
 }
