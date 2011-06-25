@@ -1,0 +1,635 @@
+From c32f58ffc8eb903916020aa50b2f53e449ba16d4 Mon Sep 17 00:00:00 2001
+From: Javier Jardón <jjardon@gnome.org>
+Date: Thu, 09 Jun 2011 16:13:35 +0000
+Subject: Use "const" instead G_CONST_RETURN
+
+G_CONST_RETURN will be deprecated soon.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=652211
+---
+diff --git a/gst/gstelement.h b/gst/gstelement.h
+index 74f05dd..04b5ba8 100644
+--- a/gst/gstelement.h
++++ b/gst/gstelement.h
+@@ -782,8 +782,7 @@ gboolean                gst_element_seek                (GstElement *element, gd
+                                                          GstFormat format, GstSeekFlags flags,
+                                                          GstSeekType cur_type, gint64 cur,
+                                                          GstSeekType stop_type, gint64 stop);
+-G_CONST_RETURN GstQueryType*
+-                        gst_element_get_query_types     (GstElement *element);
++const GstQueryType*     gst_element_get_query_types     (GstElement *element);
+ gboolean                gst_element_query               (GstElement *element, GstQuery *query);
+ 
+ /* messages */
+diff --git a/gst/gstelementfactory.c b/gst/gstelementfactory.c
+index 3549432..4c28e82 100644
+--- a/gst/gstelementfactory.c
++++ b/gst/gstelementfactory.c
+@@ -512,7 +512,7 @@ gst_element_factory_get_element_type (GstElementFactory * factory)
+  *
+  * Returns: the longname
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_element_factory_get_longname (GstElementFactory * factory)
+ {
+   g_return_val_if_fail (GST_IS_ELEMENT_FACTORY (factory), NULL);
+@@ -528,7 +528,7 @@ gst_element_factory_get_longname (GstElementFactory * factory)
+  *
+  * Returns: the class
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_element_factory_get_klass (GstElementFactory * factory)
+ {
+   g_return_val_if_fail (GST_IS_ELEMENT_FACTORY (factory), NULL);
+@@ -544,7 +544,7 @@ gst_element_factory_get_klass (GstElementFactory * factory)
+  *
+  * Returns: the description
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_element_factory_get_description (GstElementFactory * factory)
+ {
+   g_return_val_if_fail (GST_IS_ELEMENT_FACTORY (factory), NULL);
+@@ -560,7 +560,7 @@ gst_element_factory_get_description (GstElementFactory * factory)
+  *
+  * Returns: the author
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_element_factory_get_author (GstElementFactory * factory)
+ {
+   g_return_val_if_fail (GST_IS_ELEMENT_FACTORY (factory), NULL);
+@@ -568,7 +568,7 @@ gst_element_factory_get_author (GstElementFactory * factory)
+   return factory->details.author;
+ }
+ 
+-static G_CONST_RETURN gchar *
++static const gchar *
+ gst_element_factory_get_meta_data (GstElementFactory * factory,
+     const gchar * key)
+ {
+@@ -589,7 +589,7 @@ gst_element_factory_get_meta_data (GstElementFactory * factory,
+  *
+  * Returns: the documentation uri
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_element_factory_get_documentation_uri (GstElementFactory * factory)
+ {
+   g_return_val_if_fail (GST_IS_ELEMENT_FACTORY (factory), NULL);
+@@ -606,7 +606,7 @@ gst_element_factory_get_documentation_uri (GstElementFactory * factory)
+  *
+  * Returns: the icon name
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_element_factory_get_icon_name (GstElementFactory * factory)
+ {
+   g_return_val_if_fail (GST_IS_ELEMENT_FACTORY (factory), NULL);
+@@ -659,7 +659,7 @@ __gst_element_factory_add_interface (GstElementFactory * elementfactory,
+  * Returns: (transfer none) (element-type Gst.StaticPadTemplate): the
+  *     static pad templates
+  */
+-G_CONST_RETURN GList *
++const GList *
+ gst_element_factory_get_static_pad_templates (GstElementFactory * factory)
+ {
+   g_return_val_if_fail (GST_IS_ELEMENT_FACTORY (factory), NULL);
+diff --git a/gst/gstelementfactory.h b/gst/gstelementfactory.h
+index 859b232..fc33982 100644
+--- a/gst/gstelementfactory.h
++++ b/gst/gstelementfactory.h
+@@ -146,14 +146,14 @@ GType                   gst_element_factory_get_type            (void);
+ GstElementFactory *     gst_element_factory_find                (const gchar *name);
+ 
+ GType                   gst_element_factory_get_element_type    (GstElementFactory *factory);
+-G_CONST_RETURN gchar *  gst_element_factory_get_longname        (GstElementFactory *factory);
+-G_CONST_RETURN gchar *  gst_element_factory_get_klass           (GstElementFactory *factory);
+-G_CONST_RETURN gchar *  gst_element_factory_get_description     (GstElementFactory *factory);
+-G_CONST_RETURN gchar *  gst_element_factory_get_author          (GstElementFactory *factory);
+-G_CONST_RETURN gchar *  gst_element_factory_get_documentation_uri (GstElementFactory *factory);
+-G_CONST_RETURN gchar *  gst_element_factory_get_icon_name       (GstElementFactory *factory);
++const gchar *           gst_element_factory_get_longname        (GstElementFactory *factory);
++const gchar *           gst_element_factory_get_klass           (GstElementFactory *factory);
++const gchar *           gst_element_factory_get_description     (GstElementFactory *factory);
++const gchar *           gst_element_factory_get_author          (GstElementFactory *factory);
++const gchar *           gst_element_factory_get_documentation_uri (GstElementFactory *factory);
++const gchar *           gst_element_factory_get_icon_name       (GstElementFactory *factory);
+ guint                   gst_element_factory_get_num_pad_templates (GstElementFactory *factory);
+-G_CONST_RETURN GList *  gst_element_factory_get_static_pad_templates (GstElementFactory *factory);
++const GList *           gst_element_factory_get_static_pad_templates (GstElementFactory *factory);
+ gint                    gst_element_factory_get_uri_type        (GstElementFactory *factory);
+ gchar **                gst_element_factory_get_uri_protocols   (GstElementFactory *factory);
+ gboolean                gst_element_factory_has_interface       (GstElementFactory *factory,
+diff --git a/gst/gstformat.h b/gst/gstformat.h
+index 469f555..9f8b362 100644
+--- a/gst/gstformat.h
++++ b/gst/gstformat.h
+@@ -104,7 +104,7 @@ GstFormat	gst_format_get_by_nick		(const gchar *nick);
+ gboolean	gst_formats_contains		(const GstFormat *formats, GstFormat format);
+ 
+ /* query for format details */
+-G_CONST_RETURN GstFormatDefinition*
++const GstFormatDefinition*
+ 		gst_format_get_details		(GstFormat format);
+ GstIterator* 	gst_format_iterate_definitions 	(void);
+ 
+diff --git a/gst/gstinfo.c b/gst/gstinfo.c
+index 36fe1ac..5062239 100644
+--- a/gst/gstinfo.c
++++ b/gst/gstinfo.c
+@@ -1789,7 +1789,7 @@ gst_debug_log_default (GstDebugCategory * category, GstDebugLevel level,
+ {
+ }
+ 
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_debug_level_get_name (GstDebugLevel level)
+ {
+   return "NONE";
+@@ -1877,7 +1877,7 @@ gst_debug_category_get_threshold (GstDebugCategory * category)
+   return GST_LEVEL_NONE;
+ }
+ 
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_debug_category_get_name (GstDebugCategory * category)
+ {
+   return "";
+@@ -1889,7 +1889,7 @@ gst_debug_category_get_color (GstDebugCategory * category)
+   return 0;
+ }
+ 
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_debug_category_get_description (GstDebugCategory * category)
+ {
+   return "";
+diff --git a/gst/gstinfo.h b/gst/gstinfo.h
+index 264aefc..f841cd7 100644
+--- a/gst/gstinfo.h
++++ b/gst/gstinfo.h
+@@ -317,7 +317,7 @@ typedef	void (* GstDebugFuncPtr)	(void);
+ /* do no use these functions, use the GST_DEBUG*_FUNCPTR macros */
+ void	_gst_debug_register_funcptr	(GstDebugFuncPtr	func,
+ 					 const gchar *		ptrname);
+-G_CONST_RETURN gchar *
++const gchar *
+ 	_gst_debug_nameof_funcptr	(GstDebugFuncPtr	func) G_GNUC_NO_INSTRUMENT;
+ 
+ 
+@@ -332,8 +332,7 @@ void            gst_debug_log_default    (GstDebugCategory * category,
+                                           GstDebugMessage  * message,
+                                           gpointer           unused) G_GNUC_NO_INSTRUMENT;
+ 
+-G_CONST_RETURN gchar *
+-                gst_debug_level_get_name (GstDebugLevel level);
++const gchar *   gst_debug_level_get_name (GstDebugLevel level);
+ 
+ void            gst_debug_add_log_function            (GstLogFunction func,
+                                                        gpointer       data);
+@@ -359,11 +358,9 @@ void	            gst_debug_category_set_threshold     (GstDebugCategory *	catego
+                                                       GstDebugLevel		level);
+ void            gst_debug_category_reset_threshold   (GstDebugCategory *	category);
+ GstDebugLevel   gst_debug_category_get_threshold     (GstDebugCategory *	category);
+-G_CONST_RETURN gchar *
+-	            gst_debug_category_get_name          (GstDebugCategory *	category);
++const gchar *   gst_debug_category_get_name          (GstDebugCategory *	category);
+ guint           gst_debug_category_get_color         (GstDebugCategory *	category);
+-G_CONST_RETURN gchar *
+-                gst_debug_category_get_description   (GstDebugCategory *	category);
++const gchar *   gst_debug_category_get_description   (GstDebugCategory *	category);
+ GSList *        gst_debug_get_all_categories	(void);
+ 
+ 
+diff --git a/gst/gstpad.c b/gst/gstpad.c
+index a599d42..c184485 100644
+--- a/gst/gstpad.c
++++ b/gst/gstpad.c
+@@ -186,7 +186,7 @@ static GstFlowQuarks flow_quarks[] = {
+  *
+  * Returns: a static string with the name of the flow return.
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_flow_get_name (GstFlowReturn ret)
+ {
+   gint i;
+diff --git a/gst/gstpad.h b/gst/gstpad.h
+index 10cb206..19834c4 100644
+--- a/gst/gstpad.h
++++ b/gst/gstpad.h
+@@ -184,7 +184,7 @@ typedef enum {
+ #define GST_FLOW_IS_SUCCESS(ret) ((ret) >= GST_FLOW_OK)
+ #endif
+ 
+-G_CONST_RETURN gchar*	gst_flow_get_name	(GstFlowReturn ret);
++const gchar*	        gst_flow_get_name	(GstFlowReturn ret);
+ GQuark			gst_flow_to_quark	(GstFlowReturn ret);
+ 
+ /**
+@@ -957,7 +957,7 @@ void			gst_pad_set_acceptcaps_function		(GstPad *pad, GstPadAcceptCapsFunction a
+ void			gst_pad_set_fixatecaps_function		(GstPad *pad, GstPadFixateCapsFunction fixatecaps);
+ void			gst_pad_set_setcaps_function		(GstPad *pad, GstPadSetCapsFunction setcaps);
+ 
+-G_CONST_RETURN GstCaps*	gst_pad_get_pad_template_caps		(GstPad *pad);
++const GstCaps*	        gst_pad_get_pad_template_caps		(GstPad *pad);
+ 
+ /* capsnego function for linked/unlinked pads */
+ GstCaps *		gst_pad_get_caps_reffed                 (GstPad * pad);
+@@ -1011,10 +1011,8 @@ GstIterator *           gst_pad_iterate_internal_links_default  (GstPad * pad);
+ 
+ /* generic query function */
+ void			gst_pad_set_query_type_function		(GstPad *pad, GstPadQueryTypeFunction type_func);
+-G_CONST_RETURN GstQueryType*
+-			gst_pad_get_query_types			(GstPad *pad);
+-G_CONST_RETURN GstQueryType*
+-			gst_pad_get_query_types_default		(GstPad *pad);
++const GstQueryType*	gst_pad_get_query_types			(GstPad *pad);
++const GstQueryType*	gst_pad_get_query_types_default		(GstPad *pad);
+ 
+ gboolean		gst_pad_query				(GstPad *pad, GstQuery *query);
+ gboolean		gst_pad_peer_query			(GstPad *pad, GstQuery *query);
+diff --git a/gst/gstplugin.c b/gst/gstplugin.c
+index b92a4f3..0fad4d5 100644
+--- a/gst/gstplugin.c
++++ b/gst/gstplugin.c
+@@ -915,7 +915,7 @@ gst_plugin_get_name (GstPlugin * plugin)
+  *
+  * Returns: the long name of the plugin
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_plugin_get_description (GstPlugin * plugin)
+ {
+   g_return_val_if_fail (plugin != NULL, NULL);
+@@ -931,7 +931,7 @@ gst_plugin_get_description (GstPlugin * plugin)
+  *
+  * Returns: the filename of the plugin
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_plugin_get_filename (GstPlugin * plugin)
+ {
+   g_return_val_if_fail (plugin != NULL, NULL);
+@@ -947,7 +947,7 @@ gst_plugin_get_filename (GstPlugin * plugin)
+  *
+  * Returns: the version of the plugin
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_plugin_get_version (GstPlugin * plugin)
+ {
+   g_return_val_if_fail (plugin != NULL, NULL);
+@@ -963,7 +963,7 @@ gst_plugin_get_version (GstPlugin * plugin)
+  *
+  * Returns: the license of the plugin
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_plugin_get_license (GstPlugin * plugin)
+ {
+   g_return_val_if_fail (plugin != NULL, NULL);
+@@ -979,7 +979,7 @@ gst_plugin_get_license (GstPlugin * plugin)
+  *
+  * Returns: the source of the plugin
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_plugin_get_source (GstPlugin * plugin)
+ {
+   g_return_val_if_fail (plugin != NULL, NULL);
+@@ -995,7 +995,7 @@ gst_plugin_get_source (GstPlugin * plugin)
+  *
+  * Returns: the package of the plugin
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_plugin_get_package (GstPlugin * plugin)
+ {
+   g_return_val_if_fail (plugin != NULL, NULL);
+@@ -1011,7 +1011,7 @@ gst_plugin_get_package (GstPlugin * plugin)
+  *
+  * Returns: the origin of the plugin
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_plugin_get_origin (GstPlugin * plugin)
+ {
+   g_return_val_if_fail (plugin != NULL, NULL);
+@@ -1064,7 +1064,7 @@ gst_plugin_is_loaded (GstPlugin * plugin)
+  *
+  * Since: 0.10.24
+  */
+-G_CONST_RETURN GstStructure *
++const GstStructure *
+ gst_plugin_get_cache_data (GstPlugin * plugin)
+ {
+   g_return_val_if_fail (GST_IS_PLUGIN (plugin), NULL);
+diff --git a/gst/gstplugin.h b/gst/gstplugin.h
+index c4f9c44..81ad00a 100644
+--- a/gst/gstplugin.h
++++ b/gst/gstplugin.h
+@@ -371,16 +371,16 @@ gboolean		gst_plugin_register_static_full	(gint major_version,
+                                                          const gchar *origin,
+                                                          gpointer user_data);
+ 
+-G_CONST_RETURN gchar*	gst_plugin_get_name		(GstPlugin *plugin);
+-G_CONST_RETURN gchar*	gst_plugin_get_description	(GstPlugin *plugin);
+-G_CONST_RETURN gchar*	gst_plugin_get_filename		(GstPlugin *plugin);
+-G_CONST_RETURN gchar*	gst_plugin_get_version		(GstPlugin *plugin);
+-G_CONST_RETURN gchar*	gst_plugin_get_license		(GstPlugin *plugin);
+-G_CONST_RETURN gchar*	gst_plugin_get_source		(GstPlugin *plugin);
+-G_CONST_RETURN gchar*	gst_plugin_get_package		(GstPlugin *plugin);
+-G_CONST_RETURN gchar*	gst_plugin_get_origin		(GstPlugin *plugin);
+-G_CONST_RETURN GstStructure*	gst_plugin_get_cache_data	(GstPlugin * plugin);
+-void		gst_plugin_set_cache_data	(GstPlugin * plugin, GstStructure *cache_data);
++const gchar*		gst_plugin_get_name		(GstPlugin *plugin);
++const gchar*		gst_plugin_get_description	(GstPlugin *plugin);
++const gchar*		gst_plugin_get_filename		(GstPlugin *plugin);
++const gchar*		gst_plugin_get_version		(GstPlugin *plugin);
++const gchar*		gst_plugin_get_license		(GstPlugin *plugin);
++const gchar*		gst_plugin_get_source		(GstPlugin *plugin);
++const gchar*		gst_plugin_get_package		(GstPlugin *plugin);
++const gchar*		gst_plugin_get_origin		(GstPlugin *plugin);
++const GstStructure*	gst_plugin_get_cache_data	(GstPlugin * plugin);
++void			gst_plugin_set_cache_data	(GstPlugin * plugin, GstStructure *cache_data);
+ 
+ GModule *		gst_plugin_get_module		(GstPlugin *plugin);
+ gboolean		gst_plugin_is_loaded		(GstPlugin *plugin);
+diff --git a/gst/gstpluginfeature.c b/gst/gstpluginfeature.c
+index 696988c..3c62b1b 100644
+--- a/gst/gstpluginfeature.c
++++ b/gst/gstpluginfeature.c
+@@ -200,7 +200,7 @@ gst_plugin_feature_set_name (GstPluginFeature * feature, const gchar * name)
+  *
+  * Returns: the name
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_plugin_feature_get_name (GstPluginFeature * feature)
+ {
+   g_return_val_if_fail (GST_IS_PLUGIN_FEATURE (feature), NULL);
+diff --git a/gst/gstpluginfeature.h b/gst/gstpluginfeature.h
+index abfebe2..177c8bd 100644
+--- a/gst/gstpluginfeature.h
++++ b/gst/gstpluginfeature.h
+@@ -136,7 +136,7 @@ gboolean        gst_plugin_feature_type_name_filter     (GstPluginFeature *featu
+ void            gst_plugin_feature_set_rank             (GstPluginFeature *feature, guint rank);
+ void            gst_plugin_feature_set_name             (GstPluginFeature *feature, const gchar *name);
+ guint           gst_plugin_feature_get_rank             (GstPluginFeature *feature);
+-G_CONST_RETURN gchar *gst_plugin_feature_get_name       (GstPluginFeature *feature);
++const gchar    *gst_plugin_feature_get_name             (GstPluginFeature *feature);
+ 
+ void            gst_plugin_feature_list_free            (GList *list);
+ GList          *gst_plugin_feature_list_copy            (GList *list);
+diff --git a/gst/gstquery.h b/gst/gstquery.h
+index 8c64841..f77c0c7 100644
+--- a/gst/gstquery.h
++++ b/gst/gstquery.h
+@@ -181,7 +181,7 @@ gboolean        gst_query_types_contains       (const GstQueryType *types,
+ 
+ /* query for query details */
+ 
+-G_CONST_RETURN GstQueryTypeDefinition*
++const GstQueryTypeDefinition*
+                 gst_query_type_get_details         (GstQueryType type);
+ GstIterator*    gst_query_type_iterate_definitions (void);
+ 
+diff --git a/gst/gststructure.h b/gst/gststructure.h
+index 48c81c4..57e34c0 100644
+--- a/gst/gststructure.h
++++ b/gst/gststructure.h
+@@ -104,7 +104,7 @@ void			gst_structure_set_parent_refcount  (GstStructure            *structure,
+                                                             gint            *refcount);
+ void                    gst_structure_free                 (GstStructure            *structure);
+ 
+-G_CONST_RETURN gchar *  gst_structure_get_name             (const GstStructure      *structure);
++const gchar *		gst_structure_get_name             (const GstStructure      *structure);
+ GQuark			gst_structure_get_name_id          (const GstStructure      *structure);
+ gboolean                gst_structure_has_name             (const GstStructure      *structure,
+ 							    const gchar             *name);
+@@ -155,9 +155,9 @@ gboolean                gst_structure_id_get               (const GstStructure
+                                                             GQuark                   first_field_id,
+                                                             ...) G_GNUC_NULL_TERMINATED;
+ 
+-G_CONST_RETURN GValue * gst_structure_id_get_value         (const GstStructure      *structure,
++const GValue *		gst_structure_id_get_value         (const GstStructure      *structure,
+ 							    GQuark                   field);
+-G_CONST_RETURN GValue * gst_structure_get_value            (const GstStructure      *structure,
++const GValue *		gst_structure_get_value            (const GstStructure      *structure,
+ 							    const gchar             *fieldname);
+ void                    gst_structure_remove_field         (GstStructure            *structure,
+ 							    const gchar             *fieldname);
+@@ -215,7 +215,7 @@ gboolean                gst_structure_get_date_time        (const GstStructure
+ gboolean                gst_structure_get_clock_time       (const GstStructure      *structure,
+ 							    const gchar             *fieldname,
+ 							    GstClockTime            *value);
+-G_CONST_RETURN gchar *  gst_structure_get_string           (const GstStructure      *structure,
++const gchar *		gst_structure_get_string           (const GstStructure      *structure,
+ 							    const gchar             *fieldname);
+ gboolean                gst_structure_get_enum             (const GstStructure      *structure,
+ 							    const gchar             *fieldname,
+diff --git a/gst/gsttaglist.c b/gst/gsttaglist.c
+index 6bf596e..7022b26 100644
+--- a/gst/gsttaglist.c
++++ b/gst/gsttaglist.c
+@@ -1157,7 +1157,7 @@ gst_tag_list_foreach (const GstTagList * list, GstTagForeachFunc func,
+  * Returns: (transfer none): The GValue for the specified entry or NULL if the
+  *          tag wasn't available or the tag doesn't have as many entries
+  */
+-G_CONST_RETURN GValue *
++const GValue *
+ gst_tag_list_get_value_index (const GstTagList * list, const gchar * tag,
+     guint index)
+ {
+diff --git a/gst/gsttaglist.h b/gst/gsttaglist.h
+index f9be499..e40d52a 100644
+--- a/gst/gsttaglist.h
++++ b/gst/gsttaglist.h
+@@ -205,8 +205,8 @@ void      gst_tag_merge_strings_with_comma (GValue * dest, const GValue * src);
+ /* basic tag support */
+ gboolean               gst_tag_exists          (const gchar * tag);
+ GType                  gst_tag_get_type        (const gchar * tag);
+-G_CONST_RETURN gchar * gst_tag_get_nick        (const gchar * tag);
+-G_CONST_RETURN gchar * gst_tag_get_description (const gchar * tag);
++const gchar *          gst_tag_get_nick        (const gchar * tag);
++const gchar *          gst_tag_get_description (const gchar * tag);
+ GstTagFlag             gst_tag_get_flag        (const gchar * tag);
+ gboolean               gst_tag_is_fixed        (const gchar * tag);
+ 
+@@ -253,7 +253,7 @@ void         gst_tag_list_foreach           (const GstTagList * list,
+                                              GstTagForeachFunc  func,
+                                              gpointer           user_data);
+ 
+-G_CONST_RETURN GValue *
++const GValue *
+              gst_tag_list_get_value_index   (const GstTagList * list,
+                                              const gchar      * tag,
+                                              guint              index);
+diff --git a/gst/gsttagsetter.c b/gst/gsttagsetter.c
+index 5a5f967..5f15e41 100644
+--- a/gst/gsttagsetter.c
++++ b/gst/gsttagsetter.c
+@@ -365,7 +365,7 @@ gst_tag_setter_add_tag_value (GstTagSetter * setter,
+  * Returns: (transfer none): a current snapshot of the taglist used in the
+  *          setter or NULL if none is used.
+  */
+-G_CONST_RETURN GstTagList *
++const GstTagList *
+ gst_tag_setter_get_tag_list (GstTagSetter * setter)
+ {
+   g_return_val_if_fail (GST_IS_TAG_SETTER (setter), NULL);
+diff --git a/gst/gsttagsetter.h b/gst/gsttagsetter.h
+index c7b21df..44c794b 100644
+--- a/gst/gsttagsetter.h
++++ b/gst/gsttagsetter.h
+@@ -88,7 +88,7 @@ void		gst_tag_setter_add_tag_value	    (GstTagSetter *	setter,
+ 						     const gchar *	tag,
+ 						     const GValue *     value);
+ 
+-G_CONST_RETURN GstTagList *
++const GstTagList *
+ 		gst_tag_setter_get_tag_list	     (GstTagSetter *	setter);
+ 
+ void		gst_tag_setter_set_tag_merge_mode    (GstTagSetter *	setter,
+diff --git a/gst/gsttrace.h b/gst/gsttrace.h
+index 285e91f..1de63fa 100644
+--- a/gst/gsttrace.h
++++ b/gst/gsttrace.h
+@@ -125,7 +125,7 @@ void 		gst_trace_read_tsc		(gint64 *dst);
+ extern GStaticMutex     _gst_trace_mutex;
+ 
+ gboolean		gst_alloc_trace_available	(void);
+-G_CONST_RETURN GList*	gst_alloc_trace_list		(void);
++const GList*		gst_alloc_trace_list		(void);
+ GstAllocTrace*		_gst_alloc_trace_register	(const gchar *name);
+ 
+ int			gst_alloc_trace_live_all	(void);
+diff --git a/gst/gsturi.c b/gst/gsturi.c
+index 0f5bbbb..30244e5 100644
+--- a/gst/gsturi.c
++++ b/gst/gsturi.c
+@@ -711,7 +711,7 @@ gst_uri_handler_get_protocols (GstURIHandler * handler)
+  *   Returns NULL if there are no URI currently handled. The
+  *   returned string must not be modified or freed.
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_uri_handler_get_uri (GstURIHandler * handler)
+ {
+   GstURIHandlerInterface *iface;
+diff --git a/gst/gsturi.h b/gst/gsturi.h
+index 48a09c0..00dfb91 100644
+--- a/gst/gsturi.h
++++ b/gst/gsturi.h
+@@ -106,7 +106,7 @@ struct _GstURIHandlerInterface {
+   gchar **		(* get_protocols)	(void);
+ 
+   /* using the interface */
+-  G_CONST_RETURN gchar *(* get_uri)		(GstURIHandler * handler);
++  const gchar *		(* get_uri)		(GstURIHandler * handler);
+   gboolean		(* set_uri)		(GstURIHandler * handler,
+ 						 const gchar *	 uri);
+ 
+@@ -145,8 +145,7 @@ GType		gst_uri_handler_get_type	(void);
+ 
+ guint		gst_uri_handler_get_uri_type	(GstURIHandler * handler);
+ gchar **	gst_uri_handler_get_protocols	(GstURIHandler * handler);
+-G_CONST_RETURN
+-gchar *		gst_uri_handler_get_uri		(GstURIHandler * handler);
++const gchar *	gst_uri_handler_get_uri		(GstURIHandler * handler);
+ gboolean	gst_uri_handler_set_uri		(GstURIHandler * handler,
+ 						 const gchar *	 uri);
+ void		gst_uri_handler_new_uri		(GstURIHandler * handler,
+diff --git a/gst/gstutils.c b/gst/gstutils.c
+index 06438cb..0d05582 100644
+--- a/gst/gstutils.c
++++ b/gst/gstutils.c
+@@ -1222,7 +1222,7 @@ gst_element_get_compatible_pad (GstElement * element, GstPad * pad,
+  *
+  * Returns: (transfer none): a string with the name of the state.
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_element_state_get_name (GstState state)
+ {
+   switch (state) {
+@@ -1253,7 +1253,7 @@ gst_element_state_get_name (GstState state)
+  *
+  * Since: 0.10.11
+  */
+-G_CONST_RETURN gchar *
++const gchar *
+ gst_element_state_change_return_get_name (GstStateChangeReturn state_ret)
+ {
+   switch (state_ret) {
+diff --git a/gst/gstutils.h b/gst/gstutils.h
+index d1a9fed..f8e4324 100644
+--- a/gst/gstutils.h
++++ b/gst/gstutils.h
+@@ -1003,8 +1003,8 @@ GstPad*                 gst_element_get_compatible_pad  (GstElement *element, Gs
+ 
+ GstPadTemplate*         gst_element_get_compatible_pad_template (GstElement *element, GstPadTemplate *compattempl);
+ 
+-G_CONST_RETURN gchar*   gst_element_state_get_name      (GstState state);
+-G_CONST_RETURN gchar *  gst_element_state_change_return_get_name (GstStateChangeReturn state_ret);
++const gchar*            gst_element_state_get_name      (GstState state);
++const gchar *           gst_element_state_change_return_get_name (GstStateChangeReturn state_ret);
+ 
+ gboolean		gst_element_link                (GstElement *src, GstElement *dest);
+ gboolean		gst_element_link_many           (GstElement *element_1,
+diff --git a/gst/gstvalue.h b/gst/gstvalue.h
+index 5de7449..d9cdde6 100644
+--- a/gst/gstvalue.h
++++ b/gst/gstvalue.h
+@@ -470,8 +470,7 @@ void		gst_value_list_merge		(GValue		*dest,
+ 						 const GValue   *value1,
+ 						 const GValue	*value2);
+ guint		gst_value_list_get_size		(const GValue	*value);
+-G_CONST_RETURN GValue *
+-		gst_value_list_get_value	(const GValue	*value,
++const GValue *	gst_value_list_get_value	(const GValue	*value,
+ 						 guint		index);
+ 
+ /* array */
+@@ -480,8 +479,7 @@ void		gst_value_array_append_value	(GValue		*value,
+ void		gst_value_array_prepend_value	(GValue		*value,
+ 						 const GValue	*prepend_value);
+ guint		gst_value_array_get_size	(const GValue	*value);
+-G_CONST_RETURN GValue *
+-		gst_value_array_get_value	(const GValue	*value,
++const GValue *	gst_value_array_get_value	(const GValue	*value,
+ 						 guint		index);
+ 
+ /* fourcc */
+@@ -511,13 +509,12 @@ gdouble		gst_value_get_double_range_min	(const GValue	*value);
+ gdouble		gst_value_get_double_range_max	(const GValue	*value);
+ 
+ /* caps */
+-G_CONST_RETURN GstCaps *
+-		gst_value_get_caps		(const GValue	*value);
++const GstCaps *	gst_value_get_caps		(const GValue	*value);
+ void		gst_value_set_caps		(GValue		*value,
+ 						 const GstCaps  *caps);
+ 
+ /* structure */
+-G_CONST_RETURN GstStructure *
++const GstStructure *
+ 		gst_value_get_structure		(const GValue	*value);
+ void		gst_value_set_structure		(GValue		*value,
+ 						 const GstStructure  *structure);
+@@ -548,8 +545,7 @@ const GValue 	*gst_value_get_fraction_range_min (const GValue	*value);
+ const GValue 	*gst_value_get_fraction_range_max (const GValue	*value);
+ 
+ /* date */
+-G_CONST_RETURN GDate *
+-		gst_value_get_date		(const GValue	*value);
++const GDate *	gst_value_get_date		(const GValue	*value);
+ void		gst_value_set_date		(GValue		*value,
+ 						 const GDate    *date);
+ 
+--
+cgit v0.8.3-6-g21f6
