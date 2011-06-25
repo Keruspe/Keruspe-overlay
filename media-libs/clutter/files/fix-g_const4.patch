@@ -1,0 +1,253 @@
+From b057ef89827301acef71f8348d3d95977abdda9f Mon Sep 17 00:00:00 2001
+From: Javier Jardón <jjardon@gnome.org>
+Date: Wed, 08 Jun 2011 17:35:29 +0000
+Subject: cally: Use const instead G_CONST_RETURN
+
+https://bugzilla.gnome.org/show_bug.cgi?id=652129
+---
+diff --git a/clutter/cally/cally-actor.c b/clutter/cally/cally-actor.c
+index 920d964..7bc701f 100644
+--- a/clutter/cally/cally-actor.c
++++ b/clutter/cally/cally-actor.c
+@@ -148,7 +148,7 @@ static void cally_actor_finalize   (GObject *obj);
+ static AtkObject*            cally_actor_get_parent          (AtkObject *obj);
+ static gint                  cally_actor_get_index_in_parent (AtkObject *obj);
+ static AtkStateSet*          cally_actor_ref_state_set       (AtkObject *obj);
+-static G_CONST_RETURN gchar* cally_actor_get_name            (AtkObject *obj);
++static const gchar*          cally_actor_get_name            (AtkObject *obj);
+ static gint                  cally_actor_get_n_children      (AtkObject *obj);
+ static AtkObject*            cally_actor_ref_child           (AtkObject *obj,
+                                                              gint       i);
+@@ -195,11 +195,11 @@ static gboolean              cally_actor_action_do_action       (AtkAction *acti
+                                                                 gint       i);
+ static gboolean              idle_do_action                    (gpointer data);
+ static gint                  cally_actor_action_get_n_actions   (AtkAction *action);
+-static G_CONST_RETURN gchar* cally_actor_action_get_description (AtkAction *action,
++static const gchar*          cally_actor_action_get_description (AtkAction *action,
+                                                                 gint       i);
+-static G_CONST_RETURN gchar* cally_actor_action_get_keybinding  (AtkAction *action,
++static const gchar*          cally_actor_action_get_keybinding  (AtkAction *action,
+                                                                 gint       i);
+-static G_CONST_RETURN gchar* cally_actor_action_get_name        (AtkAction *action,
++static const gchar*          cally_actor_action_get_name        (AtkAction *action,
+                                                                 gint       i);
+ static gboolean              cally_actor_action_set_description (AtkAction   *action,
+                                                                 gint         i,
+@@ -420,10 +420,10 @@ cally_actor_finalize (GObject *obj)
+ 
+ /* AtkObject */
+ 
+-static G_CONST_RETURN gchar*
++static const gchar*
+ cally_actor_get_name (AtkObject *obj)
+ {
+-  G_CONST_RETURN gchar* name = NULL;
++  const gchar* name = NULL;
+ 
+   g_return_val_if_fail (CALLY_IS_ACTOR (obj), NULL);
+ 
+@@ -1057,7 +1057,7 @@ cally_actor_action_get_n_actions (AtkAction *action)
+   return g_list_length (priv->action_list);
+ }
+ 
+-static G_CONST_RETURN gchar*
++static const gchar*
+ cally_actor_action_get_name (AtkAction *action,
+                             gint       i)
+ {
+@@ -1074,7 +1074,7 @@ cally_actor_action_get_name (AtkAction *action,
+   return info->name;
+ }
+ 
+-static G_CONST_RETURN gchar*
++static const gchar*
+ cally_actor_action_get_description (AtkAction *action,
+                                    gint       i)
+ {
+@@ -1112,7 +1112,7 @@ cally_actor_action_set_description (AtkAction   *action,
+   return TRUE;
+ }
+ 
+-static G_CONST_RETURN gchar*
++static const gchar*
+ cally_actor_action_get_keybinding (AtkAction *action,
+                                   gint       i)
+ {
+diff --git a/clutter/cally/cally-clone.c b/clutter/cally/cally-clone.c
+index 4c59d08..4a040de 100644
+--- a/clutter/cally/cally-clone.c
++++ b/clutter/cally/cally-clone.c
+@@ -81,7 +81,7 @@ static void cally_clone_init       (CallyClone *clone);
+ /* AtkObject */
+ static void                  cally_clone_real_initialize (AtkObject *obj,
+                                                            gpointer   data);
+-static G_CONST_RETURN gchar *cally_clone_get_description (AtkObject *obj);
++static const gchar          *cally_clone_get_description (AtkObject *obj);
+ 
+ 
+ G_DEFINE_TYPE (CallyClone, cally_clone, CALLY_TYPE_ACTOR)
+@@ -138,10 +138,10 @@ cally_clone_real_initialize (AtkObject *obj,
+   obj->role = ATK_ROLE_IMAGE;
+ }
+ 
+-static G_CONST_RETURN gchar *
++static const gchar *
+ cally_clone_get_description (AtkObject *obj)
+ {
+-  G_CONST_RETURN gchar *description = NULL;
++  const gchar *description = NULL;
+ 
+   g_return_val_if_fail (CALLY_IS_CLONE (obj), NULL);
+ 
+diff --git a/clutter/cally/cally-rectangle.c b/clutter/cally/cally-rectangle.c
+index b0c10a4..401edae 100644
+--- a/clutter/cally/cally-rectangle.c
++++ b/clutter/cally/cally-rectangle.c
+@@ -41,7 +41,7 @@ static void cally_rectangle_init       (CallyRectangle *rectangle);
+ /* AtkObject */
+ static void                  cally_rectangle_real_initialize (AtkObject *obj,
+                                                              gpointer   data);
+-static G_CONST_RETURN gchar *cally_rectangle_get_description (AtkObject *obj);
++static const gchar          *cally_rectangle_get_description (AtkObject *obj);
+ 
+ 
+ G_DEFINE_TYPE (CallyRectangle, cally_rectangle, CALLY_TYPE_ACTOR)
+@@ -98,10 +98,10 @@ cally_rectangle_real_initialize (AtkObject *obj,
+   obj->role = ATK_ROLE_IMAGE;
+ }
+ 
+-static G_CONST_RETURN gchar *
++static const gchar *
+ cally_rectangle_get_description                    (AtkObject *obj)
+ {
+-  G_CONST_RETURN gchar *description = NULL;
++  const gchar *description = NULL;
+ 
+   g_return_val_if_fail (CALLY_IS_RECTANGLE (obj), NULL);
+ 
+diff --git a/clutter/cally/cally-stage.c b/clutter/cally/cally-stage.c
+index 75bc486..e00eaf8 100644
+--- a/clutter/cally/cally-stage.c
++++ b/clutter/cally/cally-stage.c
+@@ -52,8 +52,8 @@ static void cally_stage_class_init (CallyStageClass *klass);
+ static void cally_stage_init       (CallyStage      *stage);
+ 
+ /* AtkObject.h */
+-static G_CONST_RETURN gchar *cally_stage_get_name        (AtkObject *obj);
+-static G_CONST_RETURN gchar *cally_stage_get_description (AtkObject *obj);
++static const gchar          *cally_stage_get_name        (AtkObject *obj);
++static const gchar          *cally_stage_get_description (AtkObject *obj);
+ static void                  cally_stage_real_initialize (AtkObject *obj,
+                                                           gpointer   data);
+ static AtkStateSet*          cally_stage_ref_state_set   (AtkObject *obj);
+@@ -214,10 +214,10 @@ cally_stage_new (ClutterActor *actor)
+ }
+ 
+ /* AtkObject.h */
+-static G_CONST_RETURN gchar *
++static const gchar *
+ cally_stage_get_name (AtkObject *obj)
+ {
+-  G_CONST_RETURN gchar *name = NULL;
++  const gchar *name = NULL;
+ 
+   g_return_val_if_fail (CALLY_IS_STAGE (obj), NULL);
+ 
+@@ -230,10 +230,10 @@ cally_stage_get_name (AtkObject *obj)
+   return name;
+ }
+ 
+-static G_CONST_RETURN gchar *
++static const gchar *
+ cally_stage_get_description (AtkObject *obj)
+ {
+-  G_CONST_RETURN gchar *description = NULL;
++  const gchar *description = NULL;
+ 
+   g_return_val_if_fail (CALLY_IS_STAGE (obj), NULL);
+ 
+diff --git a/clutter/cally/cally-text.c b/clutter/cally/cally-text.c
+index 55b4ce7..ecaff6b 100644
+--- a/clutter/cally/cally-text.c
++++ b/clutter/cally/cally-text.c
+@@ -80,7 +80,7 @@ static void cally_text_finalize   (GObject *obj);
+ /* AtkObject */
+ static void                   cally_text_real_initialize (AtkObject *obj,
+                                                           gpointer   data);
+-static G_CONST_RETURN gchar * cally_text_get_name        (AtkObject *obj);
++static const gchar *          cally_text_get_name        (AtkObject *obj);
+ static AtkStateSet*           cally_text_ref_state_set   (AtkObject *obj);
+ 
+ /* atkaction */
+@@ -327,10 +327,10 @@ cally_text_real_initialize(AtkObject *obj,
+   obj->role = ATK_ROLE_TEXT;
+ }
+ 
+-static G_CONST_RETURN gchar *
++static const gchar *
+ cally_text_get_name (AtkObject *obj)
+ {
+-  G_CONST_RETURN gchar *name;
++  const gchar *name;
+ 
+   g_return_val_if_fail (CALLY_IS_ACTOR (obj), NULL);
+ 
+diff --git a/clutter/cally/cally-texture.c b/clutter/cally/cally-texture.c
+index 8b2508f..f1cd1b4 100644
+--- a/clutter/cally/cally-texture.c
++++ b/clutter/cally/cally-texture.c
+@@ -42,7 +42,7 @@ static void cally_texture_init       (CallyTexture *texture);
+ /* AtkObject */
+ static void                  cally_texture_real_initialize (AtkObject *obj,
+                                                            gpointer   data);
+-static G_CONST_RETURN gchar *cally_texture_get_description (AtkObject *obj);
++static const gchar          *cally_texture_get_description (AtkObject *obj);
+ 
+ 
+ G_DEFINE_TYPE (CallyTexture, cally_texture, CALLY_TYPE_ACTOR)
+@@ -100,10 +100,10 @@ cally_texture_real_initialize (AtkObject *obj,
+   obj->role = ATK_ROLE_IMAGE;
+ }
+ 
+-static G_CONST_RETURN gchar *
++static const gchar *
+ cally_texture_get_description (AtkObject *obj)
+ {
+-  G_CONST_RETURN gchar *description = NULL;
++  const gchar *description = NULL;
+ 
+   g_return_val_if_fail (CALLY_IS_TEXTURE (obj), NULL);
+ 
+diff --git a/clutter/cally/cally-util.c b/clutter/cally/cally-util.c
+index 25ba58a..2d371c4 100644
+--- a/clutter/cally/cally-util.c
++++ b/clutter/cally/cally-util.c
+@@ -62,8 +62,8 @@ static guint                 cally_util_add_key_event_listener	    (AtkKeySnoopF
+                                                                      gpointer        data);
+ static void                  cally_util_remove_key_event_listener    (guint remove_listener);
+ static AtkObject*            cally_util_get_root			    (void);
+-static G_CONST_RETURN gchar *cally_util_get_toolkit_name		    (void);
+-static G_CONST_RETURN gchar *cally_util_get_toolkit_version          (void);
++static const gchar          *cally_util_get_toolkit_name		    (void);
++static const gchar          *cally_util_get_toolkit_version          (void);
+ 
+ /* private */
+ static void		     _listener_info_destroy                  (gpointer data);
+@@ -162,13 +162,13 @@ cally_util_get_root (void)
+   return root;
+ }
+ 
+-static G_CONST_RETURN gchar *
++static const gchar *
+ cally_util_get_toolkit_name (void)
+ {
+   return "CALLY";
+ }
+ 
+-static G_CONST_RETURN gchar *
++static const gchar *
+ cally_util_get_toolkit_version (void)
+ {
+   /*
+--
+cgit v0.9

@@ -1,0 +1,61 @@
+From c97bacaae107a2f134a442adf27d7956c5b07217 Mon Sep 17 00:00:00 2001
+From: Javier Jardón <jjardon@gnome.org>
+Date: Wed, 08 Jun 2011 17:31:00 +0000
+Subject: cogl: Use const instead G_CONST_RETURN
+
+https://bugzilla.gnome.org/show_bug.cgi?id=652129
+---
+diff --git a/clutter/cogl/cogl/cogl-material-compat.c b/clutter/cogl/cogl/cogl-material-compat.c
+index 94d07fc..de3038e 100644
+--- a/clutter/cogl/cogl/cogl-material-compat.c
++++ b/clutter/cogl/cogl/cogl-material-compat.c
+@@ -279,7 +279,7 @@ cogl_material_set_layer_matrix (CoglMaterial     *material,
+                                   layer_index, matrix);
+ }
+ 
+-G_CONST_RETURN GList *
++const GList *
+ cogl_material_get_layers (CoglMaterial *material)
+ {
+   return _cogl_pipeline_get_layers (COGL_PIPELINE (material));
+diff --git a/clutter/cogl/cogl/cogl-material-compat.h b/clutter/cogl/cogl/cogl-material-compat.h
+index 34c6d29..00a85c7 100644
+--- a/clutter/cogl/cogl/cogl-material-compat.h
++++ b/clutter/cogl/cogl/cogl-material-compat.h
+@@ -889,7 +889,7 @@ cogl_material_set_layer_matrix (CoglMaterial     *material,
+  *    cogl_material_layer_* functions. The list is owned by Cogl and it
+  *    should not be modified or freed
+  */
+-G_CONST_RETURN GList *
++const GList *
+ cogl_material_get_layers (CoglMaterial *material);
+ 
+ /**
+diff --git a/clutter/cogl/cogl/cogl-matrix.h b/clutter/cogl/cogl/cogl-matrix.h
+index 8e9f207..83392ed 100644
+--- a/clutter/cogl/cogl/cogl-matrix.h
++++ b/clutter/cogl/cogl/cogl-matrix.h
+@@ -277,7 +277,7 @@ cogl_matrix_init_from_array (CoglMatrix *matrix,
+  *
+  * Return value: a pointer to the float array
+  */
+-G_CONST_RETURN float *
++const float *
+ cogl_matrix_get_array (const CoglMatrix *matrix);
+ 
+ /**
+diff --git a/clutter/cogl/cogl/cogl-pipeline-private.h b/clutter/cogl/cogl/cogl-pipeline-private.h
+index 47007fb..3485582 100644
+--- a/clutter/cogl/cogl/cogl-pipeline-private.h
++++ b/clutter/cogl/cogl/cogl-pipeline-private.h
+@@ -1174,7 +1174,7 @@ _cogl_pipeline_prune_to_n_layers (CoglPipeline *pipeline, int n);
+  * API to support the deprecate cogl_pipeline_layer_xyz functions...
+  */
+ 
+-G_CONST_RETURN GList *
++const GList *
+ _cogl_pipeline_get_layers (CoglPipeline *pipeline);
+ 
+ void
+--
+cgit v0.9
