@@ -44,7 +44,6 @@ src_prepare() {
 	gtkdocize
 	eautoreconf
 	cd ../../..
-	epatch ${FILESDIR}/tmp-fix.patch
 	eautoreconf
 	python_convert_shebangs -r 2 .
 }
