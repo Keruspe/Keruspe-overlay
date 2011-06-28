@@ -37,5 +37,5 @@ pkg_setup() {
 
 src_prepare() {
 	sed -i s/G_CONST_RETURN/const/ libgnomekbd/gkbd-keyboard-drawing.h
-	gnome2-src_prepare
+	gnome2_src_prepare
 }

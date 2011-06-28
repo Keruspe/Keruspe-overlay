@@ -50,7 +50,7 @@ pkg_setup() {
 
 src_prepare() {
 	epatch ${FILESDIR}/fix-g_const.patch
-	gnome2-src_prepare
+	gnome2_src_prepare
 
 	# Fix automagic gtk+ dependency, bug #371290
 	epatch "${FILESDIR}/${PN}-2.34.0-automagic-gtk.patch"
