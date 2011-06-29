@@ -22,7 +22,7 @@ RDEPEND=">=dev-libs/glib-2.28:2
 	>=x11-libs/gtk+-3.0:3
 	>=gnome-base/gconf-2
 	>=dev-db/sqlite-3.5
-	>=dev-libs/libgdata-0.7.0
+	>=dev-libs/libgdata-0.9.0
 	>=gnome-base/gnome-keyring-2.20.1
 	>=dev-libs/libical-0.43
 	>=net-libs/libsoup-2.31.2:2.4
@@ -30,7 +30,9 @@ RDEPEND=">=dev-libs/glib-2.28:2
 	>=sys-libs/db-4
 	sys-libs/zlib
 	virtual/libiconv
-	goa? ( gnome-extra/gnome-online-accounts )
+	goa? (
+		gnome-extra/gnome-online-accounts
+		>=net-libs/liboauth-0.9.4 )
 	introspection? ( >=dev-libs/gobject-introspection-0.9.12 )
 	kerberos? ( virtual/krb5 )
 	ldap? ( >=net-nds/openldap-2 )

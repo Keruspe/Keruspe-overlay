@@ -27,6 +27,7 @@
 ~x11-wm/mutter-9999
 
 # Gnome 3.2
+=dev-libs/libgdata-0.9*
 =gnome-extra/gtkhtml-4.1*
 
 # Dummy Kernel
