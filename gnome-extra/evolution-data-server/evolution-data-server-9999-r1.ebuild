@@ -70,6 +70,7 @@ pkg_setup() {
 		--enable-nntp
 		--enable-largefile
 		--with-libdb=/usr"
+		MAKEOPTS+=" -j1"
 }
 
 src_prepare() {
