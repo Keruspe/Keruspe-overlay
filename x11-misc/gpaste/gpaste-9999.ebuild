@@ -28,6 +28,8 @@ WANT_AUTOMAKE="1.11"
 G2CONF="$(use_enable applet)
 	$(use_enable gnome-shell gnome-shell-extension)"
 
+DOCS="AUTHORS NEWS ChangeLog"
+
 src_prepare() {
 	mkdir m4
 	eautoreconf
