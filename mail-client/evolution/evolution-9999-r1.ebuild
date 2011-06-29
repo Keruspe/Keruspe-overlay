@@ -33,7 +33,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.28:2
 	>=dev-libs/libgweather-2.90.0:2
 	>=media-libs/libcanberra-0.25[gtk3]
 	>=x11-libs/libnotify-0.7
-	>=gnome-extra/evolution-data-server-${PV}[weather]
+	>=gnome-extra/evolution-data-server-${PV}[weather,goa?]
 	>=gnome-extra/gtkhtml-4.1.2:4.0
 	>=gnome-base/gconf-2:2
 	dev-libs/atk
