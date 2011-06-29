@@ -8,6 +8,8 @@
 ~dev-libs/gobject-introspection-9999
 ~dev-util/valgrind-9999
 ~gnome-base/gnome-shell-9999
+~gnome-extra/evolution-data-server-9999
+~gnome-extra/gnome-online-accounts-9999
 ~gnome-extra/gnome-shell-extensions-9999
 ~media-libs/clutter-9999
 ~media-libs/cogl-9999
