@@ -26,6 +26,9 @@
 ~x11-libs/gtk+-9999
 ~x11-wm/mutter-9999
 
+# Gnome 3.2
+=gnome-extra/gtkhtml-4.1*
+
 # Dummy Kernel
 virtual/linux-sources
 
