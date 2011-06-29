@@ -6,6 +6,7 @@
 ~app-laptop/pommed-9999
 ~dev-libs/gjs-9999
 ~dev-libs/gobject-introspection-9999
+~dev-libs/libgdata-9999
 ~dev-util/valgrind-9999
 ~gnome-base/gnome-shell-9999
 ~gnome-extra/evolution-data-server-9999
@@ -27,7 +28,6 @@
 ~x11-wm/mutter-9999
 
 # Gnome 3.2
-=dev-libs/libgdata-0.9*
 =gnome-extra/gtkhtml-4.1*
 
 # Dummy Kernel

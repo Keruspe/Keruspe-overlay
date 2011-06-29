@@ -4,7 +4,7 @@
 
 EAPI="4"
 GCONF_DEBUG="yes"
-inherit eutils gnome2
+inherit eutils gnome2-live
 
 DESCRIPTION="GLib-based library for accessing online service APIs using the GData protocol"
 HOMEPAGE="http://live.gnome.org/libgdata"
@@ -21,6 +21,7 @@ RDEPEND=">=dev-libs/glib-2.19:2
 		>=x11-libs/gtk+-2.14:2 )
 	>=dev-libs/libxml2-2:2
 	>=net-libs/libsoup-2.26.1:2.4[introspection?]
+	>=net-libs/liboauth-0.9.4
 	gnome? ( >=net-libs/libsoup-gnome-2.26.1:2.4[introspection?] )
 	introspection? ( >=dev-libs/gobject-introspection-0.9.7 )"
 DEPEND="${RDEPEND}

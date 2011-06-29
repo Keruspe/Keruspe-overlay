@@ -22,7 +22,7 @@ RDEPEND=">=dev-libs/glib-2.28:2
 	>=x11-libs/gtk+-3.0:3
 	>=gnome-base/gconf-2
 	>=dev-db/sqlite-3.5
-	>=dev-libs/libgdata-0.9.0
+	>=dev-libs/libgdata-0.9.1
 	>=gnome-base/gnome-keyring-2.20.1
 	>=dev-libs/libical-0.43
 	>=net-libs/libsoup-2.31.2:2.4
