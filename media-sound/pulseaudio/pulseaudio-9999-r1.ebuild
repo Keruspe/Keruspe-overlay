@@ -8,7 +8,7 @@ inherit autotools eutils libtool flag-o-matic versionator git-2
 DESCRIPTION="A networked sound server with an advanced plugin system"
 HOMEPAGE="http://www.pulseaudio.org/"
 
-EGIT_REPO_URI="git://0pointer.de/pulseaudio.git"
+EGIT_REPO_URI="git://anongit.freedesktop.org/pulseaudio/pulseaudio.git"
 
 LICENSE="LGPL-2 GPL-2"
 SLOT="0"
@@ -18,9 +18,9 @@ bluetooth +asyncns +glib test doc +udev ipv6 system-wide realtime +orc +gdbm tdb
 
 RDEPEND="app-admin/eselect-esd
 	X? (
-		>=x11-libs/libX11-1.4.0
+		|| ( >=x11-libs/libX11-1.4.0 <x11-libs/libX11-1.4.0[xcb] )
 		>=x11-libs/libxcb-1.6
-		x11-libs/xcb-util
+		>=x11-libs/xcb-util-0.3.1
 		x11-libs/libSM
 		x11-libs/libICE
 		x11-libs/libXtst
@@ -45,19 +45,19 @@ RDEPEND="app-admin/eselect-esd
 	equalizer? ( sci-libs/fftw:3.0 )
 	orc? ( >=dev-lang/orc-0.4.9 )
 	>=media-libs/audiofile-0.2.6-r1
-	>=media-libs/speex-1.2_beta
+	>=media-libs/speex-1.2_rc1
 	>=media-libs/libsndfile-1.0.20
 	gdbm? ( sys-libs/gdbm )
 	!gdbm? ( tdb? ( sys-libs/tdb ) )
+	dev-libs/json-c
 	>=sys-devel/libtool-2.2.4" # it's a valid RDEPEND, libltdl.so is used
 
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )
 	X? (
 		x11-proto/xproto
-		>=x11-libs/libXtst-1.0.99.2
+		|| ( >=x11-libs/libXtst-1.0.99.2 <x11-proto/xextproto-7.0.99 )
 	)
-	>=dev-libs/json-c-0.9
 	dev-libs/libatomic_ops
 	dev-util/pkgconfig
 	system-wide? ( || ( dev-util/unifdef sys-freebsd/freebsd-ubin ) )
@@ -119,12 +119,11 @@ src_configure() {
 		--localstatedir="${EPREFIX}"/var \
 		--disable-per-user-esound-socket \
 		--with-database=${database} \
-		--with-udev-rules-dir="${EPREFIX}/$(get_libdir)/udev/rules.d" \
-		|| die "econf failed"
+		--with-udev-rules-dir="${EPREFIX}/$(get_libdir)/udev/rules.d"
 
 	if use doc; then
 		pushd doxygen
-		doxygen doxygen.conf || die
+		doxygen doxygen.conf
 		popd
 	fi
 }
@@ -133,11 +132,11 @@ src_test() {
 	# We avoid running the toplevel check target because that will run
 	# po/'s tests too, and they are broken. Officially, it should work
 	# with intltool 0.41, but that doesn't look like a stable release.
-	emake -C src check || die
+	emake -C src check
 }
 
 src_install() {
-	emake -j1 DESTDIR="${ED}" install || die "make install failed"
+	emake -j1 DESTDIR="${D}" install
 
 	# Drop the script entirely if X is disabled
 	use X || rm "${ED}"/usr/bin/start-pulseaudio-x11
@@ -163,11 +162,11 @@ src_install() {
 
 	use avahi && sed -i -e '/module-zeroconf-publish/s:^#::' "${ED}/etc/pulse/default.pa"
 
-	dodoc README ChangeLog todo || die
+	dodoc README ChangeLog todo
 
 	if use doc; then
 		pushd doxygen/html
-		dohtml * || die
+		dohtml *
 		popd
 	fi
 
@@ -175,7 +174,7 @@ src_install() {
 	use prefix || diropts -o pulse -g pulse -m0755
 	keepdir /var/run/pulse
 
-	find "${ED}" -name '*.la' -exec rm -f {} +
+	find "${D}" -name '*.la' -exec rm -f {} +
 }
 
 pkg_postinst() {
