@@ -32,7 +32,7 @@ main() {
   find_duplicates $1 gnome
   find_duplicates $1 gentoo
   find_duplicates $1 systemd
-  find_unused systemd | grep -Ev '(avahi|udev|/systemd|networkmanager|wpa_supplicant|bootchart2)'
+  find_unused systemd | grep -Ev '(avahi|/systemd|networkmanager|wpa_supplicant|bootchart2)'
   find_unused $1 | grep -Ev '(grub|bomb-her-man|gnome-paint|librabbitmq)'
 }
 
