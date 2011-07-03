@@ -35,10 +35,10 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9:2
 	>=net-im/telepathy-logger-0.2.4[introspection]
 	>=net-libs/telepathy-glib-0.15.0[introspection]
 	>=net-im/telepathy-mission-control-5.9.0
-	bluetooth? ( >=net-wireless/gnome-bluetooth-2.91[introspection] )
+	bluetooth? ( >=net-wireless/gnome-bluetooth-3.1[introspection] )
 	!bluetooth? ( !!net-wireless/gnome-bluetooth )
 	>=sys-auth/polkit-0.100[introspection]
-	>=x11-wm/mutter-3.0.0
+	>=x11-wm/mutter-3.1.3
 
 	dev-libs/dbus-glib
 	dev-libs/libxml2:2
