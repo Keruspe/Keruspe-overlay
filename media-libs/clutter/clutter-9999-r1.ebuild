@@ -49,12 +49,6 @@ src_prepare() {
 
 	gnome2_src_prepare
 
-	# We only need conformance tests, the rest are useless for us
-	sed -e 's/^\(SUBDIRS =\).*/\1/g' \
-		-i tests/Makefile.am || die "am tests sed failed"
-	sed -e 's/^\(SUBDIRS =\).*/\1/g' \
-		-i tests/Makefile.in || die "in tests sed failed"
-
 	# XXX: Conformance test suite (and clutter itself) does not work under Xvfb
 	# XXX: Profiling, coverage disabled for now
 	# XXX: What about eglx/eglnative/opengl-egl-xlib/osx/wayland/etc flavours?
