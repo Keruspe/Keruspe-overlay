@@ -19,7 +19,7 @@ IUSE="debug cheese eds +gnome +map +geoloc +networkmanager sendto spell test web
 RDEPEND=">=dev-libs/glib-2.28.0:2
 	>=x11-libs/gtk+-3.0.2:3
 	>=dev-libs/dbus-glib-0.51
-	>=net-libs/telepathy-glib-0.15.2
+	>=net-libs/telepathy-glib-0.15.3
 	>=media-libs/libcanberra-0.25[gtk3]
 	>=x11-libs/libnotify-0.7
 	>=gnome-base/gnome-keyring-2.91.4-r300
