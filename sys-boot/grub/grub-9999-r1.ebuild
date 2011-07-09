@@ -20,6 +20,7 @@ IUSE="custom-cflags debug efi multislot static truetype"
 
 RDEPEND=">=sys-libs/ncurses-5.2-r5
 	dev-libs/lzo
+	efi? ( sys-boot-efibootmgr )
 	truetype? ( media-libs/freetype >=media-fonts/unifont-5 )"
 DEPEND="${RDEPEND}
 	>=sys-devel/autogen-5.10
