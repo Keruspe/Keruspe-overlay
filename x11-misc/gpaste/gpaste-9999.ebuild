@@ -15,8 +15,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="applet bash-completion +gnome-shell zsh-completion"
 
 DEPEND="dev-libs/glib:2
-	>=sys-devel/gettext-0.18
-	dev-util/intltool
+	>=sys-devel/gettext-0.17
+	>=dev-util/intltool-0.40
 	>=x11-libs/gtk+-3.0.0:3
 	dev-lang/vala:0.12"
 RDEPEND="${DEPEND}
@@ -31,9 +31,6 @@ G2CONF="$(use_enable applet)
 DOCS="AUTHORS NEWS ChangeLog"
 
 src_prepare() {
-	mkdir m4
-	eautoreconf
-	intltoolize --force --automake
 	gnome2_src_prepare
 	if ! has_version gnome-base/gnome-shell; then
 		einfo "You do not have gnome-shell installed, building gtk+ applet"
