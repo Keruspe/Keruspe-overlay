@@ -83,7 +83,6 @@ RDEPEND="${COMMON_DEPEND}
 		>=net-misc/networkmanager-0.8.997[introspection] )
 	recorder? ( media-plugins/gst-plugins-vp8 )"
 DEPEND="${COMMON_DEPEND}
-	!!dev-lang/spidermonkey
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.22
 	>=dev-util/intltool-0.26
