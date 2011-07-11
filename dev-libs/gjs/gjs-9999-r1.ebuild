@@ -24,7 +24,7 @@ RDEPEND=">=dev-libs/glib-2.18:2
 	dev-libs/dbus-glib
 	sys-libs/readline
 	x11-libs/cairo
-	|| ( ~dev-libs/xulrunner-2.0 >=dev-lang/spidermonkey-1.8.5 )"
+	|| ( >=dev-lang/spidermonkey-1.8.5 ~dev-libs/xulrunner-2.0 )"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.9"
