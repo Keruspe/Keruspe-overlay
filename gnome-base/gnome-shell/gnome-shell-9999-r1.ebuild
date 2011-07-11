@@ -33,7 +33,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9:2
 	>=media-libs/gstreamer-0.10.16:0.10
 	>=media-libs/gst-plugins-base-0.10.16:0.10
 	>=net-im/telepathy-logger-0.2.4[introspection]
-	>=net-libs/telepathy-glib-0.15.0[introspection]
+	>=net-libs/telepathy-glib-0.15.3[introspection]
 	>=net-im/telepathy-mission-control-5.9.0
 	bluetooth? ( >=net-wireless/gnome-bluetooth-3.1[introspection] )
 	!bluetooth? ( !!net-wireless/gnome-bluetooth )
