@@ -42,6 +42,7 @@ RDEPEND="${COMMON_DEPEND}
 VALASLOT="0.12"
 MINKV="2.6.38"
 DEPEND="${COMMON_DEPEND}
+	dev-util/intltool
 	gtk? ( dev-lang/vala:${VALASLOT} )
 	>=sys-kernel/linux-headers-${MINKV}"
 
@@ -75,6 +76,7 @@ pkg_setup() {
 
 src_prepare() {
 	epatch_user
+	intltoolize --force --copy --automake
 	eautoreconf
 }
 
