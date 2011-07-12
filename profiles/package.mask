@@ -22,6 +22,7 @@
 ~sys-apps/paludis-9999
 ~sys-apps/systemd-9999
 ~sys-boot/grub-9999
+~x11-misc/colord-9999
 ~x11-libs/cairo-9999
 ~x11-libs/gtk+-9999
 ~x11-wm/mutter-9999
