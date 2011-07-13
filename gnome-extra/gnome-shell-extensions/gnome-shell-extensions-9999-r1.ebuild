@@ -18,7 +18,7 @@ places-menu windowsNavigator"
 ALL_EXTENSIONS="${DEFAULT_EXTENSIONS} alternate-tab auto-move-windows example
 native-window-placement systemMonitor user-theme xrandr-indicator"
 IUSE="${ALL_EXTENSIONS}"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 COMMON_DEPEND="
 	>=dev-libs/glib-2.26

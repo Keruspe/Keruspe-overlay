@@ -12,7 +12,7 @@ EGIT_REPO_URI="git://github.com/Keruspe/Bomb-her-man.git"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="debug doc nls"
 
 DEPEND="media-libs/sdl-ttf

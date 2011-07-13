@@ -10,7 +10,7 @@ DESCRIPTION="A hardware accelerated 3D graphics API"
 
 SLOT="1.0"
 IUSE="debug +introspection"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 RDEPEND="
 	>=dev-libs/glib-2.26:2

@@ -12,7 +12,7 @@ EGIT_REPO_URI="git://gitorious.org/colord/master.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="doc examples +introspection scanner +udev vala"
 
 # XXX: raise to libusb-1.0.9:1 when available

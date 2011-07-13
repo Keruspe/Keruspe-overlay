@@ -11,7 +11,7 @@ HOMEPAGE="http://www.valgrind.org"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="mpi multilib"
 
 DEPEND="mpi? ( virtual/mpi )"

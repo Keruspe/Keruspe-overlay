@@ -12,7 +12,7 @@ EGIT_REPO_URI="git://git.pioto.org/paludis-scripts.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
 DEPEND=""

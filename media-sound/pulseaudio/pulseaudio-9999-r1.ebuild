@@ -12,7 +12,7 @@ EGIT_REPO_URI="git://anongit.freedesktop.org/pulseaudio/pulseaudio.git"
 
 LICENSE="LGPL-2 GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="+alsa avahi +caps equalizer jack lirc oss tcpd +X dbus libsamplerate gnome
 bluetooth +asyncns +glib test doc +udev ipv6 system-wide realtime +orc +gdbm tdb"
 

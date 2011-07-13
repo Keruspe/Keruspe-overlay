@@ -14,7 +14,7 @@ HOMEPAGE="http://www.gnome.org/projects/evolution/"
 
 LICENSE="GPL-2 LGPL-2 OPENLDAP"
 SLOT="2.0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="clutter connman crypt doc +goa gstreamer kerberos ldap map networkmanager python ssl"
 
 # We need a graphical pinentry frontend to be able to ask for the GPG

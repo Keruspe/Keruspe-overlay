@@ -14,7 +14,7 @@ EGIT_REPO_URI="git://anongit.freedesktop.org/telepathy/${PN}"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="test"
 
 RDEPEND="dev-libs/libxml2

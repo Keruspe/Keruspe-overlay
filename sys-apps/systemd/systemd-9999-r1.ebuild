@@ -12,7 +12,7 @@ EGIT_REPO_URI="git://anongit.freedesktop.org/systemd"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="audit cryptsetup gtk +pam python plymouth selinux symlinks +tcpwrap"
 
 COMMON_DEPEND=">=sys-apps/dbus-1.4.8-r1

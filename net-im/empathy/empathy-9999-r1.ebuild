@@ -13,7 +13,7 @@ HOMEPAGE="http://live.gnome.org/Empathy"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="debug cheese eds +gnome +map +geoloc +networkmanager sendto spell test webkit"
 
 RDEPEND=">=dev-libs/glib-2.28.0:2

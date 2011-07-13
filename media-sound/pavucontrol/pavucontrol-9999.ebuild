@@ -12,7 +12,7 @@ EGIT_REPO_URI="git://git.0pointer.de/${PN}.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="gtk3 nls"
 
 RDEPEND="gtk3? ( >=dev-cpp/gtkmm-2.98:3.0 )

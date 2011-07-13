@@ -13,7 +13,7 @@ HOMEPAGE="http://www.gnome.org/projects/evolution/"
 
 LICENSE="LGPL-2 BSD DB"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="doc +goa +introspection ipv6 ldap kerberos ssl +weather"
 
 # GNOME3: How do we slot libedataserverui-3.0.so?

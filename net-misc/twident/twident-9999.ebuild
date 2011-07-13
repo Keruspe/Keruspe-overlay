@@ -13,7 +13,7 @@ EGIT_REPO_URI="git://github.com/Keruspe/Twident"
 
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 RDEPEND=">=x11-libs/gtk+-2.24:2
 	>=dev-libs/glib-2.14:2

@@ -12,7 +12,7 @@ HOMEPAGE="http://www.gtk.org/"
 LICENSE="LGPL-2"
 SLOT="3"
 IUSE="aqua broadway cups debug doc examples +introspection test vim-syntax xinerama"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 COMMON_DEPEND="!aqua? (
 		x11-libs/libXrender

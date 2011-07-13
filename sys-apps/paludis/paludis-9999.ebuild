@@ -13,7 +13,7 @@ EGIT_REPO_URI="git://git.pioto.org/paludis.git"
 IUSE="ask doc gemcutter pbins pink portage python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 COMMON_DEPEND="
 	>=app-admin/eselect-1.2_rc1

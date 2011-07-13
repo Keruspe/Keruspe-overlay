@@ -10,7 +10,7 @@ DESCRIPTION="Clutter is a library for creating graphical user interfaces"
 
 SLOT="1.0"
 IUSE="debug doc +introspection"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 RDEPEND="
 	>=dev-libs/glib-2.26:2

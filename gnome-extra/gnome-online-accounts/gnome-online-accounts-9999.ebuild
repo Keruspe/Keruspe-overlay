@@ -10,7 +10,7 @@ HOMEPAGE="http://git.gnome.org/browse/gnome-online-accounts/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="facebook +google +introspection twitter yahoo"
 
 DEPEND="

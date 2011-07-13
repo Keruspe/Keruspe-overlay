@@ -14,7 +14,7 @@ HOMEPAGE="http://live.gnome.org/Gjs"
 
 LICENSE="MIT MPL-1.1 LGPL-2 GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="examples test"
 
 # Things are untested and broken with anything other than xulrunner-2.0

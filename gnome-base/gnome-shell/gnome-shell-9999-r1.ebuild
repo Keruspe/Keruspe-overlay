@@ -14,7 +14,7 @@ HOMEPAGE="http://live.gnome.org/GnomeShell"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="bluetooth +nm-applet +recorder"
 
 # gnome-desktop-2.91.2 is needed due to header changes, db82a33 in gnome-desktop

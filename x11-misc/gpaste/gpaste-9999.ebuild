@@ -11,7 +11,7 @@ EGIT_REPO_URI="git://github.com/Keruspe/GPaste.git"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="applet bash-completion +gnome-shell zsh-completion"
 
 DEPEND="dev-libs/glib:2

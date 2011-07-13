@@ -13,7 +13,7 @@ HOMEPAGE="http://blogs.gnome.org/metacity/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="test xinerama"
 
 COMMON_DEPEND=">=x11-libs/pango-1.28[X,introspection]

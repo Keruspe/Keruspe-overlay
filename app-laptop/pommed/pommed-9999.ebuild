@@ -12,7 +12,7 @@ EGIT_REPO_URI="git://git.debian.org/pommed/pommed.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="gtk X"
 
 COMMON_DEPEND="media-libs/alsa-lib
