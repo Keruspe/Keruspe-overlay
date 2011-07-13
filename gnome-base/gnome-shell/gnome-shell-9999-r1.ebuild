@@ -26,7 +26,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9:2
 	>=dev-libs/gobject-introspection-0.10.1
 	x11-libs/gdk-pixbuf:2[introspection]
 	>=x11-libs/gtk+-3.0.0:3[introspection]
-	>=media-libs/clutter-1.5.15:1.0[introspection]
+	>=media-libs/clutter-1.7.5:1.0[introspection]
 	>=gnome-base/gnome-desktop-2.91.2:3
 	>=gnome-base/gsettings-desktop-schemas-2.91.91
 	>=gnome-extra/evolution-data-server-2.91.6[introspection]
