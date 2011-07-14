@@ -14,7 +14,7 @@ HOMEPAGE="http://live.gnome.org/GnomeShell/Extensions"
 LICENSE="GPL-2"
 SLOT="0"
 DEFAULT_EXTENSIONS="alternative-status-menu apps-menu dock drive-menu gajim
-places-menu windowsNavigator"
+places-menu windowsNavigator workspace-indicator"
 ALL_EXTENSIONS="${DEFAULT_EXTENSIONS} alternate-tab auto-move-windows example
 native-window-placement systemMonitor user-theme xrandr-indicator"
 IUSE="${ALL_EXTENSIONS}"
@@ -42,11 +42,6 @@ pkg_setup() {
 		use ${ext} && extensions="${ext} ${extensions}"
 	done
 	DOCS="HACKING README"
-}
-
-src_prepare() {
-	sed -i s/2\.28\.4/2.28.3/ configure.ac
-	gnome2_src_prepare
 }
 
 src_configure() {
