@@ -54,7 +54,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.28:2
 	crypt? ( || (
 		( >=app-crypt/gnupg-2.0.1-r2 ${PINENTRY_DEPEND} )
 		=app-crypt/gnupg-1.4* ) )
-	goa? ( gnome-extra/gnome-online-accounts )
+	goa? ( net-libs/gnome-online-accounts )
 	gstreamer? (
 		>=media-libs/gstreamer-0.10:0.10
 		>=media-libs/gst-plugins-base-0.10:0.10 )

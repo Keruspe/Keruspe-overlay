@@ -31,7 +31,7 @@ RDEPEND=">=dev-libs/glib-2.28:2
 	sys-libs/zlib
 	virtual/libiconv
 	goa? (
-		gnome-extra/gnome-online-accounts
+		net-libs/gnome-online-accounts
 		>=net-libs/liboauth-0.9.4 )
 	introspection? ( >=dev-libs/gobject-introspection-0.9.12 )
 	kerberos? ( virtual/krb5 )
