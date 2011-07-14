@@ -57,6 +57,11 @@ pkg_setup() {
 		$(use_enable pango cogl-pango)"
 }
 
+src_prepare() {
+	cp "${ROOT}/usr/share/gettext/po/Makefile.in.in" "${S}/po"
+	gnome2_src_prepare
+}
+
 src_install() {
 	clutter_src_install
 }
