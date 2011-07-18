@@ -17,7 +17,7 @@ IUSE="audit cryptsetup gtk +pam python plymouth selinux symlinks +tcpwrap"
 
 COMMON_DEPEND=">=sys-apps/dbus-1.4.8-r1
 	sys-libs/libcap
-	>=sys-fs/udev-168
+	>=sys-fs/udev-172
 	audit? ( sys-process/audit )
 	cryptsetup? ( sys-fs/cryptsetup )
 	gtk? (
