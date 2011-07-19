@@ -1,0 +1,9 @@
+#!/bin/bash
+VDB_DIR=/var/db/pkg
+count() {
+    echo ${1} $(grep -l ${1} ${VDB_DIR}/*/*/REPOSITORY | wc -l)
+}
+
+for i in $(cat ${VDB_DIR}/*/*/REPOSITORY | sort -u); do
+    count ${i}
+done
