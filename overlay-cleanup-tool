@@ -10,7 +10,7 @@ find_duplicates() {
   echo "Duplicate packages between ${1} and ${2}:"
   echo
   for i in $(find . -name '*.ebuild' | sort -u); do 
-    ls ${second_path}/${i} &>/dev/null && echo ${i} | sed 's:./\([^/]*\)/\^/]*/\([^/]*\).ebuild:\1/\2:';
+    ls ${second_path}/${i} &>/dev/null && echo ${i} | sed 's:./\([^/]*\)/[^/]*/\([^/]*\).ebuild:\1/\2:'
   done
   echo
   popd &>/dev/null
@@ -29,11 +29,11 @@ find_unused() {
 }
 
 main() {
-  find_duplicates $1 gnome
-  find_duplicates $1 gentoo
-  find_duplicates $1 systemd
+  for i in gnome gentoo systemd; do
+    find_duplicates ${1} ${i}
+  done
   find_unused systemd | grep -Ev '(avahi|/systemd|networkmanager|wpa_supplicant|bootchart2)'
-  find_unused $1 | grep -Ev '(grub|bomb-her-man|gnome-paint|librabbitmq|linux-sources|gpaste)'
+  find_unused ${1} | grep -Ev '(grub|bomb-her-man|gnome-paint|librabbitmq|linux-sources|gpaste)'
 }
 
 main keruspe
