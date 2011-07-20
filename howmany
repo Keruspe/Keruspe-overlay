@@ -4,6 +4,6 @@ count() {
     echo ${1} $(grep -l ${1} ${VDB_DIR}/*/*/REPOSITORY | wc -l)
 }
 
-for i in $(cat ${VDB_DIR}/*/*/REPOSITORY | sort -u); do
+for i in $(cave print-repositories | grep -Ev '(installed|layman|repository)'); do
     count ${i}
 done
