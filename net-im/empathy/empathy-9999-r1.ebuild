@@ -14,7 +14,7 @@ HOMEPAGE="http://live.gnome.org/Empathy"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="debug cheese eds +gnome +map +geoloc +networkmanager sendto spell test webkit"
+IUSE="debug cheese eds +map +geoloc +networkmanager sendto spell test webkit"
 
 RDEPEND=">=dev-libs/glib-2.28.0:2
 	>=x11-libs/gtk+-3.0.2:3
@@ -40,7 +40,6 @@ RDEPEND=">=dev-libs/glib-2.28.0:2
 	cheese? ( >=media-video/cheese-3.0 )
 	eds? ( >=gnome-extra/evolution-data-server-1.2 )
 	geoloc? ( >=app-misc/geoclue-0.11 )
-	gnome? ( >=gnome-base/gnome-control-center-2.31.4 )
 	map? (
 		media-libs/libchamplain:0.10[gtk]
 		media-libs/clutter-gtk:1.0 )
@@ -73,11 +72,11 @@ pkg_setup() {
 		--disable-static
 		--disable-meego
 		--disable-Werror
+		--disable-control-center-embedding
 		$(use_with cheese)
 		$(use_enable debug)
 		$(use_with eds)
 		$(use_enable geoloc location)
-		$(use_enable gnome control-center-embedding)
 		$(use_enable map)
 		$(use_with networkmanager connectivity nm)
 		$(use_enable sendto nautilus-sendto)

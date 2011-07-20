@@ -72,7 +72,7 @@ src_prepare() {
 	# FIXME: Do not mess with CFLAGS with USE="debug"
 	sed -e '/CFLAGS="$CFLAGS -g -O0/d' \
 		-e 's/-Werror//' \
-		-i configure.in || die "sed 1 failed"
+		-i configure.ac || die "sed 1 failed"
 
 	# FIXME: Disable test not ported to gtk:3
 	sed -e 's/^SUBDIRS = .*/SUBDIRS = /' \
