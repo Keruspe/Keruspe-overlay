@@ -5,14 +5,14 @@
 EAPI="4"
 GCONF_DEBUG="yes"
 
-inherit autotools eutils gnome2 pam systemd
+inherit autotools eutils gnome2-live pam systemd
 
 DESCRIPTION="GNOME Display Manager"
 HOMEPAGE="http://www.gnome.org/projects/gdm/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~sh ~sparc ~x86"
+KEYWORDS=""
 
 IUSE_LIBC="elibc_glibc"
 IUSE="accessibility +consolekit ipv6 gnome-keyring selinux tcpd test xinerama +xklavier $IUSE_LIBC"
@@ -125,6 +125,8 @@ src_prepare() {
 	mkdir -p "${S}"/m4
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
+
+	touch "${S}"/data/applications/orca-screen-reader.desktop.in
 }
 
 src_install() {
