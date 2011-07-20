@@ -2,6 +2,7 @@ app-laptop
 app-paludis
 dev-java
 dev-libs
+dev-scheme
 dev-util
 games-action
 gnome-base
