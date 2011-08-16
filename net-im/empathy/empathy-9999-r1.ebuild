@@ -24,7 +24,7 @@ RDEPEND=">=dev-libs/glib-2.28.0:2
 	>=x11-libs/libnotify-0.7
 	>=gnome-base/gnome-keyring-2.91.4-r300
 	>=net-libs/gnutls-2.8.5
-	>=dev-libs/folks-0.5.1
+	>=dev-libs/folks-0.6.0
 
 	gnome-base/gsettings-desktop-schemas
 	net-libs/farsight2
