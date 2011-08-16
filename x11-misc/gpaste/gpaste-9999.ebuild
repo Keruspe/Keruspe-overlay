@@ -25,7 +25,9 @@ RDEPEND="${DEPEND}
 
 WANT_AUTOMAKE="1.11"
 
-G2CONF="$(use_enable applet)
+G2CONF="
+	--disable-schemas-compile	
+	$(use_enable applet)
 	$(use_enable gnome-shell gnome-shell-extension)"
 
 DOCS="AUTHORS NEWS ChangeLog"
