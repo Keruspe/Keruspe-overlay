@@ -49,7 +49,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9:2
 	>=dev-libs/libcroco-0.6.2:0.6
 
 	gnome-base/gconf:2[introspection]
-	gnome-base/gnome-menus
+	>=gnome-base/gnome-menus-3.1
 	gnome-base/librsvg
 	media-libs/libcanberra
 	media-sound/pulseaudio
