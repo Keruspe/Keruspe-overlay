@@ -162,7 +162,7 @@ src_install() {
 
 	use avahi && sed -i -e '/module-zeroconf-publish/s:^#::' "${ED}/etc/pulse/default.pa"
 
-	dodoc README ChangeLog todo
+	dodoc README todo
 
 	if use doc; then
 		pushd doxygen/html
