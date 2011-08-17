@@ -112,7 +112,7 @@ do_symlinks() {
 src_install() {
 	emake DESTDIR="${ED}" install
 	# move files as necessary
-	dobashcompletion "${ED}"/src/systemctl-bash-completion.sh
+	dobashcompletion "${S}"/src/systemctl-bash-completion.sh
 	dodoc "${ED}"/usr/share/doc/systemd/*
 	rm -rf "${ED}"/usr/share/doc/systemd
 
