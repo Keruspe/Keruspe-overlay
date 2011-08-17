@@ -111,13 +111,11 @@ do_symlinks() {
 }
 
 src_install() {
-	autotools-utils_src_install \
-		bashcompletiondir=/tmp
-
+	emake DESTDIR="${ED}" install
 	# move files as necessary
-	dobashcompletion "${D}"/tmp/systemctl-bash-completion.sh
-	dodoc "${D}"/tmp/docs/*
-	rm -rf "${D}"/tmp || die
+	dobashcompletion "${ED}"/src/systemctl-bash-completion.sh
+	dodoc "${ED}"/usr/share/doc/systemd/*
+	rm -rf "${ED}"/usr/share/doc/systemd
 
 	keepdir /run
 	if use symlinks; then
