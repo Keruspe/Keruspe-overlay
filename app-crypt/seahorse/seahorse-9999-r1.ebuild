@@ -74,9 +74,5 @@ src_prepare() {
 		-e 's/-Werror//' \
 		-i configure.ac || die "sed 1 failed"
 
-	# FIXME: Disable test not ported to gtk:3
-	sed -e 's/^SUBDIRS = .*/SUBDIRS = /' \
-		-i libcryptui/Makefile.am || die "sed 2 failed"
-
 	gnome2_src_prepare
 }
