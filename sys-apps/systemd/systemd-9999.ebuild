@@ -72,12 +72,11 @@ src_prepare() {
 }
 
 src_configure() {
-	local myeconfargs=(
+	local myeconfargs="
 		--with-distro=gentoo
 		--with-rootdir=
 		--with-rootlibdir=$(get_libdir)
 		--localstatedir=/var
-		--docdir=/tmp/docs
 		$(use_enable acl)
 		$(use_enable audit)
 		$(use_enable cryptsetup libcryptsetup)
@@ -86,7 +85,7 @@ src_configure() {
 		$(use_enable plymouth)
 		$(use_enable selinux)
 		$(use_enable tcpd tcpwrap)
-	)
+	"
 
 	if use gtk; then
 		export VALAC="$(type -p valac-${VALASLOT})"
