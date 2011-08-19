@@ -16,7 +16,7 @@ DESCRIPTION="The GNOME menu system, implementing the F.D.O cross-desktop spec"
 HOMEPAGE="http://www.gnome.org"
 
 LICENSE="GPL-2 LGPL-2"
-SLOT="0"
+SLOT="3"
 KEYWORDS=""
 
 IUSE="debug +introspection python"
