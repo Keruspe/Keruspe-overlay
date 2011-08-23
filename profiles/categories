@@ -5,6 +5,7 @@ dev-java
 dev-libs
 dev-scheme
 dev-util
+dev-vcs
 games-action
 gnome-base
 gnome-extra
