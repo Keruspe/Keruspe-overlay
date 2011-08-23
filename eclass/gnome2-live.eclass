@@ -106,8 +106,8 @@ gnome2-live_src_prepare() {
 			eqawarn "This package is using deprecated AC_PROG_INTLTOOL macro."
 			eqawarn "Please fill a bug to the upstream of this package."
 		fi
-		ebegin "Running intltoolize --force"
-		intltoolize --force
+		ebegin "Running intltoolize --force --automake"
+		intltoolize --force --automake
 		eend $?
 	fi
 	if test -e m4; then
