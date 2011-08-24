@@ -5,7 +5,7 @@ REPOSITORIES_PATH="/var/paludis/repositories"
 DEPTH=$[$(echo ${REPOSITORIES_PATH} | sed 's:/:\n:g' | wc -l)+2]
 
 digestify() {
-	for i in $(find ${REPOSITORIES_PATH}/${1} -mindepth 2 -maxdepth 2 -type d | grep -Ev '(.git|profiles|metadata)'); do
+	for i in $(find ${REPOSITORIES_PATH}/${1} -mindepth 2 -maxdepth 2 -type d | grep -Ev '(.git|profiles|metadata)' | sort -u); do
 		cave digest $(echo $i | cut -d'/' -f${DEPTH}-) ${1}
 	done
 }
