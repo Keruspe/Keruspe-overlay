@@ -18,7 +18,7 @@ DEPEND="dev-libs/glib:2
 	>=sys-devel/gettext-0.17
 	>=dev-util/intltool-0.40
 	>=x11-libs/gtk+-3.0.0:3
-	dev-lang/vala:0.12"
+	dev-lang/vala:0.14"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
 	zsh-completion? ( app-shells/zsh app-shells/zsh-completion )"
