@@ -1,0 +1,25 @@
+From 6a5bac7a5e79485ee5184d1350937f5f18252f34 Mon Sep 17 00:00:00 2001
+From: Evan Nemerson <evan@coeus-group.com>
+Date: Thu, 25 Aug 2011 11:23:52 -0700
+Subject: [PATCH] linux: fix Linux.CLOCK_MONOTONIC_RAW binding
+
+---
+ vapi/linux.vapi |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/vapi/linux.vapi b/vapi/linux.vapi
+index 627724d..5300ae1 100644
+--- a/vapi/linux.vapi
++++ b/vapi/linux.vapi
+@@ -1201,7 +1201,7 @@ namespace Linux {
+     public time_t timegm (GLib.Time t);
+ 
+     [CCode (cheader_filename = "time.h")]
+-    public const clockid_t CLOCK_MONOTONIC_RAW;
++    public const Posix.clockid_t CLOCK_MONOTONIC_RAW;
+ 
+     [CCode (cheader_filename = "utmp.h")]
+     public int login_tty (int fd);
+-- 
+1.7.6.557.gcee4.dirty
+

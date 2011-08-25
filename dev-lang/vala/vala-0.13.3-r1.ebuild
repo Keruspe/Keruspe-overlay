@@ -6,7 +6,7 @@ EAPI="4"
 GCONF_DEBUG="no"
 GNOME2_LA_PUNT="yes"
 
-inherit alternatives gnome2
+inherit alternatives gnome2 eutils
 
 DESCRIPTION="Vala - Compiler for the GObject type system"
 HOMEPAGE="http://live.gnome.org/Vala"
@@ -31,6 +31,11 @@ pkg_setup() {
 		--disable-unversioned
 		$(use_enable vapigen)"
 	DOCS="AUTHORS ChangeLog MAINTAINERS NEWS README"
+}
+
+src_prepare() {
+	epatch ${FILESDIR}/0001-linux-fix-Linux.CLOCK_MONOTONIC_RAW-binding.patch
+	gnome2_src_prepare
 }
 
 src_install() {
