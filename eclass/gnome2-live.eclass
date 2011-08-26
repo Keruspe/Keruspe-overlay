@@ -43,6 +43,9 @@ GNOME_LIVE_MODULE=${GNOME_LIVE_MODULE:-"${PN}"}
 # GIT URI for the project
 EGIT_REPO_URI="${EGIT_REPO_URI:-"git://git.gnome.org/${GNOME_LIVE_MODULE}"}"
 
+# Directory to store git repo
+EGIT_PROJECT="${GNOME_LIVE_MODURE}"
+
 # Unset SRC_URI auto-set by gnome2.eclass
 SRC_URI=""
 
