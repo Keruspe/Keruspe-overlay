@@ -14,7 +14,7 @@ DESCRIPTION="GDBus code and documentation generator"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="doc" # use doc needs fixing
+IUSE="doc"
 
 DEPEND=""
 RDEPEND="${DEPEND}
@@ -30,30 +30,22 @@ pkg_setup() {
 src_compile() {
 	cd "${S}/gio/gdbus-2.0/codegen"
 	emake
-	if use doc; then
-		cd "${S}/docs/reference/gio/"
-		emake
-	fi
 	python_convert_shebangs 2 "gdbus-codegen"
+	if use doc; then
+		cd "${S}/gio"
+		emake gio-public-headers.txt
+		cd "${S}/docs/reference/gio/"
+		emake gdbus-codegen.1
+	fi
 }
 
 src_install() {
 	cd "${S}/gio/gdbus-2.0/codegen"
-	insinto "/usr/$(get_libdir)/gdbus-2.0/codegen"
-	# keep in sync with Makefile.am
-	doins __init__.py \
-		codegen.py \
-		codegen_main.py \
-		codegen_docbook.py \
-		config.py \
-		dbustypes.py \
-		parser.py \
-		utils.py || die "doins failed"
-	newbin gdbus-codegen.in gdbus-codegen || die "dobin failed"
-	use doc && {
+	emake DESTDIR=${D} install
+	if use doc; then
 		doman "${WORKDIR}/glib-${PV}/docs/reference/gio/gdbus-codegen.1" ||
 		die "doman failed"
-	}
+	fi
 }
 
 src_test() {
