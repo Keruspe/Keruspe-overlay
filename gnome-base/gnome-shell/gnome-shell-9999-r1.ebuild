@@ -15,7 +15,7 @@ HOMEPAGE="http://live.gnome.org/GnomeShell"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="bluetooth +nm-applet +recorder"
+IUSE="+recorder"
 
 # gnome-desktop-2.91.2 is needed due to header changes, db82a33 in gnome-desktop
 # FIXME: Automagic gnome-bluetooth[introspection] support.
@@ -37,10 +37,9 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9:2
 	net-libs/libsoup:2.4[introspection]
 	>=net-libs/telepathy-glib-0.15.5[introspection]
 	>=net-im/telepathy-mission-control-5.9.0
-	bluetooth? ( >=net-wireless/gnome-bluetooth-3.1[introspection] )
-	!bluetooth? ( !!net-wireless/gnome-bluetooth )
+	>=net-wireless/gnome-bluetooth-3.1[introspection]
 	>=sys-auth/polkit-0.100[introspection]
-	>=x11-wm/mutter-3.1.3
+	>=x11-wm/mutter-3.1.90
 	net-libs/libsoup:2.4
 
 	dev-libs/dbus-glib
@@ -64,7 +63,6 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9:2
 # 3. gnome-session is needed for gnome-session-quit
 # 4. Control shell settings
 # 5. accountsservice is needed for GdmUserManager
-# 6. nm-applet is needed for auth prompting and the wireless connection dialog
 RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-icon-theme-symbolic
 	x11-themes/gnome-themes-standard
@@ -82,10 +80,9 @@ RDEPEND="${COMMON_DEPEND}
 	>=gnome-base/gnome-control-center-2.91.92-r1
 
 	>=sys-apps/accountsservice-0.6.12
+	>=dev-libs/folks-0.5.2
 
-	nm-applet? (
-		>=gnome-extra/nm-applet-0.8.999
-		>=net-misc/networkmanager-0.8.999[introspection] )
+	>=net-misc/networkmanager-0.8.999[introspection]
 	recorder? ( media-plugins/gst-plugins-vp8 )"
 DEPEND="${COMMON_DEPEND}
 	>=sys-devel/gettext-0.17

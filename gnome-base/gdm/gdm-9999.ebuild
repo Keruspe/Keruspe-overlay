@@ -72,7 +72,8 @@ DEPEND="${COMMON_DEPEND}
 RDEPEND="${COMMON_DEPEND}
 	>=gnome-base/gnome-session-2.91.92
 	>=gnome-base/gnome-settings-daemon-2.91
-	x11-wm/metacity
+	|| ( >=gnome-base/gnome-shell-3.1.90 x11-wm/metacity )
+	!<gnome-base/gnome-shell-3.1.90
 
 	consolekit? ( gnome-extra/polkit-gnome )
 
