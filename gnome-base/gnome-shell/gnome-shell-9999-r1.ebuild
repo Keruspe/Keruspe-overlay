@@ -82,6 +82,8 @@ RDEPEND="${COMMON_DEPEND}
 	>=sys-apps/accountsservice-0.6.12
 	>=dev-libs/folks-0.5.2
 
+	>=app-accessibility/caribou-0.3.5
+
 	>=net-misc/networkmanager-0.8.999[introspection]
 	recorder? ( media-plugins/gst-plugins-vp8 )"
 DEPEND="${COMMON_DEPEND}
