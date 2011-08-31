@@ -22,6 +22,7 @@ DEPEND="${RDEPEND}
 	virtual/yacc
 	dev-util/pkgconfig
 	dev-libs/libxslt
+	dev-lang/vala:0.14
 	test? (
 		dev-libs/dbus-glib
 		>=dev-libs/glib-2.26:2 )"
@@ -31,6 +32,7 @@ pkg_setup() {
 		--disable-unversioned
 		$(use_enable vapigen)"
 	DOCS="AUTHORS ChangeLog MAINTAINERS NEWS README"
+	VALAC="$(type -P valac-0.14)"
 }
 
 src_prepare() {
