@@ -2,7 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=4
+
 EGIT_REPO_URI="git://git.mplayer2.org/mplayer2.git"
 inherit toolchain-funcs eutils flag-o-matic multilib base git-2
 
@@ -530,7 +531,7 @@ src_install() {
 	local i
 
 	emake \
-		DESTDIR="${ED}" \
+		DESTDIR="${D}" \
 		INSTALLSTRIP="" \
 		install
 

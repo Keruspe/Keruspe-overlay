@@ -21,7 +21,7 @@ RDEPEND="dev-libs/libxml2
 	>=dev-libs/glib-2.24:2
 	>=sys-apps/dbus-1.1.0
 	>=net-libs/telepathy-glib-0.14
-	>=net-dns/avahi-0.6.22
+	>=net-dns/avahi-0.6.22[dbus]
 	net-libs/libsoup:2.4
 	sys-apps/util-linux"
 DEPEND="${RDEPEND}
@@ -50,5 +50,6 @@ src_prepare() {
 
 src_configure() {
 	econf \
+		--disable-plugins \
 		--disable-Werror
 }

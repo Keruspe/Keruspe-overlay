@@ -22,7 +22,7 @@ COMMON_DEPEND="
 	app-admin/eselect-gnome-shell-extensions"
 RDEPEND="${COMMON_DEPEND}
 	gnome-base/gnome-desktop:3[introspection]
-	>=gnome-base/gnome-shell-3.1
+	>=gnome-base/gnome-shell-3.1.90
 	>=gnome-base/libgtop-2.28.3
 	media-libs/clutter:1.0[introspection]
 	net-libs/telepathy-glib[introspection]

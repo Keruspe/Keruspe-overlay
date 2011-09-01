@@ -43,5 +43,5 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR="${ED}" install || die
+	emake DESTDIR="${ED}" install
 }

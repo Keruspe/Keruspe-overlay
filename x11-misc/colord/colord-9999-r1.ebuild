@@ -7,13 +7,13 @@ GCONF_DEBUG="no"
 inherit base gnome2-live
 
 DESCRIPTION="System service to accurately color manage input and output devices"
-HOMEPAGE="http://colord.hughsie.com/"
+HOMEPAGE="http://www.freedesktop.org/software/colord/"
 EGIT_REPO_URI="git://gitorious.org/colord/master.git"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="doc examples +introspection scanner +udev vala"
+IUSE="doc examples +introspection scanner +udev"
 
 # XXX: raise to libusb-1.0.9:1 when available
 COMMON_DEPEND="
@@ -37,7 +37,7 @@ DEPEND="${COMMON_DEPEND}
 		app-text/docbook-xml-dtd:4.1.2
 		>=dev-util/gtk-doc-1.9
 	)
-	vala? ( dev-lang/vala:0.12 )
+	introspection? ( dev-lang/vala:0.14 )
 "
 
 # FIXME: needs pre-installed dbus service files
@@ -46,21 +46,16 @@ RESTRICT="test"
 DOCS=(AUTHORS ChangeLog MAINTAINERS NEWS README TODO)
 
 src_configure() {
-	if use vala; then
-		if use introspection; then
-			export VAPIGEN=$(type -p vapigen-0.12)
-		else
-			ewarn "Vala bindings cannot be built because the introspection USE flag is disabled"
-		fi
-	fi
 	econf \
 		--disable-examples \
 		--disable-static \
 		--enable-polkit \
 		--enable-reverse \
 		$(use_enable doc gtk-doc) \
+		$(use_enable introspection) \
 		$(use_enable scanner sane) \
-		$(use_enable udev gudev)
+		$(use_enable udev gudev) \
+		VAPIGEN=$(type -p vapigen-0.14)
 	# parallel make fails in doc/api
 	use doc && MAKEOPTS=-j1
 }
@@ -76,5 +71,5 @@ src_install() {
 		doins examples/*.c
 	fi
 
-	find "${D}" -name "*.la" -delete
+	find "${D}" -name "*.la" -delete || die
 }

@@ -28,16 +28,19 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9:2
 	x11-libs/gdk-pixbuf:2[introspection]
 	>=x11-libs/gtk+-3.0.0:3[introspection]
 	>=media-libs/clutter-1.7.5:1.0[introspection]
+	>=dev-libs/folks-0.5.2
 	>=gnome-base/gnome-desktop-2.91.2:3
 	>=gnome-base/gsettings-desktop-schemas-2.91.91
+	gnome-base/libgnome-keyring
 	>=gnome-extra/evolution-data-server-2.91.6[introspection]
 	>=media-libs/gstreamer-0.10.16:0.10
 	>=media-libs/gst-plugins-base-0.10.16:0.10
 	>=net-im/telepathy-logger-0.2.4[introspection]
 	net-libs/libsoup:2.4[introspection]
 	>=net-libs/telepathy-glib-0.15.5[introspection]
+	>=net-misc/networkmanager-0.8.999[introspection]
+	>=net-wireless/gnome-bluetooth-3.1.0[introspection]
 	>=net-im/telepathy-mission-control-5.9.0
-	>=net-wireless/gnome-bluetooth-3.1[introspection]
 	>=sys-auth/polkit-0.100[introspection]
 	>=x11-wm/mutter-3.1.90
 	net-libs/libsoup:2.4
@@ -48,7 +51,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9:2
 	>=dev-libs/libcroco-0.6.2:0.6
 
 	gnome-base/gconf:2[introspection]
-	>=gnome-base/gnome-menus-3.1
+	>=gnome-base/gnome-menus-3.1[introspection]
 	gnome-base/librsvg
 	media-libs/libcanberra
 	media-sound/pulseaudio
@@ -63,9 +66,11 @@ COMMON_DEPEND=">=dev-libs/glib-2.25.9:2
 # 3. gnome-session is needed for gnome-session-quit
 # 4. Control shell settings
 # 5. accountsservice is needed for GdmUserManager
+# 6. caribou needed for on-screen keyboard
 RDEPEND="${COMMON_DEPEND}
-	x11-themes/gnome-icon-theme-symbolic
-	x11-themes/gnome-themes-standard
+	>=x11-themes/gnome-icon-theme-3.1.90
+	>=x11-themes/gnome-icon-theme-symbolic-3.1.90
+	>=x11-themes/gnome-themes-standard-3.1.90
 	media-fonts/cantarell
 
 	>=sys-auth/polkit-0.101[introspection]
@@ -80,11 +85,9 @@ RDEPEND="${COMMON_DEPEND}
 	>=gnome-base/gnome-control-center-2.91.92-r1
 
 	>=sys-apps/accountsservice-0.6.12
-	>=dev-libs/folks-0.5.2
 
-	>=app-accessibility/caribou-0.3.5
+	>=app-accessibility/caribou-0.3
 
-	>=net-misc/networkmanager-0.8.999[introspection]
 	recorder? ( media-plugins/gst-plugins-vp8 )"
 DEPEND="${COMMON_DEPEND}
 	>=sys-devel/gettext-0.17

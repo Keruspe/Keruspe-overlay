@@ -2,7 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=4
+
 inherit autotools eutils libtool flag-o-matic versionator git-2
 
 DESCRIPTION="A networked sound server with an advanced plugin system"
@@ -30,7 +31,7 @@ RDEPEND="app-admin/eselect-esd
 	alsa? ( >=media-libs/alsa-lib-1.0.19 )
 	glib? ( >=dev-libs/glib-2.4.0 )
 	avahi? ( >=net-dns/avahi-0.6.12[dbus] )
-	jack? ( >=media-sound/jack-audio-connection-kit-0.100 )
+	jack? ( >=media-sound/jack-audio-connection-kit-0.117 )
 	tcpd? ( sys-apps/tcp-wrappers )
 	lirc? ( app-misc/lirc )
 	dbus? ( >=sys-apps/dbus-1.0.0 )
@@ -119,7 +120,7 @@ src_configure() {
 		--localstatedir="${EPREFIX}"/var \
 		--disable-per-user-esound-socket \
 		--with-database=${database} \
-		--with-udev-rules-dir="${EPREFIX}/$(get_libdir)/udev/rules.d"
+		--with-udev-rules-dir="${EPREFIX}/lib/udev/rules.d"
 
 	if use doc; then
 		pushd doxygen
@@ -174,7 +175,7 @@ src_install() {
 	use prefix || diropts -o pulse -g pulse -m0755
 	keepdir /var/run/pulse
 
-	find "${D}" -name '*.la' -exec rm -f {} +
+	find "${D}" -name '*.la' -delete
 }
 
 pkg_postinst() {

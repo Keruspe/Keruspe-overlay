@@ -4,14 +4,14 @@
 
 EAPI="4"
 
-inherit eutils flag-o-matic gnome2-live gnome2-utils libtool virtualx
+inherit eutils flag-o-matic gnome2-live libtool virtualx
 
 DESCRIPTION="Gimp ToolKit +"
 HOMEPAGE="http://www.gtk.org/"
 
 LICENSE="LGPL-2"
 SLOT="3"
-IUSE="aqua broadway cups debug doc examples +introspection test vim-syntax xinerama"
+IUSE="aqua broadway colord cups debug doc examples +introspection packagekit test vim-syntax xinerama"
 KEYWORDS=""
 
 COMMON_DEPEND="!aqua? (
@@ -26,19 +26,20 @@ COMMON_DEPEND="!aqua? (
 		x11-libs/libXcomposite
 		x11-libs/libXdamage
 		>=x11-libs/cairo-1.10.0[X,svg]
-		>=x11-libs/gdk-pixbuf-2.22.0:2[X,introspection?]
+		>=x11-libs/gdk-pixbuf-2.23.5:2[X,introspection?]
 	)
 	aqua? (
 		>=x11-libs/cairo-1.10.0[aqua,svg]
-		>=x11-libs/gdk-pixbuf-2.22.0:2[introspection?]
+		>=x11-libs/gdk-pixbuf-2.23.5:2[introspection?]
 	)
 	xinerama? ( x11-libs/libXinerama )
-	>=dev-libs/glib-2.28.0
-	>=x11-libs/pango-1.24.0[introspection?]
-	>=dev-libs/atk-1.30[introspection?]
+	>=dev-libs/glib-2.29.14
+	>=x11-libs/pango-1.29.0[introspection?]
+	>=dev-libs/atk-2.1.5[introspection?]
 	>=x11-libs/gtk+-2.24:2
 	media-libs/fontconfig
 	x11-misc/shared-mime-info
+	colord? ( >=x11-misc/colord-0.1.9 )
 	cups? ( net-print/cups )
 	introspection? ( >=dev-libs/gobject-introspection-0.10.1 )"
 DEPEND="${COMMON_DEPEND}
@@ -49,9 +50,6 @@ DEPEND="${COMMON_DEPEND}
 		x11-proto/inputproto
 		x11-proto/damageproto
 	)
-	x86-interix? (
-		sys-libs/itx-bind
-	)
 	xinerama? ( x11-proto/xineramaproto )
 	>=dev-util/gtk-doc-am-1.11
 	doc? (
@@ -61,7 +59,7 @@ DEPEND="${COMMON_DEPEND}
 		media-fonts/font-misc-misc
 		media-fonts/font-cursor-misc )"
 RDEPEND="${COMMON_DEPEND}
-	!<gnome-base/gail-1000"
+	packagekit? ( app-admin/packagekit-base )"
 PDEPEND="vim-syntax? ( app-vim/gtk-syntax )"
 
 strip_builddir() {
@@ -84,12 +82,6 @@ src_prepare() {
 	sed '\%/recent-manager/add%,/recent_manager_purge/ d' \
 		-i gtk/tests/recentmanager.c || die "sed 2 failed"
 
-	if use x86-interix; then
-		# activate the itx-bind package...
-		append-flags "-I${EPREFIX}/usr/include/bind"
-		append-ldflags "-L${EPREFIX}/usr/lib/bind"
-	fi
-
 	if ! use test; then
 		# don't waste time building tests
 		strip_builddir SRC_SUBDIRS tests Makefile.am
@@ -102,13 +94,15 @@ src_prepare() {
 		[[ ${PV} != 9999 ]] && strip_builddir SRC_SUBDIRS demos Makefile.in
 	fi
 
-	[[ ${PV} = 9999 ]] && gnome2-live_src_prepare
+	gnome2_src_prepare
 }
 
 src_configure() {
 	local myconf="$(use_enable doc gtk-doc)
 		$(use_enable xinerama)
+		$(use_enable packagekit)
 		$(use_enable cups cups auto)
+		$(use_enable colord)
 		$(use_enable introspection)
 		$(use_enable broadway broadway-backend)
 		--disable-packagekit
@@ -139,14 +133,12 @@ src_test() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "Installation failed"
+	emake DESTDIR="${D}" install
 
-	# see bug #133241
-	echo 'gtk-fallback-icon-theme = "gnome"' > "${T}/gtkrc"
 	insinto /etc/gtk-3.0
-	doins "${T}"/gtkrc || die "doins gtkrc failed"
+	doins "${FILESDIR}"/settings.ini
 
-	dodoc AUTHORS ChangeLog* HACKING NEWS* README* || die "dodoc failed"
+	dodoc AUTHORS ChangeLog* HACKING NEWS* README*
 
 	# Remove unneeded *.la files
 	find "${ED}" -name "*.la" -delete
@@ -171,7 +163,7 @@ pkg_postinst() {
 	if ! has_version "app-text/evince"; then
 		elog "Please install app-text/evince for print preview functionality."
 		elog "Alternatively, check \"gtk-print-preview-command\" documentation and"
-		elog "add it to your gtkrc."
+		elog "add it to your settings.ini file."
 	fi
 }
 

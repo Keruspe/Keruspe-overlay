@@ -6,7 +6,7 @@ EAPI="3"
 GCONF_DEBUG="no"
 GNOME2_LA_PUNT="yes"
 
-PYTHON_DEPEND="python? 2:2.4"
+PYTHON_DEPEND="2:2.4"
 SUPPORT_PYTHON_ABIS="1"
 RESTRICT_PYTHON_ABIS="3.*"
 
@@ -19,15 +19,23 @@ LICENSE="GPL-2 LGPL-2"
 SLOT="3"
 KEYWORDS=""
 
-IUSE="debug +introspection python"
+IUSE="debug +introspection python test"
 
-RDEPEND=">=dev-libs/glib-2.18
-	python? ( dev-python/pygtk )
-	introspection? ( >=dev-libs/gobject-introspection-0.9.5 )"
-DEPEND="${RDEPEND}
+COMMON_DEPEND=">=dev-libs/glib-2.29.15:2
+	introspection? ( >=dev-libs/gobject-introspection-0.9.5 )
+	python? (
+		>=dev-libs/gobject-introspection-0.9.5
+		dev-python/pygobject:3
+		x11-libs/gdk-pixbuf:2[introspection]
+		x11-libs/gtk+:3[introspection] )"
+# Older versions of slot 0 install the menu editor and the desktop directories
+RDEPEND="${COMMON_DEPEND}
+	!!<gnome-base/gnome-menus-3.0.1-r50:0"
+DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.9
-	>=dev-util/intltool-0.40"
+	>=dev-util/intltool-0.40
+	test? ( dev-libs/gjs )"
 
 pkg_setup() {
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
@@ -38,10 +46,14 @@ pkg_setup() {
 		G2CONF="${G2CONF} --enable-debug=minimum"
 	fi
 
-	G2CONF="${G2CONF}
-		--disable-static
-		$(use_enable python)
-		$(use_enable introspection)"
+	if use python || use introspection; then
+		use introspection || ewarn "Enabling introspection due to USE=python"
+		G2CONF="${G2CONF} --enable-introspection"
+	else
+		G2CONF="${G2CONF} --disable-introspection"
+	fi
+
+	G2CONF="${G2CONF} --disable-static"
 }
 
 src_prepare() {

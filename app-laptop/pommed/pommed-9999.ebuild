@@ -22,8 +22,9 @@ COMMON_DEPEND="media-libs/alsa-lib
 	dev-libs/dbus-glib
 	sys-libs/zlib
 	media-libs/audiofile
-	gtk? ( >=x11-libs/gtk+-2:2 )
+	gtk? ( x11-libs/gtk+:2 )
 	X? ( x11-libs/libX11
+		x11-libs/libXext
 		x11-libs/libXpm )"
 DEPEND="${COMMON_DEPEND}
 	dev-util/pkgconfig"
@@ -91,6 +92,7 @@ src_install() {
 		doins gpomme/gpomme-c.desktop
 		insinto /usr/share/gpomme/
 		doins -r gpomme/themes
+		doins gpomme/gpomme.glade
 	fi
 
 	if use X ; then

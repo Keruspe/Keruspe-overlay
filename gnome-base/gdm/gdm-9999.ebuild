@@ -69,12 +69,14 @@ DEPEND="${COMMON_DEPEND}
 	>=app-text/scrollkeeper-0.1.4
 	>=app-text/gnome-doc-utils-0.3.2"
 # XXX: These deps are from the gnome-session gdm.session file
+# at-spi is needed for at-spi-registryd-wrapper.desktop
 RDEPEND="${COMMON_DEPEND}
 	>=gnome-base/gnome-session-2.91.92
 	>=gnome-base/gnome-settings-daemon-2.91
 	|| ( >=gnome-base/gnome-shell-3.1.90 x11-wm/metacity )
 	!<gnome-base/gnome-shell-3.1.90
 
+	accessibility? ( gnome-extra/at-spi:1 )
 	consolekit? ( gnome-extra/polkit-gnome )
 
 	!gnome-extra/fast-user-switch-applet"
@@ -85,12 +87,15 @@ pkg_setup() {
 	# PAM is the only auth scheme supported
 	# even though configure lists shadow and crypt
 	# they don't have any corresponding code
+	# --with-at-spi-registryd-directory= needs to be passed explicitly because
+	# of https://bugzilla.gnome.org/show_bug.cgi?id=607643#c4
 	G2CONF="${G2CONF}
 		--disable-schemas-install
-		--localstatedir=/var
+		--localstatedir=${EPREFIX}/var
 		--with-xdmcp=yes
 		--enable-authentication-scheme=pam
-		--with-pam-prefix=/etc
+		--with-pam-prefix=${EPREFIX}/etc
+		--with-at-spi-registryd-directory=${EPREFIX}/usr/libexec
 		$(use_with accessibility xevie)
 		$(use_enable ipv6)
 		$(use_enable xklavier libxklavier)
@@ -127,8 +132,6 @@ src_prepare() {
 	mkdir -p "${S}"/m4
 	intltoolize --force --copy --automake || die "intltoolize failed"
 	eautoreconf
-
-	touch "${S}"/data/applications/orca-screen-reader.desktop.in
 }
 
 src_install() {
