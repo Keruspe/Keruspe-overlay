@@ -5,7 +5,7 @@
 EAPI="4"
 GCONF_DEBUG="yes"
 
-inherit autotools eutils gnome2-live pam systemd
+inherit autotools eutils gnome2-live pam
 
 DESCRIPTION="GNOME Display Manager"
 HOMEPAGE="http://www.gnome.org/projects/gdm/"
@@ -138,9 +138,6 @@ src_install() {
 	gnome2_src_install
 
 	local gentoodir="${WORKDIR}/${GDM_EXTRA}"
-
-	# Install the systemd unit file
-	systemd_dounit "${FILESDIR}/gdm@.service"
 
 	# FIXME: Remove dosym usage, gone in EAPI 4
 	# gdm-binary should be gdm to work with our init (#5598)
