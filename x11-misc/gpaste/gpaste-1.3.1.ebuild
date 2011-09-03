@@ -18,8 +18,7 @@ IUSE="applet bash-completion +gnome-shell zsh-completion"
 DEPEND="dev-libs/glib:2
 	>=sys-devel/gettext-0.17
 	>=dev-util/intltool-0.40
-	>=x11-libs/gtk+-3.0.0:3
-	dev-lang/vala:0.14"
+	>=x11-libs/gtk+-3.0.0:3"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
 	gnome-shell? ( >=gnome-base/gnome-shell-3.1.90 )
