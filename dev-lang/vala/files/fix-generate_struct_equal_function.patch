@@ -1,0 +1,40 @@
+commit 3bfe468daa15fd19eebfbf3de8dc48a79810bb30
+Author: Luca Bruno <lucabru@src.gnome.org>
+Date:   Wed Aug 31 15:37:04 2011 +0200
+
+    codegen: Fix equal function for SimpleType structs with only static fields
+    
+    The function produced wrong results if the struct had static fields but
+    no instance fields.
+    
+    Fixes bug 657813.
+
+diff --git a/codegen/valaccodebasemodule.vala b/codegen/valaccodebasemodule.vala
+index c9d1417..f889798 100644
+--- a/codegen/valaccodebasemodule.vala
++++ b/codegen/valaccodebasemodule.vala
+@@ -2487,12 +2487,15 @@ public abstract class Vala.CCodeBaseModule : CodeGenerator {
+ 			ccode.close ();
+ 		}
+ 
++		bool has_instance_fields = false;
+ 		foreach (Field f in st.get_fields ()) {
+ 			if (f.binding != MemberBinding.INSTANCE) {
+ 				// we only compare instance fields
+ 				continue;
+ 			}
+ 
++			has_instance_fields = true;
++
+ 			CCodeExpression cexp; // if (cexp) return FALSE;
+ 			var s1 = (CCodeExpression) new CCodeMemberAccess.pointer (new CCodeIdentifier ("s1"), f.name); // s1->f
+ 			var s2 = (CCodeExpression) new CCodeMemberAccess.pointer (new CCodeIdentifier ("s2"), f.name); // s2->f
+@@ -2520,7 +2523,7 @@ public abstract class Vala.CCodeBaseModule : CodeGenerator {
+ 			ccode.close ();
+ 		}
+ 
+-		if (st.get_fields().size == 0) {
++		if (!has_instance_fields) {
+ 			// either opaque structure or simple type
+ 			if (st.is_simple_type ()) {
+ 				var cexp = new CCodeBinaryExpression (CCodeBinaryOperator.EQUALITY, new CCodeUnaryExpression (CCodeUnaryOperator.POINTER_INDIRECTION, new CCodeIdentifier ("s1")), new CCodeUnaryExpression (CCodeUnaryOperator.POINTER_INDIRECTION, new CCodeIdentifier ("s2")));

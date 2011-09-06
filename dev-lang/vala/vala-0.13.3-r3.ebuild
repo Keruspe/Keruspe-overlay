@@ -36,7 +36,7 @@ pkg_setup() {
 
 src_prepare() {
 	epatch ${FILESDIR}/0001-linux-fix-Linux.CLOCK_MONOTONIC_RAW-binding.patch
-	epatch ${FILESDIR}/0001-codegen-Fix-generate_struct_equal_function.patch
+	epatch ${FILESDIR}/fix-generate_struct_equal_function.patch
 	gnome2_src_prepare
 }
 
