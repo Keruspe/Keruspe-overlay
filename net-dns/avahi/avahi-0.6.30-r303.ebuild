@@ -68,8 +68,9 @@ pkg_setup() {
 		ewarn "For proper python support you should also enable the dbus and gtk USE flags!"
 	fi
 
-	if { use gtk && ! use utils; } || { ! use gtk && use utils; }; then
-		ewarn "If you want the avahi utilities, enable USE='gtk utils'"
+	# FIXME: Use REQUIRED_USE once python.eclass gets EAPI 4 support, bug 372255
+	if use utils && ! { use gtk || use gtk3; }; then
+		ewarn "To install the avahi utilities, USE='gtk utils' or USE='gtk3 utils''"
 	fi
 }
 
@@ -96,7 +97,7 @@ src_prepare() {
 		doxygen_to_devhelp.xsl || die
 
 	# Make gtk utils optional
-	epatch "${FILESDIR}/${PN}-0.6.28-optional-gtk-utils.patch"
+	epatch "${FILESDIR}/${PN}-0.6.30-optional-gtk-utils.patch"
 
 	eautoreconf
 }
@@ -125,11 +126,8 @@ src_configure() {
 	# We need to unset DISPLAY, else the configure script might have problems detecting the pygtk module
 	unset DISPLAY
 
-	# Upstream ships a gir file (AvahiCore.gir) which does not work with
-	# >=gobject-introspection-0.9, so we disable introspection for now.
-	# http://avahi.org/ticket/318
 	econf \
-		--localstatedir=/var \
+		--localstatedir="${EPREFIX}/var" \
 		--with-distro=gentoo \
 		--disable-python-dbus \
 		--disable-pygtk \
@@ -163,7 +161,7 @@ src_compile() {
 }
 
 src_install() {
-	emake install py_compile=true DESTDIR="${ED}" || die "make install failed"
+	emake install py_compile=true DESTDIR="${D}" || die "make install failed"
 	use bookmarks && use python && use dbus && use gtk || \
 		rm -f "${ED}"/usr/bin/avahi-bookmarks
 
