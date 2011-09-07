@@ -34,17 +34,6 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog MAINTAINERS NEWS README"
 }
 
-src_prepare() {
-	epatch ${FILESDIR}/0001-linux-fix-Linux.CLOCK_MONOTONIC_RAW-binding.patch
-	epatch ${FILESDIR}/fix-generate_struct_equal_function.patch
-	gnome2_src_prepare
-}
-
-src_compile() {
-	sed -i '/VALAC/s/valac/valac-0.14/' codegen/Makefile
-	gnome2_src_compile
-}
-
 src_install() {
 	gnome2_src_install
 	mv "${ED}"/usr/share/aclocal/vala.m4 \
