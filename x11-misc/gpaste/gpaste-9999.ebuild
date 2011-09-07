@@ -27,6 +27,7 @@ RDEPEND="${DEPEND}
 WANT_AUTOMAKE="1.11"
 
 G2CONF="
+	VALAC=$(type -p valac-0.14)
 	--disable-schemas-compile
 	$(use_enable applet)
 	$(use_enable gnome-shell gnome-shell-extension)"
