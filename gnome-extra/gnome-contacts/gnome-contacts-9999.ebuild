@@ -20,7 +20,7 @@ DEPEND="dev-lang/vala:0.14
 	dev-libs/glib
 	x11-libs/gtk+:3[introspection]
 	>=gnome-base/gnome-desktop-3[introspection]
-	>=dev-libs/folks-0.6.1[vala]
+	>=dev-libs/folks-0.6.2.1[vala]
 	x11-libs/libnotify[introspection]"
 RDEPEND="${DEPEND}"
 
