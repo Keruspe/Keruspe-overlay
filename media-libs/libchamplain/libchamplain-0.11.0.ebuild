@@ -13,7 +13,7 @@ DESCRIPTION="Clutter based world map renderer"
 HOMEPAGE="http://blog.pierlux.com/projects/libchamplain/en/"
 
 LICENSE="LGPL-2"
-SLOT="0.10"
+SLOT="0.12"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug doc +gtk +introspection vala"
 

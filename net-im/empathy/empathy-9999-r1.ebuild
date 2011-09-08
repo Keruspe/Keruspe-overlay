@@ -47,7 +47,7 @@ RDEPEND=">=dev-libs/glib-2.28:2
 
 	eds? ( >=gnome-extra/evolution-data-server-1.2 )
 	geoloc? ( >=app-misc/geoclue-0.11 )
-	map? ( media-libs/libchamplain:0.10[gtk]
+	map? ( media-libs/libchamplain:0.12[gtk]
 		>=media-libs/clutter-gtk-0.90.3:1.0 )
 	networkmanager? ( >=net-misc/networkmanager-0.7 )
 	sendto? ( >=gnome-extra/nautilus-sendto-2.90.0 )
