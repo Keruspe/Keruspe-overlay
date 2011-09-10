@@ -23,7 +23,7 @@ RDEPEND=">=x11-libs/gtk+-2.24:2
 	dev-libs/libxml2
 	>=net-libs/rest-0.7.10"
 DEPEND="${RDEPEND}
-	>=dev-lang/vala-0.11.4:0.12
+	>=dev-lang/vala-0.13.4:0.14
 	sys-devel/gettext
 	dev-util/intltool"
 
