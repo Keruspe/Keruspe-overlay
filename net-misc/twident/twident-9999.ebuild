@@ -30,6 +30,11 @@ DEPEND="${RDEPEND}
 src_prepare() {
 	mkdir m4
 	eautoreconf
+	intltoolize --force --automake --copy
+}
+
+src_configure() {
+	econf VALAC=$(type -p valac-0.14)
 }
 
 src_install() {
