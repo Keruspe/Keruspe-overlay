@@ -43,10 +43,10 @@ src_prepare() {
 }
 
 src_install() {
-	use bash-completion && BASHCOMPLETION_NAME="gpaste" dobashcompletion completions/gpaste
+	use bash-completion && BASHCOMPLETION_NAME="gpaste" dobashcompletion data/completions/gpaste
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
-		doins completions/_gpaste
+		doins data/completions/_gpaste
 	fi
 	gnome2_src_install
 }
