@@ -34,13 +34,7 @@ G2CONF="
 
 DOCS="AUTHORS NEWS ChangeLog"
 
-src_prepare() {
-	gnome2_src_prepare
-	if ! has_version gnome-base/gnome-shell; then
-		einfo "You do not have gnome-shell installed, building gtk+ applet"
-		G2CONF+="--enable-applet"
-	fi
-}
+REQUIRED_USE="|| ( gnome-shell applet )"
 
 src_install() {
 	use bash-completion && BASHCOMPLETION_NAME="gpaste" dobashcompletion data/completions/gpaste
