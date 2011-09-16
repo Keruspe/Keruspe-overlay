@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="paludis-1"
-inherit bash-completion eutils git-2
+inherit bash-completion-r1 eutils git-2
 
 DESCRIPTION="paludis, the other package mangler"
 HOMEPAGE="http://paludis.pioto.org/"
@@ -108,7 +108,7 @@ src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	dodoc AUTHORS README NEWS
 
-	BASHCOMPLETION_NAME="cave" dobashcompletion bash-completion/cave
+	dobashcomp bash-completion/cave
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
 		doins zsh-completion/_cave

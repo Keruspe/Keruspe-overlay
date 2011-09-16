@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="4"
-inherit bash-completion gnome2
+inherit bash-completion-r1 gnome2
 
 DESCRIPTION="Clipboard management system"
 HOMEPAGE="http://github.com/Keruspe/GPaste"
@@ -34,7 +34,7 @@ DOCS="AUTHORS NEWS ChangeLog TODO README"
 REQUIRED_USE="|| ( gnome-shell applet )"
 
 src_install() {
-	use bash-completion && BASHCOMPLETION_NAME="gpaste" dobashcompletion completions/gpaste
+	use bash-completion && dobashcomp completions/gpaste
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
 		doins completions/_gpaste

@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="4"
-inherit autotools bash-completion gnome2-live
+inherit autotools bash-completion-r1 gnome2-live
 
 DESCRIPTION="Clipboard management system"
 HOMEPAGE="http://github.com/Keruspe/GPaste"
@@ -18,9 +18,11 @@ DEPEND="dev-libs/glib:2
 	>=sys-devel/gettext-0.17
 	>=dev-util/intltool-0.40
 	>=x11-libs/gtk+-3.0.0:3
+	x11-base/xorg-server
 	>=dev-lang/vala-0.13.4:0.14"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
+	sys-apps/dbus
 	gnome-shell? ( >=gnome-base/gnome-shell-3.1.90 )
 	zsh-completion? ( app-shells/zsh app-shells/zsh-completion )"
 
@@ -37,7 +39,7 @@ DOCS="AUTHORS NEWS ChangeLog TODO FIXME README"
 REQUIRED_USE="|| ( gnome-shell applet )"
 
 src_install() {
-	use bash-completion && BASHCOMPLETION_NAME="gpaste" dobashcompletion data/completions/gpaste
+	use bash-completion && dobashcomp data/completions/gpaste
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
 		doins data/completions/_gpaste

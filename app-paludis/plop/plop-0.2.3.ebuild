@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="4"
-inherit eutils bash-completion
+inherit eutils bash-completion-r1
 
 DESCRIPTION="A nice paludis.log parser (patched genlop)"
 HOMEPAGE="http://www.genoetigt.de/site/projects/plop"
@@ -35,7 +35,7 @@ src_install() {
 	dobin plop || die "failed to install plop (via dobin)"
 	dodoc README Changelog
 	doman plop.1
-	dobashcompletion ${FILESDIR}/plop.bash-completion plop
+	newbashcomp ${FILESDIR}/plop.bash-completion plop
 }
 
 pkg_postinst() {

@@ -5,7 +5,7 @@
 EAPI=4
 WANT_AUTOMAKE=1.11
 
-inherit autotools bash-completion git-2 linux-info pam systemd
+inherit autotools bash-completion-r1 git-2 linux-info pam systemd
 
 DESCRIPTION="System and service manager for Linux"
 HOMEPAGE="http://www.freedesktop.org/wiki/Software/systemd"
@@ -112,7 +112,7 @@ do_symlinks() {
 src_install() {
 	emake DESTDIR="${ED}" install
 	# move files as necessary
-	dobashcompletion "${S}"/src/systemctl-bash-completion.sh
+	newbashcomp "${S}"/src/systemctl-bash-completion.sh systemctl
 	dodoc "${ED}"/usr/share/doc/systemd/*
 	rm -rf "${ED}"/usr/share/doc/systemd
 

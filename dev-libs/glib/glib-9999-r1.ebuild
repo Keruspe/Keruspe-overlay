@@ -4,7 +4,7 @@
 
 EAPI="4"
 
-inherit autotools gnome2-live libtool eutils flag-o-matic multilib pax-utils virtualx
+inherit autotools bash-completion-r1 gnome2-live libtool eutils flag-o-matic multilib pax-utils virtualx
 
 DESCRIPTION="The GLib library of C routines"
 HOMEPAGE="http://www.gtk.org/"
@@ -128,9 +128,8 @@ src_install() {
 	emake README || die "emake README failed"
 	dodoc AUTHORS ChangeLog* NEWS* README || die "dodoc failed"
 
-	insinto /usr/share/bash-completion
 	for f in gdbus gsettings; do
-		newins "${ED}/etc/bash_completion.d/${f}-bash-completion.sh" ${f} || die
+		newbashcomp "${ED}/etc/bash_completion.d/${f}-bash-completion.sh" ${f} || die
 	done
 	rm -rf "${ED}/etc"
 
