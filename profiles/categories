@@ -4,7 +4,6 @@ app-misc
 app-paludis
 dev-cpp
 dev-java
-dev-lang
 dev-libs
 dev-scheme
 dev-util
