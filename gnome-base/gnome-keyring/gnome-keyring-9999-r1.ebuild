@@ -22,7 +22,7 @@ RDEPEND=">=dev-libs/glib-2.25:2
 	>=sys-apps/dbus-1.0
 	>=dev-libs/libgcrypt-1.2.2
 	>=dev-libs/libtasn1-1
-	dev-libs/p11-kit
+	app-crypt/p11-kit
 	caps? ( sys-libs/libcap-ng )
 	pam? ( virtual/pam )
 "
