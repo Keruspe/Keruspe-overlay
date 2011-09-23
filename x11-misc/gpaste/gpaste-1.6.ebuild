@@ -18,9 +18,11 @@ IUSE="applet bash-completion +gnome-shell zsh-completion"
 DEPEND="dev-libs/glib:2
 	>=sys-devel/gettext-0.17
 	>=dev-util/intltool-0.40
-	>=x11-libs/gtk+-3.0.0:3"
+	>=x11-libs/gtk+-3.0.0:3
+	x11-base/xorg-server"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
+	sys-apps/dbus
 	gnome-shell? ( >=gnome-base/gnome-shell-3.1.90 )
 	zsh-completion? ( app-shells/zsh app-shells/zsh-completion )"
 
@@ -29,15 +31,15 @@ G2CONF="
 	$(use_enable applet)
 	$(use_enable gnome-shell gnome-shell-extension)"
 
-DOCS="AUTHORS NEWS ChangeLog TODO README"
+DOCS="AUTHORS NEWS ChangeLog TODO FIXME README"
 
 REQUIRED_USE="|| ( gnome-shell applet )"
 
 src_install() {
-	use bash-completion && dobashcomp completions/gpaste
+	use bash-completion && dobashcomp data/completions/gpaste
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
-		doins completions/_gpaste
+		doins data/completions/_gpaste
 	fi
 	gnome2_src_install
 }

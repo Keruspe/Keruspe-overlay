@@ -98,9 +98,3 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog NEWS README TODO"
 }
 
-src_prepare() {
-	gnome2_src_prepare
-	# Do not assert & die when systemd's hostnamed is not running.
-	# Whatever upstream thinks, Gnome on Gentoo should not depend on systemd.
-	epatch "${FILESDIR}/${PN}-3.1.90-hostnamed-assert.patch"
-}
