@@ -24,6 +24,7 @@ RDEPEND=">=dev-libs/glib-2.28:2
 	>=dev-libs/dbus-glib-0.51
 	>=dev-libs/folks-0.6.0
 	dev-libs/libgee
+	gnome-base/gcr
 	>=gnome-base/gnome-keyring-2.91.4-r300
 	>=media-libs/libcanberra-0.25[gtk3]
 	media-sound/pulseaudio[glib]
