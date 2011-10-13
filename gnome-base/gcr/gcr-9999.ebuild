@@ -13,7 +13,7 @@ HOMEPAGE="http://www.gnome.org/"
 
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
-IUSE="debug doc introspection test"
+IUSE="debug doc +introspection test"
 KEYWORDS=""
 
 RDEPEND=">=dev-libs/glib-2.30:2
