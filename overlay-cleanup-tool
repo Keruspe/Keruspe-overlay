@@ -33,7 +33,7 @@ main() {
     find_duplicates ${1} ${i}
   done
   find_unused systemd | grep -Ev '(avahi|/systemd|networkmanager|wpa_supplicant|bootchart2)'
-  find_unused ${1} | grep -Ev '(grub|bomb-her-man|gnome-paint|librabbitmq|linux-sources|gpaste)'
+  find_unused ${1} | grep -Ev '(bomb-her-man|gnome-paint|librabbitmq|gpaste|germinal)'
 }
 
 main keruspe
