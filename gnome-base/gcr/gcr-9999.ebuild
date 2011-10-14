@@ -41,6 +41,7 @@ pkg_setup() {
 		--disable-valgrind
 		--disable-sctrict
 		--disable-update-mime"
+	MAKEOPTS+=" -j1"
 }
 
 src_test() {
