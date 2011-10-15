@@ -28,6 +28,7 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		$(use_enable debug debug-refcounting)
 		$(use_enable doc documentation)
+		--enable-maintainer-mode
 		--disable-schemas-compile
 		--enable-deprecated-api"
 	MAKEOPTS+=" -j1"
