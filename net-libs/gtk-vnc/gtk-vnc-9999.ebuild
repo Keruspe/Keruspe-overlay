@@ -46,13 +46,12 @@ src_prepare() {
 src_configure() {
 	# Python support is via gobject-introspection
 	# Ex: from gi.repository import GtkVnc
-	econf \
-		$(use_with examples) \
+	econf $(use_with examples) \
 		$(use_enable introspection) \
 		$(use_with sasl) \
 		--with-coroutine=gthread \
 		--without-libview \
-		--disable-static
+		--disable-static \
 		--with-python=no \
 		--with-gtk=3.0
 }
