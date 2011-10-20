@@ -22,7 +22,7 @@ IUSE="+recorder"
 # latest gsettings-desktop-schemas is needed due to commit 602fa1c6
 # latest g-c-c is needed due to https://bugs.gentoo.org/show_bug.cgi?id=360057
 # libXfixes-5.0 needed for pointer barriers
-COMMON_DEPEND=">=dev-libs/glib-2.25.9:2
+COMMON_DEPEND=">=dev-libs/glib-2.31.0:2
 	>=dev-libs/json-glib-0.13.2
 	>=dev-libs/gjs-1.29.15
 	>=dev-libs/gobject-introspection-0.10.1
