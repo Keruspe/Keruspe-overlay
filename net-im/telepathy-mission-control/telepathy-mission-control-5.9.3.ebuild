@@ -1,6 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-im/telepathy-mission-control/telepathy-mission-control-5.7.11.ebuild,v 1.1 2011/06/03 15:26:15 pacho Exp $
+# $Header: $
 
 EAPI="3"
 PYTHON_DEPEND="2:2.5"
@@ -13,12 +13,14 @@ SRC_URI="http://telepathy.freedesktop.org/releases/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
-IUSE="gnome-keyring test"
+KEYWORDS="~amd64 ~x86"
+IUSE="gnome-keyring networkmanager test upower"
 
 RDEPEND=">=net-libs/telepathy-glib-0.13.14
 	>=dev-libs/dbus-glib-0.82
-	gnome-keyring? ( || ( gnome-base/libgnome-keyring <gnome-base/gnome-keyring-2.29.4 ) )"
+	gnome-keyring? ( || ( gnome-base/libgnome-keyring <gnome-base/gnome-keyring-2.29.4 ) )
+	networkmanager? ( >=net-misc/networkmanager-0.7.0 )
+	upower? ( sys-power/upower )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	dev-libs/libxslt
@@ -40,7 +42,9 @@ src_configure() {
 	# creds is not available and no support mcd-plugins for now
 	econf --disable-static\
 		--disable-mcd-plugins \
-		$(use_enable gnome-keyring)
+		$(use_enable gnome-keyring) \
+		$(use_enable upower) \
+		$(use_with networkmanager conectivity nm)
 }
 
 src_install() {
