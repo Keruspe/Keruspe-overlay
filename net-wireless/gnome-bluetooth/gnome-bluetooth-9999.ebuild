@@ -83,8 +83,7 @@ src_install() {
 	gnome2_src_install
 
 	local la
-	for la in gnome-bluetooth/plugins/libgbtgeoclue.la \
-			 libgnome-bluetooth.la; do
+	for la in gnome-bluetooth/plugins/libgbtgeoclue.la; do
 		rm -v "${ED}/usr/$(get_libdir)/${la}" || die
 	done
 
