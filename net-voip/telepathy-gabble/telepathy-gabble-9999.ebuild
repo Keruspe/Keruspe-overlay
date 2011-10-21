@@ -33,6 +33,7 @@ RDEPEND=">=dev-libs/glib-2.24:2
 
 	!<net-im/telepathy-mission-control-5.5.0"
 DEPEND="${RDEPEND}
+	dev-util/gtk-doc
 	dev-libs/libxslt
 	test? ( >=dev-python/twisted-0.8.2
 		>=dev-python/twisted-words-0.8.2
@@ -45,6 +46,13 @@ pkg_setup() {
 
 src_prepare() {
 	python_convert_shebangs -r 2 .
+	pushd lib/ext/wocky >/dev/null
+	gtkdocize --copy
+	eautoreconf
+	popd >/dev/null
+	pushd lib/ext/telepathy-yell >/dev/null
+	eautoreconf
+	popd >/dev/null
 	eautoreconf
 }
 

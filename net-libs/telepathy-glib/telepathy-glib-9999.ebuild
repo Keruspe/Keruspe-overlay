@@ -32,6 +32,7 @@ src_prepare() {
 	python_convert_shebangs -r 2 examples tests tools
 	gtkdocize
 	eautoreconf
+	MAKEOPTS+=" -j1"
 	default_src_prepare
 }
 
