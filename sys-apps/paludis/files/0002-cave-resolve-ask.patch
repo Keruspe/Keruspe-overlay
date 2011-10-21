@@ -1,4 +1,4 @@
-From 0a0f409268b713108bc487b060605802e2c6c6bb Mon Sep 17 00:00:00 2001
+From e579288be34f2effad95c854c6e5cd2d2cf4b7ab Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Mon, 26 Jul 2010 18:38:14 +0200
 Subject: [PATCH 2/2] cave resolve ask
@@ -155,17 +155,17 @@ index 3ddbddb..2770932 100644
          for (Sequence<std::string>::ConstIterator p(world_specs->begin()), p_end(world_specs->end()) ;
                  p != p_end ; ++p)
 diff --git a/zsh-completion/_cave b/zsh-completion/_cave
-index 7dd5afe..e47f43f 100644
+index 2ca9fce..f70f669 100644
 --- a/zsh-completion/_cave
 +++ b/zsh-completion/_cave
-@@ -666,6 +666,7 @@ _cave_cmd_report()
+@@ -664,6 +664,7 @@ _cave_cmd_report()
  _cave_resolve_arguments=(
      '(--help -h)'{--help,-h}'[Display help messsage]' \
-     '(--execute -x --no-execute)'{--execute,-x,--no-execute}'[Execute the suggested actions]' \
-+    '(--ask -? --no-ask)'{--ask,-?,--no-ask}'[Ask before executing]' \
-     '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--lazy,-z,--no-lazy}'[Do as little work as possible]' \
-     '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--complete,-c,--no-complete}'[Do all optional work]' \
-     '(--lazy -z --complete -c --everything -e --no-lazy --no-complete --no-everything)'{--everything,-e,--no-everything}'[Do all optional work, and also reinstall]' \
+     '(--execute -x --no-execute +x)'{--execute,-x,--no-execute,+x}'[Execute the suggested actions]' \
++    '(--ask -? --no-ask +?)'{--ask,-?,--no-ask,+?}'[Ask before executing]' \
+     '(--lazy -z --complete -c --everything -e --no-lazy +z --no-complete +c --no-everything +e)'{--lazy,-z,--no-lazy,+z}'[Do as little work as possible]' \
+     '(--lazy -z --complete -c --everything -e --no-lazy +z --no-complete +c --no-everything +e)'{--complete,-c,--no-complete,+c}'[Do all optional work]' \
+     '(--lazy -z --complete -c --everything -e --no-lazy +z --no-complete +c --no-everything +e)'{--everything,-e,--no-everything,+e}'[Do all optional work, and also reinstall]' \
 -- 
-1.7.6.rc2.8.g28eb.dirty
+1.7.7.419.g87009.dirty
 
