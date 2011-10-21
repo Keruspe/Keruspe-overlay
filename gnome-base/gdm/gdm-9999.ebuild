@@ -120,9 +120,6 @@ src_prepare() {
 	# GDM grabs VT2 instead of VT7, bug 261339, bug 284053, bug 288852
 	epatch "${FILESDIR}/${PN}-2.32.0-fix-vt-problems.patch"
 
-	# make custom session work, bug #216984
-	epatch "${FILESDIR}/${PN}-2.32.0-custom-session.patch"
-
 	# ssh-agent handling must be done at xinitrc.d, bug #220603
 	epatch "${FILESDIR}/${PN}-2.32.0-xinitrc-ssh-agent.patch"
 
