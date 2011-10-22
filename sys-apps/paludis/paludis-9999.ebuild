@@ -20,7 +20,7 @@ COMMON_DEPEND="
 	>=app-shells/bash-3.2
 	dev-libs/libpcre[cxx]
 	pbins? ( >=app-arch/libarchive-2.8.4 )
-	ruby-bindings? ( dev-lang/ruby )
+	ruby-bindings? ( dev-ruby/rubygems )
 	python-bindings? ( >=dev-lang/python-2.6:= >=dev-libs/boost-1.41.0[python] )
 	gemcutter? ( >=dev-libs/jansson-1.3 )
 	xml? ( >=dev-libs/libxml2-2.6 )
