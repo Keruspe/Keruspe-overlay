@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI="4"
+GNOME2_LA_PUNT="yes"
 GCONF_DEBUG="yes"
 
 inherit autotools eutils gnome2-live pam
@@ -15,7 +16,7 @@ SLOT="0"
 KEYWORDS=""
 
 IUSE_LIBC="elibc_glibc"
-IUSE="accessibility +consolekit ipv6 gnome-keyring selinux tcpd test xinerama +xklavier $IUSE_LIBC"
+IUSE="accessibility +consolekit fprint +gnome-shell ipv6 gnome-keyring +introspection selinux smartcard tcpd test xinerama +xklavier $IUSE_LIBC"
 
 # Name of the tarball with gentoo specific files
 GDM_EXTRA="${PN}-2.20.9-gentoo-files-r1"
@@ -24,17 +25,26 @@ SRC_URI="${SRC_URI}
 	mirror://gentoo/${GDM_EXTRA}.tar.bz2"
 
 # NOTE: x11-base/xorg-server dep is for X_SERVER_PATH etc, bug #295686
+# nspr used by smartcard extension
+# dconf, dbus and g-s-d are needed at install time for dconf update
 COMMON_DEPEND="
 	>=dev-libs/dbus-glib-0.74
-	>=dev-libs/glib-2.27.4:2
+	>=dev-libs/glib-2.29.3:2
 	>=x11-libs/gtk+-2.91.1:3
 	>=x11-libs/pango-1.3
+	dev-libs/nspr
+	>=dev-libs/nss-3.11.1
 	>=media-libs/fontconfig-2.5.0
 	>=media-libs/libcanberra-0.4[gtk3]
 	>=gnome-base/gconf-2.31.3
 	>=x11-misc/xdg-utils-1.0.2-r3
 	>=sys-power/upower-0.9
 	>=sys-apps/accountsservice-0.6.12
+
+	gnome-base/dconf
+	>=gnome-base/gnome-settings-daemon-3.1.4
+	gnome-base/gsettings-desktop-schemas
+	sys-apps/dbus
 
 	app-text/iso-codes
 
@@ -53,6 +63,7 @@ COMMON_DEPEND="
 
 	accessibility? ( x11-libs/libXevie )
 	gnome-keyring? ( >=gnome-base/gnome-keyring-2.22[pam] )
+	introspection? ( >=dev-libs/gobject-introspection-0.9.12 )
 	selinux? ( sys-libs/libselinux )
 	tcpd? ( >=sys-apps/tcp-wrappers-7.6 )
 	xinerama? ( x11-libs/libXinerama )
@@ -68,16 +79,27 @@ DEPEND="${COMMON_DEPEND}
 	>=dev-util/pkgconfig-0.19
 	>=app-text/scrollkeeper-0.1.4
 	>=app-text/gnome-doc-utils-0.3.2"
-# XXX: These deps are from the gnome-session gdm.session file
-# at-spi is needed for at-spi-registryd-wrapper.desktop
+# XXX: These deps are from session and desktop files in data/ directory
+# at-spi:1 is needed for at-spi-registryd (spawned by simple-chooser)
+# fprintd is used via dbus by gdm-fingerprint-extension
 RDEPEND="${COMMON_DEPEND}
 	>=gnome-base/gnome-session-2.91.92
-	>=gnome-base/gnome-settings-daemon-2.91
-	|| ( >=gnome-base/gnome-shell-3.1.90 x11-wm/metacity )
-	!<gnome-base/gnome-shell-3.1.90
+	x11-apps/xhost
 
-	accessibility? ( gnome-extra/at-spi:1 )
+	accessibility? (
+		app-accessibility/gnome-mag
+		app-accessibility/gok
+		app-accessibility/orca
+		gnome-extra/at-spi:1 )
 	consolekit? ( gnome-extra/polkit-gnome )
+	fprint? (
+		sys-auth/fprintd
+		sys-auth/pam_fprint )
+	gnome-shell? ( >=gnome-base/gnome-shell-3.1.90 )
+	!gnome-shell? ( x11-wm/metacity )
+	smartcard? (
+		app-crypt/coolkey
+		sys-auth/pam_pkcs11 )
 
 	!gnome-extra/fast-user-switch-applet"
 
@@ -86,11 +108,13 @@ pkg_setup() {
 
 	# PAM is the only auth scheme supported
 	# even though configure lists shadow and crypt
-	# they don't have any corresponding code
+	# they don't have any corresponding code.
 	# --with-at-spi-registryd-directory= needs to be passed explicitly because
 	# of https://bugzilla.gnome.org/show_bug.cgi?id=607643#c4
 	G2CONF="${G2CONF}
 		--disable-schemas-install
+		--disable-maintainer-mode
+		--disable-static
 		--localstatedir=${EPREFIX}/var
 		--with-xdmcp=yes
 		--enable-authentication-scheme=pam
@@ -105,7 +129,19 @@ pkg_setup() {
 		$(use_with xinerama)"
 
 	enewgroup gdm
-	enewuser gdm -1 -1 /var/lib/gdm gdm
+	enewgroup video # Just in case it hasn't been created yet
+	enewuser gdm -1 -1 /var/lib/gdm gdm,video
+
+	# For compatibility with certain versions of nvidia-drivers, etc., need to
+	# ensure that gdm user is in the video group
+	if ! egetent group video | grep -q gdm; then
+		# FIXME XXX: is this at all portable, ldap-safe, etc.?
+		# XXX: egetent does not have a 1-argument form, so we can't use it to
+		# get the list of gdm's groups
+		local g=$(groups gdm)
+		elog "Adding user gdm to video group"
+		usermod -G video,${g// /,} gdm || die "Adding user gdm to video group failed"
+	fi
 }
 
 src_prepare() {
@@ -120,11 +156,26 @@ src_prepare() {
 	# GDM grabs VT2 instead of VT7, bug 261339, bug 284053, bug 288852
 	epatch "${FILESDIR}/${PN}-2.32.0-fix-vt-problems.patch"
 
+	# make custom session work, bug #216984
+	epatch "${FILESDIR}/${PN}-3.2.1.1-custom-session.patch"
+
 	# ssh-agent handling must be done at xinitrc.d, bug #220603
 	epatch "${FILESDIR}/${PN}-2.32.0-xinitrc-ssh-agent.patch"
 
 	# fix libxklavier automagic support
 	epatch "${FILESDIR}/${PN}-2.32.0-automagic-libxklavier-support.patch"
+
+	# don't ignore all non-i18n environment variables, gnome bug 656094
+	epatch "${FILESDIR}/${PN}-3.1.91-hardcoded-gnome-session-path-env.patch"
+
+	# don't load accessibility support at runtime when USE=-accessibility
+	use accessibility || epatch "${FILESDIR}/${PN}-3.2.1.1-disable-accessibility.patch"
+
+	# make gdm-fallback session the default if USE=-gnome-shell
+	if ! use gnome-shell; then
+		sed -e "s:'gdm-shell':'gdm-fallback':" \
+			-i data/00-upstream-settings || die "sed failed"
+	fi
 
 	mkdir -p "${S}"/m4
 	intltoolize --force --copy --automake || die "intltoolize failed"
@@ -136,7 +187,6 @@ src_install() {
 
 	local gentoodir="${WORKDIR}/${GDM_EXTRA}"
 
-	# FIXME: Remove dosym usage, gone in EAPI 4
 	# gdm-binary should be gdm to work with our init (#5598)
 	rm -f "${ED}/usr/sbin/gdm"
 	ln -sfn /usr/sbin/gdm-binary "${ED}/usr/sbin/gdm"
@@ -155,13 +205,20 @@ src_install() {
 	echo 'XDG_DATA_DIRS="/usr/share/gdm"' > 99xdg-gdm
 	doenvd 99xdg-gdm || die "doenvd failed"
 
+	# install PAM files
+	cp "${FILESDIR}"/3.1.91-pam.d/gdm-{password,fingerprint,smartcard} \
+		"${gentoodir}"/pam.d/
 	use gnome-keyring && sed -i "s:#Keyring=::g" "${gentoodir}"/pam.d/*
 
-	dopamd "${gentoodir}"/pam.d/gdm{,-autologin}
+	dopamd "${gentoodir}"/pam.d/gdm{,-autologin,-password,-fingerprint,-smartcard}
+	# gdm-welcome is the PAM file for the gdm greeter itself
+	pamd_mimic system-services gdm-welcome auth account session
 }
 
 pkg_postinst() {
 	gnome2_pkg_postinst
+
+	dbus-launch dconf update || die "'dconf update' failed"
 
 	ewarn
 	ewarn "This is an EXPERIMENTAL release, please bear with its bugs and"
