@@ -19,6 +19,7 @@ DEPEND="dev-libs/glib:2
 	>=sys-devel/gettext-0.17
 	>=dev-util/intltool-0.40
 	>=x11-libs/gtk+-3.0.0:3
+	dev-libs/libxml2
 	x11-base/xorg-server"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
