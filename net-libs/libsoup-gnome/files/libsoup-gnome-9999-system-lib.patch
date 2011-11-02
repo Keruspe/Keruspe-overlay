@@ -1,4 +1,4 @@
-From 0d53d0332b039e491c96a44f620098ad18ba0e91 Mon Sep 17 00:00:00 2001
+From 4f4e9f3e2e54b485d6d1a43e5a94145a66289a9b Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Thu, 13 Oct 2011 12:03:04 +0200
 Subject: [PATCH] gentoo shit
@@ -41,33 +41,28 @@ index 861daff..a6463fb 100644
  if BUILD_LIBSOUP_GNOME
  pkgconfig_DATA += libsoup-gnome-2.4.pc
 diff --git a/configure.ac b/configure.ac
-index a0d0f7d..6ec6b1c 100644
+index 443f300..2025eb6 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -72,15 +72,30 @@ dnl ***********************
  dnl *** Checks for glib ***
  dnl ***********************
  
--AM_PATH_GLIB_2_0(2.30.0,,,gobject gthread gio)
+-AM_PATH_GLIB_2_0(2.30.0,,,gobject gio)
 -if test "$GLIB_LIBS" = ""; then
 -   AC_MSG_ERROR(GLIB 2.30.0 or later is required to build libsoup)
--fi
--GLIB_CFLAGS="$GLIB_CFLAGS -DG_DISABLE_SINGLE_INCLUDES"
 +PKG_PROG_PKG_CONFIG
 +enable_ssl=no
 +AC_ARG_WITH(libsoup-system,
 +   AS_HELP_STRING([--with-libsoup-system], [Use libsoup system library to build(default=no)]),
 +   [with_libsoup_system=$withval], [with_libsoup_system=no])
 +if test "$with_libsoup_system" = "no"; then
-+	AM_PATH_GLIB_2_0(2.30.0,,,gobject gthread gio)
++	AM_PATH_GLIB_2_0(2.30.0,,,gobject gio)
 +	if test "$GLIB_LIBS" = ""; then
 +	   AC_MSG_ERROR(GLIB 2.30.0 or later is required to build libsoup)
 +	fi
 +	GLIB_CFLAGS="$GLIB_CFLAGS -DG_DISABLE_SINGLE_INCLUDES"
- 
--PKG_CHECK_MODULES(XML, libxml-2.0)
--AC_SUBST(XML_CFLAGS)
--AC_SUBST(XML_LIBS)
++
 +	PKG_CHECK_MODULES(XML, libxml-2.0)
 +	AC_SUBST(XML_CFLAGS)
 +	AC_SUBST(XML_LIBS)
@@ -78,7 +73,12 @@ index a0d0f7d..6ec6b1c 100644
 +	AC_CHECK_FUNCS(gmtime_r)
 +	AC_CHECK_FUNCS(mmap)
 +	AC_CHECK_FUNC(socket, , AC_CHECK_LIB(socket, socket))
-+fi
+ fi
+-GLIB_CFLAGS="$GLIB_CFLAGS -DG_DISABLE_SINGLE_INCLUDES"
+-
+-PKG_CHECK_MODULES(XML, libxml-2.0)
+-AC_SUBST(XML_CFLAGS)
+-AC_SUBST(XML_LIBS)
 +AM_CONDITIONAL(BUILD_LIBSOUP, test $with_libsoup_system = no)
  
  dnl ***********************
@@ -241,5 +241,5 @@ index 096f0fb..416e523 100644
  SoupGNOME_2_4_gir_EXPORT_PACKAGES = libsoup-gnome-2.4
  
 -- 
-1.7.7.213.g8b0e1.dirty
+1.7.8.rc0.dirty
 
