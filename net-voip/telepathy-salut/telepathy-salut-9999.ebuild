@@ -50,6 +50,7 @@ src_prepare() {
 
 src_configure() {
 	econf \
+		$(use_enable test avahi-tests)\
 		--disable-plugins \
 		--disable-Werror
 }
