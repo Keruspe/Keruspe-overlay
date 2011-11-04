@@ -3,8 +3,10 @@
 # $Header: $
 
 EAPI="4"
+PYTHON_DEPEND="utils? 2"
+# Avoid runtime dependency on python when USE=test
 
-inherit autotools bash-completion-r1 gnome2-live libtool eutils flag-o-matic multilib pax-utils virtualx
+inherit autotools bash-completion-r1 gnome2-live libtool eutils flag-o-matic multilib pax-utils python virtualx
 
 DESCRIPTION="The GLib library of C routines"
 HOMEPAGE="http://www.gtk.org/"
@@ -12,14 +14,15 @@ SRC_URI="http://pkgconfig.freedesktop.org/releases/pkg-config-0.26.tar.gz" # pkg
 
 LICENSE="LGPL-2"
 SLOT="2"
-IUSE="debug doc fam +introspection selinux +static-libs systemtap test xattr"
+IUSE="debug doc fam +introspection selinux +static-libs systemtap test utils xattr"
 KEYWORDS=""
 
 RDEPEND="virtual/libiconv
-	>=dev-libs/libffi-3.0.0
+	virtual/libffi
 	sys-libs/zlib
 	xattr? ( sys-apps/attr )
-	fam? ( virtual/fam )"
+	fam? ( virtual/fam )
+	utils? ( >=dev-util/gdbus-codegen-${PV} )"
 DEPEND="${RDEPEND}
 	>=sys-devel/gettext-0.11
 	>=dev-util/gtk-doc-am-1.15
@@ -29,13 +32,21 @@ DEPEND="${RDEPEND}
 		~app-text/docbook-xml-dtd-4.1.2 )
 	systemtap? ( >=dev-util/systemtap-1.3 )
 	test? (
-		~dev-util/gdbus-codegen-9999
+		sys-devel/gdb
+		=dev-lang/python-2*
+		>=dev-util/gdbus-codegen-${PV}
 		>=sys-apps/dbus-1.2.14 )
 	!<dev-util/gtk-doc-1.15-r2"
 PDEPEND="introspection? ( dev-libs/gobject-introspection )
 	!<gnome-base/gvfs-1.6.4-r990" # Earlier versions do not work with glib
 
-# XXX: Consider adding test? ( sys-devel/gdb ); assert-msg-test tries to use it
+pkg_setup() {
+	# Needed for gio/tests/gdbus-testserver.py
+	if use test ; then
+		python_set_active_version 2
+		python_pkg_setup
+	fi
+}
 
 src_prepare() {
 	gnome2-live_src_prepare
@@ -68,10 +79,28 @@ src_prepare() {
 			sed -i -e "/desktop-app-info\/fallback/d" gio/tests/desktop-app-info.c || die
 			sed -i -e "/desktop-app-info\/lastused/d" gio/tests/desktop-app-info.c || die
 		fi
+
+		# Disable tests requiring dbus-python and pygobject; bugs #349236, #377549, #384853
+		if ! has_version dev-python/dbus-python || ! has_version 'dev-python/pygobject:2' ; then
+			ewarn "Some tests will be skipped due to dev-python/dbus-python or dev-python/pygobject:2"
+			ewarn "not being present on your system, think on installing them to get these tests run."
+			sed -i -e "/connection\/filter/d" gio/tests/gdbus-connection.c || die
+			sed -i -e "/connection\/large_message/d" gio/tests/gdbus-connection-slow.c || die
+			sed -i -e "/gdbus\/proxy/d" gio/tests/gdbus-proxy.c || die
+			sed -i -e "/gdbus\/proxy-well-known-name/d" gio/tests/gdbus-proxy-well-known-name.c || die
+			sed -i -e "/gdbus\/introspection-parser/d" gio/tests/gdbus-introspection.c || die
+			sed -i -e "/g_test_add_func/d" gio/tests/gdbus-threading.c || die
+			sed -i -e "/gdbus\/method-calls-in-thread/d" gio/tests/gdbus-threading.c || die
+			# needed to prevent gdbus-threading from asserting
+			ln -sfn $(type -P true) gio/tests/gdbus-testserver.py
+		fi
 	fi
 
 	# gdbus-codegen is a separate package
 	epatch "${FILESDIR}/external-gdbus-codegen.patch"
+
+	# Handle the G_HOME environment variable to override the passwd entry, upstream bug #142568
+	epatch "${FILESDIR}/${PN}-2.30.1-homedir-env.patch"
 
 	# disable pyc compiling
 	ln -sfn $(type -P true) py-compile
@@ -87,8 +116,12 @@ src_prepare() {
 src_configure() {
 	# Avoid circular depend with dev-util/pkgconfig
 	if ! has_version dev-util/pkgconfig; then
-		export DBUS1_CFLAGS="-I/usr/include/dbus-1.0 -I/usr/$(get_libdir)/dbus-1.0/include"
-		export DBUS1_LIBS="-ldbus-1"
+		if has_version sys-apps/dbus; then
+			export DBUS1_CFLAGS="-I/usr/include/dbus-1.0 -I/usr/$(get_libdir)/dbus-1.0/include"
+			export DBUS1_LIBS="-ldbus-1"
+		fi
+		export LIBFFI_CFLAGS="-I$(echo /usr/$(get_libdir)/libffi-*/include)"
+		export LIBFFI_LIBS="-lffi"
 	fi
 
 	local myconf
@@ -116,7 +149,13 @@ src_configure() {
 
 src_install() {
 	local f
-	emake DESTDIR="${D}" install || die "Installation failed"
+
+	# install-exec-hook substitutes ${PYTHON} in glib/gtester-report
+	emake DESTDIR="${D}" PYTHON="${EPREFIX}/usr/bin/python2" install
+
+	if ! use utils; then
+		rm "${ED}usr/bin/gtester-report"
+	fi
 
 	# Do not install charset.alias even if generated, leave it to libiconv
 	rm -f "${ED}/usr/lib/charset.alias"
@@ -126,7 +165,7 @@ src_install() {
 
 	# This is there for git snapshots and the live ebuild, bug 351966
 	emake README || die "emake README failed"
-	dodoc AUTHORS ChangeLog* NEWS* README || die "dodoc failed"
+	dodoc AUTHORS ChangeLog* NEWS* README
 
 	for f in gdbus gsettings; do
 		newbashcomp "${ED}/etc/bash_completion.d/${f}-bash-completion.sh" ${f} || die
@@ -135,7 +174,7 @@ src_install() {
 
 	# Completely useless with or without USE static-libs, people need to use
 	# pkg-config
-	find "${ED}" -name '*.la' -exec rm -f {} +
+	find "${E}" -name '*.la' -exec rm -f {} +
 }
 
 src_test() {
@@ -157,19 +196,17 @@ src_test() {
 	fi
 
 	# Need X for dbus-launch session X11 initialization
-	Xemake check || die "tests failed"
+	Xemake check
 }
 
 pkg_preinst() {
 	# Only give the introspection message if:
-	# * The user has it enabled
+	# * The user has gobject-introspection
 	# * Has glib already installed
 	# * Previous version was different from new version
-	if use introspection && has_version "${CATEGORY}/${PN}"; then
-		if ! has_version "=${CATEGORY}/${PF}"; then
-			ewarn "You must rebuild gobject-introspection so that the installed"
-			ewarn "typelibs and girs are regenerated for the new APIs in glib"
-		fi
+	if has_version "dev-libs/gobject-introspection" && ! has_version "=${CATEGORY}/${PF}"; then
+		ewarn "You must rebuild gobject-introspection so that the installed"
+		ewarn "typelibs and girs are regenerated for the new APIs in glib"
 	fi
 }
 

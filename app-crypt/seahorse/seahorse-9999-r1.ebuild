@@ -12,16 +12,13 @@ HOMEPAGE="http://www.gnome.org/projects/seahorse/index.html"
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="avahi debug doc +introspection ldap libnotify test"
+IUSE="avahi debug doc ldap test"
 KEYWORDS=""
 
-# Pull in libnotify-0.7 because it's controlled via an automagic ifdef
 COMMON_DEPEND="
-	>=gnome-base/gconf-2:2
 	>=dev-libs/glib-2.10:2
-	>=x11-libs/gtk+-2.90.0:3[introspection?]
-	>=dev-libs/dbus-glib-0.72
-	>=gnome-base/gnome-keyring-2.91.2
+	>=x11-libs/gtk+-2.90.0:3
+	>=gnome-base/gnome-keyring-3.1.5
 	net-libs/libsoup:2.4
 	x11-misc/shared-mime-info
 
@@ -32,9 +29,7 @@ COMMON_DEPEND="
 		=app-crypt/gnupg-1.4* )
 
 	avahi? ( >=net-dns/avahi-0.6 )
-	introspection? ( >=dev-libs/gobject-introspection-0.6.4 )
 	ldap? ( net-nds/openldap )
-	libnotify? ( >=x11-libs/libnotify-0.7.0 )
 "
 DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
@@ -58,12 +53,9 @@ pkg_setup() {
 		--disable-scrollkeeper
 		--disable-update-mime-database
 		--enable-hkp
-		--with-gtk=3.0
 		$(use_enable avahi sharing)
 		$(use_enable debug)
-		$(use_enable introspection)
 		$(use_enable ldap)
-		$(use_enable libnotify)
 		$(use_enable test tests)"
 	DOCS="AUTHORS ChangeLog NEWS README TODO THANKS"
 }
