@@ -19,7 +19,7 @@ bluetooth +asyncns +glib test doc +udev ipv6 system-wide realtime +orc +gdbm tdb
 
 RDEPEND="app-admin/eselect-esd
 	X? (
-		|| ( >=x11-libs/libX11-1.4.0 <x11-libs/libX11-1.4.0[xcb] )
+		>=x11-libs/libX11-1.4.0
 		>=x11-libs/libxcb-1.6
 		>=x11-libs/xcb-util-0.3.1
 		x11-libs/libSM
@@ -57,7 +57,7 @@ DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )
 	X? (
 		x11-proto/xproto
-		|| ( >=x11-libs/libXtst-1.0.99.2 <x11-proto/xextproto-7.0.99 )
+		>=x11-libs/libXtst-1.0.99.2
 	)
 	dev-libs/libatomic_ops
 	dev-util/pkgconfig
@@ -117,8 +117,8 @@ src_configure() {
 		$(use_enable udev) \
 		$(use_enable ipv6) \
 		$(use_with caps) \
+		$(use_with equalizer fftw) \
 		--localstatedir="${EPREFIX}"/var \
-		--disable-per-user-esound-socket \
 		--with-database=${database} \
 		--with-udev-rules-dir="${EPREFIX}/lib/udev/rules.d"
 
@@ -195,22 +195,13 @@ pkg_postinst() {
 			elog "gconf module on /etc/pulse/system.pa to be able to use PulseAudio"
 			elog "with a system-wide instance."
 		fi
-		elog
-		elog "To use the ESounD wrapper while using a system-wide daemon, you also"
-		elog "need to enable auth-anonymous for the esound-unix module, or to copy"
-		elog "/var/run/pulse/.esd_auth into each home directory."
-		elog
 	fi
 	if use bluetooth; then
 		elog
-		elog "The BlueTooth proximity module is not enabled in the default"
+		elog "The Bluetooth proximity module is not enabled in the default"
 		elog "configuration file. If you do enable it, you'll have to have"
-		elog "your BlueTooth controller enabled and inserted at bootup or"
+		elog "your Bluetooth controller enabled and inserted at bootup or"
 		elog "PulseAudio will refuse to start."
-		elog
-		elog "Please note that the BlueTooth proximity module seems itself"
-		elog "still experimental, so please report to upstream if you have"
-		elog "problems with it."
 	fi
 	if use alsa; then
 		local pkg="media-plugins/alsa-plugins"

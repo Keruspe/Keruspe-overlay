@@ -7,7 +7,7 @@ GCONF_DEBUG="no"
 GNOME2_LA_PUNT="yes"
 PYTHON_DEPEND="2:2.5"
 
-inherit gnome2-live
+inherit gnome2-live python
 
 DESCRIPTION="Provides core UI functions for the GNOME 3 desktop"
 HOMEPAGE="http://live.gnome.org/GnomeShell"
@@ -23,13 +23,14 @@ IUSE="+recorder"
 # latest g-c-c is needed due to https://bugs.gentoo.org/show_bug.cgi?id=360057
 # libXfixes-5.0 needed for pointer barriers
 COMMON_DEPEND=">=dev-libs/glib-2.31.0:2
-	>=dev-libs/json-glib-0.13.2
-	>=dev-libs/gjs-1.29.15
+	>=dev-libs/gjs-1.29.18
 	>=dev-libs/gobject-introspection-0.10.1
 	x11-libs/gdk-pixbuf:2[introspection]
 	>=x11-libs/gtk+-3.0.0:3[introspection]
 	>=media-libs/clutter-1.7.5:1.0[introspection]
+	app-misc/ca-certificates
 	>=dev-libs/folks-0.5.2
+	>=dev-libs/json-glib-0.13.2
 	>=gnome-base/gnome-desktop-2.91.2:3
 	>=gnome-base/gsettings-desktop-schemas-2.91.91
 	gnome-base/libgnome-keyring
@@ -43,8 +44,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.31.0:2
 	>=net-wireless/gnome-bluetooth-3.1.0[introspection]
 	>=net-im/telepathy-mission-control-5.9.0
 	>=sys-auth/polkit-0.100[introspection]
-	>=x11-wm/mutter-3.1.90
-	net-libs/libsoup:2.4
+	>=x11-wm/mutter-3.2.1[introspection]
 
 	dev-libs/dbus-glib
 	dev-libs/libxml2:2
@@ -66,7 +66,8 @@ COMMON_DEPEND=">=dev-libs/glib-2.31.0:2
 # 2. Introspection stuff + dconf needed via imports.gi.*
 # 3. gnome-session is needed for gnome-session-quit
 # 4. Control shell settings
-# 5. accountsservice is needed for GdmUserManager
+# 5. accountsservice is needed for GdmUserManager (0.6.14 needed for fast
+#    user switching with gdm-3.1.x)
 # 6. caribou needed for on-screen keyboard
 RDEPEND="${COMMON_DEPEND}
 	>=x11-themes/gnome-icon-theme-3.1.90
@@ -85,7 +86,7 @@ RDEPEND="${COMMON_DEPEND}
 	>=gnome-base/gnome-settings-daemon-2.91
 	>=gnome-base/gnome-control-center-2.91.92-r1
 
-	>=sys-apps/accountsservice-0.6.12
+	>=sys-apps/accountsservice-0.6.14
 
 	>=app-accessibility/caribou-0.3
 
@@ -100,15 +101,28 @@ DEPEND="${COMMON_DEPEND}
 # https://bugs.gentoo.org/show_bug.cgi?id=360413
 
 pkg_setup() {
-	DOCS="AUTHORS README"
+	DOCS="AUTHORS NEWS README"
 	# Don't error out on warnings
 	G2CONF="${G2CONF}
 		--enable-compile-warnings=maximum
 		--disable-schemas-compile
-		--disable-jhbuild-wrapper-script"
+		--disable-jhbuild-wrapper-script
+		--with-ca-certificates=${EPREFIX}/etc/ssl/certs/ca-certificates.crt
+		BROWSER_PLUGIN_DIR=${EPREFIX}/usr/$(get_libdir)/nsbrowser/plugins"
+	python_set_active_version 2
+	python_pkg_setup
 }
 
 src_prepare() {
 	epatch ${FILESDIR}/0001-whitelist-notification-stuff.patch
     gnome2_src_prepare
+	# Drop G_DISABLE_DEPRECATED for sanity on glib upgrades; bug #384765
+	# Note: sed Makefile.in because it is generated from several Makefile.ams
+	sed -e 's/-DG_DISABLE_DEPRECATED//g' \
+		-i src/Makefile.in browser-plugin/Makefile.in || die "sed failed"
+}
+
+src_install() {
+	gnome2_src_install
+	python_convert_shebangs 2 "${D}"/usr/bin/gnome-shell-extension-tool
 }
