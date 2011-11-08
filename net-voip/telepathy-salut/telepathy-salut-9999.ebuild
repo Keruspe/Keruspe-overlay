@@ -2,12 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="4"
 PYTHON_DEPEND="2:2.5"
 inherit autotools base python eutils git-2
 
 DESCRIPTION="A link-local XMPP connection manager for Telepathy"
-HOMEPAGE="http://telepathy.freedesktop.org/wiki/Components"
+HOMEPAGE="http://telepathy.freedesktop.org/wiki/CategorySalut"
 SRC_URI=""
 EGIT_HAS_SUBMODULES="yes"
 EGIT_REPO_URI="git://anongit.freedesktop.org/telepathy/${PN}"
@@ -32,11 +32,13 @@ DEPEND="${RDEPEND}
 		dev-python/twisted-words )
 	dev-libs/libxslt
 	dev-util/gtk-doc
-	dev-util/pkgconfig"
+	dev-util/pkgconfig
+	test? ( >=net-dns/avahi-0.6.22[python] )"
 
 pkg_setup() {
 	DOCS="AUTHORS ChangeLog NEWS README"
 	python_set_active_version 2
+	python_pkg_setup
 }
 
 src_prepare() {
@@ -52,5 +54,6 @@ src_configure() {
 	econf \
 		$(use_enable test avahi-tests)\
 		--disable-plugins \
-		--disable-Werror
+		--disable-Werror \
+		--docdir=/usr/share/doc/${PF}
 }

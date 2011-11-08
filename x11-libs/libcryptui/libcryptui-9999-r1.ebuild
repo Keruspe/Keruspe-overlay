@@ -6,7 +6,7 @@ EAPI="4"
 GCONF_DEBUG="yes"
 GNOME2_LA_PUNT="yes"
 
-inherit autotools eutils gnome2-live
+inherit gnome2-live
 
 DESCRIPTION="User interface components for OpenPGP"
 HOMEPAGE="http://www.gnome.org/projects/seahorse/index.html"
@@ -18,7 +18,6 @@ KEYWORDS=""
 
 # Pull in libnotify-0.7 because it's controlled via an automagic ifdef
 COMMON_DEPEND="
-	>=gnome-base/gconf-2:2
 	>=dev-libs/glib-2.10:2
 	>=x11-libs/gtk+-2.90.0:3[introspection?]
 	>=dev-libs/dbus-glib-0.72
@@ -34,7 +33,6 @@ COMMON_DEPEND="
 "
 DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
-	>=app-text/gnome-doc-utils-0.3.2
 	>=app-text/scrollkeeper-0.3
 	>=dev-util/pkgconfig-0.20
 	>=dev-util/intltool-0.35
@@ -42,7 +40,7 @@ DEPEND="${COMMON_DEPEND}
 "
 # Before 3.1.4, libcryptui was part of seahorse
 RDEPEND="${COMMON_DEPEND}
-	!!<app-crypt/seahorse-3.1.4
+	!<app-crypt/seahorse-3.1.4
 "
 
 pkg_setup() {

@@ -18,9 +18,7 @@ IUSE="gnome-keyring networkmanager test upower"
 
 RDEPEND=">=net-libs/telepathy-glib-0.13.14
 	>=dev-libs/dbus-glib-0.82
-	gnome-keyring? ( || ( gnome-base/libgnome-keyring <gnome-base/gnome-keyring-2.29.4 ) )
-	networkmanager? ( >=net-misc/networkmanager-0.7.0 )
-	upower? ( sys-power/upower )"
+	gnome-keyring? ( gnome-base/libgnome-keyring )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	dev-libs/libxslt

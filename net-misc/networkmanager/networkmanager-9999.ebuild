@@ -5,7 +5,7 @@
 EAPI="4"
 GNOME_ORG_MODULE="NetworkManager"
 
-inherit autotools eutils git-2 linux-info systemd
+inherit eutils gnome2-live linux-info systemd
 
 DESCRIPTION="Network configuration and management in an easy way. Desktop environment independent."
 HOMEPAGE="http://www.gnome.org/projects/NetworkManager/"
@@ -24,6 +24,8 @@ REQUIRED_USE="
 
 # gobject-introspection-0.10.3 is needed due to gnome bug 642300
 # wpa_supplicant-0.7.3-r3 is needed due to bug 359271
+# libnl:1.1 is needed for linking to net-wireless/wimax libraries
+# XXX: on bump, check that net-wireless/wimax is still using libnl:1.1 !
 # TODO: Qt support?
 COMMON_DEPEND=">=sys-apps/dbus-1.2
 	>=dev-libs/dbus-glib-0.75
@@ -31,7 +33,7 @@ COMMON_DEPEND=">=sys-apps/dbus-1.2
 	|| ( >=sys-fs/udev-171[gudev] >=sys-fs/udev-147[extras] )
 	>=dev-libs/glib-2.26
 	>=sys-auth/polkit-0.97
-	>=dev-libs/libnl-1.1
+	dev-libs/libnl:1.1
 	>=net-wireless/wpa_supplicant-0.7.3-r3[dbus]
 	bluetooth? ( >=net-wireless/bluez-4.82 )
 	avahi? ( net-dns/avahi[autoipd] )
@@ -86,6 +88,10 @@ pkg_pretend() {
 	fi
 }
 
+pkg_setup() {
+	enewgroup plugdev
+}
+
 src_prepare() {
 	# Don't build tests
 	epatch "${FILESDIR}/${PN}-0.9_rc3-fix-tests.patch"
@@ -133,9 +139,19 @@ src_install() {
 
 	# Add keyfile plugin support
 	keepdir /etc/NetworkManager/system-connections
+	chmod 0600 "${ED}"/etc/NetworkManager/system-connections/.keep* # bug #383765
 	insinto /etc/NetworkManager
 	newins "${FILESDIR}/nm-system-settings.conf-ifnet" nm-system-settings.conf
 
+	# Allow users in plugdev group to modify system connections
+	insinto /etc/polkit-1/localauthority/10-vendor.d
+	doins "${FILESDIR}/01-org.freedesktop.NetworkManager.settings.modify.system.pkla"
+
 	# Remove useless .la files
 	find "${D}" -name '*.la' -exec rm -f {} + || die "la file removal failed"
+}
+
+pkg_postinst() {
+	elog "To modify system network connections without needing to enter the"
+	elog "root password, add your user account to the 'plugdev' group."
 }

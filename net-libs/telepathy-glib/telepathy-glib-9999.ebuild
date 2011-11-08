@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="4"
 PYTHON_DEPEND="2:2.5"
 
 inherit git-2 autotools python virtualx
@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE="debug +introspection +vala"
 
-RDEPEND=">=dev-libs/glib-2.28:2
+RDEPEND=">=dev-libs/glib-2.28.0:2
 	>=dev-libs/dbus-glib-0.82
 	introspection? ( >=dev-libs/gobject-introspection-0.9.6 )
 	vala? (
@@ -56,13 +56,14 @@ src_configure() {
 }
 
 src_test() {
+	unset DBUS_SESSION_BUS_ADDRESS
 	# Needs dbus for tests (auto-launched)
 	Xemake -j1 check || die
 }
 
 src_install() {
-	emake install DESTDIR="${D}" || die "emake install failed"
-	dodoc AUTHORS ChangeLog NEWS README || die "dodoc failed"
+	emake install DESTDIR="${D}"
+	dodoc AUTHORS ChangeLog NEWS README
 
-	find "${ED}" -name '*.la' -exec rm -f '{}' + || die
+	find "${D}" -name '*.la' -exec rm -f '{}' + || die
 }

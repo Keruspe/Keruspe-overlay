@@ -11,7 +11,7 @@ SRC_URI="mirror://gentoo/${P}.tar.bz2
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="build +openrc"
 
 PDEPEND="openrc? ( sys-apps/openrc )
@@ -36,6 +36,8 @@ multilib_warn() {
 multilib_layout() {
 	local libdir libdirs=$(get_all_libdirs) def_libdir=$(get_abi_LIBDIR $DEFAULT_ABI)
 	: ${libdirs:=lib}	# it isn't that we don't trust multilib.eclass...
+
+	[ -z "${def_libdir}" ] && die "your DEFAULT_ABI=$DEFAULT_ABI appears to be invalid"
 
 	# figure out which paths should be symlinks and which should be directories
 	local dirs syms exp d
@@ -101,13 +103,17 @@ multilib_layout() {
 				# make sure the old "lib" ABI location does not exist; we
 				# only symlinked the lib dir on systems where we moved it
 				# to "lib32" ...
-				if [ -d "${prefix}lib32" ] ; then
-					rm -f "${prefix}lib32"/.keep
-					if ! rmdir "${prefix}lib32" 2>/dev/null ; then
-						ewarn "You need to merge ${prefix}lib32 into ${prefix}lib"
-						die "non-empty dir found where there should be none: ${prefix}lib32"
+				case ${CHOST} in
+				i?86*|x86_64*|powerpc*|sparc*|s390*)
+					if [ -d "${prefix}lib32" ] ; then
+						rm -f "${prefix}lib32"/.keep
+						if ! rmdir "${prefix}lib32" 2>/dev/null ; then
+							ewarn "You need to merge ${prefix}lib32 into ${prefix}lib"
+							die "non-empty dir found where there should be none: ${prefix}lib32"
+						fi
 					fi
-				fi
+					;;
+				esac
 			else
 				# nothing exists, so just set it up sanely
 				ewarn "Initializing ${prefix}lib as a dir"

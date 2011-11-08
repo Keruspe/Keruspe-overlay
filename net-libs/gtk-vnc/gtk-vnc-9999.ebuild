@@ -14,6 +14,9 @@ SLOT="0"
 KEYWORDS=""
 IUSE="examples +gtk3 +introspection python sasl"
 
+# libview is used in examples/gvncviewer -- no need
+# TODO: review nsplugin when it will be considered less experimental
+
 COMMON_DEPEND=">=dev-libs/glib-2.10:2
 	>=net-libs/gnutls-1.4
 	>=x11-libs/cairo-1.2
@@ -60,6 +63,7 @@ src_install() {
 	dodoc AUTHORS NEWS README || die
 	gnome2_src_install
 	python_clean_installation_image
+
 	# Remove .la files
 	find "${ED}" -name '*.la' -exec rm -f '{}' + || die
 }
