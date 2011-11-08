@@ -24,6 +24,7 @@ S="${WORKDIR}/glib-${PV}"
 
 pkg_setup() {
 	python_set_active_version 2
+	python_pkg_setup
 	G2CONF="$(use_enable doc man)"
 }
 
