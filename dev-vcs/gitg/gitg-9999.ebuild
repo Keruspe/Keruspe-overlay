@@ -18,7 +18,7 @@ IUSE="debug glade"
 
 RDEPEND=">=dev-libs/glib-2.26:2
 	>=x11-libs/gtk+-3.0.0:3
-	>=x11-libs/gtksourceview-3.0.0:3.0
+	>=x11-libs/gtksourceview-3.1.3:3.0
 	>=gnome-base/gconf-2.10:2
 	>=gnome-base/gsettings-desktop-schemas-0.1.1
 	dev-vcs/git
@@ -30,6 +30,7 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.40"
 
 pkg_setup() {
+	# Disable maintainer to get rid of -Werror  (bug #363009)
 	G2CONF="${G2CONF}
 		--disable-static
 		--disable-deprecations

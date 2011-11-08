@@ -72,11 +72,10 @@ src_install() {
 }
 
 pkg_postinst() {
-	if use amd64 ; then
-		ewarn "Valgrind will not work on amd64 if glibc does not have"
-		ewarn "debug symbols (see https://bugs.gentoo.org/show_bug.cgi?id=214065"
-		ewarn "and http://bugs.gentoo.org/show_bug.cgi?id=274771)."
-		ewarn "To fix this you can add splitdebug to FEATURES in make.conf and"
-		ewarn "remerge glibc."
-	fi
+	ewarn "Valgrind will not work if glibc does not have debug symbols."
+	ewarn "To fix this you can add splitdebug to FEATURES in make.conf"
+	ewarn "and remerge glibc.  See:"
+	ewarn "https://bugs.gentoo.org/show_bug.cgi?id=214065"
+	ewarn "https://bugs.gentoo.org/show_bug.cgi?id=274771"
+	ewarn "https://bugs.gentoo.org/show_bug.cgi?id=388703"
 }

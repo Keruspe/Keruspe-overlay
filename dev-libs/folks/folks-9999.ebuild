@@ -14,9 +14,8 @@ HOMEPAGE="http://telepathy.freedesktop.org/wiki/Folks"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~sparc ~x86"
-IUSE="eds socialweb test vala"
+IUSE="eds socialweb test tracker utils vala"
 
-# TODO: tracker backend
 COMMON_DEPEND=">=dev-libs/glib-2.24:2
 	>=net-libs/telepathy-glib-0.13.1
 	dev-libs/dbus-glib
@@ -26,7 +25,8 @@ COMMON_DEPEND=">=dev-libs/glib-2.24:2
 	sys-libs/readline
 
 	eds? ( >=gnome-extra/evolution-data-server-3.1.5 )
-	socialweb? ( >=net-libs/libsocialweb-0.25.15 )"
+	socialweb? ( >=net-libs/libsocialweb-0.25.15 )
+	tracker? ( >=app-misc/tracker-0.12 )"
 
 # telepathy-mission-control needed at runtime; it is used by the telepathy
 # backend via telepathy-glib's AccountManager binding.
@@ -48,18 +48,21 @@ DEPEND="${COMMON_DEPEND}
 		>=net-libs/telepathy-glib-0.13.1[vala]
 		eds? ( >=gnome-extra/evolution-data-server-3.0.1[vala] ) )"
 
+# the inspect tool requires --enable-vala
+REQUIRED_USE="utils? ( vala )"
+
 # XXX: tests appear to use installed version of folks
 RESTRICT="test"
 
 pkg_setup() {
 	DOCS="AUTHORS ChangeLog NEWS README"
 	# Rebuilding docs needs valadoc, which has no release
-	# TODO: tracker backend
 	G2CONF="${G2CONF}
 		$(use_enable eds eds-backend)
 		$(use_enable socialweb libsocialweb-backend)
+		$(use_enable tracker tracker-backend)
+		$(use_enable utils inspect-tool)
 		$(use_enable vala)
-		$(use_enable vala inspect-tool)
 		--enable-import-tool
 		--disable-docs
 		--disable-Werror"
