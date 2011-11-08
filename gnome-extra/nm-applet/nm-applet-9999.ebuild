@@ -5,7 +5,7 @@
 EAPI="4"
 GCONF_DEBUG="no"
 GNOME2_LA_PUNT="yes"
-GNOME_LIVE_MODULE="network-manager-applet"
+GNOME_ORG_MODULE="network-manager-applet"
 
 inherit gnome2-live
 
@@ -26,6 +26,7 @@ RDEPEND=">=dev-libs/glib-2.16:2
 	>=x11-libs/gtk+-2.91.4:3
 	>=x11-libs/libnotify-0.7.0
 
+	app-text/iso-codes
 	>=net-misc/networkmanager-${PV}
 	net-misc/mobile-broadband-provider-info
 

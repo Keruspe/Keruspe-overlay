@@ -14,7 +14,7 @@ HOMEPAGE="http://projects.gnome.org/gconf/"
 LICENSE="LGPL-2"
 SLOT="2"
 KEYWORDS=""
-IUSE="debug doc +introspection ldap policykit"
+IUSE="debug doc +introspection ldap orbit policykit"
 
 RDEPEND=">=dev-libs/glib-2.25.9:2
 	>=x11-libs/gtk+-2.90:3
@@ -23,6 +23,7 @@ RDEPEND=">=dev-libs/glib-2.25.9:2
 	>=dev-libs/libxml2-2:2
 	introspection? ( >=dev-libs/gobject-introspection-0.9.5 )
 	ldap? ( net-nds/openldap )
+	orbit? ( >=gnome-base/orbit-2.4:2 )
 	policykit? ( sys-auth/polkit )"
 DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35
@@ -33,14 +34,26 @@ pkg_setup() {
 	DOCS="AUTHORS ChangeLog NEWS README TODO"
 	G2CONF="${G2CONF}
 		--enable-gtk
-		--disable-orbit
 		--disable-static
 		--enable-gsettings-backend
 		--with-gtk=3.0
 		$(use_enable introspection)
 		$(use_with ldap openldap)
-		$(use_enable policykit defaults-service)"
+		$(use_enable orbit)
+		$(use_enable policykit defaults-service)
+		ORBIT_IDL=$(type -P orbit-idl-2)"
+		# Need host's IDL compiler for cross or native build, bug #262747
 	kill_gconf
+}
+
+src_prepare() {
+	gnome2_src_prepare
+
+	# Do not start gconfd when installing schemas, fix bug #238276, upstream #631983
+	epatch "${FILESDIR}/${PN}-2.24.0-no-gconfd.patch"
+
+	# Do not crash in gconf_entry_set_value() when entry pointer is NULL, upstream #631985
+	epatch "${FILESDIR}/${PN}-2.28.0-entry-set-value-sigsegv.patch"
 }
 
 src_install() {

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $ 
 
-EAPI="3"
+EAPI="4"
 GCONF_DEBUG="no"
 GNOME2_LA_PUNT="yes"
 
@@ -19,7 +19,8 @@ LICENSE="GPL-2 LGPL-2"
 SLOT="3"
 KEYWORDS=""
 
-IUSE="debug +introspection python test"
+# +python for gmenu-simple-editor
+IUSE="debug +introspection +python test"
 
 COMMON_DEPEND=">=dev-libs/glib-2.29.15:2
 	introspection? ( >=dev-libs/gobject-introspection-0.9.5 )
@@ -30,7 +31,7 @@ COMMON_DEPEND=">=dev-libs/glib-2.29.15:2
 		x11-libs/gtk+:3[introspection] )"
 # Older versions of slot 0 install the menu editor and the desktop directories
 RDEPEND="${COMMON_DEPEND}
-	!!<gnome-base/gnome-menus-3.0.1-r50:0"
+	!<gnome-base/gnome-menus-3.0.1-r1:0"
 DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
 	>=dev-util/pkgconfig-0.9
@@ -38,6 +39,7 @@ DEPEND="${COMMON_DEPEND}
 	test? ( dev-libs/gjs )"
 
 pkg_setup() {
+	python_pkg_setup
 	DOCS="AUTHORS ChangeLog HACKING NEWS README"
 
 	# Do NOT compile with --disable-debug/--enable-debug=no
@@ -90,7 +92,7 @@ src_install() {
 		"${ED}"/etc/xdg/menus/gnome-applications.menu || die "menu move failed"
 
 	exeinto /etc/X11/xinit/xinitrc.d/
-	doexe "${FILESDIR}/10-xdg-menu-gnome" || die "doexe failed"
+	doexe "${FILESDIR}/10-xdg-menu-gnome"
 }
 
 pkg_postinst() {

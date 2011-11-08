@@ -6,7 +6,7 @@ EAPI="4"
 GCONF_DEBUG="no"
 GNOME2_LA_PUNT="yes"
 
-inherit eutils gnome2-live
+inherit gnome2-live
 
 DESCRIPTION="Compatibility library for accessing secrets"
 HOMEPAGE="http://live.gnome.org/GnomeKeyring"
@@ -18,7 +18,7 @@ IUSE="debug doc test"
 
 RDEPEND=">=sys-apps/dbus-1.0
 	gnome-base/gconf
-	>=gnome-base/gnome-keyring-2.29[test?]"
+	>=gnome-base/gnome-keyring-3.1.92[test?]"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/intltool-0.35

@@ -6,7 +6,7 @@ EAPI="4"
 GCONF_DEBUG="no"
 GNOME2_LA_PUNT="yes"
 
-inherit autotools eutils gnome2-live multilib pam virtualx
+inherit gnome2-live multilib pam virtualx
 
 DESCRIPTION="Password and keyring managing daemon"
 HOMEPAGE="http://www.gnome.org/"
@@ -16,6 +16,7 @@ SLOT="0"
 IUSE="+caps debug doc pam test"
 KEYWORDS=""
 
+# USE=valgrind is probably not a good idea for the tree
 RDEPEND=">=dev-libs/glib-2.25:2
 	gnome-base/gcr
 	>=x11-libs/gtk+-2.90.0:3
@@ -27,6 +28,7 @@ RDEPEND=">=dev-libs/glib-2.25:2
 	caps? ( sys-libs/libcap-ng )
 	pam? ( virtual/pam )
 "
+#	valgrind? ( dev-util/valgrind )
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	>=dev-util/gtk-doc-am-1.9
@@ -53,6 +55,7 @@ pkg_setup() {
 }
 
 src_test() {
+	# FIXME: /gkm/transaction/ tests fail
 	unset DBUS_SESSION_BUS_ADDRESS
 	Xemake check || die "emake check failed!"
 }

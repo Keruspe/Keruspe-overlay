@@ -19,10 +19,10 @@ IUSE_LIBC="elibc_glibc"
 IUSE="accessibility +consolekit fprint +gnome-shell ipv6 gnome-keyring +introspection selinux smartcard tcpd test xinerama +xklavier $IUSE_LIBC"
 
 # Name of the tarball with gentoo specific files
-GDM_EXTRA="${PN}-2.20.9-gentoo-files-r1"
+GDM_EXTRA="${PN}-3.2.1.1-gentoo-files"
 
 SRC_URI="${SRC_URI}
-	mirror://gentoo/${GDM_EXTRA}.tar.bz2"
+	http://dev.gentoo.org/~tetromino/distfiles/gdm/${GDM_EXTRA}.tar.xz"
 
 # NOTE: x11-base/xorg-server dep is for X_SERVER_PATH etc, bug #295686
 # nspr used by smartcard extension
@@ -113,7 +113,6 @@ pkg_setup() {
 	# of https://bugzilla.gnome.org/show_bug.cgi?id=607643#c4
 	G2CONF="${G2CONF}
 		--disable-schemas-install
-		--disable-maintainer-mode
 		--disable-static
 		--localstatedir=${EPREFIX}/var
 		--with-xdmcp=yes
@@ -165,9 +164,6 @@ src_prepare() {
 	# fix libxklavier automagic support
 	epatch "${FILESDIR}/${PN}-2.32.0-automagic-libxklavier-support.patch"
 
-	# don't ignore all non-i18n environment variables, gnome bug 656094
-	epatch "${FILESDIR}/${PN}-3.1.91-hardcoded-gnome-session-path-env.patch"
-
 	# don't load accessibility support at runtime when USE=-accessibility
 	use accessibility || epatch "${FILESDIR}/${PN}-3.2.1.1-disable-accessibility.patch"
 
@@ -206,13 +202,8 @@ src_install() {
 	doenvd 99xdg-gdm || die "doenvd failed"
 
 	# install PAM files
-	cp "${FILESDIR}"/3.1.91-pam.d/gdm-{password,fingerprint,smartcard} \
-		"${gentoodir}"/pam.d/
 	use gnome-keyring && sed -i "s:#Keyring=::g" "${gentoodir}"/pam.d/*
-
-	dopamd "${gentoodir}"/pam.d/gdm{,-autologin,-password,-fingerprint,-smartcard}
-	# gdm-welcome is the PAM file for the gdm greeter itself
-	pamd_mimic system-services gdm-welcome auth account session
+	dopamd "${gentoodir}"/pam.d/gdm{,-autologin,-password,-fingerprint,-smartcard,-welcome}
 }
 
 pkg_postinst() {
@@ -228,6 +219,13 @@ pkg_postinst() {
 	elog "To make GDM start at boot, edit /etc/conf.d/xdm"
 	elog "and then execute 'rc-update add xdm default'."
 	elog "If you already have GDM running, you will need to restart it."
+
+	elog
+	elog "GDM ignores most non-localization environment variables. If you"
+	elog "need GDM to launch gnome-session with a particular environment,"
+	elog "you need to use pam_env.so in /etc/pam.d/gdm-welcome; see"
+	elog "the pam_env man page for more information."
+	elog
 
 	if use gnome-keyring; then
 		elog "For autologin to unlock your keyring, you need to set an empty"
