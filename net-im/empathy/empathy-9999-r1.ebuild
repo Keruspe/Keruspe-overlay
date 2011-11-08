@@ -34,7 +34,7 @@ RDEPEND=">=dev-libs/glib-2.28:2
 	>=media-libs/libcanberra-0.25[gtk3]
 	media-sound/pulseaudio[glib]
 	>=net-libs/gnutls-2.8.5
-	>=net-libs/telepathy-glib-0.16.0
+	>=net-libs/telepathy-glib-0.17.0
 	>=net-libs/webkit-gtk-1.5.2:3
 	>=x11-libs/libnotify-0.7
 
@@ -45,7 +45,7 @@ RDEPEND=">=dev-libs/glib-2.28:2
 	media-libs/gst-plugins-bad
 	>=net-im/telepathy-logger-0.2.10
 	net-libs/farsight2
-	>=net-libs/telepathy-farsight-0.0.14
+	>=net-libs/telepathy-farsight-0.0.18
 	net-voip/telepathy-connection-managers
 	x11-libs/libX11
 
