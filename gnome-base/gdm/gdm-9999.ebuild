@@ -183,6 +183,9 @@ src_install() {
 
 	local gentoodir="${WORKDIR}/${GDM_EXTRA}"
 
+	# Install the systemd unit file
+	systemd_dounit "${FILESDIR}/gdm@.service"
+
 	# gdm-binary should be gdm to work with our init (#5598)
 	rm -f "${ED}/usr/sbin/gdm"
 	ln -sfn /usr/sbin/gdm-binary "${ED}/usr/sbin/gdm"
