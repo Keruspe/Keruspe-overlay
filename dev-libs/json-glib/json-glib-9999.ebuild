@@ -24,7 +24,7 @@ DEPEND="${RDEPEND}
 	introspection? ( >=dev-libs/gobject-introspection-0.9.5 )"
 
 pkg_setup() {
-	DOCS="ChangeLog NEWS README"
+	DOCS="ChangeLog NEWS"
 	# Coverage support is useless, and causes runtime problems
 	G2CONF="${G2CONF}
 		--disable-gcov
