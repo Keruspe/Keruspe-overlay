@@ -46,12 +46,10 @@ COMMON_DEPEND=">=dev-libs/glib-2.31.0:2
 	>=sys-auth/polkit-0.100[introspection]
 	>=x11-wm/mutter-3.2.1[introspection]
 
-	dev-libs/dbus-glib
 	dev-libs/libxml2:2
 	x11-libs/pango[introspection]
 	>=dev-libs/libcroco-0.6.2:0.6
 
-	gnome-base/gconf:2[introspection]
 	>=gnome-base/gnome-menus-3.1[introspection]
 	gnome-base/librsvg
 	media-libs/libcanberra
