@@ -18,20 +18,24 @@ DEPEND="mpi? ( virtual/mpi )"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
+	# Correct hard coded doc location
+	sed -i -e "s:doc/valgrind:doc/${PF}:" docs/Makefile.am || die
+
 	# Respect CFLAGS, LDFLAGS
-	sed -i -e '/^CPPFLAGS =/d' -e '/^CFLAGS =/d' -e '/^LDFLAGS =/d' \
-		mpi/Makefile.am || die
+	epatch "${FILESDIR}"/${PN}-3.7.0-respect-flags.patch
 
 	# Changing Makefile.all.am to disable SSP
-	sed -i -e 's:^AM_CFLAGS_BASE = :AM_CFLAGS_BASE = -fno-stack-protector :' \
-		Makefile.all.am || die
-
-	# Correct hard coded doc location
-	sed -i -e "s:doc/valgrind:doc/${PF}:" \
-		docs/Makefile.am || die
+	epatch "${FILESDIR}"/${PN}-3.7.0-fno-stack-protector.patch
 
 	# Yet more local labels, this time for ppc32 & ppc64
 	epatch "${FILESDIR}"/${PN}-3.6.0-local-labels.patch
+
+	# Don't build in empty assembly files for other platforms or we'll get a QA
+	# warning about executable stacks.
+	epatch "${FILESDIR}"/${PN}-3.7.0-non-exec-stack.patch
+
+	# Fix the regex to get gcc's version
+	epatch "${FILESDIR}"/${PN}-3.7.0-fix-gcc-regex.patch
 
 	# Regenerate autotools files
 	eautoreconf
@@ -65,8 +69,8 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die
-	dodoc AUTHORS NEWS README*
+	emake DESTDIR="${D}" install
+	dodoc AUTHORS FAQ.txt NEWS README*
 
 	pax-mark m "${D}"/usr/$(get_libdir)/valgrind/*-*-linux
 }
