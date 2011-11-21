@@ -70,7 +70,7 @@ src_configure() {
 
 src_install() {
 	emake DESTDIR="${D}" install
-	dodoc AUTHORS FAQ.txt NEWS README*
+	dodoc AUTHORS NEWS README*
 
 	pax-mark m "${D}"/usr/$(get_libdir)/valgrind/*-*-linux
 }
