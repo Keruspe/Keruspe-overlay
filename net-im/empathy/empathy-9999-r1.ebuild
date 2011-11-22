@@ -46,7 +46,7 @@ RDEPEND=">=dev-libs/glib-2.28:2
 	>=net-im/telepathy-logger-0.2.10
 	net-libs/farsight2
 	>=net-libs/telepathy-farsight-0.0.18
-	net-voip/telepathy-connection-managers
+	net-im/telepathy-connection-managers
 	x11-libs/libX11
 
 	call? (
