@@ -6,7 +6,7 @@ EAPI="4"
 GNOME2_LA_PUNT="yes"
 GCONF_DEBUG="yes"
 
-inherit autotools eutils gnome2-live pam
+inherit autotools eutils gnome2-live pam systemd
 
 DESCRIPTION="GNOME Display Manager"
 HOMEPAGE="http://www.gnome.org/projects/gdm/"
@@ -184,7 +184,7 @@ src_install() {
 	local gentoodir="${WORKDIR}/${GDM_EXTRA}"
 
 	# Install the systemd unit file
-	systemd_dounit "${FILESDIR}/gdm@.service"
+	systemd_dounit "${gentoodir}/gdm@.service"
 
 	# gdm-binary should be gdm to work with our init (#5598)
 	rm -f "${ED}/usr/sbin/gdm"
