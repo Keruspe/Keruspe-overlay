@@ -14,13 +14,14 @@ SLOT="0"
 KEYWORDS=""
 IUSE="applet bash-completion +gnome-shell zsh-completion"
 
-DEPEND="dev-libs/glib:2
+DEPEND=">=dev-libs/glib-2.28:2
 	>=sys-devel/gettext-0.17
 	>=dev-util/intltool-0.40
 	>=x11-libs/gtk+-3.0.0:3
 	dev-libs/libxml2
 	x11-base/xorg-server
-	>=dev-lang/vala-0.13.4:0.14"
+	>=dev-libs/gobject-introspection-1.30.0
+	>=dev-lang/vala-0.14.0:0.14[vapigen]"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
 	sys-apps/dbus
@@ -31,6 +32,7 @@ WANT_AUTOMAKE="1.11"
 
 G2CONF="
 	VALAC=$(type -p valac-0.14)
+	VAPIGEN=$(type -p vapigen-0.14)
 	--disable-schemas-compile
 	$(use_enable applet)
 	$(use_enable gnome-shell gnome-shell-extension)"
