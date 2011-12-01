@@ -20,7 +20,7 @@ DEPEND=">=dev-libs/glib-2.28:2
 	>=x11-libs/gtk+-3.0.0:3
 	dev-libs/libxml2
 	x11-base/xorg-server
-	>=dev-libs/gobject-introspection-1.30.0
+	>=dev-libs/gobject-introspection-1.31.0
 	>=dev-lang/vala-0.14.0:0.14[vapigen]"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
