@@ -48,4 +48,5 @@ src_install() {
 		doins data/completions/_gpaste
 	fi
 	gnome2_src_install
+	find ${D} -name '*.la' -exec rm -f {} +
 }
