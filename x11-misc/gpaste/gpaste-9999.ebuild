@@ -22,7 +22,7 @@ DEPEND=">=dev-libs/glib-2.28:2
 	x11-base/xorg-server
 	>=dev-libs/gobject-introspection-1.31.0
 	>=dev-lang/vala-0.14.0:0.14
-	vala ? ( >=dev-lang/vala-0.14.0:0.14[vapigen] )"
+	vala? ( >=dev-lang/vala-0.14.0:0.14[vapigen] )"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
 	sys-apps/dbus
