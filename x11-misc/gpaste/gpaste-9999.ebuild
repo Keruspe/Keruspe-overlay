@@ -14,19 +14,19 @@ SLOT="0"
 KEYWORDS=""
 IUSE="applet bash-completion +gnome-shell +vala zsh-completion"
 
-DEPEND=">=dev-libs/glib-2.28:2
+DEPEND=">=dev-libs/glib-2.30:2
 	>=sys-devel/gettext-0.17
 	>=dev-util/intltool-0.40
 	>=x11-libs/gtk+-3.0.0:3
 	dev-libs/libxml2
-	x11-base/xorg-server
-	>=dev-libs/gobject-introspection-1.31.0
+	x11-libs/libxcb
+	sys-apps/dbus
+	>=dev-libs/gobject-introspection-1.30.0
 	>=dev-lang/vala-0.14.0:0.14
 	vala? ( >=dev-lang/vala-0.14.0:0.14[vapigen] )"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
-	sys-apps/dbus
-	gnome-shell? ( >=gnome-base/gnome-shell-3.1.90 )
+	gnome-shell? ( >gnome-base/gnome-shell-3.3.2 )
 	zsh-completion? ( app-shells/zsh app-shells/zsh-completion )"
 
 WANT_AUTOMAKE="1.11"
@@ -39,7 +39,7 @@ G2CONF="
 	$(use_enable gnome-shell gnome-shell-extension)
 	$(use_enable vala)"
 
-DOCS="AUTHORS NEWS ChangeLog ChangeLog.pre2.0 TODO FIXME README"
+DOCS="AUTHORS NEWS ChangeLog ChangeLog.pre2.0 TODO README"
 
 REQUIRED_USE="|| ( gnome-shell applet )"
 
