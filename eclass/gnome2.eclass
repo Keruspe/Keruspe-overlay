@@ -246,7 +246,6 @@ gnome2_pkg_postrm() {
 	fdo-mime_desktop_database_update
 	fdo-mime_mime_database_update
 	gnome2_icon_cache_update
-	gnome2_schemas_update --uninstall
 
 	if [[ "${SCROLLKEEPER_UPDATE}" = "1" ]]; then
 		gnome2_scrollkeeper_update
