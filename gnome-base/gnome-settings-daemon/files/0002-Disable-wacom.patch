@@ -1,0 +1,43 @@
+From fa78cb1359e50c87e36f2422148120f605185aef Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Mon, 12 Dec 2011 14:38:16 +0100
+Subject: [PATCH 2/2] Disable wacom
+
+Signed-off-by: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+---
+ configure.ac        |    6 ------
+ plugins/Makefile.am |    1 -
+ 2 files changed, 0 insertions(+), 7 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index a83f1a9..574d41e 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -243,12 +243,6 @@ dnl ---------------------------------------------------------------------------
+ 
+ PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra])
+ 
+-dnl ---------------------------------------------------------------------------
+-dnl - wacom
+-dnl ---------------------------------------------------------------------------
+-
+-PKG_CHECK_MODULES(WACOM, [libwacom x11 xi])
+-
+ dnl ==============================================
+ dnl PackageKit section
+ dnl ==============================================
+diff --git a/plugins/Makefile.am b/plugins/Makefile.am
+index ad88aa9..9ce88f7 100644
+--- a/plugins/Makefile.am
++++ b/plugins/Makefile.am
+@@ -15,7 +15,6 @@ enabled_plugins =	\
+ 	media-keys	\
+ 	mouse		\
+ 	sound		\
+-	wacom		\
+ 	xrandr		\
+ 	xsettings	\
+ 	$(NULL)
+-- 
+1.7.8.163.g9859a.dirty
+

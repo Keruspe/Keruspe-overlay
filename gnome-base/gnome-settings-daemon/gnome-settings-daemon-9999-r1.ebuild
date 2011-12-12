@@ -103,6 +103,7 @@ src_prepare() {
 
 	# Make colord optional; requires eautoreconf
 	epatch "${FILESDIR}/0001-Make-colord-optional.patch"
+	epatch "${FILESDIR}/0002-Disable-wacom.patch"
 
 	gnome2_src_prepare
 }

@@ -1,7 +1,7 @@
-From a70d512823b818f46ddb40213c2658100d4cadc0 Mon Sep 17 00:00:00 2001
+From 44c502e412fbcb99cea83ef7db7f9093e0637944 Mon Sep 17 00:00:00 2001
 From: Alexandre Rostovtsev <tetromino@gentoo.org>
 Date: Thu, 27 Oct 2011 23:30:41 -0400
-Subject: [PATCH] Make colord optional
+Subject: [PATCH 1/2] Make colord optional
 
 Conflicts:
 
@@ -14,10 +14,10 @@ Conflicts:
  3 files changed, 44 insertions(+), 8 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 08b1a2f..4f6f75f 100644
+index bd5a8ce..a83f1a9 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -105,6 +105,38 @@ dnl ---------------------------------------------------------------------------
+@@ -97,6 +97,38 @@ dnl ---------------------------------------------------------------------------
  PKG_CHECK_MODULES(GNOME_DESKTOP, gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
  
  dnl ---------------------------------------------------------------------------
@@ -56,21 +56,21 @@ index 08b1a2f..4f6f75f 100644
  dnl - Check for LCMS2
  dnl ---------------------------------------------------------------------------
  PKG_CHECK_MODULES(LCMS, lcms2 >= 2.2, have_new_lcms=yes, have_new_lcms=no)
-@@ -219,12 +251,6 @@ dnl ---------------------------------------------------------------------------
+@@ -212,12 +244,6 @@ dnl ---------------------------------------------------------------------------
+ PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra])
  
- PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra gconf-2.0 >= $GCONF_REQUIRED_VERSION])
- 
--dnl ---------------------------------------------------------------------------
+ dnl ---------------------------------------------------------------------------
 -dnl - color
 -dnl ---------------------------------------------------------------------------
 -
 -PKG_CHECK_MODULES(COLOR, [colord >= 0.1.9 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
 -
- dnl ==============================================
- dnl PackageKit section
- dnl ==============================================
+-dnl ---------------------------------------------------------------------------
+ dnl - wacom
+ dnl ---------------------------------------------------------------------------
+ 
 diff --git a/data/Makefile.am b/data/Makefile.am
-index 43ba27c..1f3bbef 100644
+index bab7359..7f21a46 100644
 --- a/data/Makefile.am
 +++ b/data/Makefile.am
 @@ -11,7 +11,6 @@ gsettings_SCHEMAS =							\
@@ -120,5 +120,5 @@ index 83d223a..ad88aa9 100644
  enabled_plugins += updates
  else
 -- 
-1.7.8.rc0.dirty
+1.7.8.163.g9859a.dirty
 
