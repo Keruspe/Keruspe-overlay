@@ -34,9 +34,6 @@ src_prepare() {
 	# warning about executable stacks.
 	epatch "${FILESDIR}"/${PN}-3.7.0-non-exec-stack.patch
 
-	# Fix the regex to get gcc's version
-	epatch "${FILESDIR}"/${PN}-3.7.0-fix-gcc-regex.patch
-
 	# Regenerate autotools files
 	eautoreconf
 }
