@@ -36,5 +36,5 @@ src_configure() {
 src_install() {
 	base_src_install
 	rm -f ${ED}${GAMES_DATADIR}/${PN}/biolinum.ttf
-	dosym /usr/share/fonts/libertine-ttf/LinBiolinum_Re-0.6.4.ttf ${GAMES_DATADIR}/${PN}/biolinum.ttf
+	dosym /usr/share/fonts/libertine-ttf/LinBiolinum_R.ttf ${GAMES_DATADIR}/${PN}/biolinum.ttf
 }
