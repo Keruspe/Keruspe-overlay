@@ -6,9 +6,9 @@ EAPI="4"
 inherit git-2
 
 DESCRIPTION="Scripts for paludis, the other package mangler"
-HOMEPAGE="http://paludis.pioto.org/"
+HOMEPAGE="http://paludis.exherbo.org/"
 SRC_URI=""
-EGIT_REPO_URI="git://git.pioto.org/paludis-scripts.git"
+EGIT_REPO_URI="git://git.exherbo.org/paludis/paludis-scripts.git"
 
 LICENSE="GPL-2"
 SLOT="0"
