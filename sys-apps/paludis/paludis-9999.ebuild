@@ -6,9 +6,9 @@ EAPI="paludis-1"
 inherit bash-completion-r1 eutils git-2
 
 DESCRIPTION="paludis, the other package mangler"
-HOMEPAGE="http://paludis.pioto.org/"
+HOMEPAGE="http://paludis.exherbo.org/"
 SRC_URI=""
-EGIT_REPO_URI="git://git.pioto.org/paludis.git"
+EGIT_REPO_URI="git://git.exherbo.org/paludis/paludis.git"
 
 IUSE="ask doc gemcutter pbins pink portage python-bindings ruby-bindings search-index sort-world vim-syntax visibility xml zsh-completion"
 LICENSE="GPL-2 vim-syntax? ( vim )"
