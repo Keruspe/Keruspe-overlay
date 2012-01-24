@@ -1,0 +1,42 @@
+From 9e97002b4c9149c480ce996071cba9c058a7546a Mon Sep 17 00:00:00 2001
+From: Julien Durillon <julien.durillon@gmail.com>
+Date: Mon, 23 Jan 2012 15:51:36 +0100
+Subject: [PATCH 2/2] remove wacom support
+
+---
+ configure.ac        |    6 ------
+ plugins/Makefile.am |    1 -
+ 2 files changed, 0 insertions(+), 7 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 63f1158..d73e5d9 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -227,12 +227,6 @@ dnl ---------------------------------------------------------------------------
+ 
+ PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra])
+ 
+-dnl ---------------------------------------------------------------------------
+-dnl - wacom
+-dnl ---------------------------------------------------------------------------
+-
+-PKG_CHECK_MODULES(WACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION x11 xi gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION])
+-
+ dnl ==============================================
+ dnl PackageKit section
+ dnl ==============================================
+diff --git a/plugins/Makefile.am b/plugins/Makefile.am
+index 31fcb74..e40d9b9 100644
+--- a/plugins/Makefile.am
++++ b/plugins/Makefile.am
+@@ -14,7 +14,6 @@ enabled_plugins =	\
+ 	media-keys	\
+ 	mouse		\
+ 	sound		\
+-	wacom		\
+ 	xrandr		\
+ 	xsettings	\
+ 	$(NULL)
+-- 
+1.7.9.rc2
+

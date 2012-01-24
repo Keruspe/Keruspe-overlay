@@ -1,12 +1,8 @@
-From a70d512823b818f46ddb40213c2658100d4cadc0 Mon Sep 17 00:00:00 2001
-From: Alexandre Rostovtsev <tetromino@gentoo.org>
-Date: Thu, 27 Oct 2011 23:30:41 -0400
-Subject: [PATCH] Make colord optional
+From b935fd8c7e0452b96e35712054a86899652bb7a4 Mon Sep 17 00:00:00 2001
+From: Julien Durillon <julien.durillon@gmail.com>
+Date: Mon, 23 Jan 2012 15:50:20 +0100
+Subject: [PATCH 1/2] Make colord optional
 
-Conflicts:
-
-	configure.ac
-	plugins/Makefile.am
 ---
  configure.ac        |   38 ++++++++++++++++++++++++++++++++------
  data/Makefile.am    |    7 ++++++-
@@ -14,10 +10,10 @@ Conflicts:
  3 files changed, 44 insertions(+), 8 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 08b1a2f..4f6f75f 100644
+index a07d422..63f1158 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -105,6 +105,38 @@ dnl ---------------------------------------------------------------------------
+@@ -99,6 +99,38 @@ dnl ---------------------------------------------------------------------------
  PKG_CHECK_MODULES(GNOME_DESKTOP, gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION)
  
  dnl ---------------------------------------------------------------------------
@@ -25,18 +21,18 @@ index 08b1a2f..4f6f75f 100644
 +dnl ---------------------------------------------------------------------------
 +build_color=false
 +AC_ARG_ENABLE(color,
-+  AC_HELP_STRING([--disable-color],
-+                 [turn off color plugin]),
-+      [case "${enableval}" in
-+              yes) WANT_COLOR=yes ;;
-+	      no) WANT_COLOR=no ;;
-+	      *) AC_MSG_ERROR(bad value ${enableval} for --disable-color) ;;
-+      esac],
-+      [WANT_COLOR=yes]) dnl Default value
++      AC_HELP_STRING([--disable-color],
++                     [turn off color plugin]),
++          [case "${enableval}" in
++                  yes) WANT_COLOR=yes ;;
++                  no) WANT_COLOR=no ;;
++                  *) AC_MSG_ERROR(bad value ${enableval} for --disable-color) ;;
++          esac],
++          [WANT_COLOR=yes]) dnl Default value
 +
 +if test x$WANT_COLOR = xyes; then
-+      PKG_CHECK_MODULES(COLOR, [colord >= 0.1.9 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
-+      build_color=true
++    PKG_CHECK_MODULES(COLOR, [colord >= 0.1.9 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
++    build_color=true
 +fi
 +AM_CONDITIONAL(BUILD_COLOR, test "x$build_color" = "xtrue")
 +
@@ -48,29 +44,29 @@ index 08b1a2f..4f6f75f 100644
 +dnl ---------------------------------------------------------------------------
 +PKG_CHECK_MODULES(LIBCANBERRA, libcanberra-gtk3,
 +                  [have_libcanberra=true
-+                  AC_DEFINE(HAVE_LIBCANBERRA, 1, [Define if libcanberra should be used])],
-+                  [have_libcanberra=false])
++                   AC_DEFINE(HAVE_LIBCANBERRA, 1, [Define if libcanberra should be used)],
++                   [have_libcanberra=false])
 +AM_CONDITIONAL(HAVE_LIBCANBERRA, test "x$have_libcanberra" = "xtrue")
 +
 +dnl ---------------------------------------------------------------------------
  dnl - Check for LCMS2
  dnl ---------------------------------------------------------------------------
  PKG_CHECK_MODULES(LCMS, lcms2 >= 2.2, have_new_lcms=yes, have_new_lcms=no)
-@@ -219,12 +251,6 @@ dnl ---------------------------------------------------------------------------
+@@ -196,12 +228,6 @@ dnl ---------------------------------------------------------------------------
+ PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra])
  
- PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra gconf-2.0 >= $GCONF_REQUIRED_VERSION])
- 
--dnl ---------------------------------------------------------------------------
+ dnl ---------------------------------------------------------------------------
 -dnl - color
 -dnl ---------------------------------------------------------------------------
 -
 -PKG_CHECK_MODULES(COLOR, [colord >= 0.1.9 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION libcanberra-gtk3])
 -
- dnl ==============================================
- dnl PackageKit section
- dnl ==============================================
+-dnl ---------------------------------------------------------------------------
+ dnl - wacom
+ dnl ---------------------------------------------------------------------------
+ 
 diff --git a/data/Makefile.am b/data/Makefile.am
-index 43ba27c..1f3bbef 100644
+index 19decc2..cb2c976 100644
 --- a/data/Makefile.am
 +++ b/data/Makefile.am
 @@ -11,7 +11,6 @@ gsettings_SCHEMAS =							\
@@ -95,7 +91,7 @@ index 43ba27c..1f3bbef 100644
  gsettings_SCHEMAS += org.gnome.settings-daemon.plugins.updates.gschema.xml
  else
 diff --git a/plugins/Makefile.am b/plugins/Makefile.am
-index 83d223a..ad88aa9 100644
+index 2b7566a..31fcb74 100644
 --- a/plugins/Makefile.am
 +++ b/plugins/Makefile.am
 @@ -6,7 +6,6 @@ enabled_plugins =	\
@@ -104,9 +100,9 @@ index 83d223a..ad88aa9 100644
  	clipboard	\
 -	color		\
  	cursor		\
- 	datetime	\
  	dummy		\
-@@ -23,6 +22,12 @@ enabled_plugins =	\
+ 	power		\
+@@ -22,6 +21,12 @@ enabled_plugins =	\
  
  disabled_plugins = $(NULL)
  
@@ -120,5 +116,5 @@ index 83d223a..ad88aa9 100644
  enabled_plugins += updates
  else
 -- 
-1.7.8.rc0.dirty
+1.7.9.rc2
 
