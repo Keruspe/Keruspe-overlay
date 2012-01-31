@@ -9,7 +9,7 @@ inherit autotools bash-completion-r1 git-2 linux-info pam systemd
 
 DESCRIPTION="System and service manager for Linux"
 HOMEPAGE="http://www.freedesktop.org/wiki/Software/systemd"
-EGIT_REPO_URI="git://anongit.freedesktop.org/systemd"
+EGIT_REPO_URI="git://anongit.freedesktop.org/systemd/systemd"
 
 LICENSE="GPL-2"
 SLOT="0"
