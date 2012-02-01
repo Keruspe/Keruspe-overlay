@@ -1,18 +1,16 @@
-From 33d3c8b0eaf0635e9db94bca13db92bc31ac25c0 Mon Sep 17 00:00:00 2001
+From 05dccf57fa9b3f9ead8168ea80996bcb06cdb448 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Wed, 1 Feb 2012 14:46:28 +0100
 Subject: [PATCH] extrernal gdbus-codegen
 
 Signed-off-by: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 ---
- configure.ac                                       |    4 +-
- docs/reference/gio/Makefile.am                     |    1 -
+ configure.ac                                       |    4 +---
+ docs/reference/gio/Makefile.am                     |    3 +--
  gio/Makefile.am                                    |    2 +-
- gio/tests/Makefile.am                              |    6 +--
- gio/tests/{Makefile.am => Makefile.am.orig}        |   44 +-------------------
- gio/tests/gdbus-object-manager-example/Makefile.am |    6 +--
- 6 files changed, 8 insertions(+), 55 deletions(-)
- copy gio/tests/{Makefile.am => Makefile.am.orig} (90%)
+ gio/tests/Makefile.am                              |    6 ++----
+ gio/tests/gdbus-object-manager-example/Makefile.am |    6 ++----
+ 5 files changed, 7 insertions(+), 14 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
 index 4cf04a1..0bb18c8 100644
@@ -37,14 +35,16 @@ index 4cf04a1..0bb18c8 100644
  gio/inotify/Makefile
  gio/fen/Makefile
 diff --git a/docs/reference/gio/Makefile.am b/docs/reference/gio/Makefile.am
-index 535aa26..f062ffc 100644
+index 535aa26..d77f98f 100644
 --- a/docs/reference/gio/Makefile.am
 +++ b/docs/reference/gio/Makefile.am
-@@ -145,7 +145,6 @@ man_MANS =			\
+@@ -144,8 +144,7 @@ man_MANS =			\
+ 	glib-compile-resources.1	\
  	gsettings.1		\
  	gresource.1		\
- 	gdbus.1			\
+-	gdbus.1			\
 -	gdbus-codegen.1
++	gdbus.1	
  
  if ENABLE_MAN
  
@@ -78,99 +78,6 @@ index f11a992..39a60b9 100644
  		--interface-prefix org.project. \
  		--generate-c-code gdbus-test-codegen-generated \
  		--c-generate-object-manager \
-diff --git a/gio/tests/Makefile.am b/gio/tests/Makefile.am.orig
-similarity index 90%
-copy from gio/tests/Makefile.am
-copy to gio/tests/Makefile.am.orig
-index f11a992..7c7bded 100644
---- a/gio/tests/Makefile.am
-+++ b/gio/tests/Makefile.am.orig
-@@ -22,7 +22,6 @@ progs_ldadd     = 					\
- 	$(top_builddir)/glib/libglib-2.0.la 		\
- 	$(top_builddir)/gthread/libgthread-2.0.la	\
- 	$(top_builddir)/gobject/libgobject-2.0.la	\
--	$(top_builddir)/gmodule/libgmodule-2.0.la	\
- 	$(top_builddir)/gio/libgio-2.0.la
- 
- TEST_PROGS +=	 		\
-@@ -60,7 +59,6 @@ TEST_PROGS +=	 		\
- 	network-monitor		\
- 	fileattributematcher	\
- 	gmenumodel		\
--	resources		\
- 	$(NULL)
- 
- if OS_UNIX
-@@ -394,10 +392,6 @@ gdbus_connection_flush_helper_LDADD = $(progs_ldadd)
- appinfo_SOURCES = appinfo.c
- appinfo_LDADD   = $(progs_ldadd)
- 
--resources_SOURCES = resources.c test_resources.c test_resources2.c test_resources2.h
--resources_DEPENDENCIES = test.gresource
--resources_LDADD   = $(progs_ldadd)
--
- appinfo_test_SOURCES = appinfo-test.c
- appinfo_test_LDADD   = $(progs_ldadd)
- 
-@@ -566,56 +560,22 @@ EXTRA_DIST += \
- 	cert-key.pem			\
- 	cert-list.pem			\
- 	nothing.pem			\
--	test.gresource.xml		\
--	test1.txt			\
--	test2.gresource.xml		\
--	test2.txt			\
--	test3.gresource.xml		\
--	test3.txt			\
--	test4.gresource.xml		\
- 	$(NULL)
- 
--MISC_STUFF = test.mo test.gresource
-+MISC_STUFF = test.mo
- 
- test.mo: de.po
- 	$(MSGFMT) -o test.mo $(srcdir)/de.po; \
- 	$(MKDIR_P) de/LC_MESSAGES; \
- 	cp -f test.mo de/LC_MESSAGES
- 
--if CROSS_COMPILING
--  glib_compile_resources=$(GLIB_COMPILE_RESOURCES)
--else
--  glib_compile_resources=$(top_builddir)/gio/glib-compile-resources
--endif
--
--BUILT_SOURCES += test_resources.c test_resources2.c test_resources2.h
--test_resources.c: test2.gresource.xml Makefile $(shell $(glib_compile_resources) --generate-dependencies test2.gresource.xml)
--	$(AM_V_GEN) $(glib_compile_resources) --target=$@ --sourcedir=$(srcdir) --generate-source --c-name _g_test1 $<
--
--test_resources2.h test_resources2.c: test3.gresource.xml Makefile $(shell $(glib_compile_resources) --generate-dependencies test3.gresource.xml)
--	$(AM_V_GEN) $(glib_compile_resources) --target=$@ --sourcedir=$(srcdir) --generate --c-name _g_test2 --manual-register $<
--
--plugin_resources.c: test4.gresource.xml Makefile $(shell $(glib_compile_resources) --generate-dependencies test4.gresource.xml)
--	$(AM_V_GEN) $(glib_compile_resources) --target=$@ --sourcedir=$(srcdir) --generate-source --c-name _g_plugin $<
--
--test.gresource: test.gresource.xml Makefile $(shell $(glib_compile_resources) --generate-dependencies test.gresource.xml)
--	$(AM_V_GEN) $(glib_compile_resources) --target=$@ --sourcedir=$(srcdir) $<
--
--noinst_LTLIBRARIES = libresourceplugin.la
--
--libresourceplugin_la_SOURCES = resourceplugin.c plugin_resources.c
--libresourceplugin_la_LDFLAGS = -avoid-version -module $(no_undefined) -rpath $(libdir)
--libresourceplugin_la_LIBADD = $(progs_ldadd)
--
--CLEANFILES = gdbus-test-codegen-generated.[ch] gdbus-test-codegen-generated-doc-*.xml test_resources2.[ch] plugin_resources.c
-+CLEANFILES = gdbus-test-codegen-generated.[ch] gdbus-test-codegen-generated-doc-*.xml
- 
- DISTCLEANFILES = \
- 	applications/mimeinfo.cache	\
- 	org.gtk.test.enums.xml		\
- 	de/LC_MESSAGES/test.mo		\
- 	test.mo				\
--	test.gresource			\
--	test_resources.c		\
- 	gsettings.store			\
- 	gschemas.compiled 		\
- 	schema-source/gschemas.compiled
 diff --git a/gio/tests/gdbus-object-manager-example/Makefile.am b/gio/tests/gdbus-object-manager-example/Makefile.am
 index 9861d0e..9ca6eb9 100644
 --- a/gio/tests/gdbus-object-manager-example/Makefile.am
