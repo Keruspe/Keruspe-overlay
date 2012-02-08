@@ -109,11 +109,10 @@ rename_mans() {
 }
 
 do_symlinks() {
-    dosym /usr/bin/systemctl /sbin/init
-    dosym /usr/bin/systemctl /sbin/poweroff
-    dosym /usr/bin/systemctl /sbin/halt
-    dosym /usr/bin/systemctl /sbin/reboot
-    dosym /usr/bin/systemctl /sbin/shutdown
+	dosym /usr/$(get_libdir)/systemd/systemd /sbin/init
+	for i in poweroff halt reboot shutdown; do
+		dosym /usr/bin/systemctl /sbin/${i}
+	done
 }
 
 src_install() {
