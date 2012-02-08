@@ -75,7 +75,7 @@ src_configure() {
 	local myeconfargs="
 		--with-distro=gentoo
 		--with-rootdir=
-		--with-rootlibdir=$(get_libdir)
+		--with-rootlibdir=/usr/$(get_libdir)
 		--localstatedir=/var
 		$(use_enable acl)
 		$(use_enable audit)
