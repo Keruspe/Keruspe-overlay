@@ -14,7 +14,7 @@ EGIT_REPO_URI="git://anongit.freedesktop.org/systemd/systemd"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="acl audit cryptsetup gtk +pam python plymouth selinux symlinks +tcpd"
+IUSE="acl audit cryptsetup gtk lzma +pam python plymouth selinux symlinks +tcpd"
 
 COMMON_DEPEND=">=sys-apps/dbus-1.4.10
 	>=sys-apps/util-linux-2.19
@@ -26,8 +26,10 @@ COMMON_DEPEND=">=sys-apps/dbus-1.4.10
 	gtk? (
 		dev-libs/dbus-glib
 		>=dev-libs/glib-2.26
+		dev-libs/libgee:0
 		x11-libs/gtk+:2
 		>=x11-libs/libnotify-0.7 )
+	lzma? ( app-arch/xz-utils )
 	pam? ( virtual/pam )
 	python? ( dev-python/dbus-python
 	  dev-python/pycairo )
@@ -52,6 +54,7 @@ RDEPEND="${COMMON_DEPEND}
 	sys-apps/systemd-units
 	!<sys-apps/openrc-0.8.3"
 DEPEND="${COMMON_DEPEND}
+	app-arch/xz-utils
 	dev-util/gperf
 	dev-util/intltool
 	dev-lang/vala:${VALASLOT}
@@ -72,20 +75,24 @@ src_prepare() {
 }
 
 src_configure() {
-	local myeconfargs="
+	local myeconfargs=(
 		--with-distro=gentoo
-		--with-rootdir=
+		# install everything to /usr
+		--with-rootprefix=/usr
 		--with-rootlibdir=/usr/$(get_libdir)
+		# but pam modules have to lie in /lib*
+		--with-pamlibdir=/$(get_libdir)/security
 		--localstatedir=/var
 		$(use_enable acl)
 		$(use_enable audit)
 		$(use_enable cryptsetup libcryptsetup)
 		$(use_enable gtk)
+		$(use_enable lzma xz)
 		$(use_enable pam)
 		$(use_enable plymouth)
 		$(use_enable selinux)
 		$(use_enable tcpd tcpwrap)
-	"
+	)
 
 	if use gtk; then
 		export VALAC="$(type -p valac-${VALASLOT})"
@@ -102,11 +109,11 @@ rename_mans() {
 }
 
 do_symlinks() {
-    dosym /bin/systemctl /sbin/init
-    dosym /bin/systemctl /sbin/poweroff
-    dosym /bin/systemctl /sbin/halt
-    dosym /bin/systemctl /sbin/reboot
-    dosym /bin/systemctl /sbin/shutdown
+    dosym /usr/bin/systemctl /sbin/init
+    dosym /usr/bin/systemctl /sbin/poweroff
+    dosym /usr/bin/systemctl /sbin/halt
+    dosym /usr/bin/systemctl /sbin/reboot
+    dosym /usr/bin/systemctl /sbin/shutdown
 }
 
 src_install() {
@@ -132,11 +139,12 @@ pkg_preinst() {
 }
 
 optfeature() {
-	elog "	[$(has_version ${1} && echo I || echo ' ')] ${1} (${2})"
+	elog "	[\e[1m$(has_version ${1} && echo I || echo ' ')\e[0m] ${1} (${2})"
 }
 
 pkg_postinst() {
-	if [[ ! -L "${ROOT}"etc/mtab ]]; then
+	mkdir -p "${ROOT}"/run || ewarn "Unable to mkdir /run, this could mean trouble."
+	if [[ ! -L "${ROOT}"/etc/mtab ]]; then
 		ewarn "Upstream suggests that the /etc/mtab file should be a symlink to /proc/mounts."
 		ewarn "It is known to cause users being unable to unmount user mounts. If you don't"
 		ewarn "require that specific feature, please call:"
