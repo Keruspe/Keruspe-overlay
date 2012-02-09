@@ -1,18 +1,19 @@
-From 9e97002b4c9149c480ce996071cba9c058a7546a Mon Sep 17 00:00:00 2001
-From: Julien Durillon <julien.durillon@gmail.com>
-Date: Mon, 23 Jan 2012 15:51:36 +0100
-Subject: [PATCH 2/2] remove wacom support
+From dc457ad59773bc60e6d5f9414447b76c6a20fb48 Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+Date: Mon, 12 Dec 2011 14:38:16 +0100
+Subject: [PATCH 2/2] Disable wacom
 
+Signed-off-by: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 ---
  configure.ac        |    6 ------
  plugins/Makefile.am |    1 -
  2 files changed, 0 insertions(+), 7 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 63f1158..d73e5d9 100644
+index 5b8e2af..a38add6 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -227,12 +227,6 @@ dnl ---------------------------------------------------------------------------
+@@ -221,12 +221,6 @@ dnl ---------------------------------------------------------------------------
  
  PKG_CHECK_MODULES(MEDIA_KEYS, [gio-unix-2.0 libpulse >= $PA_REQUIRED_VERSION $GUDEV_PKG libpulse-mainloop-glib >= $PA_REQUIRED_VERSION libcanberra])
  
@@ -38,5 +39,5 @@ index 31fcb74..e40d9b9 100644
  	xsettings	\
  	$(NULL)
 -- 
-1.7.9.rc2
+1.7.9.106.g2a2aa.dirty
 
