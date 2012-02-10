@@ -32,6 +32,7 @@ COMMON_DEPEND="
 	>=gnome-base/gnome-desktop-3.1.0:3
 	>=gnome-base/gnome-settings-daemon-3.1.4[colord(+)?]
 	>=gnome-base/libgnomekbd-2.91.91
+	dev-libs/libwacom
 
 	app-text/iso-codes
 	dev-libs/libxml2:2

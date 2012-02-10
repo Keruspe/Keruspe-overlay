@@ -52,7 +52,8 @@ COMMON_DEPEND=">=dev-libs/dbus-glib-0.74
 		>=sys-apps/dbus-1.1.2[X] )
 	smartcard? ( >=dev-libs/nss-3.11.2 )
 	udev? ( || ( sys-fs/udev[gudev]
-		sys-fs/udev[extras] ) )"
+		sys-fs/udev[extras] ) )
+	dev-libs/libwacom"
 # Themes needed by g-s-d, gnome-shell, gtk+:3 apps to work properly
 # <gnome-color-manager-3.1.1 has file collisions with g-s-d-3.1.x
 # <gnome-power-manager-3.1.3 has file collisions with g-s-d-3.1.x
@@ -103,7 +104,6 @@ src_prepare() {
 
 	# Make colord optional; requires eautoreconf
 	epatch "${FILESDIR}/0001-Make-colord-optional.patch"
-	epatch "${FILESDIR}/0002-Disable-wacom.patch"
 
 	gnome2_src_prepare
 }
