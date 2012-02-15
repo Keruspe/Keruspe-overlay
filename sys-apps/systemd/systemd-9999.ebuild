@@ -52,6 +52,7 @@ RDEPEND="${COMMON_DEPEND}
 	sys-apps/baselayout-systemd
 	sys-apps/lsb-release
 	sys-apps/systemd-units
+	sys-auth/nss-myhostname
 	!<sys-apps/openrc-0.8.3"
 DEPEND="${COMMON_DEPEND}
 	app-arch/xz-utils
