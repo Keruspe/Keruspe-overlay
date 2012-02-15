@@ -23,6 +23,7 @@ net-misc
 net-voip
 net-wireless
 sys-apps
+sys-fs
 x11-libs
 x11-misc
 x11-terms
