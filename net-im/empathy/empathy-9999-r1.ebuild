@@ -44,8 +44,7 @@ RDEPEND=">=dev-libs/glib-2.28:2
 	media-libs/gst-plugins-base:0.10
 	media-libs/gst-plugins-bad
 	>=net-im/telepathy-logger-0.2.10
-	net-libs/farsight2
-	>=net-libs/telepathy-farsight-0.0.18
+	net-libs/farstream
 	net-im/telepathy-connection-managers
 	x11-libs/libX11
 
