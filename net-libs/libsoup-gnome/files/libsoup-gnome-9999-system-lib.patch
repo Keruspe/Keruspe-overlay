@@ -1,4 +1,4 @@
-From 3abe0e9a7370324ffb7a4cf70dd068c492f0d502 Mon Sep 17 00:00:00 2001
+From 7065d221ea10ba6b98768236f8d077c79515cc09 Mon Sep 17 00:00:00 2001
 From: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 Date: Thu, 13 Oct 2011 12:03:04 +0200
 Subject: [PATCH] gentoo shit
@@ -6,12 +6,12 @@ Subject: [PATCH] gentoo shit
 Signed-off-by: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
 ---
  Makefile.am         |   12 ++++++++++--
- configure.ac        |   42 +++++++++++++++++++++++++++---------------
- libsoup/Makefile.am |   50 +++++++++++++++++++++++++++++++++++++++-----------
- 3 files changed, 76 insertions(+), 28 deletions(-)
+ configure.ac        |   45 +++++++++++++++++++++++++++------------------
+ libsoup/Makefile.am |   48 ++++++++++++++++++++++++++++++++++++++----------
+ 3 files changed, 75 insertions(+), 30 deletions(-)
 
 diff --git a/Makefile.am b/Makefile.am
-index bb94238..0562574 100644
+index 8b86fb7..7f628f4 100644
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -1,7 +1,11 @@
@@ -27,7 +27,7 @@ index bb94238..0562574 100644
  
  EXTRA_DIST =			\
  	libsoup-2.4.pc.in	\
-@@ -14,7 +18,11 @@ DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --enable-introspection
+@@ -15,7 +19,11 @@ DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --enable-introspection
  
  pkgconfigdir = $(libdir)/pkgconfig
  
@@ -41,25 +41,26 @@ index bb94238..0562574 100644
  if BUILD_LIBSOUP_GNOME
  pkgconfig_DATA += libsoup-gnome-2.4.pc
 diff --git a/configure.ac b/configure.ac
-index 899f7af..2a3e12c 100644
+index d2132c9..58c1dae 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -72,15 +72,30 @@ dnl ***********************
+@@ -72,19 +72,31 @@ dnl ***********************
  dnl *** Checks for glib ***
  dnl ***********************
  
--AM_PATH_GLIB_2_0(2.31.0,,,gobject gio)
--if test "$GLIB_LIBS" = ""; then
--   AC_MSG_ERROR(GLIB 2.31.0 or later is required to build libsoup)
 +PKG_PROG_PKG_CONFIG
+ GLIB_REQUIRED=2.31.7
+-AM_PATH_GLIB_2_0($GLIB_REQUIRED,,,gobject gio)
+-if test "$GLIB_LIBS" = ""; then
+-   AC_MSG_ERROR(GLIB $GLIB_REQUIRED or later is required to build libsoup)
 +enable_ssl=no
 +AC_ARG_WITH(libsoup-system,
 +   AS_HELP_STRING([--with-libsoup-system], [Use libsoup system library to build(default=no)]),
 +   [with_libsoup_system=$withval], [with_libsoup_system=no])
 +if test "$with_libsoup_system" = "no"; then
-+	AM_PATH_GLIB_2_0(2.31.0,,,gobject gio)
++	AM_PATH_GLIB_2_0($GLIB_REQUIRED,,,gobject gio)
 +	if test "$GLIB_LIBS" = ""; then
-+	   AC_MSG_ERROR(GLIB 2.31.0 or later is required to build libsoup)
++	   AC_MSG_ERROR(GLIB $GLIB_REQUIRED or later is required to build libsoup)
 +	fi
 +	GLIB_CFLAGS="$GLIB_CFLAGS -DG_DISABLE_SINGLE_INCLUDES"
 +
@@ -76,6 +77,9 @@ index 899f7af..2a3e12c 100644
  fi
 -GLIB_CFLAGS="$GLIB_CFLAGS -DG_DISABLE_SINGLE_INCLUDES"
 -
+-GLIB_MAKEFILE='$(top_srcdir)/Makefile.glib'
+-AC_SUBST(GLIB_MAKEFILE)
+-
 -PKG_CHECK_MODULES(XML, libxml-2.0)
 -AC_SUBST(XML_CFLAGS)
 -AC_SUBST(XML_LIBS)
@@ -83,7 +87,7 @@ index 899f7af..2a3e12c 100644
  
  dnl ***********************
  dnl *** Check for Win32 ***
-@@ -99,13 +114,6 @@ esac
+@@ -103,13 +115,6 @@ esac
  AC_MSG_RESULT([$os_win32])
  AM_CONDITIONAL(OS_WIN32, [test $os_win32 = yes])
  
@@ -97,7 +101,7 @@ index 899f7af..2a3e12c 100644
  dnl *********************
  dnl *** GNOME support ***
  dnl *********************
-@@ -130,6 +138,10 @@ AM_CONDITIONAL(BUILD_LIBSOUP_GNOME, test $with_gnome != no)
+@@ -134,6 +139,10 @@ AM_CONDITIONAL(BUILD_LIBSOUP_GNOME, test $with_gnome != no)
  if test $with_gnome != no; then
  	AC_DEFINE(HAVE_GNOME, 1, [Defined if GNOME support is enabled])
  
@@ -109,10 +113,10 @@ index 899f7af..2a3e12c 100644
  [Could not find sqlite3 devel files:
  
 diff --git a/libsoup/Makefile.am b/libsoup/Makefile.am
-index 096f0fb..416e523 100644
+index aa13eec..ef0c870 100644
 --- a/libsoup/Makefile.am
 +++ b/libsoup/Makefile.am
-@@ -4,15 +4,18 @@ if OS_WIN32
+@@ -6,15 +6,18 @@ if OS_WIN32
  LIBWS2_32 = -lws2_32
  endif
  
@@ -133,18 +137,9 @@ index 096f0fb..416e523 100644
 -	$(GNOME_KEYRING_CFLAGS)
 +	$(XML_CFLAGS)
  
- MARSHAL_GENERATED = soup-marshal.c soup-marshal.h
- MKENUMS_GENERATED = soup-enum-types.c soup-enum-types.h
-@@ -41,7 +44,7 @@ soup-enum-types.c: $(libsoupinclude_HEADERS)
- 
- BUILT_SOURCES = $(MARSHAL_GENERATED) $(MKENUMS_GENERATED)
- 
--CLEANFILES = $(MARSHAL_GENERATED) $(MKENUMS_GENERATED)
-+CLEANFILES += $(MARSHAL_GENERATED) $(MKENUMS_GENERATED)
- 
  libsoupincludedir = $(includedir)/libsoup-2.4/libsoup
  
-@@ -94,7 +97,7 @@ libsoupinclude_HEADERS =	\
+@@ -67,7 +70,7 @@ libsoupinclude_HEADERS =	\
  	$(soup_headers)		\
  	soup-enum-types.h
  
@@ -153,7 +148,7 @@ index 096f0fb..416e523 100644
  
  libsoup_2_4_la_LDFLAGS =	\
  	-version-info $(SOUP_CURRENT):$(SOUP_REVISION):$(SOUP_AGE) -no-undefined
-@@ -176,6 +179,7 @@ libsoup_2_4_la_SOURCES =		\
+@@ -152,6 +155,7 @@ libsoup_2_4_la_SOURCES =		\
  	soup-uri.c			\
  	soup-value-utils.c		\
  	soup-xmlrpc.c
@@ -161,7 +156,7 @@ index 096f0fb..416e523 100644
  
  if BUILD_LIBSOUP_GNOME
  
-@@ -189,6 +193,10 @@ endif
+@@ -165,6 +169,10 @@ endif
  
  libsoupgnomeincludedir = $(includedir)/libsoup-gnome-2.4/libsoup
  
@@ -172,7 +167,7 @@ index 096f0fb..416e523 100644
  libsoupgnomeinclude_HEADERS =	\
  	soup-cookie-jar-sqlite.h\
  	soup-gnome.h		\
-@@ -196,14 +204,24 @@ libsoupgnomeinclude_HEADERS =	\
+@@ -172,14 +180,24 @@ libsoupgnomeinclude_HEADERS =	\
  
  lib_LTLIBRARIES += libsoup-gnome-2.4.la
  
@@ -198,7 +193,7 @@ index 096f0fb..416e523 100644
  libsoup_gnome_2_4_la_SOURCES =		\
  	soup-cookie-jar-sqlite.c	\
  	soup-gnome-features.c		\
-@@ -223,6 +241,8 @@ INTROSPECTION_COMPILER_ARGS = --includedir=.
+@@ -207,6 +225,8 @@ INTROSPECTION_COMPILER_ARGS = --includedir=.
  
  if HAVE_INTROSPECTION
  
@@ -207,7 +202,7 @@ index 096f0fb..416e523 100644
  # Core library
  gi_soup_files = \
  	$(filter-out soup.h soup-enum-types.% soup-marshal.% soup-proxy-resolver.h,\
-@@ -244,20 +264,28 @@ Soup_2_4_gir_FILES = \
+@@ -228,20 +248,28 @@ Soup_2_4_gir_FILES = \
  
  INTROSPECTION_GIRS += Soup-2.4.gir
  
@@ -241,5 +236,5 @@ index 096f0fb..416e523 100644
  SoupGNOME_2_4_gir_EXPORT_PACKAGES = libsoup-gnome-2.4
  
 -- 
-1.7.8.163.g9859a.dirty
+1.7.9.1.244.gb0d66b.dirty
 
