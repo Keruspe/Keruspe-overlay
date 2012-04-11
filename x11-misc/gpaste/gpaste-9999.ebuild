@@ -22,8 +22,8 @@ DEPEND=">=dev-libs/glib-2.30:2
 	x11-libs/libxcb
 	sys-apps/dbus
 	>=dev-libs/gobject-introspection-1.30.0
-	>=dev-lang/vala-0.14.0:0.14
-	vala? ( >=dev-lang/vala-0.14.0:0.14[vapigen] )"
+	>=dev-lang/vala-0.16.0:0.16
+	vala? ( >=dev-lang/vala-0.16.0:0.16[vapigen] )"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
 	gnome-shell? ( >gnome-base/gnome-shell-3.3.2 )
@@ -32,8 +32,8 @@ RDEPEND="${DEPEND}
 WANT_AUTOMAKE="1.11"
 
 G2CONF="
-	VALAC=$(type -p valac-0.14)
-	VAPIGEN=$(type -p vapigen-0.14)
+	VALAC=$(type -p valac-0.16)
+	VAPIGEN=$(type -p vapigen-0.16)
 	--disable-schemas-compile
 	$(use_enable applet)
 	$(use_enable gnome-shell gnome-shell-extension)
