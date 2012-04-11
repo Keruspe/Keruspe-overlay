@@ -12,13 +12,15 @@ DESCRIPTION="Vala - Compiler for the GObject type system"
 HOMEPAGE="http://live.gnome.org/Vala"
 
 LICENSE="LGPL-2.1"
-SLOT="0.16"
+SLOT="0.18"
+OLD_SLOT="0.16"
 KEYWORDS=""
 IUSE="bootstrap test +vapigen"
 
 RDEPEND=">=dev-libs/glib-2.16:2"
 DEPEND="${RDEPEND}
-	dev-lang/vala:0.16
+	!bootstrap? ( dev-lang/vala:${SLOT} )
+	bootstrap? ( dev-lang/vala:${OLD_SLOT} )
 	sys-devel/flex
 	|| ( sys-devel/bison dev-util/byacc dev-util/yacc )
 	dev-util/pkgconfig
@@ -28,8 +30,14 @@ DEPEND="${RDEPEND}
 		>=dev-libs/glib-2.26:2 )"
 
 pkg_setup() {
+	local WANTED_SLOT
+	if use bootstrap; then
+		WANTED_SLOT=${OLD_SLOT}
+	else
+		WANTED_SLOT=${SLOT}
+	fi
 	G2CONF="${G2CONF}
-		VALAC=$(type -P valac-0.16)
+		VALAC=$(type -P valac-${WANTED_SLOT})
 		--disable-unversioned
 		$(use_enable vapigen)"
 	DOCS="AUTHORS ChangeLog MAINTAINERS NEWS README"
