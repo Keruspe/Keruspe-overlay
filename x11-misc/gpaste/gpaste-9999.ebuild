@@ -12,7 +12,7 @@ EGIT_REPO_URI="git://github.com/Keruspe/GPaste.git"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
-IUSE="applet bash-completion +gnome-shell +vala zsh-completion"
+IUSE="applet bash-completion +gnome-shell zsh-completion"
 
 DEPEND=">=dev-libs/glib-2.30:2
 	>=sys-devel/gettext-0.17
@@ -22,22 +22,20 @@ DEPEND=">=dev-libs/glib-2.30:2
 	x11-libs/libxcb
 	sys-apps/dbus
 	>=dev-libs/gobject-introspection-1.30.0
-	>=dev-lang/vala-0.16.0:0.16
-	vala? ( >=dev-lang/vala-0.16.0:0.16[vapigen] )"
+	>=dev-lang/vala-0.16.0:0.16[vapigen]"
 RDEPEND="${DEPEND}
 	bash-completion? ( app-shells/bash )
 	gnome-shell? ( >gnome-base/gnome-shell-3.3.2 )
 	zsh-completion? ( app-shells/zsh app-shells/zsh-completion )"
 
-WANT_AUTOMAKE="1.11"
+WANT_AUTOMAKE="1.12"
 
 G2CONF="
 	VALAC=$(type -p valac-0.16)
 	VAPIGEN=$(type -p vapigen-0.16)
 	--disable-schemas-compile
 	$(use_enable applet)
-	$(use_enable gnome-shell gnome-shell-extension)
-	$(use_enable vala)"
+	$(use_enable gnome-shell gnome-shell-extension)"
 
 DOCS="AUTHORS NEWS ChangeLog ChangeLog.pre2.0 TODO README"
 
