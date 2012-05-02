@@ -37,7 +37,7 @@ G2CONF="
 	$(use_enable applet)
 	$(use_enable gnome-shell gnome-shell-extension)"
 
-DOCS="AUTHORS NEWS ChangeLog ChangeLog.pre2.0 TODO README"
+DOCS="AUTHORS NEWS ChangeLog ChangeLog.pre2.2.1 TODO THANKS README"
 
 REQUIRED_USE="|| ( gnome-shell applet )"
 
